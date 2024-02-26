@@ -19,13 +19,13 @@ const Login = () => {
     e.preventDefault();
 
     if (id === "") {
-      alert("아이디를 입력해주세요..");
+      alert("아이디를 입력해주세요.");
       if (idInputRef.current) {
         idInputRef.current.focus();
       }
       return;
     } else if (password === "") {
-      alert("비밀번호를 입력해주세요..");
+      alert("비밀번호를 입력해주세요.");
       if (passwordInputRef.current) {
         passwordInputRef.current.focus();
       }
@@ -40,7 +40,6 @@ const Login = () => {
       if (res.data.success) {
         const userData = res.data.user;
         login(userData); //서버에서 생성된 세션정보 context에 저장
-        sessionStorage.setItem("login_status", res.data.session);
         alert(`[ ${userData.manager} ]님 환영합니다.`);
       } else {
         alert("아이디 또는 비밀번호를 확인해주세요.");
@@ -56,9 +55,9 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="login-wrap">
-        <h2>Login</h2>
+    <div className="login-wrap">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
         <div className="input-wrap">
           <input
             type="text"
@@ -76,8 +75,9 @@ const Login = () => {
           />
           <button type="submit">Login</button>
         </div>
-      </div>
-    </form>
+      </form>
+      {/* <button onClick={handleSignUp}>회원가입</button> */}
+    </div>
   );
 };
 
