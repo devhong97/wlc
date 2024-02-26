@@ -1,0 +1,18 @@
+# 환경 파일(.env)
+.env
+
+# node_modules
+node_modules/
+
+# .env.local
+.env.local
+
+# 로그 파일 및 디렉토리
+logs
+*.log
+
+# 프로덕션 빌드 디렉토리
+dist/
+
+# npm 패키지의 캐시 디렉토리
+npm-debug.log
