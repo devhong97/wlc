@@ -33,23 +33,24 @@ const Aside = () => {
             <div className="menu_row" onClick={() => openSub(1)}>
               <div className="main_menu_box">
                 <div className="menu_icon first"></div>
-                <div className="menu_text">회원관리</div>
+                <div className="menu_text">영업관리</div>
               </div>
               <div className={`sub_menu_box ${subOpen === 1 && "active"}`}>
-                <div className="sub_menu">회원1</div>
+                <div className="sub_menu">지점관리</div>
+                <div className="sub_menu">직원관리</div>
               </div>
             </div>
 
             <div className="menu_row">
               <div className="main_menu_box">
                 <div className="menu_icon second"></div>
-                <div className="menu_text">지점관리</div>
+                <div className="menu_text">고객관리</div>
               </div>
             </div>
             <div className="menu_row">
               <div className="main_menu_box">
                 <div className="menu_icon third"></div>
-                <div className="menu_text">커미션관리</div>
+                <div className="menu_text">매출관리</div>
               </div>
             </div>
             <div className="menu_row logout">
