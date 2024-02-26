@@ -1,16 +1,16 @@
 import React from "react";
-import { useAuth } from "../Context/AuthContext";
 import Clock from "../Common/Clock";
+import { useAuth } from "../Context/AuthContext";
 
 const Header = () => {
-  const { logout } = useAuth();
+  const { userData } = useAuth();
 
   const gradeText = (grade) => {
     switch (grade) {
-      case 1: {
-        return "슈퍼관리자";
+      case "1": {
+        return "시스템관리자";
       }
-      case 2: {
+      case "2": {
         return "지점관리자";
       }
       default: {
@@ -23,16 +23,10 @@ const Header = () => {
       <div className="header_back">
         <div className="header_info_box left">
           <Clock></Clock>
-          <div className="info_text">지점명</div>
-          <div className="info_text">유기홍</div>
-          <div className="info_text">{gradeText(1)}</div>
+          <div className="info_text">{userData.branch_name}</div>
+          <div className="info_text">{userData.manager}</div>
+          <div className="info_text">{gradeText(userData.grade)}</div>
         </div>
-        {/* <div className="header_info_box">
-          <div className="info_text">로그인정보</div>
-          <div className="info_text" onClick={() => logout()}>
-            로그아웃
-          </div>
-        </div> */}
       </div>
     </div>
   );

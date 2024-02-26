@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); //로그인확인
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const idInputRef = useRef(null);
@@ -33,17 +33,21 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/post/login",
-        {
-          id,
-          password,
-        }
-      );
-      if (response.data.success) {
-        // 로그인 성공 시 loginAccess를 true로 설정
-        login();
+      const res = await axios.post("http://localhost:3001/api/post/login", {
+        id,
+        password,
+      });
+      if (res.data.success) {
+        const userData = res.data.user;
+        login(userData); //서버에서 생성된 세션정보 context에 저장
+        alert(`[ ${userData.manager} ]님 환영합니다.`);
       } else {
+        alert("아이디 또는 비밀번호를 확인해주세요.");
+        setId("");
+        setPassword("");
+        if (idInputRef.current) {
+          idInputRef.current.focus();
+        }
       }
     } catch (error) {
       console.error("Login failed:", error);
