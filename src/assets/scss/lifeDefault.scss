@@ -114,3 +114,20 @@
     height: 100%;
   }
 }
+
+//로그인
+.login-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .input-wrap {
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    input {
+      height:50px;
+
+    }
+  }
+}
