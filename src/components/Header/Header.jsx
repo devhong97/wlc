@@ -13,8 +13,11 @@ const Header = () => {
       case "2": {
         return "지점관리자";
       }
-      default: {
+      case "3": {
         return "영업직원";
+      }
+      default: {
+        return "";
       }
     }
   };

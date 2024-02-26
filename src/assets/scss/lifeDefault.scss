@@ -92,8 +92,12 @@
               display: block;
             }
             .sub_menu {
-              padding-left: 55px;
+              padding-left: 40px;
+              padding-bottom: 10px;
               font-size: 15px;
+              &:last-child {
+                padding-bottom: 0;
+              }
             }
           }
         }
