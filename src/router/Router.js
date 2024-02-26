@@ -13,7 +13,7 @@ const Router = () => {
 
   useEffect(() => {
     // 세션 스토리지에서 로그인 상태를 가져오기
-    const storedLoginStatus = sessionStorage.getItem("login_status");
+    const storedLoginStatus = sessionStorage.getItem("STATUS");
 
     if (storedLoginStatus) {
       setCheckLogin(storedLoginStatus);
