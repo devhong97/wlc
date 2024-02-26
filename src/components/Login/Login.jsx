@@ -40,6 +40,7 @@ const Login = () => {
       if (res.data.success) {
         const userData = res.data.user;
         login(userData); //서버에서 생성된 세션정보 context에 저장
+        sessionStorage.setItem("login_status", res.data.session);
         alert(`[ ${userData.manager} ]님 환영합니다.`);
       } else {
         alert("아이디 또는 비밀번호를 확인해주세요.");
