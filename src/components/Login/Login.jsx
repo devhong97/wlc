@@ -19,13 +19,13 @@ const Login = () => {
     e.preventDefault();
 
     if (id === "") {
-      alert("아이디를 입력해주세요.");
+      alert("아이디를 입력해주세요..");
       if (idInputRef.current) {
         idInputRef.current.focus();
       }
       return;
     } else if (password === "") {
-      alert("비밀번호를 입력해주세요.");
+      alert("비밀번호를 입력해주세요..");
       if (passwordInputRef.current) {
         passwordInputRef.current.focus();
       }
