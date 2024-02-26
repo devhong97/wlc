@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import { useAuth } from "../Context/AuthContext";
 const Aside = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [subOpen, setSubOpen] = useState(0);
+  const { logout } = useAuth();
 
   const openSide = () => {
     setIsOpen(!isOpen);
@@ -31,7 +32,7 @@ const Aside = () => {
           <div className="side_menu_box">
             <div className="menu_row" onClick={() => openSub(1)}>
               <div className="main_menu_box">
-                <div className="menu_icon"></div>
+                <div className="menu_icon first"></div>
                 <div className="menu_text">회원관리</div>
               </div>
               <div className={`sub_menu_box ${subOpen === 1 && "active"}`}>
@@ -41,14 +42,19 @@ const Aside = () => {
 
             <div className="menu_row">
               <div className="main_menu_box">
-                <div className="menu_icon"></div>
+                <div className="menu_icon second"></div>
                 <div className="menu_text">지점관리</div>
               </div>
             </div>
             <div className="menu_row">
               <div className="main_menu_box">
-                <div className="menu_icon"></div>
+                <div className="menu_icon third"></div>
                 <div className="menu_text">커미션관리</div>
+              </div>
+            </div>
+            <div className="menu_row logout">
+              <div className="main_menu_box">
+                <div className="logout_icon" onClick={() => logout()}></div>
               </div>
             </div>
           </div>
