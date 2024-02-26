@@ -47,23 +47,40 @@
         }
       }
       .side_menu_box {
-        padding-top: 50px;
+        padding: 50px 10px;
         width: 150px;
+        height: calc(100% - 50px);
         .menu_row {
           padding-bottom: 20px;
           cursor: pointer;
+          &.logout {
+            position: fixed;
+            bottom: 0;
+          }
           .main_menu_box {
             .menu_icon {
-              @include background_set(50px, 40px, contain);
-              background-image: url("../img/logo_img.png");
+              @include background_set(30px, 30px, contain);
+              background-image: url("../img/aside_3.png");
               display: inline-block;
               vertical-align: middle;
+              &.second {
+                background-image: url("../img/aside_5.png");
+              }
+              &.third {
+                background-image: url("../img/aside_1.png");
+              }
             }
             .menu_text {
               display: inline-block;
               vertical-align: middle;
-              padding-left: 5px;
+              padding-left: 10px;
               font-size: 18px;
+            }
+            .logout_icon {
+              @include background_set(30px, 30px, contain);
+              background-image: url("../img/logout_icon.png");
+              display: inline-block;
+              vertical-align: middle;
             }
           }
           .sub_menu_box {
@@ -96,11 +113,22 @@
   background-color: #dbdbdb78;
   width: 100%;
   .header_back {
-    padding: 4px 50px;
+    padding: 0 50px;
     .header_info_box {
-      width: 100%;
-      text-align: right;
-      font-size: 15px;
+      width: 50%;
+      font-size: 13px;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 27px;
+
+      .info_text {
+        padding-right: 10px;
+        vertical-align: middle;
+        display: inline-block;
+        &:last-child {
+          padding-right: 0;
+        }
+      }
     }
   }
 }
@@ -122,12 +150,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   .input-wrap {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
     input {
-      height:50px;
-
+      height: 50px;
     }
   }
 }
