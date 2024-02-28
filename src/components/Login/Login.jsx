@@ -56,6 +56,10 @@ const Login = () => {
     }
   };
 
+  const searchHandle = () => {
+    navigate("/search");
+  };
+
   const registerHandle = () => {
     navigate("/register");
   };
@@ -79,9 +83,12 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             ref={passwordInputRef}
           />
-          <button type="submit">Login</button>
+          <button type="submit">로그인</button>
+          <button type="button" onClick={() => searchHandle()}>
+            ID/PW찾기
+          </button>
           <button type="button" onClick={() => registerHandle()}>
-            Join
+            회원가입
           </button>
         </div>
       </form>
