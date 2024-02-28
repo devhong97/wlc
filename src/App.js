@@ -1,10 +1,12 @@
 import "./assets/scss/index.scss";
 import Router from "./router/Router";
 import Login from "./components/Login/Login";
+import Register from "./components/Register/Register"
 import Aside from "./components/Header/Aside";
 import Header from "./components/Header/Header";
 import React, { Fragment, useEffect } from "react";
 import { useAuth } from "./components/Context/AuthContext";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
@@ -29,7 +31,10 @@ function App() {
           </div>
         </div>
       ) : (
-        <Login />
+        <Routes>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/register" element={<Register />} />
+        </Routes>
       )}
     </Fragment>
   );
