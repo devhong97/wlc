@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth(); //로그인확인
@@ -8,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const idInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (idInputRef.current) {
@@ -38,9 +40,9 @@ const Login = () => {
         password,
       });
       if (res.data.success) {
-        const userData = res.data.user;
-        login(userData); //서버에서 생성된 세션정보 context에 저장
-        alert(`[ ${userData.manager} ]님 환영합니다.`);
+        const { S1, S2, S3, S4, S5 } = res.data;
+        login(S1, S2, S3, S4, S5); //서버에서 생성된 세션정보 context에 저장
+        alert(`[ ${S5} ]님 환영합니다.`);
       } else {
         alert("아이디 또는 비밀번호를 확인해주세요.");
         setId("");
@@ -52,6 +54,10 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed:", error);
     }
+  };
+
+  const registerHandle = () => {
+    navigate("/register");
   };
 
   return (
@@ -74,11 +80,12 @@ const Login = () => {
             ref={passwordInputRef}
           />
           <button type="submit">Login</button>
+          <button type="button" onClick={() => registerHandle()}>
+            Join
+          </button>
         </div>
       </form>
-      {/* <button onClick={handleSignUp}>회원가입</button> */}
     </div>
   );
 };
-
 export default Login;

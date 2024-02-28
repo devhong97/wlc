@@ -3,7 +3,7 @@ import Clock from "../Common/Clock";
 import { useAuth } from "../Context/AuthContext";
 
 const Header = () => {
-  const { userData } = useAuth();
+  const { decodeS1, decodeS2, decodeS3, decodeS4, decodeS5 } = useAuth();
 
   const gradeText = (grade) => {
     switch (grade) {
@@ -26,9 +26,9 @@ const Header = () => {
       <div className="header_back">
         <div className="header_info_box left">
           <Clock></Clock>
-          <div className="info_text">{userData.branch_name}</div>
-          <div className="info_text">{userData.manager}</div>
-          <div className="info_text">{gradeText(userData.grade)}</div>
+          <div className="info_text">{decodeS2()}</div>
+          <div className="info_text">{decodeS3()}</div>
+          <div className="info_text">{gradeText(decodeS4())}</div>
         </div>
       </div>
     </div>
