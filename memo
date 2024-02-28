@@ -1,0 +1,11 @@
+Login - 로그인
+Register - 회원가입
+Search - ID/PW찾기
+
+Home - 메인
+Header - Aside - 왼쪽메뉴 - Header - 상단메뉴
+Footer - 하단메뉴
+
+Context - AuthContext - 회원 토큰 및 로컬스토리지 데이터관리
+
+Branch - 지점
