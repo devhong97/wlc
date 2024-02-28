@@ -5,6 +5,7 @@
   padding: 0;
   font-family: "Pretendard_m";
 }
+
 body,
 html,
 #root {
@@ -12,6 +13,7 @@ html,
   height: 100%;
   overflow-x: hidden;
 }
+
 ol,
 ul {
   list-style: none;
@@ -81,7 +83,7 @@ $light-gray: #707070;
 $back-gray: #dbdbdb;
 $line-gray: #e8e8e8;
 
-$main-color: #0076db;
+$main-color: #129448;
 $sub-color: #fed252;
 $shadow-color: #b1472d69;
 $box-icon-color: #fd9f9f;
@@ -97,20 +99,25 @@ $modal-color: #9999999f;
   0% {
     transform: scaleY(0);
   }
+
   80% {
     transform: scaleY(1.1);
   }
+
   100% {
     transform: scaleY(1);
   }
 }
+
 @keyframes growRight {
   0% {
     transform: scaleX(0);
   }
+
   80% {
     transform: scaleX(1.1);
   }
+
   100% {
     transform: scaleX(1);
   }
@@ -120,14 +127,17 @@ $modal-color: #9999999f;
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
+
 @keyframes fadeOut {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
