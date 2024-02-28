@@ -1,42 +1,37 @@
 import "./assets/scss/index.scss";
 import Router from "./router/Router";
-import { AuthProvider } from "./components/Context/AuthContext";
 import Login from "./components/Login/Login";
-// import { useAuth } from "./components/Context/AuthContext";
 import Aside from "./components/Header/Aside";
 import Header from "./components/Header/Header";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
+import { useAuth } from "./components/Context/AuthContext";
 
 function App() {
-  // const { loginAccess } = useAuth(); //로그인여부 확인
-  const [checkLogin, setCheckLogin] = useState(""); //로그인여부 상태값
+  const { loginAccess, login } = useAuth(); //로그인여부 확인
 
   useEffect(() => {
-    // 세션 스토리지에서 로그인 상태를 가져오기
-    const storedLoginStatus = sessionStorage.getItem("login_status");
-
-    if (storedLoginStatus) {
-      setCheckLogin(storedLoginStatus);
+    const loginStatus = localStorage.getItem("Access");
+    if (loginStatus === "true") {
+      login();
     }
-  }, []);
+  }, []); // login 함수가 변경될 때마다 실행
+
   return (
-    <AuthProvider>
-      <Fragment>
-        {checkLogin !== "" ? (
-          <div className="screen">
-            <div className="menu_area">
-              <Aside />
-            </div>
-            <div className="main_area">
-              <Header />
-              <Router />
-            </div>
+    <Fragment>
+      {loginAccess ? (
+        <div className="screen">
+          <div className="menu_area">
+            <Aside />
           </div>
-        ) : (
-          <Login />
-        )}
-      </Fragment>
-    </AuthProvider>
+          <div className="main_area">
+            <Header />
+            <Router />
+          </div>
+        </div>
+      ) : (
+        <Login />
+      )}
+    </Fragment>
   );
 }
 
