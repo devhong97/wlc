@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-const BranchList = () => {
+const MemberList = () => {
     return (
         <div className="main_wrap">
             <div className="main_back">
                 <div className='main_title_box'>
-                    지점 관리
+                    직원 관리
                 </div>
                 <div className="board_list_wrap">
                     <div className="list_area">
@@ -35,22 +35,28 @@ const BranchList = () => {
                                 <tbody>
                                     <tr className="table_header">
                                         <th className="table_header_col ">No.</th>
-                                        <th className="table_header_col short_col">코드</th>
-                                        <th className="table_header_col">종류</th>
-                                        <th className="table_header_col ">지점명</th>
-                                        <th className="table_header_col ">지점장</th>
-                                        <th className="table_header_col ">지역</th>
-                                        <th className="table_header_col short_col">생성일</th>
+                                        <th className="table_header_col short_col">이름</th>
+                                        <th className="table_header_col">연락처</th>
+                                        <th className="table_header_col ">등록일</th>
+                                        <th className="table_header_col ">미지급 커미션</th>
+                                        <th className="table_header_col ">지급완료 커미션</th>
+                                        <th className="table_header_col short_col">누적회원현황</th>
+                                        <th className="table_header_col short_col">가입승인</th>
                                         <th className="table_header_col short_col">-</th>
                                     </tr>
                                     <tr className="table_body">
                                         <td className="table_col ">1</td>
-                                        <td className="table_col short_col">a123123</td>
-                                        <td className="table_col ">보험사</td>
-                                        <td className="table_col ">천안1지점</td>
-                                        <td className="table_col ">유기홍</td>
-                                        <td className="table_col ">천안</td>
-                                        <td className="table_col short_col">24.02.28</td>
+                                        <td className="table_col short_col pointer">유기홍</td>
+                                        <td className="table_col ">01012341234</td>
+                                        <td className="table_col ">24.02.28</td>
+                                        <td className="table_col ">5000</td>
+                                        <td className="table_col ">50000</td>
+                                        <td className="table_col short_col">120</td>
+                                        <td className="table_col short_col">
+                                            <div className='table_option_box'>
+                                                <div className='option_btn'>승인</div>
+                                            </div>
+                                        </td>
                                         <td className="table_col short_col">
                                             <div className='table_option_box'>
                                                 <div className='option_btn'>수정</div>
@@ -86,4 +92,4 @@ const BranchList = () => {
     );
 };
 
-export default BranchList;
+export default MemberList;
