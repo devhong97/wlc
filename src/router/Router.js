@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
 import Home from "../components/Home/Home";
 import BranchList from "../components/Branch/BranchList";
 import MemberList from "../components/Member/MemberList";
