@@ -42,7 +42,7 @@ const Login = () => {
       if (res.data.success) {
         const { S1, S2, S3, S4, S5 } = res.data;
         login(S1, S2, S3, S4, S5); //서버에서 생성된 세션정보 context에 저장
-        alert(`[ ${S5} ]님 환영합니다.`);
+        alert(`[ ${id} ]님 환영합니다.`);
       } else {
         alert("아이디 또는 비밀번호를 확인해주세요.");
         setId("");

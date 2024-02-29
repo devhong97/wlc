@@ -7,7 +7,7 @@ import Header from "./components/Header/Header";
 import React, { Fragment, useEffect } from "react";
 import { useAuth } from "./components/Context/AuthContext";
 import { Route, Routes } from "react-router-dom";
-import Search from './components/Search/Search';
+import Search from "./components/Search/Search";
 
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
@@ -17,7 +17,7 @@ function App() {
     if (loginStatus === "true") {
       login();
     }
-  }, []); // login 함수가 변경될 때마다 실행
+  }, []);
 
   return (
     <Fragment>
@@ -32,6 +32,7 @@ function App() {
           </div>
         </div>
       ) : (
+        //로그인화면 컴포넌트
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
