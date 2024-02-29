@@ -35,71 +35,105 @@ const Register = () => {
         </div>
         <div className="register_container">
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="id"
-              value={formData.id}
-              placeholder="아이디"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              placeholder="비밀번호"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              placeholder="비밀번호 확인"
-              onChange={handleChange}
-            />
-            <select
-              name="affiliation"
-              value={formData.affiliation}
-              onChange={handleChange}
-            >
-              <option value="">소속 선택</option>
-              <option value="company">Company</option>
-              <option value="school">School</option>
-              <option value="organization">Organization</option>
-            </select>
-            <select
-              name="affiliation"
-              value={formData.affiliation}
-              onChange={handleChange}
-            >
-              <option value="">지점 선택</option>
-              <option value="company">Company</option>
-              <option value="school">School</option>
-              <option value="organization">Organization</option>
-            </select>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              placeholder="성명"
-              onChange={handleChange}
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              placeholder="이메일"
-              onChange={handleChange}
-            />
-            <label>
+            <div className="input_row">
+              <div className="input_title">아이디</div>
+              <input
+                type="text"
+                name="id"
+                value={formData.id}
+                placeholder="아이디를 입력해주세요."
+                onChange={handleChange}
+                className="register_input"
+              />
+            </div>
+            <div className="input_row">
+              <div className="input_title">비밀번호</div>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                placeholder="비밀번호를 입력해주세요."
+                onChange={handleChange}
+                className="register_input"
+              />
+            </div>
+            <div className="input_row">
+              <div className="input_title blank"></div>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                placeholder="비밀번호를 확인해주세요."
+                onChange={handleChange}
+                className="register_input"
+              />
+            </div>
+            <div className="input_row">
+              <div className="input_title">소속</div>
+              <select
+                name="affiliation"
+                value={formData.affiliation}
+                onChange={handleChange}
+                className="register_select"
+              >
+                <option value="">소속 선택</option>
+                <option value="company">Company</option>
+                <option value="school">School</option>
+                <option value="organization">Organization</option>
+              </select>
+            </div>
+            <div className="input_row">
+              <div className="input_title">지점</div>
+              <select
+                name="affiliation"
+                value={formData.affiliation}
+                onChange={handleChange}
+                className="register_select"
+              >
+                <option value="">지점 선택</option>
+                <option value="company">Company</option>
+                <option value="school">School</option>
+                <option value="organization">Organization</option>
+              </select>
+            </div>
+            <div className="input_row">
+              <div className="input_title">이름</div>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                placeholder="이름을 입력해주세요."
+                onChange={handleChange}
+                className="register_input"
+              />
+            </div>
+            <div className="input_row">
+              <div className="input_title">이메일</div>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                placeholder="이메일을 입력해주세요."
+                onChange={handleChange}
+                className="register_input"
+              />
+            </div>
+            <div className="input_row terms">
+
               <input
                 type="checkbox"
                 name="agreeTerms"
+                id="agreeTerms"
                 checked={formData.agreeTerms}
                 onChange={handleChange}
+                className="terms_checkbox"
               />
-              I agree to the terms and conditions
-            </label>
-            <button type="submit">Register</button>
+              <label className="terms_label" htmlFor="agreeTerms">약관에 동의합니다.
+              </label>
+            </div>
+            <div className="register_btn_box">
+              <button type="submit" className="register_btn">가입 신청</button>
+            </div>
           </form>
         </div>
       </div>
