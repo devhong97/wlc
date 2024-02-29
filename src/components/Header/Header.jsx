@@ -1,7 +1,10 @@
 import React from "react";
 import Clock from "../Common/Clock";
+import { useAuth } from "../Context/AuthContext";
 
 const Header = () => {
+  const { decodeS1, decodeS2, decodeS3, decodeS4, decodeS5 } = useAuth();
+
   const gradeText = (grade) => {
     switch (grade) {
       case "1": {
@@ -23,9 +26,9 @@ const Header = () => {
       <div className="header_back">
         <div className="header_info_box left">
           <Clock></Clock>
-          <div className="info_text">1</div>
-          <div className="info_text">2</div>
-          <div className="info_text">{gradeText(1)}</div>
+          <div className="info_text">{decodeS2()}</div>
+          <div className="info_text">{decodeS3()}</div>
+          <div className="info_text">{gradeText(decodeS4())}</div>
         </div>
       </div>
     </div>

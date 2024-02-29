@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -30,14 +31,16 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  //쿠키 만료시간 및 알람메세지
+  // 쿠키 만료시간 및 알람메세지
   useEffect(() => {
-    const timer = setTimeout(() => {
-      logout();
-      alert("세션 시간이 만료되었습니다.");
-    }, 60000);
+    if (loginAccess) {
+      const timer = setTimeout(() => {
+        logout();
+        alert("세션 시간이 만료되었습니다.");
+      }, 600000);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, [loginAccess]);
 
   //로그인
@@ -70,8 +73,67 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S3");
     Cookies.remove("S4");
     Cookies.remove("S5");
+
+    alert("로그아웃 되었습니다.");
   };
 
+  // JWT 토큰 디코딩
+  const decodeS1 = () => {
+    try {
+      if (uid) {
+        return jwtDecode(uid).uid;
+      }
+      return null;
+    } catch (error) {
+      console.error("S1 디코딩 에러:", error);
+      return null;
+    }
+  };
+  const decodeS2 = () => {
+    try {
+      if (manager) {
+        return jwtDecode(manager).manager;
+      }
+      return null;
+    } catch (error) {
+      console.error("S2 디코딩 에러:", error);
+      return null;
+    }
+  };
+  const decodeS3 = () => {
+    try {
+      if (branch) {
+        return jwtDecode(branch).branch;
+      }
+      return null;
+    } catch (error) {
+      console.error("S3 디코딩 에러:", error);
+      return null;
+    }
+  };
+
+  const decodeS4 = () => {
+    try {
+      if (grade) {
+        return jwtDecode(grade).grade;
+      }
+      return null;
+    } catch (error) {
+      console.error("S4 디코딩 에러:", error);
+      return null;
+    }
+  };
+  const decodeS5 = () => {
+    try {
+      if (id) {
+        return jwtDecode(id).id;
+      }
+      return null;
+    } catch (error) {
+      console.error("S5 디코딩 에러:", error);
+      return null;
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -83,6 +145,12 @@ export const AuthProvider = ({ children }) => {
         branch, //지점명
         grade, //등급
         id, //로그인 시 아이디
+
+        decodeS1,
+        decodeS2,
+        decodeS3,
+        decodeS4,
+        decodeS5,
       }}
     >
       {children}
