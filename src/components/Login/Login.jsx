@@ -4,13 +4,14 @@ import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { login } = useAuth(); //로그인확인
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const idInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
+  const { login } = useAuth(); // 로그인 시 데이터
+  const [id, setId] = useState(""); // 로그인 시 ID
+  const [password, setPassword] = useState(""); // 비밀번호
+  const idInputRef = useRef(null); // ID input 위치
+  const passwordInputRef = useRef(null); // PW input 위치
   const navigate = useNavigate();
 
+  // 접속 시 id입력칸에 focus
   useEffect(() => {
     if (idInputRef.current) {
       idInputRef.current.focus();
@@ -20,6 +21,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 입력값 체크
     if (id === "") {
       alert("아이디를 입력해주세요.");
       if (idInputRef.current) {
@@ -40,8 +42,9 @@ const Login = () => {
         password,
       });
       if (res.data.success) {
+        // S1 ~ S5 - 서버에서 생성된 토큰값
         const { S1, S2, S3, S4, S5 } = res.data;
-        login(S1, S2, S3, S4, S5); //서버에서 생성된 세션정보 context에 저장
+        login(S1, S2, S3, S4, S5); //서버에서 생성된 S1 ~ S5 토큰값 context에 저장
         alert(`[ ${id} ]님 환영합니다.`);
       } else {
         alert("아이디 또는 비밀번호를 확인해주세요.");
@@ -56,10 +59,11 @@ const Login = () => {
     }
   };
 
+  // ID/PW찾기
   const searchHandle = () => {
     navigate("/search");
   };
-
+  // 회원가입
   const registerHandle = () => {
     navigate("/register");
   };
@@ -68,7 +72,6 @@ const Login = () => {
     <div className="login_wrap">
       <div className="login_back_img"></div>
       <div className="login_back">
-
         <form onSubmit={handleSubmit} className="input_wrap">
           <div className="input_back">
             <div className="logo_title_box">
@@ -94,7 +97,9 @@ const Login = () => {
                   className="login_input"
                 />
               </div>
-              <button className="login_btn" type="submit">LOGIN</button>
+              <button className="login_btn" type="submit">
+                LOGIN
+              </button>
             </div>
             <div className="bottom_btn" onClick={() => searchHandle()}>
               ID/PW찾기
