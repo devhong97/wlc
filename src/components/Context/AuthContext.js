@@ -8,8 +8,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [loginAccess, setLoginAccess] = useState(false); // 로그인 여부
   const [uid, setUid] = useState(""); // UID
+  const [branch, setBranch] = useState(""); // 지점
   const [manager, setManager] = useState(""); // 매니저 이름
-  const [branch, setBranch] = useState(""); // 지점명
   const [grade, setGrade] = useState(""); // 등급
   const [id, setId] = useState(""); // 로그인 시 ID
   const navigate = useNavigate();
@@ -77,8 +77,7 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S5");
 
     alert("로그아웃 되었습니다.");
-    navigate("/")
-
+    navigate("/");
   };
 
   // JWT 토큰 디코딩
