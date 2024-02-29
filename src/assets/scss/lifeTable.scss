@@ -368,9 +368,13 @@
 .search_box {
   background-color: #ebeaea67;
   padding: 20px;
-  border-radius: 0 15px 15px;
+  border-radius: 15px;
   margin-bottom: 20px;
   border: 1px solid #c6c6c6;
+
+  &.tab {
+    border-radius: 0 15px 15px;
+  }
 
   .title_btn {
     padding: 7px 20px;

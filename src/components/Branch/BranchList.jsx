@@ -1,6 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import BranchWriteModal from '../modal/BranchWriteModal';
 
 const BranchList = () => {
+    const [writeModal, setWriteModal] = useState(false);
+
+    const writeModalOpen = () => {
+        setWriteModal(!writeModal)
+    }
+
     return (
         <div className="main_wrap">
             <div className="main_back">
@@ -28,7 +35,7 @@ const BranchList = () => {
                                 </div>
                                 <div className="list_search reset_btn">초기화</div>
                             </div>
-                            <div className="title_btn">등록</div>
+                            <div className="title_btn" onClick={() => writeModalOpen()}>등록</div>
                         </div>
                         <div className="table_box">
                             <table className="list_table">
@@ -82,6 +89,7 @@ const BranchList = () => {
                     </div>
                 </div>
             </div>
+            {writeModal && <BranchWriteModal closeModal={writeModalOpen}></BranchWriteModal>}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [branch, setBranch] = useState(""); // 지점명
   const [grade, setGrade] = useState(""); // 등급
   const [id, setId] = useState(""); // 로그인 시 ID
+  const navigate = useNavigate();
 
   //로그인(로드 시) 초기데이터
   useEffect(() => {
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       const timer = setTimeout(() => {
         logout();
         alert("세션 시간이 만료되었습니다.");
-      }, 600000);
+      }, 6000000);
 
       return () => clearTimeout(timer);
     }
@@ -75,6 +77,8 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S5");
 
     alert("로그아웃 되었습니다.");
+    navigate("/")
+
   };
 
   // JWT 토큰 디코딩
