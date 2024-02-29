@@ -1,26 +1,26 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
-// AuthContext 생성
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [loginAccess, setLoginAccess] = useState(false);
-  const [uid, setUid] = useState("");
-  const [manager, setManager] = useState("");
-  const [branch, setBranch] = useState("");
-  const [grade, setGrade] = useState("");
-  const [id, setId] = useState("");
+  const [loginAccess, setLoginAccess] = useState(false); // 로그인 여부
+  const [uid, setUid] = useState(""); // UID
+  const [manager, setManager] = useState(""); // 매니저 이름
+  const [branch, setBranch] = useState(""); // 지점명
+  const [grade, setGrade] = useState(""); // 등급
+  const [id, setId] = useState(""); // 로그인 시 ID
 
+  //로그인(로드 시) 초기데이터
   useEffect(() => {
-    const storedAccess = localStorage.getItem("Access");
+    const storedAccess = Cookies.get("Access");
     if (storedAccess === "true") {
       setLoginAccess(true);
-      const storedS1 = localStorage.getItem("S1");
-      const storedS2 = localStorage.getItem("S2");
-      const storedS3 = localStorage.getItem("S3");
-      const storedS4 = localStorage.getItem("S4");
-      const storedS5 = localStorage.getItem("S5");
+      const storedS1 = Cookies.get("S1");
+      const storedS2 = Cookies.get("S2");
+      const storedS3 = Cookies.get("S3");
+      const storedS4 = Cookies.get("S4");
+      const storedS5 = Cookies.get("S5");
 
       if (storedS1) setUid(storedS1);
       if (storedS2) setManager(storedS2);
@@ -30,7 +30,17 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 로그인 시
+  //쿠키 만료시간 및 알람메세지
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      logout();
+      alert("세션 시간이 만료되었습니다.");
+    }, 60000);
+
+    return () => clearTimeout(timer);
+  }, [loginAccess]);
+
+  //로그인
   const login = (uidToken, managerToken, branchToken, gradeToken, idToken) => {
     setLoginAccess(true);
     setUid(uidToken);
@@ -38,17 +48,15 @@ export const AuthProvider = ({ children }) => {
     setBranch(branchToken);
     setGrade(gradeToken);
     setId(idToken);
-
-    // 로컬 스토리지에 토큰 저장
-    localStorage.setItem("Access", true);
-    localStorage.setItem("S1", uidToken);
-    localStorage.setItem("S2", managerToken);
-    localStorage.setItem("S3", branchToken);
-    localStorage.setItem("S4", gradeToken);
-    localStorage.setItem("S5", idToken);
+    Cookies.set("Access", true);
+    Cookies.set("S1", uidToken);
+    Cookies.set("S2", managerToken);
+    Cookies.set("S3", branchToken);
+    Cookies.set("S4", gradeToken);
+    Cookies.set("S5", idToken);
   };
 
-  // 로그아웃 시
+  //로그아웃
   const logout = () => {
     setLoginAccess(false);
     setUid("");
@@ -56,91 +64,25 @@ export const AuthProvider = ({ children }) => {
     setBranch("");
     setGrade("");
     setId("");
-
-    // 로컬 스토리지에서 토큰 삭제
-    localStorage.removeItem("Access");
-    localStorage.removeItem("S1");
-    localStorage.removeItem("S2");
-    localStorage.removeItem("S3");
-    localStorage.removeItem("S4");
-    localStorage.removeItem("S5");
-
-    alert("로그아웃 되었습니다.");
-  };
-
-  const decodeS1 = () => {
-    try {
-      if (uid) {
-        return jwtDecode(uid).uid;
-      }
-      return null;
-    } catch (error) {
-      console.error("S1 디코딩 에러:", error);
-      return null;
-    }
-  };
-  const decodeS2 = () => {
-    try {
-      if (manager) {
-        return jwtDecode(manager).manager;
-      }
-      return null;
-    } catch (error) {
-      console.error("S2 디코딩 에러:", error);
-      return null;
-    }
-  };
-  const decodeS3 = () => {
-    try {
-      if (branch) {
-        return jwtDecode(branch).branch;
-      }
-      return null;
-    } catch (error) {
-      console.error("S3 디코딩 에러:", error);
-      return null;
-    }
-  };
-
-  const decodeS4 = () => {
-    try {
-      if (grade) {
-        return jwtDecode(grade).grade;
-      }
-      return null;
-    } catch (error) {
-      console.error("S4 디코딩 에러:", error);
-      return null;
-    }
-  };
-  const decodeS5 = () => {
-    try {
-      if (id) {
-        return jwtDecode(id).id;
-      }
-      return null;
-    } catch (error) {
-      console.error("S5 디코딩 에러:", error);
-      return null;
-    }
+    Cookies.remove("Access");
+    Cookies.remove("S1");
+    Cookies.remove("S2");
+    Cookies.remove("S3");
+    Cookies.remove("S4");
+    Cookies.remove("S5");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        loginAccess,
-        login,
-        logout,
-        uid,
-        manager,
-        branch,
-        grade,
-        id,
-        decodeS1,
-        decodeS2,
-        decodeS3,
-        decodeS4,
-        decodeS5,
+        loginAccess, // 로그인여부
+        login, // 로그인 시 토큰값 저장
+        logout, // 로그인 시 토큰값 삭제
+        uid, // UID
+        manager, //매니저이름
+        branch, //지점명
+        grade, //등급
+        id, //로그인 시 아이디
       }}
     >
       {children}
@@ -148,6 +90,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+//다른 컴포넌트에서 사용할 useAuth(이름변경가능)
 export const useAuth = () => {
   return useContext(AuthContext);
 };
