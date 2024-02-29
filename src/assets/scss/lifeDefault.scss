@@ -412,6 +412,11 @@
           padding: 40px 0;
         }
 
+        .confirm_msg {
+          padding: 10px 0 0 150px;
+          font-size: 12px;
+        }
+
         .input_title {
           text-align: left;
           display: inline-block;
@@ -419,6 +424,12 @@
           vertical-align: middle;
           font-size: 20px;
           font-family: "Pretendard_b";
+        }
+
+        .email_icon {
+          display: inline-block;
+          width: 20px;
+          text-align: center;
         }
 
         .register_input {
@@ -431,6 +442,10 @@
           padding: 0 10px;
           font-size: 15px;
           color: $deep-gray;
+
+          &.email {
+            width: calc((100% - 180px) / 3);
+          }
         }
 
         .register_select {
@@ -443,6 +458,10 @@
           border-radius: 5px;
           cursor: pointer;
           color: $deep-gray;
+
+          &.email {
+            width: calc((100% - 180px) / 3);
+          }
         }
 
         .terms_label {

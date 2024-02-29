@@ -170,7 +170,7 @@ const Register = () => {
               className="register_input"
             />
             {idChk !== "" && (
-              <div style={{ color: idChk ? "#007bff" : "red" }}>
+              <div className="confirm_msg" style={{ color: idChk ? "#007bff" : "red" }}>
                 {idChk
                   ? "사용가능한 아이디입니다."
                   : "이미 존재하는 아이디입니다."}
@@ -190,7 +190,7 @@ const Register = () => {
             {password && (
               <div>
                 {regexMessage !== "" && (
-                  <div style={{ color: regexMessage ? "#007bff" : "red" }}>
+                  <div className="confirm_msg" style={{ color: regexMessage ? "#007bff" : "red" }}>
                     {regexMessage
                       ? "사용 가능한 비밀번호입니다."
                       : "비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다."}
@@ -210,7 +210,7 @@ const Register = () => {
               className="register_input"
             />
             {passwordChk && (
-              <div
+              <div className="confirm_msg"
                 style={{
                   color: password === passwordChk ? "#007bff" : "red",
                 }}
@@ -265,14 +265,15 @@ const Register = () => {
               id="user_email"
               value={email}
               onChange={handleEmail}
-              className="register_input"
+              className="register_input email"
             />
-            &nbsp;@&nbsp;
+            <p className="email_icon">@</p>
             {domainInput && (
               <input
                 type="text"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
+                className="register_input email"
               />
             )}
             {domainInput === "직접입력" ? "@" : " "}
@@ -280,7 +281,7 @@ const Register = () => {
               value={domainInput ? "직접입력" : domain}
               onChange={handleDomainChange}
               id="user_domain"
-              className="register_select"
+              className="register_select email"
             >
               <option value="gmail.com">gmail.com</option>
               <option value="naver.com">naver.com</option>
