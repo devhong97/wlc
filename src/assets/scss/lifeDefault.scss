@@ -249,7 +249,7 @@
         width: 100%;
         height: 100%;
 
-        .login_title_box {
+        .logo_title_box {
           padding-bottom: 50px;
 
           .logo_img {
@@ -318,8 +318,45 @@
           width: 300px;
           height: 50px;
           font-size: 20px;
+          color: #fff;
 
         }
+      }
+    }
+  }
+}
+
+.register_wrap {
+  width: 100%;
+  height: 100%;
+  background-color: #234726d7;
+
+  .register_back {
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    text-align: center;
+    padding: 50px 0;
+
+    .logo_title_box {
+      padding-bottom: 50px;
+
+      .logo_img {
+        @include background_set(70px, 70px, cover);
+        background-image: url("../img/logo_img.png");
+        display: inline-block;
+
+        vertical-align: middle;
+      }
+
+      .logo_title {
+        display: inline-block;
+        color: #fff;
+        font-family: "Nps_m";
+        vertical-align: middle;
+        padding-left: 50px;
+        font-size: 50px;
+        letter-spacing: 20px;
       }
     }
   }

@@ -71,7 +71,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="input_wrap">
           <div className="input_back">
-            <div className="login_title_box">
+            <div className="logo_title_box">
               <div className="logo_img"></div>
               <div className="logo_title">WLC</div>
             </div>
