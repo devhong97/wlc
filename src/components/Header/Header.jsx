@@ -1,6 +1,5 @@
 import React from "react";
 import Clock from "../Common/Clock";
-import { useAuth } from "../Context/AuthContext";
 
 const Header = () => {
   const gradeText = (grade) => {
@@ -26,7 +25,7 @@ const Header = () => {
           <Clock></Clock>
           <div className="info_text">1</div>
           <div className="info_text">2</div>
-          <div className="info_text">2</div>
+          <div className="info_text">{gradeText(1)}</div>
         </div>
       </div>
     </div>
