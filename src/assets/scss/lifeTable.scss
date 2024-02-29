@@ -71,6 +71,53 @@
         padding-left: 0;
       }
 
+      .table_input {
+        width: 350px;
+        outline: none;
+        border: 1px solid #ececec;
+        height: 35px;
+        border-radius: 5px;
+        padding: 0 10px;
+
+        &.half {
+          width: calc((100% - 90px) / 2);
+        }
+
+        &.triple {
+          width: calc((100% - 120px) / 3);
+        }
+      }
+
+      .table_inner_text {
+        display: inline-block;
+        padding-right: 20px;
+        vertical-align: middle;
+        font-size: 15px;
+      }
+
+      .table_inner_btn {
+        display: inline-block;
+        vertical-align: middle;
+        width: 70px;
+        font-size: 15px;
+        background-color: $gray;
+        height: 30px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #707070;
+        padding: 5px 0;
+      }
+
+      .table_select {
+        width: 350px;
+        outline: none;
+        border: 1px solid #ececec;
+        height: 35px;
+        border-radius: 5px;
+        padding: 0 10px;
+      }
+
       .table_scroll_box {
         height: 150px;
         overflow-y: scroll;
@@ -595,8 +642,6 @@
 }
 
 .modal_wrap {
-  visibility: hidden;
-  opacity: 0;
   background-color: #9999999f;
   position: fixed;
   top: 0;
@@ -604,12 +649,8 @@
   width: 100%;
   height: 100%;
   transition: opacity 0.3s ease-in-out;
+  z-index: 5;
 
-  &.open {
-    visibility: visible;
-    opacity: 1;
-    z-index: 5;
-  }
 
   .modal_back {
     width: 60%;
@@ -662,162 +703,43 @@
       .modal_content_box {
         padding: 10px 10px;
 
-        &.faq_box {
-          border-top: 1px dotted #999999;
-        }
-
         .modal_input_box {
           display: inline-block;
           width: 50%;
-
-          &.board_modal1 {
-            width: 100%;
-            display: block;
-          }
         }
       }
     }
-  }
-}
 
-.modal_input_box.board_modal {
-  width: 100%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-
-  >div {
-    width: 50%;
-    box-sizing: border-box;
-    padding-right: 20px;
-  }
-
-  input,
-  textarea {
-    width: calc(60% - 10px);
-    margin-bottom: 10px;
-    padding: 5px;
-  }
-}
-
-.modal_wrap .modal_back .modal_box .modal_content_box .modal_input_box {
-  .profile_img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 1px dotted #dddddd;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100px;
-    height: 100px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 50px;
-  }
-
-  .profile_button {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: #ffffff;
-    background-color: #5387cc;
-    cursor: pointer;
-    box-shadow: 4px 4px 4px -4px #999999;
-  }
-
-  .modal_input_title {
-    width: 100px;
-    font-size: 15px;
-    letter-spacing: 1px;
-    padding-bottom: 5px;
-  }
-}
-
-.modal_input_content,
-.modal_input_attachment,
-.modal_input_phone,
-.modal_input_writer,
-.modal_input_menu,
-.modal_input_password {
-  width: 100px;
-  font-size: 15px;
-  letter-spacing: 1px;
-  padding-bottom: 5px;
-}
-
-.modal_wrap .modal_back .modal_box {
-  .modal_content_box .modal_input_box {
-    .modal_input {
-      width: calc(100% - 200px);
-      height: 30px;
-      border-radius: 5px;
-      outline: 0 none;
-      border: 1px solid #999999;
-      padding: 5px 10px;
-      margin-right: 10px;
-
-      &.long_input {
-        width: calc(100% - 30px);
-        margin-right: 0;
-      }
-    }
-
-    .modal_textarea {
-      width: calc(100% - 100px);
-      border-radius: 5px;
-      outline: 0 none;
-      border: 1px solid #999999;
-      padding: 5px 10px;
-      resize: none;
-      min-height: 150px;
-      vertical-align: middle;
-    }
-
-    .modal_upload {
-      width: calc(100% - 100px);
-      border-radius: 5px;
-      outline: 0 none;
-      border: 1px solid #999999;
-      padding: 5px 10px;
-      min-height: 150px;
-      vertical-align: middle;
-      display: inline-block;
+    .modal_footer_box {
       text-align: center;
-    }
-  }
+      padding: 10px 0;
 
-  .modal_footer_box {
-    text-align: center;
-    padding: 10px 0;
-
-    &.qna {
-      padding-top: 50px;
-    }
-
-    .modal_btn {
-      display: inline-block;
-      padding: 9px 20px;
-      border-radius: 5px;
-      color: #ffffff;
-      background-color: $main-color;
-      cursor: pointer;
-      box-shadow: 4px 4px 4px -4px #999999;
-
-      &.close {
+      .modal_btn {
         display: inline-block;
         padding: 9px 20px;
         border-radius: 5px;
         color: #ffffff;
-        background-color: #999999;
+        background-color: $main-color;
         cursor: pointer;
         box-shadow: 4px 4px 4px -4px #999999;
-        margin-left: 10px;
+
+        &.close {
+          display: inline-block;
+          padding: 9px 20px;
+          border-radius: 5px;
+          color: #ffffff;
+          background-color: #999999;
+          cursor: pointer;
+          box-shadow: 4px 4px 4px -4px #999999;
+          margin-left: 10px;
+        }
       }
     }
   }
 }
+
+
+
 
 /*********************/
 /* 메인 */

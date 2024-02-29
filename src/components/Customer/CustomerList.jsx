@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import CustomerViewModal from '../modal/CustomerViewModal';
 
 const CustomerList = () => {
+    const [viewModal, setViewModal] = useState(false);
+    const [detailIdx, setDetailIdx] = useState("");
+    const viewModalOpen = (idx) => {
+        setViewModal(!viewModal)
+        setDetailIdx(idx)
+    }
     return (
         <div className="main_wrap">
             <div className="main_back">
@@ -28,7 +35,7 @@ const CustomerList = () => {
                                 </div>
                                 <div className="list_search reset_btn">초기화</div>
                             </div>
-                            <div className="title_btn">등록</div>
+                            {/* <div className="title_btn">등록</div> */}
                         </div>
                         <div className="table_box">
                             <table className="list_table">
@@ -52,7 +59,7 @@ const CustomerList = () => {
                                     </tr>
                                     <tr className="table_body">
                                         <td className="table_col ">1</td>
-                                        <td className="table_col  pointer">유기홍</td>
+                                        <td className="table_col  pointer" onClick={() => viewModalOpen(1)}>유기홍</td>
                                         <td className="table_col ">01012341234</td>
                                         <td className="table_col ">24.02.28</td>
                                         <td className="table_col ">고상우</td>
@@ -97,6 +104,7 @@ const CustomerList = () => {
                     </div>
                 </div>
             </div>
+            {viewModal && <CustomerViewModal closeModal={viewModalOpen} detailIdx={detailIdx}></CustomerViewModal>}
         </div>
 
     );
