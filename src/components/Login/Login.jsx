@@ -65,33 +65,46 @@ const Login = () => {
   };
 
   return (
-    <div className="login-wrap">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-wrap">
-          <input
-            type="text"
-            placeholder="ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            ref={idInputRef}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            ref={passwordInputRef}
-          />
-          <button type="submit">로그인</button>
-          <button type="button" onClick={() => searchHandle()}>
-            ID/PW찾기
-          </button>
-          <button type="button" onClick={() => registerHandle()}>
-            회원가입
-          </button>
-        </div>
-      </form>
+    <div className="login_wrap">
+      <div className="login_back_img"></div>
+      <div className="login_back">
+
+        <form onSubmit={handleSubmit} className="input_wrap">
+          <div className="input_back">
+            <div className="logo_title_box">
+              <div className="logo_img"></div>
+              <div className="logo_title">WLC</div>
+            </div>
+            <div className="input_row">
+              <div className="input_box">
+                <input
+                  type="text"
+                  placeholder="ID"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
+                  ref={idInputRef}
+                  className="login_input"
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  ref={passwordInputRef}
+                  className="login_input"
+                />
+              </div>
+              <button className="login_btn" type="submit">LOGIN</button>
+            </div>
+            <div className="bottom_btn" onClick={() => searchHandle()}>
+              ID/PW찾기
+            </div>
+            <div className="bottom_btn" onClick={() => registerHandle()}>
+              회원가입
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

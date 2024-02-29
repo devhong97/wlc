@@ -26,73 +26,84 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="id"
-        value={formData.id}
-        placeholder="아이디"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        placeholder="비밀번호"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        placeholder="비밀번호 확인"
-        onChange={handleChange}
-      />
-      <select
-        name="affiliation"
-        value={formData.affiliation}
-        onChange={handleChange}
-      >
-        <option value="">소속 선택</option>
-        <option value="company">Company</option>
-        <option value="school">School</option>
-        <option value="organization">Organization</option>
-      </select>
-      <select
-        name="affiliation"
-        value={formData.affiliation}
-        onChange={handleChange}
-      >
-        <option value="">지점 선택</option>
-        <option value="company">Company</option>
-        <option value="school">School</option>
-        <option value="organization">Organization</option>
-      </select>
-      <input
-        type="text"
-        name="fullName"
-        value={formData.fullName}
-        placeholder="성명"
-        onChange={handleChange}
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        placeholder="이메일"
-        onChange={handleChange}
-      />
-      <label>
-        <input
-          type="checkbox"
-          name="agreeTerms"
-          checked={formData.agreeTerms}
-          onChange={handleChange}
-        />
-        I agree to the terms and conditions
-      </label>
-      <button type="submit">Register</button>
-    </form>
+
+    <div className="register_wrap">
+      <div className="register_back">
+        <div className="logo_title_box">
+          <div className="logo_img"></div>
+          <div className="logo_title">WLC</div>
+        </div>
+        <div className="register_container">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="id"
+              value={formData.id}
+              placeholder="아이디"
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              placeholder="비밀번호"
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              placeholder="비밀번호 확인"
+              onChange={handleChange}
+            />
+            <select
+              name="affiliation"
+              value={formData.affiliation}
+              onChange={handleChange}
+            >
+              <option value="">소속 선택</option>
+              <option value="company">Company</option>
+              <option value="school">School</option>
+              <option value="organization">Organization</option>
+            </select>
+            <select
+              name="affiliation"
+              value={formData.affiliation}
+              onChange={handleChange}
+            >
+              <option value="">지점 선택</option>
+              <option value="company">Company</option>
+              <option value="school">School</option>
+              <option value="organization">Organization</option>
+            </select>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              placeholder="성명"
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              placeholder="이메일"
+              onChange={handleChange}
+            />
+            <label>
+              <input
+                type="checkbox"
+                name="agreeTerms"
+                checked={formData.agreeTerms}
+                onChange={handleChange}
+              />
+              I agree to the terms and conditions
+            </label>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
