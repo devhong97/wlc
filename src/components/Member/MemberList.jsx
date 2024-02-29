@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import MemberWriteModal from '../modal/MemberWriteModal';
+import MemberViewModal from '../modal/MemberViewModal';
 
 const MemberList = () => {
+    const [writeModal, setWriteModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [detailIdx, setDetailIdx] = useState("");
+
+    const writeModalOpen = () => {
+        setWriteModal(!writeModal)
+    }
+    const viewModalOpen = (idx) => {
+        setViewModal(!viewModal)
+        setDetailIdx(idx)
+    }
+
     return (
         <div className="main_wrap">
             <div className="main_back">
@@ -28,7 +42,7 @@ const MemberList = () => {
                                 </div>
                                 <div className="list_search reset_btn">초기화</div>
                             </div>
-                            <div className="title_btn">등록</div>
+                            <div className="title_btn" onClick={() => writeModalOpen()}>등록</div>
                         </div>
                         <div className="table_box">
                             <table className="list_table">
@@ -59,7 +73,7 @@ const MemberList = () => {
                                         </td>
                                         <td className="table_col short_col">
                                             <div className='table_option_box'>
-                                                <div className='option_btn'>수정</div>
+                                                <div className='option_btn' onClick={() => viewModalOpen(1)}>수정</div>
                                                 <div className='option_btn del'>삭제</div>
                                             </div>
                                         </td>
@@ -88,6 +102,8 @@ const MemberList = () => {
                     </div>
                 </div>
             </div>
+            {writeModal && <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>}
+            {viewModal && <MemberViewModal closeModal={viewModalOpen} detailIdx={detailIdx}></MemberViewModal>}
         </div>
     );
 };

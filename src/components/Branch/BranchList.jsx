@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import BranchWriteModal from '../modal/BranchWriteModal';
+import BranchViewModal from '../modal/BranchViewModal';
 
 const BranchList = () => {
     const [writeModal, setWriteModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [detailIdx, setDetailIdx] = useState("");
 
     const writeModalOpen = () => {
         setWriteModal(!writeModal)
+    }
+    const viewModalOpen = (idx) => {
+        setViewModal(!viewModal)
+        setDetailIdx(idx)
     }
 
     return (
@@ -60,7 +67,7 @@ const BranchList = () => {
                                         <td className="table_col short_col">24.02.28</td>
                                         <td className="table_col short_col">
                                             <div className='table_option_box'>
-                                                <div className='option_btn'>수정</div>
+                                                <div className='option_btn' onClick={() => viewModalOpen(1)}>수정</div>
                                                 <div className='option_btn del'>삭제</div>
                                             </div>
                                         </td>
@@ -90,6 +97,7 @@ const BranchList = () => {
                 </div>
             </div>
             {writeModal && <BranchWriteModal closeModal={writeModalOpen}></BranchWriteModal>}
+            {viewModal && <BranchViewModal closeModal={viewModalOpen} detailIdx={detailIdx}></BranchViewModal>}
         </div>
     );
 };
