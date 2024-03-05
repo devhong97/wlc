@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import SalesViewModal from '../modal/SalesViewModal';
+import React, { useEffect, useState } from "react";
+import SalesViewModal from "../modal/SalesViewModal";
 
 const SalesList = () => {
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
   const viewModalOpen = (idx) => {
-    setViewModal(!viewModal)
-    setDetailIdx(idx)
-  }
+    setViewModal(!viewModal);
+    setDetailIdx(idx);
+  };
   return (
     <div className="main_wrap">
       <div className="main_back">
@@ -56,7 +56,12 @@ const SalesList = () => {
                   </tr>
                   <tr className="table_body">
                     <td className="table_col ">1</td>
-                    <td className="table_col  pointer" onClick={() => viewModalOpen(1)}>유기홍</td>
+                    <td
+                      className="table_col  pointer"
+                      onClick={() => viewModalOpen(1)}
+                    >
+                      유기홍
+                    </td>
                     <td className="table_col ">01012341234</td>
                     <td className="table_col ">24.02.28</td>
                     <td className="table_col ">고상우</td>
@@ -101,7 +106,12 @@ const SalesList = () => {
           </div>
         </div>
       </div>
-      {viewModal && <SalesViewModal closeModal={viewModalOpen} detailIdx={detailIdx}></SalesViewModal>}
+      {viewModal && (
+        <SalesViewModal
+          closeModal={viewModalOpen}
+          detailIdx={detailIdx}
+        ></SalesViewModal>
+      )}
     </div>
   );
 };
