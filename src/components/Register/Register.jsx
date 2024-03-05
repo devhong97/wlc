@@ -7,8 +7,12 @@ const Register = () => {
   const [password, setPassword] = useState(""); //비밀번호
   const [passwordChk, setPasswordChk] = useState(""); //비밀번호 체크
   const [manager, setManager] = useState(""); // 이름
-  const [affiliation, setAffiliation] = useState(""); // 소속
+  const [category1, setCategory1] = useState(""); // 분류1
+  const [category2, setCategory2] = useState(""); // 분류2
   const [branch, setBranch] = useState(""); // 지점
+  const [tel1, setTel1] = useState(""); // 연락처1
+  const [tel2, setTel2] = useState(""); // 연락처2
+  const [tel3, setTel3] = useState(""); // 연락처3
   const [email, setEmail] = useState(""); // 이메일
   const [domain, setDomain] = useState("gmail.com"); //도메인
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
@@ -60,6 +64,25 @@ const Register = () => {
     const passwordChk = e.target.value;
     setPasswordChk(passwordChk);
   };
+  //연락처 체크
+  const handlePhone = (e, target) => {
+    const value = e.target.value;
+    if (target === "tel1" && value.length === 3) {
+      document.getElementById("tel2").focus();
+    } else if (target === "tel2" && value.length === 4) {
+      document.getElementById("tel3").focus();
+    } else if (target === "tel3" && value.length === 4) {
+      // 이 부분에서는 다음 입력란이 없으므로 추가적인 동작이 필요하지 않습니다.
+    }
+
+    if (target === "tel1") {
+      setTel1(value);
+    } else if (target === "tel2") {
+      setTel2(value);
+    } else if (target === "tel3") {
+      setTel3(value);
+    }
+  };
   //이메일 체크
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -74,6 +97,10 @@ const Register = () => {
       setDomainInput(false);
       setDomain(selectedValue);
     }
+  };
+  //약관동의 체크
+  const handleAgreeTerms = (e) => {
+    setAgreeTerms(e.target.checked);
   };
 
   const handleSubmit = async () => {
@@ -98,11 +125,39 @@ const Register = () => {
         passwordChkInput.focus();
       }
       return;
+    } else if (category1 === "") {
+      alert("분류1을 입력해주세요.");
+      const category1Input = document.getElementById("user_category1");
+      if (category1Input) {
+        category1Input.focus();
+      }
+      return;
+    } else if (category2 === "") {
+      alert("분류2을 입력해주세요.");
+      const category2Input = document.getElementById("user_category2");
+      if (category2Input) {
+        category2Input.focus();
+      }
+      return;
+    } else if (branch === "") {
+      alert("지점을 입력해주세요.");
+      const branchInput = document.getElementById("user_branch");
+      if (branchInput) {
+        branchInput.focus();
+      }
+      return;
     } else if (manager === "") {
       alert("이름을 입력해주세요.");
       const managerInput = document.getElementById("user_manager");
       if (managerInput) {
         managerInput.focus();
+      }
+      return;
+    } else if (tel1 === "" || tel2 === "" || tel3 === "") {
+      alert("연락처를 입력해주세요.");
+      const phoneInput = document.getElementById("user_phone");
+      if (phoneInput) {
+        phoneInput.focus();
       }
       return;
     } else if (email === "") {
@@ -119,7 +174,15 @@ const Register = () => {
         domainInput.focus();
       }
       return;
+    } else if (agreeTerms === false) {
+      alert("약관에 동의해주세요.");
+      const agreeTermsInput = document.getElementById("user_agreeTerms");
+      if (agreeTermsInput) {
+        agreeTermsInput.focus();
+      }
+      return;
     }
+
     // 비밀번호 유효성검사 실패 시 리턴
     if (!regexMessage) {
       alert("비밀번호를 다시 입력해주세요.");
@@ -130,13 +193,17 @@ const Register = () => {
       return;
     }
 
+    // 입력값 + 도메인 = asd@asd.com
     const totalEmail = `${email}@${domain}`;
+    const totalPhone = `${tel1}-${tel2}-${tel3}`;
 
     Axios.post("http://localhost:3001/api/post/register", {
       id,
       password,
       manager,
-      affiliation,
+      totalPhone,
+      category1,
+      category2,
       branch,
       totalEmail,
       agreeTerms,
@@ -170,7 +237,10 @@ const Register = () => {
               className="register_input"
             />
             {idChk !== "" && (
-              <div className="confirm_msg" style={{ color: idChk ? "#007bff" : "red" }}>
+              <div
+                className="confirm_msg"
+                style={{ color: idChk ? "#007bff" : "red" }}
+              >
                 {idChk
                   ? "사용가능한 아이디입니다."
                   : "이미 존재하는 아이디입니다."}
@@ -190,7 +260,10 @@ const Register = () => {
             {password && (
               <div>
                 {regexMessage !== "" && (
-                  <div className="confirm_msg" style={{ color: regexMessage ? "#007bff" : "red" }}>
+                  <div
+                    className="confirm_msg"
+                    style={{ color: regexMessage ? "#007bff" : "red" }}
+                  >
                     {regexMessage
                       ? "사용 가능한 비밀번호입니다."
                       : "비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다."}
@@ -210,7 +283,8 @@ const Register = () => {
               className="register_input"
             />
             {passwordChk && (
-              <div className="confirm_msg"
+              <div
+                className="confirm_msg"
                 style={{
                   color: password === passwordChk ? "#007bff" : "red",
                 }}
@@ -222,30 +296,43 @@ const Register = () => {
             )}
           </div>
           <div className="input_row">
-            <div className="input_title">소속</div>
+            <div className="input_title">분류1</div>
             <select
-              value={affiliation}
-              onChange={(e) => setAffiliation(e.target.value)}
+              value={category1}
+              onChange={(e) => setCategory1(e.target.value)}
+              id="user_category1"
               className="register_select"
             >
-              <option value="">소속 선택</option>
-              <option value="company">Company</option>
-              <option value="school">School</option>
-              <option value="organization">Organization</option>
+              <option value="">분류1 선택</option>
+              <option value="분류1-1">분류1-1</option>
+              <option value="분류1-2">분류1-2</option>
+              <option value="분류1-3">분류1-3</option>
+            </select>
+          </div>
+          <div className="input_row">
+            <div className="input_title">분류2</div>
+            <select
+              value={category2}
+              onChange={(e) => setCategory2(e.target.value)}
+              id="user_category2"
+              className="register_select"
+            >
+              <option value="">분류2 선택</option>
+              <option value="분류2-1">분류2-1</option>
+              <option value="분류2-2">분류2-2</option>
+              <option value="분류2-3">분류2-3</option>
             </select>
           </div>
           <div className="input_row">
             <div className="input_title">지점</div>
-            <select
+            <input
+              type="text"
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
-              className="register_select"
-            >
-              <option value="">지점 선택</option>
-              <option value="branch1">Branch 1</option>
-              <option value="branch2">Branch 2</option>
-              <option value="branch3">Branch 3</option>
-            </select>
+              placeholder="지점을 입력해주세요."
+              id="user_branch"
+              className="register_input"
+            />
           </div>
           <div className="input_row">
             <div className="input_title">이름</div>
@@ -259,12 +346,41 @@ const Register = () => {
             />
           </div>
           <div className="input_row">
+            <div className="input_title">연락처</div>
+            <input
+              type="phone"
+              value={tel1}
+              onChange={(e) => handlePhone(e, "tel1")}
+              id="tel1"
+              maxlength="3"
+              className="register_input phone"
+            />
+            <p className="phone_icon">-</p>
+            <input
+              type="phone"
+              value={tel2}
+              onChange={(e) => handlePhone(e, "tel2")}
+              id="tel2"
+              maxlength="4"
+              className="register_input phone"
+            />
+            <p className="phone_icon">-</p>
+            <input
+              type="phone"
+              value={tel3}
+              onChange={(e) => handlePhone(e, "tel3")}
+              id="tel3"
+              maxlength="4"
+              className="register_input phone"
+            />
+          </div>
+          <div className="input_row">
             <div className="input_title">이메일</div>
             <input
               type="email"
-              id="user_email"
               value={email}
               onChange={handleEmail}
+              id="user_email"
               className="register_input email"
             />
             <p className="email_icon">@</p>
@@ -293,10 +409,11 @@ const Register = () => {
             <input
               type="checkbox"
               checked={agreeTerms}
-              onChange={(e) => setAgreeTerms(e.target.value)}
+              onChange={handleAgreeTerms}
+              id="user_agreeTerms"
               className="terms_checkbox"
             />
-            <label className="terms_label" htmlFor="agreeTerms">
+            <label className="terms_label" htmlFor="user_agreeTerms">
               약관에 동의합니다.
             </label>
           </div>

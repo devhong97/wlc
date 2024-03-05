@@ -319,7 +319,6 @@
           height: 50px;
           font-size: 20px;
           color: #fff;
-
         }
       }
     }
@@ -338,7 +337,7 @@
     margin: 0 auto;
 
     .tab_menu {
-      width: calc((100% - 20px)/2);
+      width: calc((100% - 20px) / 2);
       display: inline-block;
       margin-right: 20px;
       background-color: #fff;
@@ -432,6 +431,12 @@
           text-align: center;
         }
 
+        .phone_icon {
+          display: inline-block;
+          width: 20px;
+          text-align: center;
+        }
+
         .register_input {
           width: calc(100% - 150px);
           height: 40px;
@@ -445,6 +450,9 @@
 
           &.email {
             width: calc((100% - 180px) / 3);
+          }
+          &.phone {
+            width: calc((100% - 505px) / 3);
           }
         }
 
@@ -484,10 +492,10 @@
           &::after {
             position: absolute;
             content: "";
-            width: 7px;
+            width: 8px;
             height: 18px;
-            border-right: 2px solid #fff;
-            border-bottom: 2px solid #fff;
+            border-right: 3px solid #fff;
+            border-bottom: 3px solid #fff;
             top: 0;
             left: -31px;
             rotate: 45deg;
@@ -498,7 +506,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $sub-color;
         }
       }
