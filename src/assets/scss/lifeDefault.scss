@@ -402,6 +402,7 @@
 
     .register_container {
       padding: 50px 50px 0;
+      height: 100%;
 
       .input_row {
         padding: 0 0 30px;
@@ -451,6 +452,7 @@
           &.email {
             width: calc((100% - 180px) / 3);
           }
+
           &.phone {
             width: calc((100% - 505px) / 3);
           }
@@ -506,7 +508,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked + .terms_label::before {
+        .terms_checkbox:checked+.terms_label::before {
           background-color: $sub-color;
         }
       }

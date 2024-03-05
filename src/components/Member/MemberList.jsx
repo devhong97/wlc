@@ -1,18 +1,47 @@
 import React, { useState } from 'react';
 import MemberWriteModal from '../modal/MemberWriteModal';
 import MemberViewModal from '../modal/MemberViewModal';
+import { DataGrid } from '@mui/x-data-grid';
 
 const MemberList = () => {
     const [writeModal, setWriteModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [detailIdx, setDetailIdx] = useState("");
 
+    const commonProps = {
+        headerClassName: 'table_header',
+        cellClassName: 'table_cell',
+        width: "170"
+    };
+
+    const columns = [
+        { field: 'id', headerName: 'No', ...commonProps },
+        { field: 'name', headerName: '이름', ...commonProps },
+        { field: 'phone', headerName: '연락처', ...commonProps },
+        { field: 'date', headerName: '등록일', ...commonProps },
+        { field: 'pay', headerName: '완료커미션', ...commonProps },
+        { field: 'customer_num', headerName: '고객수', ...commonProps },
+        { field: 'hope_num', headerName: '상담희망수', ...commonProps },
+        { field: 'bank_num', headerName: '입금계좌', ...commonProps },
+    ];
+
+    const rows = [
+        { id: 1, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 2, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+    ];
+
+
     const writeModalOpen = () => {
         setWriteModal(!writeModal)
     }
-    const viewModalOpen = (idx) => {
+    const viewModalOpen = (data) => {
         setViewModal(!viewModal)
+
+        const idx = data.id
         setDetailIdx(idx)
+    }
+    const viewModalClose = () => {
+        setViewModal(false)
     }
 
     return (
@@ -45,52 +74,17 @@ const MemberList = () => {
                             <div className="title_btn" onClick={() => writeModalOpen()}>등록</div>
                         </div>
                         <div className="table_box">
-                            <table className="list_table">
-                                <tbody>
-                                    <tr className="table_header">
-                                        <th className="table_header_col ">No.</th>
-                                        <th className="table_header_col short_col">이름</th>
-                                        <th className="table_header_col">연락처</th>
-                                        <th className="table_header_col ">등록일</th>
-                                        <th className="table_header_col ">미지급 커미션</th>
-                                        <th className="table_header_col ">지급완료 커미션</th>
-                                        <th className="table_header_col short_col">누적회원현황</th>
-                                        <th className="table_header_col short_col">가입승인</th>
-                                        <th className="table_header_col short_col">-</th>
-                                    </tr>
-                                    <tr className="table_body">
-                                        <td className="table_col ">1</td>
-                                        <td className="table_col short_col pointer">유기홍</td>
-                                        <td className="table_col ">01012341234</td>
-                                        <td className="table_col ">24.02.28</td>
-                                        <td className="table_col ">5000</td>
-                                        <td className="table_col ">50000</td>
-                                        <td className="table_col short_col">120</td>
-                                        <td className="table_col short_col">
-                                            <div className='table_option_box'>
-                                                <div className='option_btn'>승인</div>
-                                            </div>
-                                        </td>
-                                        <td className="table_col short_col">
-                                            <div className='table_option_box'>
-                                                <div className='option_btn' onClick={() => viewModalOpen(1)}>수정</div>
-                                                <div className='option_btn del'>삭제</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {/* <tr
-                      className="table_header"
-                      style={{ backgroundColor: "#fff" }}
-                    >
-                      <td colSpan="7" style={{ textAlign: "center" }}>
-                        <p style={{ fontSize: 18, padding: 50 }}>
-                          [ 공지사항 ]
-                          <br /> 검색 결과가 없습니다.
-                        </p>
-                      </td>
-                    </tr> */}
-                                </tbody>
-                            </table>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                // disableColumnMenu
+                                onRowSelectionModelChange={(newSelectionModel) => {
+                                    const selectedIDs = new Set(newSelectionModel);
+                                    const selectedRows = rows.filter((r) => selectedIDs.has(r.id));
+                                    viewModalOpen(selectedRows[0]);
+                                }}
+
+                            />
                         </div>
                     </div>
                     <div className="pagination_box">
@@ -103,7 +97,7 @@ const MemberList = () => {
                 </div>
             </div>
             {writeModal && <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>}
-            {viewModal && <MemberViewModal closeModal={viewModalOpen} detailIdx={detailIdx}></MemberViewModal>}
+            {viewModal && <MemberViewModal closeModal={viewModalClose} detailIdx={detailIdx}></MemberViewModal>}
         </div>
     );
 };
