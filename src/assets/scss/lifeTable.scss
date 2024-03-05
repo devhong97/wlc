@@ -1295,3 +1295,20 @@
     }
   }
 }
+
+.table_header {
+  border-color: $main-color !important;
+  border-bottom: 2px solid $main-color;
+  border-top: 3px solid $main-color;
+  font-size: 18px;
+
+}
+
+.table_cell {
+  text-align: center;
+  border-color: $light-gray !important;
+}
+
+.table_box {
+  text-align: center;
+}
