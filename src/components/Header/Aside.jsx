@@ -24,21 +24,23 @@ const Aside = () => {
     }
   };
   const movePage = (path) => {
-    navigate(path)
+    navigate(path);
     if (isOpen) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
     if (subOpen) {
-      setSubOpen(false)
+      setSubOpen(false);
     }
-  }
+  };
   return (
     <div className="side_wrap">
       <div className="side_back">
         <div className={`side_menu_back ${isOpen ? "active" : ""}`}>
           <div className="side_top_box" onClick={() => openSide()}>
             <div className="top_icon"></div>
-            <div className="top_text" onClick={() => movePage("/")}>WLC</div>
+            <div className="top_text" onClick={() => movePage("/")}>
+              WLC
+            </div>
           </div>
           <div className="side_menu_box">
             <div className="menu_row" onClick={() => openSub(1)}>
@@ -47,13 +49,20 @@ const Aside = () => {
                 <div className="menu_text">영업관리</div>
               </div>
               <div className={`sub_menu_box ${subOpen === 1 && "active"}`}>
-                <div className="sub_menu" onClick={() => movePage("/branch")}>지점관리</div>
-                <div className="sub_menu" onClick={() => movePage("/member")}>직원관리</div>
+                <div className="sub_menu" onClick={() => movePage("/branch")}>
+                  지점관리
+                </div>
+                <div className="sub_menu" onClick={() => movePage("/member")}>
+                  직원관리
+                </div>
               </div>
             </div>
 
             <div className="menu_row">
-              <div className="main_menu_box" onClick={() => movePage("/customer")}>
+              <div
+                className="main_menu_box"
+                onClick={() => movePage("/customer")}
+              >
                 <div className="menu_icon second"></div>
                 <div className="menu_text">고객관리</div>
               </div>
@@ -61,7 +70,7 @@ const Aside = () => {
             <div className="menu_row">
               <div className="main_menu_box" onClick={() => movePage("/sales")}>
                 <div className="menu_icon third"></div>
-                <div className="menu_text">매출관리</div>
+                <div className="menu_text">실적관리</div>
               </div>
             </div>
             <div className="menu_row logout">
