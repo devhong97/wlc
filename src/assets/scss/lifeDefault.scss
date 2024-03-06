@@ -449,6 +449,10 @@
           font-size: 15px;
           color: $deep-gray;
 
+          &.tel {
+            width: calc(100% - 250px);
+          }
+
           &.email {
             width: calc((100% - 180px) / 3);
           }
@@ -456,6 +460,18 @@
           &.phone {
             width: calc((100% - 505px) / 3);
           }
+        }
+
+        .verified {
+          display: inline-block;
+          padding: 5px 10px;
+          margin-left: 18px;
+          background-color: $sub-color;
+          border-radius: 20px;
+          font-family: "Pretendard_bb";
+          border: 3px solid $sub-color;
+          cursor: pointer;
+          color: #fff;
         }
 
         .register_select {
@@ -508,7 +524,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $sub-color;
         }
       }

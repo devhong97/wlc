@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
-  const { login } = useAuth(); // 로그인 시 데이터
+  const { login, decodeS4 } = useAuth(); // 로그인 시 데이터
   const [id, setId] = useState(""); // 로그인 시 ID
   const [password, setPassword] = useState(""); // 비밀번호
   const idInputRef = useRef(null); // ID input 위치
@@ -47,7 +48,10 @@ const Login = () => {
         login(S1, S2, S3, S4, S5); //서버에서 생성된 S1 ~ S5 토큰값 context에 저장
         alert(`[ ${id} ]님 환영합니다.`);
       } else {
-        alert("아이디 또는 비밀번호를 확인해주세요.");
+        //로그인실패 시 false일 때 조건(서버에존재)에 따라 메세지출력
+        if (res.data.success === false) {
+          alert(res.data.message);
+        }
         setId("");
         setPassword("");
         if (idInputRef.current) {
