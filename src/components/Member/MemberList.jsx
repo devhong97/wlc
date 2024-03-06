@@ -11,11 +11,12 @@ const MemberList = () => {
     const commonProps = {
         headerClassName: 'table_header',
         cellClassName: 'table_cell',
-        width: "170"
+        width: "200",
+        headerAlign: 'center',
     };
 
     const columns = [
-        { field: 'id', headerName: 'No', ...commonProps },
+        { field: 'id', headerName: 'No', ...commonProps, width: "50" },
         { field: 'name', headerName: '이름', ...commonProps },
         { field: 'phone', headerName: '연락처', ...commonProps },
         { field: 'date', headerName: '등록일', ...commonProps },
@@ -28,6 +29,33 @@ const MemberList = () => {
     const rows = [
         { id: 1, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
         { id: 2, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 3, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 4, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 5, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 6, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 7, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 8, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 9, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 10, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 11, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 12, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 13, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 14, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 15, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 16, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 17, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 18, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 19, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 20, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 21, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 22, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 23, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 24, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 25, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 26, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+        { id: 27, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
+        { id: 28, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
+
     ];
 
 
@@ -77,23 +105,26 @@ const MemberList = () => {
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                // disableColumnMenu
+                                disableColumnMenu
                                 onRowSelectionModelChange={(newSelectionModel) => {
                                     const selectedIDs = new Set(newSelectionModel);
                                     const selectedRows = rows.filter((r) => selectedIDs.has(r.id));
                                     viewModalOpen(selectedRows[0]);
                                 }}
-
+                                initialState={{
+                                    pagination: { paginationModel: { pageSize: 10 } },
+                                }}
+                                pageSizeOptions={[10, 50, 100]}
                             />
                         </div>
                     </div>
-                    <div className="pagination_box">
+                    {/* <div className="pagination_box">
                         <button>{`<<`}</button>
                         <button>{`<`}</button>
                         <button>1</button>
                         <button>{`>`}</button>
                         <button>{`>>`}</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {writeModal && <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>}
