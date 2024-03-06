@@ -6,7 +6,7 @@ const Register = () => {
   const [id, setId] = useState(""); // 아이디
   const [password, setPassword] = useState(""); //비밀번호
   const [passwordChk, setPasswordChk] = useState(""); //비밀번호 체크
-  const [manager, setManager] = useState(""); // 이름
+  const [name, setName] = useState(""); // 이름
   const [category1, setCategory1] = useState(""); // 분류1
   const [category2, setCategory2] = useState(""); // 분류2
   const [branch, setBranch] = useState(""); // 지점
@@ -72,7 +72,6 @@ const Register = () => {
     } else if (target === "tel2" && value.length === 4) {
       document.getElementById("tel3").focus();
     } else if (target === "tel3" && value.length === 4) {
-      // 이 부분에서는 다음 입력란이 없으므로 추가적인 동작이 필요하지 않습니다.
     }
 
     if (target === "tel1") {
@@ -146,11 +145,11 @@ const Register = () => {
         branchInput.focus();
       }
       return;
-    } else if (manager === "") {
+    } else if (name === "") {
       alert("이름을 입력해주세요.");
-      const managerInput = document.getElementById("user_manager");
-      if (managerInput) {
-        managerInput.focus();
+      const nameInput = document.getElementById("user_name");
+      if (nameInput) {
+        nameInput.focus();
       }
       return;
     } else if (tel1 === "" || tel2 === "" || tel3 === "") {
@@ -200,7 +199,7 @@ const Register = () => {
     Axios.post("http://localhost:3001/api/post/register", {
       id,
       password,
-      manager,
+      name,
       totalPhone,
       category1,
       category2,
@@ -210,7 +209,9 @@ const Register = () => {
     })
       .then((res) => {
         console.log(res.data);
-        alert(`${manager}님 회원가입이 완료되었습니다.`);
+        alert(
+          `[${name}]님 회원가입신청이 완료되었습니다.\n지점장 승인 후 로그인이 가능합니다.`
+        );
         navigate("/");
       })
       .catch((err) => {
@@ -338,9 +339,9 @@ const Register = () => {
             <div className="input_title">이름</div>
             <input
               type="text"
-              id="user_manager"
-              value={manager}
-              onChange={(e) => setManager(e.target.value)}
+              id="user_name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="이름을 입력해주세요."
               className="register_input"
             />
