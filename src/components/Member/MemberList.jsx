@@ -7,8 +7,15 @@ const MemberList = () => {
     const [writeModal, setWriteModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [detailIdx, setDetailIdx] = useState("");
+    const [tab, setTab] = useState(1)
 
+    useEffect(() => {
+        getBoard(tab);
+    }, [tab])
 
+    const getBoard = (tab) => {
+        //tab 실어서 데이터 호출
+    }
     const columns = [
         { field: 'id', headerName: 'No', width: "50" },
         { field: 'name', headerName: '이름', },
@@ -52,8 +59,16 @@ const MemberList = () => {
                 <div className='main_title_box'>
                     직원 관리
                 </div>
+                <div className='tab_area'>
+                    <div className='tab_back'>
+                        <div className={`tab_menu ${tab === 1 && "active"}`} onClick={() => setTab(1)}>승인 사원</div>
+                        <div className={`tab_menu ${tab === 2 && "active"}`} onClick={() => setTab(2)}>미승인 사원</div>
+                    </div>
+                </div>
                 <div className="board_list_wrap">
+
                     <div className="list_area">
+
                         <div className="search_box">
                             <div className="search_select">
                                 <select className="list_select">

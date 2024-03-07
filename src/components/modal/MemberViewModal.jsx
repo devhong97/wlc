@@ -32,15 +32,20 @@ const MemberViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
+                                    가입일
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>24.02.28</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
                                     아이디<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
+                                    <div className='table_inner_text'></div>
                                 </div>
                             </div>
                         </div>
@@ -92,14 +97,60 @@ const MemberViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    소속<p className="title_point">*</p>
+                                    연락처<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
+                                    입금계좌<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류1<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
                                     <select
                                         name="affiliation"
                                         className="table_select"
                                     >
-                                        <option value="">지역 선택</option>
+                                        <option value="">선택</option>
+                                        <option value="company">Company</option>
+                                        <option value="school">School</option>
+                                        <option value="organization">Organization</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류2<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <select
+                                        name="affiliation"
+                                        className="table_select"
+                                    >
+                                        <option value="">선택</option>
                                         <option value="company">Company</option>
                                         <option value="school">School</option>
                                         <option value="organization">Organization</option>
@@ -110,14 +161,14 @@ const MemberViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    지점<p className="title_point">*</p>
+                                    지점명<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
                                     <select
                                         name="affiliation"
                                         className="table_select"
                                     >
-                                        <option value="">지역 선택</option>
+                                        <option value="">선택</option>
                                         <option value="company">Company</option>
                                         <option value="school">School</option>
                                         <option value="organization">Organization</option>
@@ -125,6 +176,26 @@ const MemberViewModal = (props) => {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    고객수
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>10</div>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    상담희망수
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>0</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div className="modal_footer_box">

@@ -29,7 +29,7 @@ const TableDefault = (props) => {
                 onRowSelectionModelChange={(newSelectionModel) => {
                     const selectedIDs = new Set(newSelectionModel);
                     const selectedRows = tableRows.filter((r) => selectedIDs.has(r.id));
-                    props.viewModalOpen(selectedRows[0]);
+                    props.viewModalOpen(newSelectionModel);
                 }}
                 initialState={{
                     pagination: { paginationModel: { pageSize: 10 } },

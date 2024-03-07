@@ -43,6 +43,40 @@ const BranchViewModal = (props) => {
                     </div>
                     <div className="table_box">
                         <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류1<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <select
+                                        name="affiliation"
+                                        className="table_select"
+                                    >
+                                        <option value="">선택</option>
+                                        <option value="company">Company</option>
+                                        <option value="school">School</option>
+                                        <option value="organization">Organization</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류2<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <select
+                                        name="affiliation"
+                                        className="table_select"
+                                    >
+                                        <option value="">선택</option>
+                                        <option value="company">Company</option>
+                                        <option value="school">School</option>
+                                        <option value="organization">Organization</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
                                     지점명<p className="title_point">*</p>
@@ -57,24 +91,6 @@ const BranchViewModal = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    종류<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <select
-                                        name="affiliation"
-                                        className="table_select"
-                                    >
-                                        <option value="">종류 선택</option>
-                                        <option value="company">Company</option>
-                                        <option value="school">School</option>
-                                        <option value="organization">Organization</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
                         <div className="table_row">
                             <div className="table_section">
@@ -86,7 +102,16 @@ const BranchViewModal = (props) => {
                                         name="affiliation"
                                         className="table_select"
                                     >
-                                        <option value="">지역 선택</option>
+                                        <option value="">지역(시)</option>
+                                        <option value="company">Company</option>
+                                        <option value="school">School</option>
+                                        <option value="organization">Organization</option>
+                                    </select>
+                                    <select
+                                        name="affiliation"
+                                        className="table_select"
+                                    >
+                                        <option value="">지역(도)</option>
                                         <option value="company">Company</option>
                                         <option value="school">School</option>
                                         <option value="organization">Organization</option>
@@ -97,7 +122,7 @@ const BranchViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    생성일<p className="title_point">*</p>
+                                    생성일
                                 </div>
                                 <div className="table_contents w100">
                                     <div className='table_inner_text'>24.02.28</div>
@@ -107,11 +132,41 @@ const BranchViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    지점장<p className="title_point">*</p>
+                                    지점장
                                 </div>
                                 <div className="table_contents w100">
                                     <div className='table_inner_text'>{selectName}</div>
                                     <div className='table_inner_btn' onClick={() => listModalOpen()}>선택</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
+                                    사원수
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>100</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
+                                    고객수
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>10</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
+                                    상담희망수
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_inner_text'>100</div>
                                 </div>
                             </div>
                         </div>

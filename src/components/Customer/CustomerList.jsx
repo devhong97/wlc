@@ -1,12 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import CustomerViewModal from '../modal/CustomerViewModal';
-
+import TableDefault from '../Table/TableDefault';
+import {
+    GridActionsCellItem,
+} from '@mui/x-data-grid';
 const CustomerList = () => {
     const [viewModal, setViewModal] = useState(false);
     const [detailIdx, setDetailIdx] = useState("");
+
+    const columns = [
+        { field: 'id', headerName: 'No', width: "50" },
+        { field: 'name', headerName: '이름', width: "100" },
+        { field: 'phone', headerName: '연락처', width: "150" },
+        { field: 'date', headerName: '가입일', width: "100" },
+        { field: 'product', headerName: '상품명', },
+        { field: 'hospital', headerName: '병원', },
+        { field: 'hope_date_1', headerName: '희망일1', width: "100" },
+        { field: 'hope_date_2', headerName: '희망일2', width: "100" },
+        { field: 'result_date', headerName: '확정일', width: "100" },
+        { field: 'status', headerName: '검진유무', width: "100" },
+        { field: 'pay_status', headerName: '입금여부', width: "100" },
+        { field: 'hope_status', headerName: '상담희망', width: "100" },
+        {
+            field: 'send', headerName: '문자전송', width: "100", type: 'actions',
+            renderCell: (params) => (
+                <div className='list_inner_btn' onClick={() => sendMsg(params.row)}>
+                    확인
+                </div>
+            )
+        }
+    ]
+
+    const rows = [
+        {
+            id: 1, name: '유기홍', phone: "01012341234", date: "24.03.05",
+            product: "vip상품", hospital: "천안병원", hope_date_1: "24.03.05", hope_date_2: "24.03.06",
+            status: "N", pay_status: "Y", hope_status: "Y", result_date: "24.03.05"
+        },
+    ];
     const viewModalOpen = (idx) => {
         setViewModal(!viewModal)
         setDetailIdx(idx)
+    }
+    const viewModalClose = () => {
+        setViewModal(false)
+    }
+    const sendMsg = (data) => {
+        alert(data.id)
     }
     return (
         <div className="main_wrap">
@@ -37,62 +77,8 @@ const CustomerList = () => {
                             </div>
                             {/* <div className="title_btn">등록</div> */}
                         </div>
-                        <div className="table_box">
-                            <table className="list_table">
-                                <tbody>
-                                    <tr className="table_header">
-                                        <th className="table_header_col ">No.</th>
-                                        <th className="table_header_col ">이름</th>
-                                        <th className="table_header_col">연락처</th>
-                                        <th className="table_header_col ">가입일</th>
-                                        <th className="table_header_col ">영업자</th>
-                                        <th className="table_header_col ">상품명</th>
-                                        <th className="table_header_col ">병원</th>
-                                        <th className="table_header_col ">희망일1</th>
-                                        <th className="table_header_col ">희망일2</th>
-                                        <th className="table_header_col ">검진유무</th>
-                                        <th className="table_header_col ">상담희망</th>
-
-                                        <th className="table_header_col ">커미션승인</th>
-
-                                        <th className="table_header_col ">문자전송</th>
-                                    </tr>
-                                    <tr className="table_body">
-                                        <td className="table_col ">1</td>
-                                        <td className="table_col  pointer" onClick={() => viewModalOpen(1)}>유기홍</td>
-                                        <td className="table_col ">01012341234</td>
-                                        <td className="table_col ">24.02.28</td>
-                                        <td className="table_col ">고상우</td>
-                                        <td className="table_col ">vip패키지</td>
-                                        <td className="table_col ">델미병원</td>
-                                        <td className="table_col ">24.03.25</td>
-                                        <td className="table_col ">24.03.30</td>
-                                        <td className="table_col ">Y</td>
-                                        <td className="table_col ">N</td>
-                                        <td className="table_col ">
-                                            <div className='table_option_box'>
-                                                <div className='option_btn'>승인</div>
-                                            </div>
-                                        </td>
-                                        <td className="table_col ">
-                                            <div className='table_option_box'>
-                                                <div className='option_btn'>전송</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {/* <tr
-                  className="table_header"
-                  style={{ backgroundColor: "#fff" }}
-                >
-                  <td colSpan="7" style={{ textAlign: "center" }}>
-                    <p style={{ fontSize: 18, padding: 50 }}>
-                      [ 공지사항 ]
-                      <br /> 검색 결과가 없습니다.
-                    </p>
-                  </td>
-                </tr> */}
-                                </tbody>
-                            </table>
+                        <div className="table_box list">
+                            <TableDefault rows={rows} columns={columns} viewModalOpen={viewModalOpen}></TableDefault>
                         </div>
                     </div>
                     <div className="pagination_box">
