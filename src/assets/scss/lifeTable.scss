@@ -508,7 +508,11 @@
 
 .table_box {
   width: 100%;
-  height: 750px;
+
+  &.list {
+    height: 750px;
+  }
+
 
   .list_table {
     width: 100%;
@@ -1320,4 +1324,8 @@
 
 .css-az8st9-MuiDataGrid-root .MuiDataGrid-cell--textLeft {
   justify-content: center !important;
+}
+
+.css-de9k3v-MuiDataGrid-selectedRowCount {
+  display: none !important;
 }

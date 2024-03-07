@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BranchWriteModal from "../modal/BranchWriteModal";
 import BranchViewModal from "../modal/BranchViewModal";
-
+import TableDefault from '../Table/TableDefault';
 const BranchList = () => {
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
