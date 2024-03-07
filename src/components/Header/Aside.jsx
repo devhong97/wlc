@@ -53,7 +53,7 @@ const Aside = () => {
                   지점관리
                 </div>
                 <div className="sub_menu" onClick={() => movePage("/member")}>
-                  직원관리
+                  사원관리
                 </div>
               </div>
             </div>
@@ -68,9 +68,21 @@ const Aside = () => {
               </div>
             </div>
             <div className="menu_row">
+              <div className="main_menu_box" onClick={() => movePage("/commission")}>
+                < div className="menu_icon third" ></div>
+                <div className="menu_text">커미션관리</div>
+              </div>
+            </div>
+            <div className="menu_row">
               <div className="main_menu_box" onClick={() => movePage("/sales")}>
                 <div className="menu_icon third"></div>
                 <div className="menu_text">실적관리</div>
+              </div>
+            </div>
+            <div className="menu_row">
+              <div className="main_menu_box" onClick={() => movePage("/notice")}>
+                <div className="menu_icon third"></div>
+                <div className="menu_text">설정</div>
               </div>
             </div>
             <div className="menu_row logout">
@@ -80,8 +92,8 @@ const Aside = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

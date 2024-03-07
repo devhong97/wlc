@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MemberWriteModal from '../modal/MemberWriteModal';
 import MemberViewModal from '../modal/MemberViewModal';
-import { DataGrid } from '@mui/x-data-grid';
+import TableDefault from '../Table/TableDefault';
 
 const MemberList = () => {
     const [writeModal, setWriteModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [detailIdx, setDetailIdx] = useState("");
+    const [tab, setTab] = useState(1)
 
-    const commonProps = {
-        headerClassName: 'table_header',
-        cellClassName: 'table_cell',
-        width: "200",
-        headerAlign: 'center',
-    };
+    useEffect(() => {
+        getBoard(tab);
+    }, [tab])
 
+    const getBoard = (tab) => {
+        //tab 실어서 데이터 호출
+    }
     const columns = [
-        { field: 'id', headerName: 'No', ...commonProps, width: "50" },
-        { field: 'name', headerName: '이름', ...commonProps },
-        { field: 'phone', headerName: '연락처', ...commonProps },
-        { field: 'date', headerName: '등록일', ...commonProps },
-        { field: 'pay', headerName: '완료커미션', ...commonProps },
-        { field: 'customer_num', headerName: '고객수', ...commonProps },
-        { field: 'hope_num', headerName: '상담희망수', ...commonProps },
-        { field: 'bank_num', headerName: '입금계좌', ...commonProps },
+        { field: 'id', headerName: 'No', width: "50" },
+        { field: 'name', headerName: '이름', },
+        { field: 'phone', headerName: '연락처', },
+        { field: 'date', headerName: '등록일', },
+        { field: 'pay', headerName: '완료커미션', },
+        { field: 'customer_num', headerName: '고객수', },
+        { field: 'hope_num', headerName: '상담희망수', },
+        { field: 'bank_num', headerName: '입금계좌', },
     ];
 
     const rows = [
@@ -36,26 +37,6 @@ const MemberList = () => {
         { id: 7, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
         { id: 8, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
         { id: 9, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 10, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 11, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 12, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 13, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 14, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 15, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 16, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 17, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 18, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 19, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 20, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 21, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 22, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 23, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 24, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 25, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 26, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-        { id: 27, name: '유기홍', phone: "01012341234", date: "24.03.05", pay: 4000000, customer_num: 100, hope_num: 35, bank_num: '신한 123456789' },
-        { id: 28, name: '이솔미', phone: "01078945678", date: "24.03.04", pay: 500000, customer_num: 50, hope_num: 5, bank_num: '신한 125684589' },
-
     ];
 
 
@@ -78,8 +59,16 @@ const MemberList = () => {
                 <div className='main_title_box'>
                     직원 관리
                 </div>
+                <div className='tab_area'>
+                    <div className='tab_back'>
+                        <div className={`tab_menu ${tab === 1 && "active"}`} onClick={() => setTab(1)}>승인 사원</div>
+                        <div className={`tab_menu ${tab === 2 && "active"}`} onClick={() => setTab(2)}>미승인 사원</div>
+                    </div>
+                </div>
                 <div className="board_list_wrap">
+
                     <div className="list_area">
+
                         <div className="search_box">
                             <div className="search_select">
                                 <select className="list_select">
@@ -101,21 +90,8 @@ const MemberList = () => {
                             </div>
                             <div className="title_btn" onClick={() => writeModalOpen()}>등록</div>
                         </div>
-                        <div className="table_box">
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                disableColumnMenu
-                                onRowSelectionModelChange={(newSelectionModel) => {
-                                    const selectedIDs = new Set(newSelectionModel);
-                                    const selectedRows = rows.filter((r) => selectedIDs.has(r.id));
-                                    viewModalOpen(selectedRows[0]);
-                                }}
-                                initialState={{
-                                    pagination: { paginationModel: { pageSize: 10 } },
-                                }}
-                                pageSizeOptions={[10, 50, 100]}
-                            />
+                        <div className="table_box list">
+                            <TableDefault rows={rows} columns={columns} viewModalOpen={viewModalOpen}></TableDefault>
                         </div>
                     </div>
                     {/* <div className="pagination_box">

@@ -81,14 +81,60 @@ const MemberWriteModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    소속<p className="title_point">*</p>
+                                    연락처<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">
+                                    입금계좌<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류1<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
                                     <select
                                         name="affiliation"
                                         className="table_select"
                                     >
-                                        <option value="">지역 선택</option>
+                                        <option value="">선택</option>
+                                        <option value="company">Company</option>
+                                        <option value="school">School</option>
+                                        <option value="organization">Organization</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    분류2<p className="title_point">*</p>
+                                </div>
+                                <div className="table_contents w100">
+                                    <select
+                                        name="affiliation"
+                                        className="table_select"
+                                    >
+                                        <option value="">선택</option>
                                         <option value="company">Company</option>
                                         <option value="school">School</option>
                                         <option value="organization">Organization</option>
@@ -99,14 +145,14 @@ const MemberWriteModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    지점<p className="title_point">*</p>
+                                    지점명<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
                                     <select
                                         name="affiliation"
                                         className="table_select"
                                     >
-                                        <option value="">지역 선택</option>
+                                        <option value="">선택</option>
                                         <option value="company">Company</option>
                                         <option value="school">School</option>
                                         <option value="organization">Organization</option>
