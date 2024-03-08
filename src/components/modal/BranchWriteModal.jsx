@@ -4,7 +4,7 @@ const BranchWriteModal = (props) => {
   const clearModal = () => {
     props.closeModal();
   };
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -18,7 +18,7 @@ const BranchWriteModal = (props) => {
 
           <div className="table_box">
             <div className="table_row">
-              <div className="table_section">
+              <div className="table_section half">
                 <div className="table_title">
                   분류1<p className="title_point">*</p>
                 </div>
@@ -31,9 +31,7 @@ const BranchWriteModal = (props) => {
                   </select>
                 </div>
               </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
+              <div className="table_section half">
                 <div className="table_title">
                   분류2<p className="title_point">*</p>
                 </div>
@@ -47,6 +45,7 @@ const BranchWriteModal = (props) => {
                 </div>
               </div>
             </div>
+
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
@@ -69,23 +68,20 @@ const BranchWriteModal = (props) => {
                   지역<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <select name="affiliation" className="table_select">
-                    <option value="">지역 선택</option>
+                  <select
+                    name="affiliation"
+                    className="table_select"
+                  >
+                    <option value="">지역(시)</option>
                     <option value="company">Company</option>
                     <option value="school">School</option>
                     <option value="organization">Organization</option>
                   </select>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  지역<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select name="affiliation" className="table_select">
-                    <option value="">지역 선택</option>
+                  <select
+                    name="affiliation"
+                    className="table_select"
+                  >
+                    <option value="">지역(도)</option>
                     <option value="company">Company</option>
                     <option value="school">School</option>
                     <option value="organization">Organization</option>

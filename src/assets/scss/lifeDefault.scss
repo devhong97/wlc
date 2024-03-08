@@ -20,27 +20,28 @@
 
     .side_back {
       height: 100%;
-      background-color: #dbdbdb;
+      background-color: #e9e8e8;
+      border-right: 1px solid #c6c6c6;
 
       .side_menu_back {
-        width: 50px;
+        width: 60px;
         height: 100%;
         transition: all 500ms cubic-bezier(0.9, 0, 0.33, 1);
         overflow: hidden;
 
         &.active {
-          width: 150px;
+          width: 180px;
         }
       }
 
       .side_top_box {
         height: 50px;
         width: 150px;
-        padding-top: 10px;
+        padding-top: 20px;
         cursor: pointer;
 
         .top_icon {
-          @include background_set(50px, 40px, contain);
+          @include background_set(50px, 45px, contain);
           background-image: url("../img/logo_img.png");
           display: inline-block;
           vertical-align: middle;
@@ -49,7 +50,8 @@
         .top_text {
           display: inline-block;
           vertical-align: middle;
-          padding-left: 20px;
+          padding-left: 10px;
+          font-size: 17px;
         }
       }
 
@@ -66,10 +68,14 @@
             position: fixed;
             bottom: 0;
           }
+          &.home {
+            position: fixed;
+            bottom: 50px;
+          }
 
           .main_menu_box {
             .menu_icon {
-              @include background_set(30px, 30px, contain);
+              @include background_set(40px, 30px, contain);
               background-image: url("../img/aside_3.png");
               display: inline-block;
               vertical-align: middle;
@@ -89,9 +95,14 @@
               padding-left: 10px;
               font-size: 18px;
             }
-
+            .home_icon {
+              @include background_set(40px, 30px, contain);
+              background-image: url("../img/home_icon.png");
+              display: inline-block;
+              vertical-align: middle;
+            }
             .logout_icon {
-              @include background_set(30px, 30px, contain);
+              @include background_set(40px, 30px, contain);
               background-image: url("../img/logout_icon.png");
               display: inline-block;
               vertical-align: middle;
@@ -109,7 +120,7 @@
             }
 
             .sub_menu {
-              padding-left: 40px;
+              padding-left: 50px;
               padding-bottom: 10px;
               font-size: 15px;
 
@@ -131,19 +142,20 @@
 }
 
 .header_wrap {
-  height: 30px;
+  height: 40px;
   background-color: #dbdbdb78;
   width: 100%;
+  border-bottom: 1px solid #c6c6c6;
 
   .header_back {
     padding: 0 50px;
 
     .header_info_box {
       width: 50%;
-      font-size: 13px;
+      font-size: 14px;
       display: inline-block;
       vertical-align: middle;
-      line-height: 27px;
+      line-height: 40px;
 
       .info_text {
         padding-right: 10px;
@@ -459,6 +471,11 @@
 
           &.phone {
             width: calc((100% - 505px) / 3);
+          }
+
+          &.bank {
+            margin-left: 15px;
+            width: calc((100% - 370px));
           }
         }
 

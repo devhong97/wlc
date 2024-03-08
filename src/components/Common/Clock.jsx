@@ -22,8 +22,7 @@ const Clock = () => {
 
   return (
     <div className="info_text">
-      {dateString}
-      {/* <span>접속자: {decodeS2()}</span> */}
+      {dateString}&nbsp; |{/* <span>접속자: {decodeS2()}</span> */}
     </div>
   );
 };

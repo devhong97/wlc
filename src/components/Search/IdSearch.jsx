@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const IdSearch = () => {
   const [name, setName] = useState("");
-  const [category1, setCategory1] = useState(""); // 분류1
-  const [category2, setCategory2] = useState(""); // 분류2
+  const [companyType, setCompanyType] = useState(""); // 회사종류
+  const [companyName, setCompanyName] = useState(""); // 회사명
   const [branch, setBranch] = useState(""); // 지점
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
@@ -41,18 +41,18 @@ const IdSearch = () => {
         nameInput.focus();
       }
       return;
-    } else if (category1 === "") {
+    } else if (companyType === "") {
       alert("분류1을 입력해주세요.");
-      const category1Input = document.getElementById("user_category1");
-      if (category1Input) {
-        category1Input.focus();
+      const companyTypeInput = document.getElementById("user_companyType");
+      if (companyTypeInput) {
+        companyTypeInput.focus();
       }
       return;
-    } else if (category2 === "") {
+    } else if (companyName === "") {
       alert("분류2을 입력해주세요.");
-      const category2Input = document.getElementById("user_category2");
-      if (category2Input) {
-        category2Input.focus();
+      const companyNameInput = document.getElementById("user_companyName");
+      if (companyNameInput) {
+        companyNameInput.focus();
       }
       return;
     } else if (branch === "") {
@@ -74,8 +74,8 @@ const IdSearch = () => {
     // id와 phone을 서버로 전송하는 요청
     Axios.post("http://localhost:3001/api/post/id_search", {
       name: name,
-      category1: category1,
-      category2: category2,
+      companyType: companyType,
+      companyName: companyName,
       branch: branch,
       phone: totalPhone,
     })
@@ -110,29 +110,29 @@ const IdSearch = () => {
       <div className="input_row">
         <div className="input_title">분류1</div>
         <select
-          value={category1}
-          onChange={(e) => setCategory1(e.target.value)}
-          id="user_category1"
+          value={companyType}
+          onChange={(e) => setCompanyType(e.target.value)}
+          id="user_companyType"
           className="register_select"
         >
-          <option value="">분류1 선택</option>
-          <option value="분류1-1">분류1-1</option>
-          <option value="분류1-2">분류1-2</option>
-          <option value="분류1-3">분류1-3</option>
+          <option value="">회사종류 선택</option>
+          <option value="보험사">보험사</option>
+          <option value="상조">상조</option>
+          <option value="무소속">무소속</option>
         </select>
       </div>
       <div className="input_row">
         <div className="input_title">분류2</div>
         <select
-          value={category2}
-          onChange={(e) => setCategory2(e.target.value)}
-          id="user_category2"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          id="user_companyName"
           className="register_select"
         >
-          <option value="">분류2 선택</option>
-          <option value="분류2-1">분류2-1</option>
-          <option value="분류2-2">분류2-2</option>
-          <option value="분류2-3">분류2-3</option>
+          <option value="">회사명 선택</option>
+          <option value="기홍에셋">기홍에셋</option>
+          <option value="기홍상조">기홍상조</option>
+          <option value="무소속">무소속</option>
         </select>
       </div>
       <div className="input_row">

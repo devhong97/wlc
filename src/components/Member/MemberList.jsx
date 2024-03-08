@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MemberWriteModal from "../modal/MemberWriteModal";
 import MemberViewModal from "../modal/MemberViewModal";
 import { DataGrid } from "@mui/x-data-grid";
+import Axios from "axios";
 
 const MemberList = () => {
   const [writeModal, setWriteModal] = useState(false);
@@ -16,8 +17,8 @@ const MemberList = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "No", ...commonProps, width: "50" },
-    { field: "name", headerName: "이름", ...commonProps },
+    { field: "id", headerName: "No.", ...commonProps, width: "50" },
+    { field: "name", headerName: "영업사원이름", ...commonProps },
     { field: "phone", headerName: "연락처", ...commonProps },
     { field: "date", headerName: "등록일", ...commonProps },
     { field: "pay", headerName: "완료커미션", ...commonProps },
@@ -25,6 +26,12 @@ const MemberList = () => {
     { field: "hope_num", headerName: "상담희망수", ...commonProps },
     { field: "bank_num", headerName: "입금계좌", ...commonProps },
   ];
+
+  Axios.get("http://localhost:3001/api/post/salesman")
+    .then((res) => {})
+    .catch((err) => {
+      console.log(err);
+    });
 
   const rows = [
     {
@@ -57,256 +64,6 @@ const MemberList = () => {
       hope_num: 35,
       bank_num: "신한 123456789",
     },
-    {
-      id: 4,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 5,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 6,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 7,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 8,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 9,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 10,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 11,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 12,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 13,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 14,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 15,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 16,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 17,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 18,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 19,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 20,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 21,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 22,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 23,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 24,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 25,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 26,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
-    {
-      id: 27,
-      name: "유기홍",
-      phone: "01012341234",
-      date: "24.03.05",
-      pay: 4000000,
-      customer_num: 100,
-      hope_num: 35,
-      bank_num: "신한 123456789",
-    },
-    {
-      id: 28,
-      name: "이솔미",
-      phone: "01078945678",
-      date: "24.03.04",
-      pay: 500000,
-      customer_num: 50,
-      hope_num: 5,
-      bank_num: "신한 125684589",
-    },
   ];
 
   const writeModalOpen = () => {
@@ -325,7 +82,7 @@ const MemberList = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">직원 관리</div>
+        <div className="main_title_box">영업사원관리</div>
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">

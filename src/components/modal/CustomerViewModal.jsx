@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 const CustomerViewModal = (props) => {
     const [detailNum, setDetailNum] = useState("");
+    const [inspectionStatus, setInspectionStatus] = useState("n")
+    const [hopeStatus, setHopeStatus] = useState("n")
+    const [payStatus, setPayStatus] = useState("n")
     useEffect(() => {
         if (props.detailIdx) {
             console.log(props.detailIdx);
@@ -18,6 +21,9 @@ const CustomerViewModal = (props) => {
     const handleSubmit = () => {
 
     }
+    const handleRadioChange = (event) => {
+        setInspectionStatus(event.target.value);
+    };
     return (
         <div className="modal_wrap">
             <div className="modal_back">
@@ -30,9 +36,68 @@ const CustomerViewModal = (props) => {
                     </div>
                     <div className="table_box">
                         <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    이름
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input w100"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    연락처
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input w100"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    가입일
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input w100"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    영업자
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input w100"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+
+                        </div>
+                        <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    이름<p className="title_point">*</p>
+                                    상품명
                                 </div>
                                 <div className="table_contents w100">
                                     <input
@@ -47,7 +112,35 @@ const CustomerViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    연락처<p className="title_point">*</p>
+                                    병원
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    희망일1
+                                </div>
+                                <div className="table_contents w100">
+                                    <input
+                                        className="table_input modal"
+                                        type="text"
+                                        id="title"
+                                        placeholder="지점명을 입력해주세요."
+                                    ></input>
+                                </div>
+                            </div>
+                            <div className="table_section half">
+                                <div className="table_title">
+                                    희망일2
                                 </div>
                                 <div className="table_contents w100">
                                     <input
@@ -62,7 +155,7 @@ const CustomerViewModal = (props) => {
                         <div className="table_row">
                             <div className="table_section">
                                 <div className="table_title">
-                                    가입일<p className="title_point">*</p>
+                                    검진확정일
                                 </div>
                                 <div className="table_contents w100">
                                     <input
@@ -75,122 +168,110 @@ const CustomerViewModal = (props) => {
                             </div>
                         </div>
                         <div className="table_row">
-                            <div className="table_section">
+                            <div className="table_section triple">
                                 <div className="table_title">
-                                    영업자<p className="title_point">*</p>
+                                    검진유무
                                 </div>
                                 <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="inspectionStatus"
+                                                value="y"
+                                                checked={inspectionStatus === 'y'}
+                                                onChange={(e) => setInspectionStatus(e.target.value)}
+                                            />
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="inspectionStatus"
+                                                value="n"
+                                                checked={inspectionStatus === 'n'}
+                                                onChange={(e) => setInspectionStatus(e.target.value)}
+                                            />
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="table_section triple">
+                                <div className="table_title">
+                                    상담희망
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="hopeStatus"
+                                                value="y"
+                                                checked={hopeStatus === 'y'}
+                                                onChange={(e) => setHopeStatus(e.target.value)}
+                                            />
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="hopeStatus"
+                                                value="n"
+                                                checked={hopeStatus === 'n'}
+                                                onChange={(e) => setHopeStatus(e.target.value)}
+                                            />
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="table_section triple">
+                                <div className="table_title">
+                                    입금유무
+                                </div>
+                                <div className="table_contents w100">
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="payStatus"
+                                                value="y"
+                                                checked={payStatus === 'y'}
+                                                onChange={(e) => setPayStatus(e.target.value)}
+                                            />
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div className='table_radio'>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="payStatus"
+                                                value="n"
+                                                checked={payStatus === 'n'}
+                                                onChange={(e) => setPayStatus(e.target.value)}
+                                            />
+                                            No
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="table_row">
                             <div className="table_section">
-                                <div className="table_title">
-                                    상품명<p className="title_point">*</p>
+                                <div className="table_title image">
+                                    비고
                                 </div>
                                 <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    병원<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    희망일1<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    희망일2<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    희망일3<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    검진유무<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="table_row">
-                            <div className="table_section">
-                                <div className="table_title">
-                                    상담희망<p className="title_point">*</p>
-                                </div>
-                                <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
+                                    <textarea
+                                        className="table_textarea"
+
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>

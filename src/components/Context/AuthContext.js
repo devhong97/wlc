@@ -118,6 +118,18 @@ export const AuthProvider = ({ children }) => {
   const decodeS4 = () => {
     try {
       if (grade) {
+        const decodeGrade = jwtDecode(grade).grade;
+        switch (decodeGrade) {
+          case 1: {
+            return "슈퍼관리자";
+          }
+          case 2: {
+            return "지점관리자";
+          }
+          case 3: {
+            return "영업사원";
+          }
+        }
         return jwtDecode(grade).grade;
       }
       return null;

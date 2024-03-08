@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from "react";
 import BranchWriteModal from "../modal/BranchWriteModal";
 import BranchViewModal from "../modal/BranchViewModal";
-
+import TableDefault from '../Table/TableDefault';
 const BranchList = () => {
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
+
+
+  const columns = [
+    { field: 'id', headerName: 'No', width: "50" },
+    { field: 'category', headerName: '종류', width: "100" },
+    { field: 'company_name', headerName: '회사명', },
+    { field: 'code', headerName: '지점코드', },
+    { field: 'name', headerName: '지점명', },
+    { field: 'manager_name', headerName: '지점장명', width: "100" },
+    { field: 'member_num', headerName: '사원수', width: "100" },
+    { field: 'address', headerName: '지역', width: "100" },
+    { field: 'date', headerName: '생성일' },
+    { field: 'customer_num', headerName: '고객수', width: "100" },
+    { field: 'hope_num', headerName: '상담희망수', width: "100" },
+  ];
+
+  const rows = [
+    {
+      id: 1, category: '보험사', company_name: "기홍컴퍼니", code: "lalsox22ma",
+      name: "천안본사", manager_name: "유기홍", member_num: 35, address: '충남 천안',
+      date: '24.03.07', customer_num: 100, hope_num: 35
+    },
+  ];
 
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
@@ -47,59 +70,8 @@ const BranchList = () => {
                 등록
               </div>
             </div>
-            <div className="table_box">
-              <table className="list_table">
-                <tbody>
-                  <tr className="table_header">
-                    <th className="table_header_col ">No.</th>
-                    <th className="table_header_col short_col">지점종류</th>
-                    <th className="table_header_col">회사명</th>
-                    <th className="table_header_col ">지점코드</th>
-                    <th className="table_header_col ">지점명</th>
-                    <th className="table_header_col ">지점장명</th>
-                    <th className="table_header_col short_col">영업사원수</th>
-                    <th className="table_header_col short_col">지역</th>
-                    <th className="table_header_col short_col">생성일</th>
-                    <th className="table_header_col short_col">가입회원수</th>
-                    <th className="table_header_col short_col">상담희망수</th>
-                  </tr>
-                  <tr className="table_body">
-                    <td className="table_col ">1</td>
-                    <td className="table_col short_col">보험사</td>
-                    <td className="table_col ">기홍컴퍼니</td>
-                    <td className="table_col ">lalsox22ma</td>
-                    <td className="table_col ">천안본사</td>
-                    <td className="table_col ">유기홍</td>
-                    <td className="table_col short_col">110</td>
-                    <td className="table_col short_col">충천남도 천안시</td>
-                    <td className="table_col short_col">2024-03-06</td>
-                    <td className="table_col short_col">450</td>
-                    <td className="table_col short_col">391</td>
-                    {/* <td className="table_col short_col">
-                      <div className="table_option_box">
-                        <div
-                          className="option_btn"
-                          onClick={() => viewModalOpen(1)}
-                        >
-                          수정
-                        </div>
-                        <div className="option_btn del">삭제</div>
-                      </div>
-                    </td> */}
-                  </tr>
-                  {/* <tr
-                      className="table_header"
-                      style={{ backgroundColor: "#fff" }}
-                    >
-                      <td colSpan="7" style={{ textAlign: "center" }}>
-                        <p style={{ fontSize: 18, padding: 50 }}>
-                          [ 공지사항 ]
-                          <br /> 검색 결과가 없습니다.
-                        </p>
-                      </td>
-                    </tr> */}
-                </tbody>
-              </table>
+            <div className="table_box list">
+              <TableDefault rows={rows} columns={columns} viewModalOpen={viewModalOpen}></TableDefault>
             </div>
           </div>
           <div className="pagination_box">

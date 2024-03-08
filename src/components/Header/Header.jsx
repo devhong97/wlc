@@ -5,30 +5,14 @@ import { useAuth } from "../Context/AuthContext";
 const Header = () => {
   const { decodeS1, decodeS2, decodeS3, decodeS4, decodeS5 } = useAuth();
 
-  const gradeText = (grade) => {
-    switch (grade) {
-      case "1": {
-        return "시스템관리자";
-      }
-      case "2": {
-        return "지점관리자";
-      }
-      case "3": {
-        return "영업직원";
-      }
-      default: {
-        return "";
-      }
-    }
-  };
   return (
     <div className="header_wrap">
       <div className="header_back">
         <div className="header_info_box left">
           <Clock></Clock>
+          <div className="info_text">{decodeS4()}&nbsp; |</div>
+          <div className="info_text">{decodeS3()}&nbsp; |</div>
           <div className="info_text">{decodeS2()}</div>
-          <div className="info_text">{decodeS3()}</div>
-          <div className="info_text">{gradeText(decodeS4())}</div>
         </div>
       </div>
     </div>
