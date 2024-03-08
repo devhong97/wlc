@@ -25,11 +25,12 @@ const BranchList = () => {
               <div className="search_select">
                 <select className="list_select">
                   <option>지점종류</option>
+                </select>
+                <select className="list_select">
                   <option>회사명</option>
-                  <option>지점코드</option>
+                </select>
+                <select className="list_select">
                   <option>지점명</option>
-                  <option>지점장명</option>
-                  <option>지역</option>
                 </select>
               </div>
               <div className="search_input">
