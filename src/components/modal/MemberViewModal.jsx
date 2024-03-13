@@ -1,22 +1,70 @@
 import React, { useEffect, useState } from 'react';
-
+import Axios from "axios";
+import moment from 'moment';
 const MemberViewModal = (props) => {
-    const [detailNum, setDetailNum] = useState("");
+    const [memberData, setMemberData] = useState([]);
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [bank, setBank] = useState("");
+    const [bankAccount, setBankAccount] = useState("");
+    const [category1, setCategory1] = useState("");
+    const [category2, setCategory2] = useState("");
+    const [branchName, setBranchName] = useState("");
     useEffect(() => {
         if (props.detailIdx) {
             console.log(props.detailIdx);
-            setDetailNum(props.detailIdx);
             getDetail();
         }
     }, [props.detailIdx])
+    useEffect(() => {
+        setDetailValue()
+    }, [memberData])
     const clearModal = () => {
         props.closeModal()
     }
-    const getDetail = () => {
-        //detailNum 사용하여 상세 api 호출
+    const getDetail = async () => {
+        try {
+            const response = await Axios.get(
+                "http://localhost:3001/api/get/member_detail", {
+                params: {
+                    idx: props.detailIdx
+                }
+            }
+            );
+            const allData = response.data;
+            setMemberData(allData[0]);
+            setDetailValue();
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
+    }
+    const setDetailValue = () => {
+        setPassword(memberData.password);
+        setEmail(memberData.email);
+        setPhone(memberData.phone);
+        setBank(memberData.bank);
+        setBankAccount(memberData.deposit_account);
+        setCategory1(memberData.company_type);
+        setCategory2(memberData.company_name);
+        setBranchName(memberData.branch);
     }
     const handleSubmit = () => {
 
+    }
+    const deleteMember = async () => {
+        try {
+            const response = await Axios.post(
+                "http://localhost:3001/api/post/member_delete", {
+                idx: props.detailIdx
+            });
+            alert("삭제되었습니다.");
+            props.closeModal();
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
     }
     return (
         <div className="modal_wrap">
@@ -35,7 +83,7 @@ const MemberViewModal = (props) => {
                                     가입일
                                 </div>
                                 <div className="table_contents w100">
-                                    <div className='table_inner_text'>24.02.28</div>
+                                    <div className='table_inner_text'>{memberData.date}</div>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +93,7 @@ const MemberViewModal = (props) => {
                                     아이디<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
-                                    <div className='table_inner_text'></div>
+                                    <div className='table_inner_text'>{memberData.id}</div>
                                 </div>
                             </div>
                         </div>
@@ -57,9 +105,10 @@ const MemberViewModal = (props) => {
                                 <div className="table_contents w100">
                                     <input
                                         className="table_input modal"
-                                        type="text"
+                                        type="password"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="비밀번호를 입력해주세요."
+                                        value={password} onChange={(e) => setPassword(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -70,12 +119,7 @@ const MemberViewModal = (props) => {
                                     이름<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
-                                    <input
-                                        className="table_input modal"
-                                        type="text"
-                                        id="title"
-                                        placeholder="지점명을 입력해주세요."
-                                    ></input>
+                                    <div className='table_inner_text'>{memberData.name}</div>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +133,8 @@ const MemberViewModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="이메일을 입력해주세요."
+                                        value={email} onChange={(e) => setEmail(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -104,7 +149,8 @@ const MemberViewModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="연락처를 입력해주세요."
+                                        value={phone} onChange={(e) => setPhone(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -115,11 +161,24 @@ const MemberViewModal = (props) => {
                                     입금계좌<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
+                                    <select
+                                        value={bank}
+                                        onChange={(e) => setBank(e.target.value)}
+                                        id="user_bank"
+                                        className="table_select"
+                                    >
+                                        <option value="">은행 선택</option>
+                                        <option value="농협">농협</option>
+                                        <option value="기업">기업</option>
+                                        <option value="신한">신한</option>
+                                        <option value="토스뱅크">토스뱅크</option>
+                                    </select>
                                     <input
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="계좌를 입력해주세요."
+                                        value={bankAccount} onChange={(e) => setBankAccount(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -183,7 +242,7 @@ const MemberViewModal = (props) => {
                                     고객수
                                 </div>
                                 <div className="table_contents w100">
-                                    <div className='table_inner_text'>10</div>
+                                    <div className='table_inner_text'>0</div>
                                 </div>
                             </div>
                             <div className="table_section half">
@@ -202,8 +261,8 @@ const MemberViewModal = (props) => {
                         <div className="modal_btn" onClick={handleSubmit}>
                             수정
                         </div>
-                        <div className="modal_btn close" onClick={clearModal}>
-                            닫기
+                        <div className="modal_btn close" onClick={() => deleteMember()}>
+                            삭제
                         </div>
                     </div>
                 </div>
