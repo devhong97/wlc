@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Axios from "axios";
 
 const MemberWriteModal = (props) => {
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [bankAccount, setBankAccount] = useState("");
+    const [category1, setCategory1] = useState("");
+    const [category2, setCategory2] = useState("");
+    const [branchName, setBranchName] = useState("");
+
     const clearModal = () => {
         props.closeModal()
     }
@@ -28,7 +39,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="아이디를 입력해주세요."
+                                        value={id} onChange={(e) => setId(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -43,7 +55,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="비밀번호를 입력해주세요."
+                                        value={password} onChange={(e) => setPassword(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -58,7 +71,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="이름을 입력해주세요."
+                                        value={name} onChange={(e) => setName(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -73,7 +87,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="이메일을 입력해주세요."
+                                        value={email} onChange={(e) => setEmail(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -88,7 +103,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="연락처를 입력해주세요."
+                                        value={phone} onChange={(e) => setPhone(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -103,7 +119,8 @@ const MemberWriteModal = (props) => {
                                         className="table_input modal"
                                         type="text"
                                         id="title"
-                                        placeholder="지점명을 입력해주세요."
+                                        placeholder="계좌를 입력해주세요."
+                                        value={bankAccount} onChange={(e) => setBankAccount(e.target.value)}
                                     ></input>
                                 </div>
                             </div>
@@ -117,6 +134,7 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
+                                        value={category1} onChange={(e) => setCategory1(e.target.value)}
                                     >
                                         <option value="">선택</option>
                                         <option value="company">Company</option>
@@ -133,6 +151,7 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
+                                        value={category2} onChange={(e) => setCategory2(e.target.value)}
                                     >
                                         <option value="">선택</option>
                                         <option value="company">Company</option>
@@ -151,6 +170,7 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
+                                        value={branchName} onChange={(e) => setBranchName(e.target.value)}
                                     >
                                         <option value="">선택</option>
                                         <option value="company">Company</option>

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 const Aside = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [subOpen, setSubOpen] = useState(0);
-  const { logout } = useAuth();
+  const { logout, decodeS4 } = useAuth();
+  const userGrade = decodeS4();
   const navigate = useNavigate();
 
   const openSide = () => {
@@ -24,7 +25,7 @@ const Aside = () => {
     }
   };
   const movePage = (path) => {
-    navigate(path);
+    navigate(path, { state: { grade: userGrade } });
     if (isOpen) {
       setIsOpen(false);
     }
@@ -35,6 +36,8 @@ const Aside = () => {
   const home = () => {
     navigate("/");
   };
+
+
   return (
     <div className="side_wrap">
       <div className="side_back">
