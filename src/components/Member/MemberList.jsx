@@ -3,32 +3,26 @@ import MemberWriteModal from "../modal/MemberWriteModal";
 import MemberViewModal from "../modal/MemberViewModal";
 import { DataGrid } from "@mui/x-data-grid";
 import Axios from "axios";
+import TableDefault from "../Table/TableDefault";
 
 const MemberList = () => {
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
 
-  const commonProps = {
-    headerClassName: "table_header",
-    cellClassName: "table_cell",
-    width: "200",
-    headerAlign: "center",
-  };
-
   const columns = [
-    { field: "id", headerName: "No.", ...commonProps, width: "50" },
-    { field: "name", headerName: "영업사원이름", ...commonProps },
-    { field: "phone", headerName: "연락처", ...commonProps },
-    { field: "date", headerName: "등록일", ...commonProps },
-    { field: "pay", headerName: "완료커미션", ...commonProps },
-    { field: "customer_num", headerName: "고객수", ...commonProps },
-    { field: "hope_num", headerName: "상담희망수", ...commonProps },
-    { field: "bank_num", headerName: "입금계좌", ...commonProps },
+    { field: "id", headerName: "No.", maxWidth: 50 },
+    { field: "name", headerName: "영업사원이름" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "등록일" },
+    { field: "pay", headerName: "완료커미션" },
+    { field: "customer_num", headerName: "고객수", maxWidth: 100 },
+    { field: "hope_num", headerName: "상담희망수", maxWidth: 100 },
+    { field: "bank_num", headerName: "입금계좌" },
   ];
 
   Axios.get("http://localhost:3001/api/post/salesman")
-    .then((res) => {})
+    .then((res) => { })
     .catch((err) => {
       console.log(err);
     });
@@ -108,23 +102,12 @@ const MemberList = () => {
                 등록
               </div>
             </div>
-            <div className="table_box">
-              <DataGrid
+            <div className="table_box list">
+              <TableDefault
                 rows={rows}
                 columns={columns}
-                disableColumnMenu
-                onRowSelectionModelChange={(newSelectionModel) => {
-                  const selectedIDs = new Set(newSelectionModel);
-                  const selectedRows = rows.filter((r) =>
-                    selectedIDs.has(r.id)
-                  );
-                  viewModalOpen(selectedRows[0]);
-                }}
-                initialState={{
-                  pagination: { paginationModel: { pageSize: 10 } },
-                }}
-                pageSizeOptions={[10, 50, 100]}
-              />
+                viewModalOpen={viewModalOpen}
+              ></TableDefault>
             </div>
           </div>
           {/* <div className="pagination_box">

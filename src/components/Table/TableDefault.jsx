@@ -6,8 +6,8 @@ const TableDefault = (props) => {
     const commonProps = {
         headerClassName: 'table_header',
         cellClassName: 'table_cell',
-        width: "200",
         headerAlign: 'center',
+        flex: 1,
     };
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const TableDefault = (props) => {
     }, [props]);
 
     return (
-        <div>
+        <div style={{ width: "100%" }}>
             <DataGrid
                 rows={tableRows}
                 columns={tableColumns}
