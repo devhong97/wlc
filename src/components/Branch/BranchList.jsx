@@ -116,13 +116,7 @@ const BranchList = () => {
               ></TableDefault>
             </div>
           </div>
-          <div className="pagination_box">
-            <button>{`<<`}</button>
-            <button>{`<`}</button>
-            <button>1</button>
-            <button>{`>`}</button>
-            <button>{`>>`}</button>
-          </div>
+
         </div>
       </div>
       {writeModal && (
