@@ -1,12 +1,40 @@
 import React from 'react';
-
+import TableDefault from '../Table/TableDefault';
 const MemberListModal = (props) => {
+    const columns = [
+        { field: 'id', headerName: 'No', maxWidth: 50 },
+        { field: 'name', headerName: '이름' },
+        { field: 'phone', headerName: '연락처' },
+        { field: 'date', headerName: '등록일' },
+        { field: 'category', headerName: '종류' },
+        { field: 'company_name', headerName: '지점' },
+        {
+            field: 'select', headerName: '-', type: 'actions',
+            renderCell: (params) => (
+                <div className='list_inner_btn' onClick={() => selectRow(params.row)}>
+                    선택
+                </div>
+            )
+        }
+    ]
+    const rows = [
+        {
+            id: 1, name: '유기홍', phone: "01012341234", date: "24.03.05",
+            category: "보험사", company_name: "천안1지점"
+        },
+    ];
     const clearModal = () => {
         props.closeModal()
     }
-    const selectRow = (name, num) => {
+    const selectRow = (data) => {
+        console.log(data);
+        const name = data.name;
+        const num = data.id;
         props.chooseData(name, num);
         clearModal();
+    }
+    const emptyFunc = () => {
+
     }
     return (
         <div className="modal_wrap">
@@ -40,44 +68,12 @@ const MemberListModal = (props) => {
                                     </div>
                                     <div className="list_search reset_btn">초기화</div>
                                 </div>
-                                <div className="title_btn">등록</div>
                             </div>
                             <div className="table_box">
-                                <table className="list_table">
-                                    <tbody>
-                                        <tr className="table_header">
-                                            <th className="table_header_col ">No.</th>
-                                            <th className="table_header_col short_col">이름</th>
-                                            <th className="table_header_col">연락처</th>
-                                            <th className="table_header_col ">등록일</th>
-                                            <th className="table_header_col ">종류</th>
-                                            <th className="table_header_col ">지점</th>
-                                            <th className="table_header_col short_col">-</th>
-                                        </tr>
-                                        <tr className="table_body">
-                                            <td className="table_col ">1</td>
-                                            <td className="table_col short_col pointer">유기홍</td>
-                                            <td className="table_col ">01012341234</td>
-                                            <td className="table_col ">24.02.28</td>
-                                            <td className="table_col ">보험사</td>
-                                            <td className="table_col ">천안1지점</td>
-                                            <td className="table_col short_col">
-                                                <div className='table_option_box'>
-                                                    <div className='option_btn' onClick={() => selectRow("유기홍", 1)}>선택</div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <TableDefault rows={rows} columns={columns} viewModalOpen={emptyFunc}></TableDefault>
                             </div>
                         </div>
-                        <div className="pagination_box">
-                            <button>{`<<`}</button>
-                            <button>{`<`}</button>
-                            <button>1</button>
-                            <button>{`>`}</button>
-                            <button>{`>>`}</button>
-                        </div>
+
                     </div>
                     <div className="modal_footer_box">
 
