@@ -35,7 +35,7 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/user", {
+        "http://localhost:3001/api/get/member", {
         params: {
           grade: selectGrade
         }
@@ -75,16 +75,17 @@ const MemberList = () => {
 
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
+    getMember();
   };
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
-
     const idx = data.idx;
     console.log(idx);
     setDetailIdx(idx);
   };
   const viewModalClose = () => {
     setViewModal(false);
+    window.location.reload();
   };
 
 
@@ -114,9 +115,12 @@ const MemberList = () => {
                 </div>
                 <div className="list_search reset_btn">초기화</div>
               </div>
-              <div className="title_btn" onClick={() => writeModalOpen()}>
-                등록
-              </div>
+              {grade !== "영업사원" &&
+                <div className="title_btn" onClick={() => writeModalOpen()}>
+                  등록
+                </div>
+              }
+
             </div>
             <div className="table_box list">
               <TableDefault

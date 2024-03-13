@@ -7,6 +7,7 @@ const MemberWriteModal = (props) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [bank, setBank] = useState("");
     const [bankAccount, setBankAccount] = useState("");
     const [category1, setCategory1] = useState("");
     const [category2, setCategory2] = useState("");
@@ -15,9 +16,36 @@ const MemberWriteModal = (props) => {
     const clearModal = () => {
         props.closeModal()
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        if (!id || !password || !name || !email || !phone || !bank || !bankAccount || !category1 || !category2 || !branchName) {
+            alert("필수 사항을 모두 입력해주세요");
+            return;
+        }
 
-    }
+        try {
+            const response = await Axios.post(
+                "http://localhost:3001/api/post/member", {
+                id: id,
+                password: password,
+                name: name,
+                email: email,
+                phone: phone,
+                bank: bank,
+                deposit_account: bankAccount,
+                company_type: category1,
+                company_name: category2,
+                branch: branchName
+            });
+
+            console.log(response.data);
+            props.closeModal();
+
+        } catch (error) {
+            console.error("Error during registration:", error);
+
+        }
+    };
+
     return (
         <div className="modal_wrap">
             <div className="modal_back">
@@ -115,6 +143,18 @@ const MemberWriteModal = (props) => {
                                     입금계좌<p className="title_point">*</p>
                                 </div>
                                 <div className="table_contents w100">
+                                    <select
+                                        value={bank}
+                                        onChange={(e) => setBank(e.target.value)}
+                                        id="user_bank"
+                                        className="table_select"
+                                    >
+                                        <option value="">은행 선택</option>
+                                        <option value="농협">농협</option>
+                                        <option value="기업">기업</option>
+                                        <option value="신한">신한</option>
+                                        <option value="토스뱅크">토스뱅크</option>
+                                    </select>
                                     <input
                                         className="table_input modal"
                                         type="text"
