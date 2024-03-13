@@ -7,14 +7,14 @@ const CommissionList = () => {
 
 
     const columns = [
-        { field: 'id', headerName: 'No', width: "50" },
+        { field: 'id', headerName: 'No', maxWidth: 50 },
         { field: 'category', headerName: '종류', },
         { field: 'company_name', headerName: '회사명', },
         { field: 'name', headerName: '지점명', },
         { field: 'pay', headerName: '커미션금액', },
         { field: 'address', headerName: '지역', },
         { field: 'date', headerName: '생성일', },
-        { field: 'member_num', headerName: '사원수', },
+        { field: 'member_num', headerName: '사원수', maxWidth: 100 },
     ];
 
     const rows = [

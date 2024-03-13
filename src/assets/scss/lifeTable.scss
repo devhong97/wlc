@@ -543,6 +543,7 @@
 
   &.list {
     height: 750px;
+    width: 100% !important;
   }
 
   .list_inner_btn {
@@ -1363,6 +1364,10 @@
 
 .css-de9k3v-MuiDataGrid-selectedRowCount {
   display: none !important;
+}
+
+.css-204u17-MuiDataGrid-main {
+  width: 100% !important;
 }
 
 // 상세

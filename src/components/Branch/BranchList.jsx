@@ -8,18 +8,18 @@ const BranchList = () => {
   const [detailIdx, setDetailIdx] = useState("");
 
   const columns = [
-    { field: "id", headerName: "No", width: "50" },
+    { field: "id", headerName: "No", maxWidth: 50 },
     { field: "code", headerName: "지점코드" },
-    { field: "company_type", headerName: "지점종류", width: "100" },
+    { field: "company_type", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
     { field: "name", headerName: "지점명" },
-    { field: "manager_name", headerName: "지점장명", width: "100" },
-    { field: "member_num", headerName: "사원수", width: "100" },
-    { field: "address", headerName: "지역", width: "100" },
+    { field: "manager_name", headerName: "지점장명" },
+    { field: "member_num", headerName: "사원수", maxWidth: 100 },
+    { field: "address", headerName: "지역" },
     { field: "date", headerName: "생성일" },
-    { field: "customer_num", headerName: "가입회원수", width: "120" },
-    { field: "hope_num", headerName: "상담희망수", width: "120" },
-    { field: "rex_total", headerName: "계약고객수", width: "120" },
+    { field: "customer_num", headerName: "가입회원수", maxWidth: 100 },
+    { field: "hope_num", headerName: "상담희망수", maxWidth: 100 },
+    { field: "rex_total", headerName: "계약고객수", maxWidth: 100 },
   ];
 
   const rows = [
