@@ -453,6 +453,17 @@
     float: right;
   }
 
+  .total_btn {
+    padding: 0px 10px;
+    float: right;
+  }
+
+  .total_btn .total_box {
+    border-radius: 5px;
+    border: 1px solid #c6c6c6;
+    padding: 6px;
+  }
+
   .search_input_box {
     display: inline-block;
     width: 50%;
@@ -468,6 +479,7 @@
       height: 35px;
       padding: 5px 10px;
       border-radius: 5px;
+      margin-left: 5px;
       outline: 0 none;
       border: 1px solid #999999;
 

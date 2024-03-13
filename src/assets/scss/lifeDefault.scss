@@ -170,6 +170,30 @@
   }
 }
 
+.footer_wrap {
+  position: absolute;
+  bottom: 0;
+  margin-left: 10px;
+  border-top: 1px solid #c6c6c6;
+  width: 100%;
+  background-color: #ebeaea67;
+}
+
+.footer_back {
+  width: 100%;
+}
+
+.footer_back .txt {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 15px;
+
+  font-family: "AppleSD_R";
+}
+
 .main_wrap {
   padding: 50px;
   height: 100%;

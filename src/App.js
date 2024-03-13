@@ -8,6 +8,7 @@ import React, { Fragment, useEffect } from "react";
 import { useAuth } from "./components/Context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
+import Footer from './components/Footer/Footer';
 
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
@@ -29,6 +30,7 @@ function App() {
           <div className="main_area">
             <Header />
             <Router />
+            <Footer />
           </div>
         </div>
       ) : (
