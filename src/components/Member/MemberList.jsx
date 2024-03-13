@@ -72,6 +72,7 @@ const MemberList = () => {
     bank_num: data.deposit_account,
   }));
 
+
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
   };

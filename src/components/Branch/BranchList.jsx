@@ -2,41 +2,61 @@ import React, { useEffect, useState } from "react";
 import BranchWriteModal from "../modal/BranchWriteModal";
 import BranchViewModal from "../modal/BranchViewModal";
 import TableDefault from "../Table/TableDefault";
+import Axios from "axios";
+
 const BranchList = () => {
-  const [writeModal, setWriteModal] = useState(false);
-  const [viewModal, setViewModal] = useState(false);
-  const [detailIdx, setDetailIdx] = useState("");
+  const [writeModal, setWriteModal] = useState(false); // 지점등록 모달
+  const [viewModal, setViewModal] = useState(false); // 지점상세 수정모달
+  const [detailIdx, setDetailIdx] = useState(""); //상세페이지 Idx
+  const [branchList, setBranchList] = useState([]); // 지점 리스트
+
+  useEffect(() => {
+    fetchBranchList();
+  }, []);
+
+  const fetchBranchList = () => {
+    Axios.get("http://49.50.174.248:3001/api/get/branch_list")
+      .then((res) => {
+        if (res.data.success) {
+          // 서버로부터 받아온 데이터를 rows로 설정합니다.
+          setBranchList(
+            res.data.data.map((item, index) => ({
+              id: index + 1,
+              branch_idx: item.branch_idx,
+              branch_type: item.branch_type,
+              company_name: item.company_name,
+              branch_name: item.branch_name,
+              owner_name: item.owner_name,
+              employee_num: item.employee_num,
+              location: item.location,
+              registered_num: item.registered_num,
+              consulting_num: item.consulting_num,
+              contract_num: item.contract_num,
+              date: item.date,
+            }))
+          );
+        } else {
+          console.error("지점 관리 데이터호출 실패");
+        }
+      })
+      .catch((err) => {
+        console.error("지점 관리 데이터호출 실패:", err);
+      });
+  };
 
   const columns = [
     { field: "id", headerName: "No", maxWidth: 50 },
-    { field: "code", headerName: "지점코드" },
-    { field: "company_type", headerName: "지점종류" },
+    { field: "branch_idx", headerName: "지점코드" },
+    { field: "branch_type", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
-    { field: "name", headerName: "지점명" },
-    { field: "manager_name", headerName: "지점장명" },
-    { field: "member_num", headerName: "사원수", maxWidth: 100 },
-    { field: "address", headerName: "지역" },
+    { field: "branch_name", headerName: "지점명" },
+    { field: "owner_name", headerName: "지점장명" },
+    { field: "employee_num", headerName: "사원수", maxWidth: 100 },
+    { field: "location", headerName: "지역" },
+    { field: "registered_num", headerName: "가입회원수", maxWidth: 100 },
+    { field: "consulting_num", headerName: "상담희망수", maxWidth: 100 },
+    { field: "contract_num", headerName: "계약고객수", maxWidth: 100 },
     { field: "date", headerName: "생성일" },
-    { field: "customer_num", headerName: "가입회원수", maxWidth: 100 },
-    { field: "hope_num", headerName: "상담희망수", maxWidth: 100 },
-    { field: "rex_total", headerName: "계약고객수", maxWidth: 100 },
-  ];
-
-  const rows = [
-    {
-      id: 1,
-      code: "lalsox22ma",
-      company_type: "보험사",
-      company_name: "기홍컴퍼니",
-      name: "천안본사",
-      manager_name: "유기홍",
-      member_num: 35,
-      address: "충남 천안",
-      date: "24.03.07",
-      customer_num: 100,
-      hope_num: 35,
-      rex_total: 35,
-    },
   ];
 
   const writeModalOpen = () => {
@@ -90,7 +110,7 @@ const BranchList = () => {
             </div>
             <div className="table_box list">
               <TableDefault
-                rows={rows}
+                rows={branchList}
                 columns={columns}
                 viewModalOpen={viewModalOpen}
               ></TableDefault>
