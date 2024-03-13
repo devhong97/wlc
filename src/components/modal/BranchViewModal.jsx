@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import MemberListModal from "./MemberListModal";
 
 const BranchViewModal = (props) => {
-  const [detailNum, setDetailNum] = useState("");
-  const [selectName, setSelectName] = useState("");
-  const [selectNum, setSelectNum] = useState("");
-  const [listModal, setListModal] = useState(false);
+  const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
+  const [selectName, setSelectName] = useState(""); // 지점장 선택
+  const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
+  const [listModal, setListModal] = useState(false); // 지점장 선택 Modal
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -40,6 +40,14 @@ const BranchViewModal = (props) => {
             </div>
           </div>
           <div className="table_box">
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  지점코드<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">ㅁㄴㅇ</div>
+              </div>
+            </div>
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
@@ -131,26 +139,30 @@ const BranchViewModal = (props) => {
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section">
+              <div className="table_section half">
                 <div className="table_title">사원수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">100</div>
+                  <div className="table_inner_text">-</div>
                 </div>
               </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">고객수</div>
+              <div className="table_section half">
+                <div className="table_title">가입회원수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">10</div>
+                  <div className="table_inner_text">-</div>
                 </div>
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section">
+              <div className="table_section half">
                 <div className="table_title">상담희망수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">100</div>
+                  <div className="table_inner_text">-</div>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">계약고객수</div>
+                <div className="table_contents w100">
+                  <div className="table_inner_text">-</div>
                 </div>
               </div>
             </div>
