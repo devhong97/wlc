@@ -1,32 +1,41 @@
 import React, { useEffect, useState } from "react";
 import BranchWriteModal from "../modal/BranchWriteModal";
 import BranchViewModal from "../modal/BranchViewModal";
-import TableDefault from '../Table/TableDefault';
+import TableDefault from "../Table/TableDefault";
 const BranchList = () => {
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
 
-
   const columns = [
-    { field: 'id', headerName: 'No', width: "50" },
-    { field: 'category', headerName: '종류', width: "100" },
-    { field: 'company_name', headerName: '회사명', },
-    { field: 'code', headerName: '지점코드', },
-    { field: 'name', headerName: '지점명', },
-    { field: 'manager_name', headerName: '지점장명', width: "100" },
-    { field: 'member_num', headerName: '사원수', width: "100" },
-    { field: 'address', headerName: '지역', width: "100" },
-    { field: 'date', headerName: '생성일' },
-    { field: 'customer_num', headerName: '고객수', width: "100" },
-    { field: 'hope_num', headerName: '상담희망수', width: "100" },
+    { field: "id", headerName: "No", width: "50" },
+    { field: "code", headerName: "지점코드" },
+    { field: "company_type", headerName: "지점종류", width: "100" },
+    { field: "company_name", headerName: "회사명" },
+    { field: "name", headerName: "지점명" },
+    { field: "manager_name", headerName: "지점장명", width: "100" },
+    { field: "member_num", headerName: "사원수", width: "100" },
+    { field: "address", headerName: "지역", width: "100" },
+    { field: "date", headerName: "생성일" },
+    { field: "customer_num", headerName: "가입회원수", width: "120" },
+    { field: "hope_num", headerName: "상담희망수", width: "120" },
+    { field: "rex_total", headerName: "계약고객수", width: "120" },
   ];
 
   const rows = [
     {
-      id: 1, category: '보험사', company_name: "기홍컴퍼니", code: "lalsox22ma",
-      name: "천안본사", manager_name: "유기홍", member_num: 35, address: '충남 천안',
-      date: '24.03.07', customer_num: 100, hope_num: 35
+      id: 1,
+      code: "lalsox22ma",
+      company_type: "보험사",
+      company_name: "기홍컴퍼니",
+      name: "천안본사",
+      manager_name: "유기홍",
+      member_num: 35,
+      address: "충남 천안",
+      date: "24.03.07",
+      customer_num: 100,
+      hope_num: 35,
+      rex_total: 35,
     },
   ];
 
@@ -67,11 +76,24 @@ const BranchList = () => {
                 <div className="list_search reset_btn">초기화</div>
               </div>
               <div className="title_btn" onClick={() => writeModalOpen()}>
-                등록
+                지점등록
+              </div>
+              <div className="total_btn">
+                <div className="total_box">가입회원수 : 10000</div>
+              </div>
+              <div className="total_btn">
+                <div className="total_box">상담희망: 10000</div>
+              </div>
+              <div className="total_btn">
+                <div className="total_box">계약고객수: 10000</div>
               </div>
             </div>
             <div className="table_box list">
-              <TableDefault rows={rows} columns={columns} viewModalOpen={viewModalOpen}></TableDefault>
+              <TableDefault
+                rows={rows}
+                columns={columns}
+                viewModalOpen={viewModalOpen}
+              ></TableDefault>
             </div>
           </div>
           <div className="pagination_box">

@@ -7,7 +7,7 @@ const Register = () => {
   const [password, setPassword] = useState(""); //비밀번호
   const [passwordChk, setPasswordChk] = useState(""); //비밀번호 체크
   const [name, setName] = useState(""); // 이름
-  const [companyType, setCompanyType] = useState(""); // 회사종류
+  const [companyType, setCompanyType] = useState(""); // 지점종류
   const [companyName, setCompanyName] = useState(""); // 회사명
   const [bank, setBank] = useState(""); // 은행명
   const [depositAccount, setDepositAccount] = useState(""); // 입금계좌
@@ -103,7 +103,11 @@ const Register = () => {
   const handleAgreeTerms = (e) => {
     setAgreeTerms(e.target.checked);
   };
-
+  //입금계좌 체크 (하이픈입력불가)
+  function removeBank(input) {
+    return input.replace(/[^0-9]/g, "");
+  }
+  //가입신청 버튼
   const handleSubmit = async () => {
     if (id === "") {
       alert("아이디를 입력해주세요.");
@@ -127,21 +131,21 @@ const Register = () => {
       }
       return;
     } else if (companyType === "") {
-      alert("회사종류를 입력해주세요.");
+      alert("지점종류를 선택해주세요.");
       const companyTypeInput = document.getElementById("user_companyType");
       if (companyTypeInput) {
         companyTypeInput.focus();
       }
       return;
     } else if (companyName === "") {
-      alert("회사명을 입력해주세요.");
+      alert("회사를 선택해주세요.");
       const companyNameInput = document.getElementById("user_companyName");
       if (companyNameInput) {
         companyNameInput.focus();
       }
       return;
     } else if (branch === "") {
-      alert("지점을 입력해주세요.");
+      alert("지점을 선택해주세요.");
       const branchInput = document.getElementById("user_branch");
       if (branchInput) {
         branchInput.focus();
@@ -317,21 +321,21 @@ const Register = () => {
             )}
           </div>
           <div className="input_row">
-            <div className="input_title">회사종류</div>
+            <div className="input_title">지점종류</div>
             <select
               value={companyType}
               onChange={(e) => setCompanyType(e.target.value)}
               id="user_companyType"
               className="register_select"
             >
-              <option value="">회사종류 선택</option>
+              <option value="">지점종류 선택</option>
               <option value="보험사">보험사</option>
               <option value="상조">상조</option>
               <option value="무소속">무소속</option>
             </select>
           </div>
           <div className="input_row">
-            <div className="input_title">회사명 선택</div>
+            <div className="input_title">회사명</div>
             <select
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
@@ -345,15 +349,19 @@ const Register = () => {
             </select>
           </div>
           <div className="input_row">
-            <div className="input_title">지점</div>
-            <input
-              type="text"
+            <div className="input_title">지점명</div>
+            <select
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
-              placeholder="지점을 입력해주세요."
+              placeholder="지점명을 입력해주세요."
               id="user_branch"
-              className="register_input"
-            />
+              className="register_select"
+            >
+              <option value="">지점명 선택</option>
+              <option value="아산점">아산점</option>
+              <option value="천안점">천안점</option>
+              <option value="무소속">무소속</option>
+            </select>
           </div>
           <div className="input_row">
             <div className="input_title">이름</div>
@@ -443,7 +451,7 @@ const Register = () => {
             <input
               type="text"
               value={depositAccount}
-              onChange={(e) => setDepositAccount(e.target.value)}
+              onChange={(e) => setDepositAccount(removeBank(e.target.value))}
               id="user_depositAccount"
               className="register_input bank"
             />

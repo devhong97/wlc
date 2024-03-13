@@ -91,7 +91,7 @@ const Aside = () => {
                 onClick={() => movePage("/notice")}
               >
                 <div className="menu_icon third"></div>
-                <div className="menu_text">설정</div>
+                <div className="menu_text">게시판관리</div>
               </div>
             </div>
             <div className="menu_row home">

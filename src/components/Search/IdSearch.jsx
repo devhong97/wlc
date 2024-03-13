@@ -108,21 +108,21 @@ const IdSearch = () => {
       </div>
 
       <div className="input_row">
-        <div className="input_title">분류1</div>
+        <div className="input_title">지점종류</div>
         <select
           value={companyType}
           onChange={(e) => setCompanyType(e.target.value)}
           id="user_companyType"
           className="register_select"
         >
-          <option value="">회사종류 선택</option>
+          <option value="">지점종류 선택</option>
           <option value="보험사">보험사</option>
           <option value="상조">상조</option>
           <option value="무소속">무소속</option>
         </select>
       </div>
       <div className="input_row">
-        <div className="input_title">분류2</div>
+        <div className="input_title">회사명</div>
         <select
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
@@ -136,7 +136,7 @@ const IdSearch = () => {
         </select>
       </div>
       <div className="input_row">
-        <div className="input_title">지점</div>
+        <div className="input_title">지점명</div>
         <select
           value={branch}
           onChange={(e) => setBranch(e.target.value)}
