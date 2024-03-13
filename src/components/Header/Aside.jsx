@@ -44,7 +44,7 @@ const Aside = () => {
         <div className={`side_menu_back ${isOpen ? "active" : ""}`}>
           <div className="side_top_box" onClick={() => openSide()}>
             <div className="top_icon"></div>
-            <div className="top_text" onClick={() => movePage("/")}>
+            <div className="top_text">
               웰라이프케어
             </div>
           </div>

@@ -8,6 +8,7 @@ const TableDefault = (props) => {
         cellClassName: 'table_cell',
         headerAlign: 'center',
         flex: 1,
+        minWidth: 100
     };
 
     useEffect(() => {

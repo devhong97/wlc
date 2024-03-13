@@ -9,7 +9,7 @@ const CustomerList = () => {
     const [detailIdx, setDetailIdx] = useState("");
 
     const columns = [
-        { field: 'id', headerName: 'No', maxWidth: 50 },
+        { field: 'id', headerName: 'No', flex: 0.5 },
         { field: 'name', headerName: '이름' },
         { field: 'phone', headerName: '연락처' },
         { field: 'date', headerName: '가입일' },

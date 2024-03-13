@@ -5,11 +5,12 @@ const CommissionDetail = (props) => {
     const commonProps = {
         headerClassName: 'table_header',
         cellClassName: 'table_cell',
-        width: "300",
+        minWidth: 100,
         headerAlign: 'center',
+        flex: 1,
     };
     const branchColumns = [
-        { field: 'id', headerName: 'No', ...commonProps, width: "50" },
+        { field: 'id', headerName: 'No', ...commonProps, flex: 0.5 },
         { field: 'branch_name', headerName: '지점명', ...commonProps },
         { field: 'manager', headerName: '지점장', ...commonProps },
         { field: 'pay', headerName: '금액', ...commonProps },
@@ -33,11 +34,11 @@ const CommissionDetail = (props) => {
         },
     ];
     const memberColumns = [
-        { field: 'id', headerName: 'No', ...commonProps, width: "50" },
-        { field: 'name', headerName: '사원명', ...commonProps, width: "350" },
-        { field: 'pay', headerName: '금액', ...commonProps, width: "350" },
-        { field: 'bank_num', headerName: '입금계좌', ...commonProps, width: "350" },
-        { field: 'pay_status', headerName: '입금현황', ...commonProps, width: "350" },
+        { field: 'id', headerName: 'No', ...commonProps, flex: 0.5 },
+        { field: 'name', headerName: '사원명', ...commonProps },
+        { field: 'pay', headerName: '금액', ...commonProps },
+        { field: 'bank_num', headerName: '입금계좌', ...commonProps },
+        { field: 'pay_status', headerName: '입금현황', ...commonProps },
     ]
     const memberRows = [
         {

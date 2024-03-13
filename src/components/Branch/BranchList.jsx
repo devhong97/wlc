@@ -45,7 +45,7 @@ const BranchList = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "No", maxWidth: 50 },
+    { field: "id", headerName: "No", flex: 0.5 },
     { field: "branch_idx", headerName: "지점코드" },
     { field: "branch_type", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
@@ -116,13 +116,7 @@ const BranchList = () => {
               ></TableDefault>
             </div>
           </div>
-          <div className="pagination_box">
-            <button>{`<<`}</button>
-            <button>{`<`}</button>
-            <button>1</button>
-            <button>{`>`}</button>
-            <button>{`>>`}</button>
-          </div>
+
         </div>
       </div>
       {writeModal && (

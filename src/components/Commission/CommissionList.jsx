@@ -7,7 +7,7 @@ const CommissionList = () => {
 
 
     const columns = [
-        { field: 'id', headerName: 'No', maxWidth: 50 },
+        { field: 'id', headerName: 'No', flex: 0.5 },
         { field: 'category', headerName: '종류', },
         { field: 'company_name', headerName: '회사명', },
         { field: 'name', headerName: '지점명', },
