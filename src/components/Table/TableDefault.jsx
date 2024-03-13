@@ -19,17 +19,27 @@ const TableDefault = (props) => {
             setTableColumns(updatedColumns);
         }
     }, [props]);
+    const generateRandom = () => {
+        var length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        return retVal;
+    }
 
     return (
         <div style={{ width: "100%" }}>
             <DataGrid
                 rows={tableRows}
                 columns={tableColumns}
+                // getRowId={(row) => generateRandom()}
                 disableColumnMenu
                 onRowSelectionModelChange={(newSelectionModel) => {
                     const selectedIDs = new Set(newSelectionModel);
                     const selectedRows = tableRows.filter((r) => selectedIDs.has(r.id));
-                    props.viewModalOpen(newSelectionModel);
+                    props.viewModalOpen(selectedRows[0]);
                 }}
                 initialState={{
                     pagination: { paginationModel: { pageSize: 10 } },
