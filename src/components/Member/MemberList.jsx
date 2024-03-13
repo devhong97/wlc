@@ -21,8 +21,8 @@ const MemberList = () => {
     { field: "bank_num", headerName: "입금계좌" },
   ];
 
-  Axios.get("http://localhost:3001/api/post/salesman")
-    .then((res) => { })
+  Axios.get("http://49.50.174.248:3001/api/post/salesman")
+    .then((res) => {})
     .catch((err) => {
       console.log(err);
     });
