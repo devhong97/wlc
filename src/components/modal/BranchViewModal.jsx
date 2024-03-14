@@ -11,24 +11,55 @@ const BranchViewModal = (props) => {
   const [branchType, setBranchType] = useState(""); // 지점종류
   const [companyName, setCompanyName] = useState(""); // 회사명
   const [branchName, setBranchName] = useState(""); // 지점명
-  const [city, setCity] = useState(""); // 지역(도)
-  const [district, setDistrict] = useState(""); // 지역(시)
+  const [city, setCity] = useState(""); // 현재 지역(도)
+  const [district, setDistrict] = useState(""); // 현재 지역(시)
+  const [cities, setCities] = useState([]); //선택 지역(시)
+  const [districts, setDistricts] = useState([]); //선택 지역(도)
+  const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
+  const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
 
+  // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
     if (props.detailIdx) {
-      console.log(props.detailIdx);
       setDetailNum(props.detailIdx);
       getDetail();
     }
   }, [props.detailIdx]);
 
+  // view모달 상세데이터 호출
   useEffect(() => {
     setDetailValue();
   }, [branchDetailData]);
 
-  const clearModal = () => {
-    props.closeModal();
-    setDetailNum(""); // idx 초기화
+  // // 지역(시) 데이터 호출
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/get/cities")
+      .then((response) => {
+        setCities(response.data);
+      })
+      .catch((err) => {
+        console.error("(시)호출 실패:", err);
+      });
+  }, []);
+
+  // 지역(시) 선택 시 일치하는 지역(도) 데이터 호출
+  const handleCityChange = (event) => {
+    const selectedCity = event.target.value;
+    setSelectedCity(selectedCity);
+    // 지역(시) 선택값 없거나 초기값이면 리셋
+    if (selectedCity === "" || selectedCity === "시 선택") {
+      setDistricts([]);
+      return;
+    }
+
+    // 선택된 시에 해당하는 도 데이터 호출
+    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+      .then((response) => {
+        setDistricts(response.data);
+      })
+      .catch((err) => {
+        console.error(`(도)호출 실패 ${selectedCity}:`, err);
+      });
   };
 
   const getDetail = async () => {
@@ -54,21 +85,32 @@ const BranchViewModal = (props) => {
     }
   };
 
+  // 선택한 지점장 데이터
   const chooseData = (name, num) => {
-    // 선택한 지점장 데이터
     setSelectName(name);
     setSelectNum(num);
   };
 
+  // 상세데이터
   const setDetailValue = () => {
     setBranchType(branchDetailData.branch_type);
     setCompanyName(branchDetailData.company_name);
     setBranchName(branchDetailData.branch_name);
   };
+
+  // 수정완료버튼
   const handleSubmit = () => {};
+
+  // 지점장 선택 모달창 OPEN 버튼
   const listModalOpen = () => {
     setListModal(!listModal);
   };
+
+  // 모달창닫기
+  const clearModal = () => {
+    props.closeModal();
+  };
+
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -85,7 +127,9 @@ const BranchViewModal = (props) => {
                 <div className="table_title">
                   지점코드<p className="title_point">*</p>
                 </div>
-                <div className="table_contents w100">123</div>
+                <div className="table_contents w100">
+                  {branchDetailData.branch_idx}
+                </div>
               </div>
             </div>
             <div className="table_row">
@@ -143,17 +187,33 @@ const BranchViewModal = (props) => {
                   지역<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <select name="affiliation" className="table_select">
-                    <option value="">지역(시)</option>
-                    <option value="company">Company</option>
-                    <option value="school">School</option>
-                    <option value="organization">Organization</option>
+                  <select
+                    name="city"
+                    value={selectedCity}
+                    onChange={handleCityChange}
+                    className="table_select"
+                  >
+                    <option value="">{city}</option>
+                    {cities.map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
                   </select>
-                  <select name="affiliation" className="table_select">
-                    <option value="">지역(도)</option>
-                    <option value="company">Company</option>
-                    <option value="school">School</option>
-                    <option value="organization">Organization</option>
+                  <select
+                    name="district"
+                    value={selectedDistrict}
+                    onChange={(event) =>
+                      setSelectedDistrict(event.target.value)
+                    }
+                    className="table_select"
+                  >
+                    <option value="">{district}</option>
+                    {districts.map((district) => (
+                      <option key={district} value={district}>
+                        {district}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -162,7 +222,9 @@ const BranchViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">생성일</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">24.02.28</div>
+                  <div className="table_inner_text">
+                    {branchDetailData.date}
+                  </div>
                 </div>
               </div>
             </div>
