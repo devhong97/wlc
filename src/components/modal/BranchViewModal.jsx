@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MemberListModal from "./MemberListModal";
+import Axios from "axios";
 
 const BranchViewModal = (props) => {
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [selectName, setSelectName] = useState(""); // 지점장 선택
   const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
   const [listModal, setListModal] = useState(false); // 지점장 선택 Modal
+  const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
+  const [branchType, setBranchType] = useState(""); // 지점종류
+  const [companyName, setCompanyName] = useState(""); // 회사명
+  const [branchName, setBranchName] = useState(""); // 지점명
+  const [city, setCity] = useState(""); // 지역(도)
+  const [district, setDistrict] = useState(""); // 지역(시)
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -14,16 +21,49 @@ const BranchViewModal = (props) => {
       getDetail();
     }
   }, [props.detailIdx]);
+
+  useEffect(() => {
+    setDetailValue();
+  }, [branchDetailData]);
+
   const clearModal = () => {
     props.closeModal();
+    setDetailNum(""); // idx 초기화
   };
-  const getDetail = () => {
-    //detailNum 사용하여 상세 api 호출
+
+  const getDetail = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/branch_detail",
+        {
+          params: {
+            idx: props.detailIdx,
+          },
+        }
+      );
+      const allData = response.data;
+      setBranchDetailData(allData[0]);
+      setDetailValue();
+
+      // location 문자열 분리
+      const [city, district] = allData[0].location.split(" ");
+      setCity(city);
+      setDistrict(district);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
   };
+
   const chooseData = (name, num) => {
     // 선택한 지점장 데이터
     setSelectName(name);
     setSelectNum(num);
+  };
+
+  const setDetailValue = () => {
+    setBranchType(branchDetailData.branch_type);
+    setCompanyName(branchDetailData.company_name);
+    setBranchName(branchDetailData.branch_name);
   };
   const handleSubmit = () => {};
   const listModalOpen = () => {
@@ -45,7 +85,7 @@ const BranchViewModal = (props) => {
                 <div className="table_title">
                   지점코드<p className="title_point">*</p>
                 </div>
-                <div className="table_contents w100">ㅁㄴㅇ</div>
+                <div className="table_contents w100">123</div>
               </div>
             </div>
             <div className="table_row">
@@ -90,6 +130,8 @@ const BranchViewModal = (props) => {
                     type="text"
                     id="title"
                     placeholder="지점명을 입력해주세요."
+                    value={branchName}
+                    onChange={(e) => setBranchName(e.target.value)}
                   ></input>
                 </div>
               </div>

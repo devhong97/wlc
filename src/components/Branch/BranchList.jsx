@@ -20,19 +20,20 @@ const BranchList = () => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
           setBranchList(
-            res.data.data.map((item, index) => ({
+            res.data.data.map((data, index) => ({
               id: index + 1,
-              branch_idx: item.branch_idx,
-              branch_type: item.branch_type,
-              company_name: item.company_name,
-              branch_name: item.branch_name,
-              owner_name: item.owner_name,
-              employee_num: item.employee_num,
-              location: item.location,
-              registered_num: item.registered_num,
-              consulting_num: item.consulting_num,
-              contract_num: item.contract_num,
-              date: item.date,
+              idx: data.idx,
+              branch_idx: data.branch_idx,
+              branch_type: data.branch_type,
+              company_name: data.company_name,
+              branch_name: data.branch_name,
+              owner_name: data.owner_name,
+              employee_num: data.employee_num,
+              location: data.location,
+              registered_num: data.registered_num,
+              consulting_num: data.consulting_num,
+              contract_num: data.contract_num,
+              date: data.date,
             }))
           );
         } else {
@@ -62,9 +63,14 @@ const BranchList = () => {
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
   };
-  const viewModalOpen = (idx) => {
+  const viewModalOpen = (data) => {
+    const idx = data.idx;
     setViewModal(!viewModal);
     setDetailIdx(idx);
+  };
+  const viewModalClose = () => {
+    setViewModal(false);
+    window.location.reload();
   };
 
   return (
@@ -123,7 +129,7 @@ const BranchList = () => {
       )}
       {viewModal && (
         <BranchViewModal
-          closeModal={viewModalOpen}
+          closeModal={viewModalClose}
           detailIdx={detailIdx}
         ></BranchViewModal>
       )}

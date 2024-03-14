@@ -14,20 +14,21 @@ const MemberList = () => {
   const [memberData, setMemberData] = useState([]);
   const location = useLocation();
   const { grade } = location.state || {};
+
   useEffect(() => {
     getMember();
   }, []);
 
   const getMember = async () => {
-    const selectGrade = []
+    const selectGrade = [];
     switch (grade) {
-      case '슈퍼관리자':
+      case "슈퍼관리자":
         selectGrade.push(2, 3);
         break;
-      case '지점관리자':
+      case "지점관리자":
         selectGrade.push(3);
         break;
-      case '영업사원':
+      case "영업사원":
         selectGrade.push(5); //본인것만 호출
         break;
       default:
@@ -35,11 +36,12 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_list", {
-        params: {
-          grade: selectGrade
+        "http://localhost:3001/api/get/member_list",
+        {
+          params: {
+            grade: selectGrade,
+          },
         }
-      }
       );
       const allData = response.data;
       setMemberData(allData);
@@ -49,7 +51,9 @@ const MemberList = () => {
   };
   const columns = [
     {
-      field: "id", headerName: "No.", flex: 0.5
+      field: "id",
+      headerName: "No.",
+      flex: 0.5,
     },
     { field: "name", headerName: "영업사원이름" },
     { field: "phone", headerName: "연락처" },
@@ -72,7 +76,6 @@ const MemberList = () => {
     bank_num: data.deposit_account,
   }));
 
-
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
     getMember();
@@ -87,8 +90,6 @@ const MemberList = () => {
     setViewModal(false);
     window.location.reload();
   };
-
-
 
   return (
     <div className="main_wrap">
@@ -115,12 +116,11 @@ const MemberList = () => {
                 </div>
                 <div className="list_search reset_btn">초기화</div>
               </div>
-              {grade !== "영업사원" &&
+              {grade !== "영업사원" && (
                 <div className="title_btn" onClick={() => writeModalOpen()}>
                   등록
                 </div>
-              }
-
+              )}
             </div>
             <div className="table_box list">
               <TableDefault
