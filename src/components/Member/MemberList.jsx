@@ -109,7 +109,7 @@ const MemberList = () => {
     pay: data.pay,
     customer_num: data.customer_num,
     hope_num: data.hope_num,
-    bank_num: data.deposit_account,
+    bank_num: data.bank + data.deposit_account,
   }));
 
   const writeModalOpen = () => {
