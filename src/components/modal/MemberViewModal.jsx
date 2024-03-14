@@ -19,15 +19,12 @@ const MemberViewModal = (props) => {
       getDetail();
     }
   }, [props.detailIdx]);
-
   useEffect(() => {
     setDetailValue();
   }, [memberData]);
-
   const clearModal = () => {
     props.closeModal();
   };
-
   const getDetail = async () => {
     try {
       const response = await Axios.get(
