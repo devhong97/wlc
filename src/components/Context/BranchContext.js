@@ -10,10 +10,6 @@ export const BranchProvider = ({ children }) => {
   const [type, setContextType] = useState("");
   const [company, setContextCompany] = useState("");
 
-  console.log(typeGroup);
-  console.log(companyGroup);
-  console.log("branchGroup", branchGroup);
-
   useEffect(() => {
     getType();
   }, []);

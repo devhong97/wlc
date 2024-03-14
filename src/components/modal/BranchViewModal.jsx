@@ -125,8 +125,8 @@ const BranchViewModal = (props) => {
         "http://localhost:3001/api/post/branch_modify",
         {
           idx: props.detailIdx,
-          branchType: branchType,
-          companyName: companyName,
+          branchType: type,
+          companyName: company,
           branchName: branchName,
           location: location,
         }
@@ -228,7 +228,7 @@ const BranchViewModal = (props) => {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                   >
-                    <option value="">{companyName}</option>
+                    <option value="">선택</option>
                     {companyGroup.map((data, index) => {
                       return (
                         <option key={index} value={data}>
@@ -322,7 +322,7 @@ const BranchViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">사원수</div>
+                <div className="table_title">영업사원수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">-</div>
                 </div>
