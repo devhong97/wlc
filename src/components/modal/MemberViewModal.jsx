@@ -137,11 +137,40 @@ const MemberViewModal = (props) => {
                 }
             );
             alert("삭제되었습니다.");
-            props.closeModal();
+            props.closeModal("reload");
         } catch (error) {
             console.error("Error fetching list:", error);
         }
     };
+    const checkGrade = (data) => {
+        switch (data) {
+            case 1:
+                return "슈퍼관리자"
+            case 2:
+                return "지점관리자"
+            case 3:
+                return "영업사원"
+            default:
+                return "";
+        }
+    }
+
+    const handleStatus = async (num) => {
+        try {
+            const response = await Axios.post(
+                "http://localhost:3001/api/post/member_status", {
+                status: num,
+                idx: props.detailIdx
+            }
+
+            );
+
+            console.log(response.data);
+            props.closeModal("reload");
+        } catch (error) {
+            console.error("Error during registration:", error);
+        }
+    }
     return (
         <div className="modal_wrap">
             <div className="modal_back">
@@ -158,6 +187,14 @@ const MemberViewModal = (props) => {
                                 <div className="table_title">가입일</div>
                                 <div className="table_contents w100">
                                     <div className="table_inner_text">{memberData.date}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="table_row">
+                            <div className="table_section">
+                                <div className="table_title">직급</div>
+                                <div className="table_contents w100">
+                                    <div className="table_inner_text">{checkGrade(memberData.grade)}</div>
                                 </div>
                             </div>
                         </div>
@@ -322,31 +359,43 @@ const MemberViewModal = (props) => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="table_row">
-                            <div className="table_section half">
-                                <div className="table_title">고객수</div>
-                                <div className="table_contents w100">
-                                    <div className="table_inner_text">0</div>
+                        {memberData.status === 1 && (
+                            <div className="table_row">
+                                <div className="table_section half">
+                                    <div className="table_title">고객수</div>
+                                    <div className="table_contents w100">
+                                        <div className="table_inner_text">0</div>
+                                    </div>
+                                </div>
+                                <div className="table_section half">
+                                    <div className="table_title">상담희망수</div>
+                                    <div className="table_contents w100">
+                                        <div className="table_inner_text">0</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="table_section half">
-                                <div className="table_title">상담희망수</div>
-                                <div className="table_contents w100">
-                                    <div className="table_inner_text">0</div>
-                                </div>
-                            </div>
-                        </div>
+                        )}
+
                     </div>
 
-                    <div className="modal_footer_box">
-                        <div className="modal_btn" onClick={() => handleUpdate()}>
-                            수정
+                    {memberData.status === 3 ? (<div className="modal_footer_box">
+                        <div className="modal_btn" onClick={() => handleStatus(1)}>
+                            승인
                         </div>
-                        <div className="modal_btn close" onClick={() => deleteMember()}>
-                            삭제
+                        <div className="modal_btn close" onClick={() => handleStatus(2)}>
+                            반려
                         </div>
-                    </div>
+                    </div>) : (
+                        <div className="modal_footer_box">
+                            <div className="modal_btn" onClick={() => handleUpdate()}>
+                                수정
+                            </div>
+                            <div className="modal_btn close" onClick={() => deleteMember()}>
+                                삭제
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div>
