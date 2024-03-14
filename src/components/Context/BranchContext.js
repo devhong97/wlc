@@ -7,10 +7,22 @@ export const BranchProvider = ({ children }) => {
     const [typeGroup, setTypeGroup] = useState([]);
     const [companyGroup, setCompanyGroup] = useState([]);
     const [branchGroup, setBranchGroup] = useState([]);
+    const [type, setContextType] = useState("");
+    const [company, setContextCompany] = useState("");
 
     useEffect(() => {
         getType();
     }, []);
+    useEffect(() => {
+        if (type !== "") {
+            getCompany();
+        }
+    }, [type]);
+    useEffect(() => {
+        if (company !== "") {
+            getBranch();
+        }
+    }, [company]);
 
     const getType = async () => {
         try {
@@ -21,7 +33,7 @@ export const BranchProvider = ({ children }) => {
         }
     }
 
-    const getCompany = async (type) => {
+    const getCompany = async () => {
         try {
             const response = await Axios.get(`http://localhost:3001/api/get/company/${type}`);
             setCompanyGroup(response.data);
@@ -30,7 +42,7 @@ export const BranchProvider = ({ children }) => {
         }
     }
 
-    const getBranch = async (company) => {
+    const getBranch = async () => {
         try {
             const response = await Axios.get(`http://localhost:3001/api/get/branchcate/${company}`);
             setBranchGroup(response.data);
@@ -40,12 +52,12 @@ export const BranchProvider = ({ children }) => {
     }
 
     return (
-        <BranchContext.Provider value={{ typeGroup, companyGroup, branchGroup, getType, getCompany, getBranch }}>
+        <BranchContext.Provider value={{ typeGroup, companyGroup, branchGroup, getType, getCompany, getBranch, setContextType, setContextCompany }}>
             {children}
         </BranchContext.Provider>
     );
 }
 
-export const useBranchFetch = () => {
+export const useBranchContext = () => {
     return useContext(BranchContext);
 }

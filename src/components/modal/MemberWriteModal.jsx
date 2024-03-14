@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Axios from "axios";
+import Axios from 'axios';
+import { useBranchContext } from '../Context/BranchContext';
 
 const MemberWriteModal = (props) => {
+    const { typeGroup, companyGroup, branchGroup, setContextType, setContextCompany } = useBranchContext();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -13,63 +15,14 @@ const MemberWriteModal = (props) => {
     const [company, setCompany] = useState("");
     const [branchName, setBranchName] = useState("");
     const [branchIdx, setBranchIdx] = useState("");
-    const [typeGroup, setTypeGroup] = useState([]); //분류1
-    const [companyGroup, setCompanyGroup] = useState([]); //분류2
-    const [branchGroup, setBranchGroup] = useState([]); // 지점
 
-    // 분류1 호출
     useEffect(() => {
-        getType();
-    }, []);
-
-    const getType = async () => {
-        try {
-            const response = await Axios.get(
-                "http://localhost:3001/api/get/type",
-            );
-            const allData = response.data;
-            setTypeGroup(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
-    //분류1에 따른 분류2 호출
+        setContextType(type);
+    }, [type])
     useEffect(() => {
-        if (type !== "") {
-            getCompany();
-        }
-    }, [type]);
+        setContextCompany(company);
+    }, [company])
 
-    const getCompany = async () => {
-        try {
-            const response = await Axios.get(
-                `http://localhost:3001/api/get/company/${type}`,
-            );
-            const allData = response.data;
-            setCompanyGroup(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
-    //분류2에 따른 지점명 호출
-    useEffect(() => {
-        if (company !== "") {
-            getBranch();
-        }
-        console.log(company);
-    }, [company]);
-
-    const getBranch = async () => {
-        try {
-            const response = await Axios.get(
-                `http://localhost:3001/api/get/branchcate/${company}`,
-            );
-            const allData = response.data;
-            setBranchGroup(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
     const selectBranch = (num) => {
         setBranchIdx(num);
         const selectedBranch = branchGroup.find(data => data.idx === Number(num));
@@ -82,7 +35,7 @@ const MemberWriteModal = (props) => {
         props.closeModal()
     }
     const handleSubmit = async () => {
-        if (!id || !password || !name || !email || !phone || !bank || !bankAccount || !type || !company || !branchName) {
+        if (!id || !password || !name || !email || !phone || !bank || !bankAccount || !type || !company || !branchName || !branchIdx) {
             alert("필수 사항을 모두 입력해주세요");
             return;
         }
@@ -100,7 +53,7 @@ const MemberWriteModal = (props) => {
                 branch_type: type,
                 company_name: company,
                 branch_name: branchName,
-                brnachIdx: branchIdx,
+                branch_idx: branchIdx,
             });
 
             console.log(response.data);
