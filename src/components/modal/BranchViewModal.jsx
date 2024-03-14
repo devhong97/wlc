@@ -204,7 +204,7 @@ const BranchViewModal = (props) => {
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                   >
-                    <option value="">{branchType}</option>
+                    <option value="">선택</option>
                     {typeGroup.map((type, index) => {
                       return (
                         <option key={index} value={type}>
