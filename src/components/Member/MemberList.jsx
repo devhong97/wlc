@@ -6,30 +6,40 @@ import Axios from "axios";
 import TableDefault from "../Table/TableDefault";
 import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
+import { useAuth } from "../Context/AuthContext";
 
 const MemberList = () => {
+  const { decodeS3, decodeS1 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
   const [memberData, setMemberData] = useState([]);
+  const [tab, setTab] = useState(1);
   const location = useLocation();
   const { grade } = location.state || {};
 
   useEffect(() => {
     getMember();
-  }, []);
+  }, [tab]);
 
   const getMember = async () => {
     const selectGrade = [];
+    const resultParams = {}
     switch (grade) {
       case "슈퍼관리자":
-        selectGrade.push(2, 3);
+        resultParams.grade = [1, 2, 3]
+        resultParams.status = tab
         break;
       case "지점관리자":
-        selectGrade.push(3);
+        // 본인 지점과 같은 사원만 노출해야함 (나중에하기)
+        resultParams.grade = [2, 3]
+        resultParams.status = tab
+        resultParams.branch = decodeS3();
         break;
       case "영업사원":
-        selectGrade.push(5); //본인것만 호출
+        resultParams.grade = [3]
+        resultParams.status = tab
+        resultParams.uid = decodeS1();
         break;
       default:
         return;
@@ -38,9 +48,7 @@ const MemberList = () => {
       const response = await Axios.get(
         "http://localhost:3001/api/get/member_list",
         {
-          params: {
-            grade: selectGrade,
-          },
+          params: resultParams
         }
       );
       const allData = response.data;
@@ -55,7 +63,9 @@ const MemberList = () => {
       headerName: "No.",
       flex: 0.5,
     },
-    { field: "name", headerName: "영업사원이름" },
+    { field: "name", headerName: "사원이름" },
+    { field: "grade", headerName: "직급" },
+    { field: "branch", headerName: "지점명" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "등록일" },
     { field: "pay", headerName: "완료커미션" },
@@ -63,11 +73,37 @@ const MemberList = () => {
     { field: "hope_num", headerName: "상담희망수" },
     { field: "bank_num", headerName: "입금계좌" },
   ];
-
+  const subColumns = [
+    {
+      field: "id",
+      headerName: "No.",
+      flex: 0.5,
+    },
+    { field: "name", headerName: "사원이름" },
+    { field: "grade", headerName: "직급" },
+    { field: "branch", headerName: "지점명" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "등록일" },
+    { field: "bank_num", headerName: "입금계좌" },
+  ]
+  const checkGrade = (data) => {
+    switch (data) {
+      case 1:
+        return "슈퍼관리자"
+      case 2:
+        return "지점관리자"
+      case 3:
+        return "영업사원"
+      default:
+        return "";
+    }
+  }
   const rows = memberData.map((data, index) => ({
     id: index + 1,
     idx: data.idx,
     name: data.name,
+    grade: checkGrade(data.grade),
+    branch: data.branch,
     phone: data.phone,
     date: moment(data.date).format("YY.MM.DD"),
     pay: data.pay,
@@ -86,9 +122,13 @@ const MemberList = () => {
     console.log(idx);
     setDetailIdx(idx);
   };
-  const viewModalClose = () => {
+  const viewModalClose = (status) => {
     setViewModal(false);
-    window.location.reload();
+    if (status === "reload") {
+      window.location.reload();
+    } else {
+      getMember();
+    }
   };
 
   return (
@@ -97,6 +137,14 @@ const MemberList = () => {
         <div className="main_title_box">영업사원관리</div>
         <div className="board_list_wrap">
           <div className="list_area">
+            {grade !== "영업사원" && (
+              <div className="tab_area">
+                <div className="tab_back">
+                  <div className={`tab_menu ${tab === 1 && "active"}`} onClick={() => setTab(1)}>승인회원</div>
+                  <div className={`tab_menu ${tab === 3 && "active"}`} onClick={() => setTab(3)}>대기회원</div>
+                </div>
+              </div>
+            )}
             <div className="search_box">
               <div className="search_select">
                 <select className="list_select">
@@ -125,7 +173,7 @@ const MemberList = () => {
             <div className="table_box list">
               <TableDefault
                 rows={rows}
-                columns={columns}
+                columns={tab === 1 ? columns : subColumns}
                 viewModalOpen={viewModalOpen}
               ></TableDefault>
             </div>
