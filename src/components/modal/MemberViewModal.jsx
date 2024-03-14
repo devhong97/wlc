@@ -19,7 +19,7 @@ const MemberViewModal = (props) => {
       getDetail();
     }
   }, [props.detailIdx]);
-  
+
   useEffect(() => {
     setDetailValue();
   }, [memberData]);
