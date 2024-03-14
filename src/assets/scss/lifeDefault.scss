@@ -68,6 +68,7 @@
             position: fixed;
             bottom: 0;
           }
+
           &.home {
             position: fixed;
             bottom: 50px;
@@ -85,6 +86,14 @@
               }
 
               &.third {
+                background-image: url("../img/paper_icon.png");
+              }
+
+              &.fourth {
+                background-image: url("../img/report_icon.png");
+              }
+
+              &.fifth {
                 background-image: url("../img/aside_1.png");
               }
             }
@@ -95,12 +104,14 @@
               padding-left: 10px;
               font-size: 18px;
             }
+
             .home_icon {
               @include background_set(40px, 30px, contain);
               background-image: url("../img/home_icon.png");
               display: inline-block;
               vertical-align: middle;
             }
+
             .logout_icon {
               @include background_set(40px, 30px, contain);
               background-image: url("../img/logout_icon.png");
@@ -565,7 +576,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked + .terms_label::before {
+        .terms_checkbox:checked+.terms_label::before {
           background-color: $sub-color;
         }
       }

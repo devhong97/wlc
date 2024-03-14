@@ -84,7 +84,7 @@ const Aside = () => {
             </div>
             <div className="menu_row">
               <div className="main_menu_box" onClick={() => movePage("/sales")}>
-                <div className="menu_icon third"></div>
+                <div className="menu_icon fourth"></div>
                 <div className="menu_text">실적관리</div>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Aside = () => {
                 className="main_menu_box"
                 onClick={() => movePage("/notice")}
               >
-                <div className="menu_icon third"></div>
+                <div className="menu_icon fifth"></div>
                 <div className="menu_text">게시판관리</div>
               </div>
             </div>
