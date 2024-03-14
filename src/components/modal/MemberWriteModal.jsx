@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import Axios from "axios";
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
+import { useBranchContext } from '../Context/BranchContext';
 
 const MemberWriteModal = (props) => {
+    const { typeGroup, companyGroup, branchGroup, setContextType, setContextCompany } = useBranchContext();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -9,15 +11,31 @@ const MemberWriteModal = (props) => {
     const [phone, setPhone] = useState("");
     const [bank, setBank] = useState("");
     const [bankAccount, setBankAccount] = useState("");
-    const [category1, setCategory1] = useState("");
-    const [category2, setCategory2] = useState("");
+    const [type, setType] = useState("");
+    const [company, setCompany] = useState("");
     const [branchName, setBranchName] = useState("");
+    const [branchIdx, setBranchIdx] = useState("");
+
+    useEffect(() => {
+        setContextType(type);
+    }, [type])
+    useEffect(() => {
+        setContextCompany(company);
+    }, [company])
+
+    const selectBranch = (num) => {
+        setBranchIdx(num);
+        const selectedBranch = branchGroup.find(data => data.idx === Number(num));
+        if (selectedBranch) {
+            setBranchName(selectedBranch.branch_name);
+        }
+    }
 
     const clearModal = () => {
         props.closeModal()
     }
     const handleSubmit = async () => {
-        if (!id || !password || !name || !email || !phone || !bank || !bankAccount || !category1 || !category2 || !branchName) {
+        if (!id || !password || !name || !email || !phone || !bank || !bankAccount || !type || !company || !branchName || !branchIdx) {
             alert("필수 사항을 모두 입력해주세요");
             return;
         }
@@ -32,9 +50,10 @@ const MemberWriteModal = (props) => {
                 phone: phone,
                 bank: bank,
                 deposit_account: bankAccount,
-                company_type: category1,
-                company_name: category2,
-                branch: branchName
+                branch_type: type,
+                company_name: company,
+                branch_name: branchName,
+                branch_idx: branchIdx,
             });
 
             console.log(response.data);
@@ -174,12 +193,14 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
-                                        value={category1} onChange={(e) => setCategory1(e.target.value)}
+                                        value={type} onChange={(e) => setType(e.target.value)}
                                     >
                                         <option value="">선택</option>
-                                        <option value="company">Company</option>
-                                        <option value="school">School</option>
-                                        <option value="organization">Organization</option>
+                                        {typeGroup.map((type, index) => {
+                                            return (
+                                                <option key={index} value={type}>{type}</option>
+                                            );
+                                        })}
                                     </select>
                                 </div>
                             </div>
@@ -191,12 +212,14 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
-                                        value={category2} onChange={(e) => setCategory2(e.target.value)}
+                                        value={company} onChange={(e) => setCompany(e.target.value)}
                                     >
                                         <option value="">선택</option>
-                                        <option value="company">Company</option>
-                                        <option value="school">School</option>
-                                        <option value="organization">Organization</option>
+                                        {companyGroup.map((data, index) => {
+                                            return (
+                                                <option key={index} value={data}>{data}</option>
+                                            );
+                                        })}
                                     </select>
                                 </div>
                             </div>
@@ -210,12 +233,14 @@ const MemberWriteModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
-                                        value={branchName} onChange={(e) => setBranchName(e.target.value)}
+                                        value={branchIdx} onChange={(e) => selectBranch(e.target.value)}
                                     >
                                         <option value="">선택</option>
-                                        <option value="company">Company</option>
-                                        <option value="school">School</option>
-                                        <option value="organization">Organization</option>
+                                        {branchGroup.map((data, index) => {
+                                            return (
+                                                <option key={index} value={data.idx}>{data.branch_name}</option>
+                                            );
+                                        })}
                                     </select>
                                 </div>
                             </div>
