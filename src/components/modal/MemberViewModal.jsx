@@ -17,6 +17,7 @@ const MemberViewModal = (props) => {
     const [branchName, setBranchName] = useState("");
     const [branchIdx, setBranchIdx] = useState("");
 
+    // 분류소스
     useEffect(() => {
         if (props.detailIdx) {
             console.log(props.detailIdx);
@@ -29,6 +30,22 @@ const MemberViewModal = (props) => {
     useEffect(() => {
         setContextCompany(company);
     }, [company])
+
+    const selectBranch = (num) => {
+        setBranchIdx(num);
+        const selectedBranch = branchGroup.find(data => data.idx === Number(num));
+        if (selectedBranch) {
+            setBranchName(selectedBranch.branch_name);
+        }
+    }
+    const selectType = (data) => {
+        setType(data);
+        //지점명 초기화
+        setCompany("");
+        setBranchIdx("");
+        setBranchName("");
+    }
+    // ///////////////////
 
     useEffect(() => {
         setDetailValue();
@@ -56,7 +73,7 @@ const MemberViewModal = (props) => {
         }
     };
     const setDetailValue = () => {
-        setPassword(memberData.password);
+        // setPassword(memberData.password);
         setEmail(memberData.email);
         setPhone(memberData.phone);
         setBank(memberData.bank);
@@ -66,15 +83,50 @@ const MemberViewModal = (props) => {
         setBranchName(memberData.branch_name);
         setBranchIdx(memberData.branch_idx)
     };
-    const selectBranch = (num) => {
-        setBranchIdx(num);
-        const selectedBranch = branchGroup.find(data => data.idx === Number(num));
-        if (selectedBranch) {
-            setBranchName(selectedBranch.branch_name);
-        }
-    }
 
-    const handleSubmit = () => { };
+
+    const handleUpdate = async () => {
+        if (
+            !email ||
+            !phone ||
+            !bank ||
+            !bankAccount ||
+            !type ||
+            !company ||
+            !branchName ||
+            !branchIdx
+        ) {
+            alert("필수 사항을 모두 입력해주세요");
+            return;
+        }
+        const paramsArray = {
+            email: email,
+            phone: phone,
+            bank: bank,
+            deposit_account: bankAccount,
+            branch_type: type,
+            company_name: company,
+            branch_name: branchName,
+            branch_idx: branchIdx,
+            idx: props.detailIdx
+        }
+
+        if (password !== "") {
+            paramsArray.password = password;
+        }
+
+        try {
+            const response = await Axios.post(
+                "http://localhost:3001/api/post/member_edit", paramsArray
+
+            );
+
+            console.log(response.data);
+            props.closeModal();
+        } catch (error) {
+            console.error("Error during registration:", error);
+        }
+    };
     const deleteMember = async () => {
         try {
             const response = await Axios.post(
@@ -217,7 +269,7 @@ const MemberViewModal = (props) => {
                                     <select
                                         name="affiliation"
                                         className="table_select"
-                                        value={type} onChange={(e) => setType(e.target.value)}
+                                        value={type} onChange={(e) => selectType(e.target.value)}
                                     >
                                         <option value="">선택</option>
                                         {typeGroup.map((type, index) => {
@@ -287,7 +339,7 @@ const MemberViewModal = (props) => {
                     </div>
 
                     <div className="modal_footer_box">
-                        <div className="modal_btn" onClick={handleSubmit}>
+                        <div className="modal_btn" onClick={() => handleUpdate()}>
                             수정
                         </div>
                         <div className="modal_btn close" onClick={() => deleteMember()}>
