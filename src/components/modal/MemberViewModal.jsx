@@ -35,7 +35,7 @@ const MemberViewModal = (props) => {
         setBranchIdx(num);
         const selectedBranch = branchGroup.find(data => data.idx === Number(num));
         if (selectedBranch) {
-            setBranchName(selectedBranch.branch_name);
+            setBranchName(selectedBranch.branch);
         }
     }
     const selectType = (data) => {
@@ -80,7 +80,7 @@ const MemberViewModal = (props) => {
         setBankAccount(memberData.deposit_account);
         setType(memberData.branch_type);
         setCompany(memberData.company_name);
-        setBranchName(memberData.branch_name);
+        setBranchName(memberData.branch);
         setBranchIdx(memberData.branch_idx)
     };
 
@@ -106,7 +106,7 @@ const MemberViewModal = (props) => {
             deposit_account: bankAccount,
             branch_type: type,
             company_name: company,
-            branch_name: branchName,
+            branch: branchName,
             branch_idx: branchIdx,
             idx: props.detailIdx
         }
@@ -315,7 +315,7 @@ const MemberViewModal = (props) => {
                                         <option value="">선택</option>
                                         {branchGroup.map((data, index) => {
                                             return (
-                                                <option key={index} value={data.idx}>{data.branch_name}</option>
+                                                <option key={index} value={data.idx}>{data.branch}</option>
                                             );
                                         })}
                                     </select>

@@ -263,7 +263,7 @@ const Register = () => {
     setBranchIdx(num);
     const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
     if (selectedBranch) {
-      setBranchName(selectedBranch.branch_name);
+      setBranchName(selectedBranch.branch);
     }
   };
 
@@ -401,7 +401,7 @@ const Register = () => {
               {branchGroup.map((data, index) => {
                 return (
                   <option key={index} value={data.idx}>
-                    {data.branch_name}
+                    {data.branch}
                   </option>
                 );
               })}
