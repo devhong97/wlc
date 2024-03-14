@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import MemberListModal from "./MemberListModal";
 import Axios from "axios";
+import { useBranchContext } from "../Context/BranchContext";
 
 const BranchViewModal = (props) => {
+  const { typeGroup, companyGroup, setContextType, setContextCompany } =
+    useBranchContext();
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [selectName, setSelectName] = useState(""); // 지점장 선택
   const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
   const [listModal, setListModal] = useState(false); // 지점장 선택 Modal
   const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
   const [branchType, setBranchType] = useState(""); // 지점종류
+  const [type, setType] = useState(""); // 변경할 지점종류
   const [companyName, setCompanyName] = useState(""); // 회사명
+  const [company, setCompany] = useState(""); // 변경할 회사명
   const [branchName, setBranchName] = useState(""); // 지점명
-  const [city, setCity] = useState(""); // 현재 지역(도)
-  const [district, setDistrict] = useState(""); // 현재 지역(시)
+  const [city, setCity] = useState(""); // 현재 지역(도) 데이터 분리
+  const [district, setDistrict] = useState(""); // 현재 지역(시) 데이터 분리
   const [cities, setCities] = useState([]); //선택 지역(시)
   const [districts, setDistricts] = useState([]); //선택 지역(도)
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
@@ -31,6 +36,14 @@ const BranchViewModal = (props) => {
     setDetailValue();
   }, [branchDetailData]);
 
+  // 지점종류 > 회사명 선택
+  useEffect(() => {
+    setContextType(type);
+  }, [type]);
+  useEffect(() => {
+    setContextCompany(company);
+  }, [company]);
+
   // // 지역(시) 데이터 호출
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get/cities")
@@ -47,7 +60,7 @@ const BranchViewModal = (props) => {
     const selectedCity = event.target.value;
     setSelectedCity(selectedCity);
     // 지역(시) 선택값 없거나 초기값이면 리셋
-    if (selectedCity === "" || selectedCity === "시 선택") {
+    if (selectedCity === "") {
       setDistricts([]);
       return;
     }
@@ -99,7 +112,54 @@ const BranchViewModal = (props) => {
   };
 
   // 수정완료버튼
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    const confirmModify = window.confirm(`수정을 완료하시겠습니까?`);
+    if (!confirmModify) {
+      return;
+    }
+    try {
+      // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
+      const location = `${city} ${district}`;
+
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/branch_modify",
+        {
+          idx: props.detailIdx,
+          branchType: branchType,
+          companyName: companyName,
+          branchName: branchName,
+          location: location,
+        }
+      );
+      alert("수정이 완료되었습니다.");
+      props.closeModal();
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
+
+  // 지점삭제버튼
+  const deleteBranch = async () => {
+    const confirmDelete = window.confirm(
+      `[${branchDetailData.branch_name}] 지점을 삭제하시겠습니까?`
+    );
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/branch_delete",
+        {
+          idx: props.detailIdx,
+        }
+      );
+      alert("지점이 삭제되었습니다.");
+      props.closeModal();
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
 
   // 지점장 선택 모달창 OPEN 버튼
   const listModalOpen = () => {
@@ -138,11 +198,20 @@ const BranchViewModal = (props) => {
                   지점종류<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <select name="affiliation" className="table_select">
-                    <option value="">선택</option>
-                    <option value="company">Company</option>
-                    <option value="school">School</option>
-                    <option value="organization">Organization</option>
+                  <select
+                    name="affiliation"
+                    className="table_select"
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                  >
+                    <option value="">{branchType}</option>
+                    {typeGroup.map((type, index) => {
+                      return (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -153,11 +222,20 @@ const BranchViewModal = (props) => {
                   회사명<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <select name="affiliation" className="table_select">
-                    <option value="">선택</option>
-                    <option value="company">Company</option>
-                    <option value="school">School</option>
-                    <option value="organization">Organization</option>
+                  <select
+                    name="affiliation"
+                    className="table_select"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  >
+                    <option value="">{companyName}</option>
+                    {companyGroup.map((data, index) => {
+                      return (
+                        <option key={index} value={data}>
+                          {data}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -276,8 +354,8 @@ const BranchViewModal = (props) => {
             <div className="modal_btn" onClick={handleSubmit}>
               수정
             </div>
-            <div className="modal_btn close" onClick={clearModal}>
-              닫기
+            <div className="modal_btn close" onClick={() => deleteBranch()}>
+              삭제
             </div>
           </div>
         </div>

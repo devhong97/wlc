@@ -83,7 +83,7 @@ const BranchWriteModal = (props) => {
     })
       .then((res) => {
         console.log(res.data);
-        alert(`[${branchName}] 지점등록이 완료되었습니다.`);
+        alert(`[${branchName}]\n지점등록이 완료되었습니다.`);
         clearModal();
         window.location.reload();
       })
