@@ -273,7 +273,7 @@ const Register = () => {
     setCompany("");
     setBranchIdx("");
     setBranchName("");
-  }
+  };
 
   return (
     <div className="register_wrap">
