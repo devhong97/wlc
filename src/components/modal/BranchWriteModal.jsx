@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { useBranchContext } from "../Context/BranchContext";
 
 const BranchWriteModal = (props) => {
+  const { typeGroup } = useBranchContext();
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
   const [cities, setCities] = useState([]); //지역(시)
@@ -116,10 +118,14 @@ const BranchWriteModal = (props) => {
                     id="user_branchType"
                     className="table_select"
                   >
-                    <option value="">지점종류 선택</option>
-                    <option value="분류1-1">분류1-1</option>
-                    <option value="분류1-2">분류1-2</option>
-                    <option value="분류1-3">분류1-3</option>
+                    <option value="">선택</option>
+                    {typeGroup.map((type, index) => {
+                      return (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -163,7 +169,7 @@ const BranchWriteModal = (props) => {
               <div className="table_row">
                 <div className="table_section">
                   <div className="table_title">
-                    지역(시)<p className="title_point">*</p>
+                    지역(시, 도)<p className="title_point">*</p>
                   </div>
                   <div className="table_contents w100">
                     <select
