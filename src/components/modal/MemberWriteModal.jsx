@@ -36,6 +36,13 @@ const MemberWriteModal = (props) => {
       setBranchName(selectedBranch.branch_name);
     }
   };
+  const selectType = (data) => {
+    setType(data);
+    //지점명 초기화
+    setCompany("");
+    setBranchIdx("");
+    setBranchName("");
+  }
 
   const clearModal = () => {
     props.closeModal();
@@ -218,7 +225,7 @@ const MemberWriteModal = (props) => {
                     name="affiliation"
                     className="table_select"
                     value={type}
-                    onChange={(e) => setType(e.target.value)}
+                    onChange={(e) => selectType(e.target.value)}
                   >
                     <option value="">선택</option>
                     {typeGroup.map((type, index) => {

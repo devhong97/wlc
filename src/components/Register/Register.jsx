@@ -1,17 +1,25 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useBranchContext } from "../Context/BranchContext";
 const Register = () => {
+  const {
+    typeGroup,
+    companyGroup,
+    branchGroup,
+    setContextType,
+    setContextCompany,
+  } = useBranchContext();
   const [id, setId] = useState(""); // 아이디
   const [password, setPassword] = useState(""); //비밀번호
   const [passwordChk, setPasswordChk] = useState(""); //비밀번호 체크
   const [name, setName] = useState(""); // 이름
-  const [companyType, setCompanyType] = useState(""); // 지점종류
-  const [companyName, setCompanyName] = useState(""); // 회사명
+  const [type, setType] = useState("");
+  const [company, setCompany] = useState("");
+  const [branchName, setBranchName] = useState("");
+  const [branchIdx, setBranchIdx] = useState("");
   const [bank, setBank] = useState(""); // 은행명
   const [depositAccount, setDepositAccount] = useState(""); // 입금계좌
-  const [branch, setBranch] = useState(""); // 지점
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
@@ -130,21 +138,21 @@ const Register = () => {
         passwordChkInput.focus();
       }
       return;
-    } else if (companyType === "") {
+    } else if (type === "") {
       alert("지점종류를 선택해주세요.");
       const companyTypeInput = document.getElementById("user_companyType");
       if (companyTypeInput) {
         companyTypeInput.focus();
       }
       return;
-    } else if (companyName === "") {
+    } else if (company === "") {
       alert("회사를 선택해주세요.");
       const companyNameInput = document.getElementById("user_companyName");
       if (companyNameInput) {
         companyNameInput.focus();
       }
       return;
-    } else if (branch === "") {
+    } else if (branchName === "") {
       alert("지점을 선택해주세요.");
       const branchInput = document.getElementById("user_branch");
       if (branchInput) {
@@ -223,9 +231,10 @@ const Register = () => {
       password,
       name,
       totalPhone,
-      companyType,
-      companyName,
-      branch,
+      type,
+      company,
+      branchName,
+      branchIdx,
       totalEmail,
       bank,
       depositAccount,
@@ -242,6 +251,29 @@ const Register = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    setContextType(type);
+  }, [type]);
+  useEffect(() => {
+    setContextCompany(company);
+  }, [company]);
+
+  const selectBranch = (num) => {
+    setBranchIdx(num);
+    const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
+    if (selectedBranch) {
+      setBranchName(selectedBranch.branch_name);
+    }
+  };
+
+  const selectType = (data) => {
+    setType(data);
+    //지점명 초기화
+    setCompany("");
+    setBranchIdx("");
+    setBranchName("");
+  }
 
   return (
     <div className="register_wrap">
@@ -323,44 +355,56 @@ const Register = () => {
           <div className="input_row">
             <div className="input_title">지점종류</div>
             <select
-              value={companyType}
-              onChange={(e) => setCompanyType(e.target.value)}
+              value={type}
+              onChange={(e) => selectType(e.target.value)}
               id="user_companyType"
               className="register_select"
             >
               <option value="">지점종류 선택</option>
-              <option value="보험사">보험사</option>
-              <option value="상조">상조</option>
-              <option value="무소속">무소속</option>
+              {typeGroup.map((type, index) => {
+                return (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="input_row">
             <div className="input_title">회사명</div>
             <select
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
               id="user_companyName"
               className="register_select"
             >
               <option value="">회사명 선택</option>
-              <option value="기홍에셋">기홍에셋</option>
-              <option value="기홍상조">기홍상조</option>
-              <option value="무소속">무소속</option>
+              {companyGroup.map((data, index) => {
+                return (
+                  <option key={index} value={data}>
+                    {data}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="input_row">
             <div className="input_title">지점명</div>
             <select
-              value={branch}
-              onChange={(e) => setBranch(e.target.value)}
+              value={branchIdx}
+              onChange={(e) => selectBranch(e.target.value)}
               placeholder="지점명을 입력해주세요."
               id="user_branch"
               className="register_select"
             >
               <option value="">지점명 선택</option>
-              <option value="아산점">아산점</option>
-              <option value="천안점">천안점</option>
-              <option value="무소속">무소속</option>
+              {branchGroup.map((data, index) => {
+                return (
+                  <option key={index} value={data.idx}>
+                    {data.branch_name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="input_row">
