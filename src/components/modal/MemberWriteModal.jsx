@@ -42,7 +42,7 @@ const MemberWriteModal = (props) => {
     setCompany("");
     setBranchIdx("");
     setBranchName("");
-  }
+  };
 
   const clearModal = () => {
     props.closeModal();

@@ -24,21 +24,21 @@ const MemberList = () => {
 
   const getMember = async () => {
     const selectGrade = [];
-    const resultParams = {}
+    const resultParams = {};
     switch (grade) {
       case "슈퍼관리자":
-        resultParams.grade = [1, 2, 3]
-        resultParams.status = tab
+        resultParams.grade = [1, 2, 3];
+        resultParams.status = tab;
         break;
       case "지점관리자":
         // 본인 지점과 같은 사원만 노출해야함 (나중에하기)
-        resultParams.grade = [2, 3]
-        resultParams.status = tab
+        resultParams.grade = [2, 3];
+        resultParams.status = tab;
         resultParams.branch = decodeS3();
         break;
       case "영업사원":
-        resultParams.grade = [3]
-        resultParams.status = tab
+        resultParams.grade = [3];
+        resultParams.status = tab;
         resultParams.uid = decodeS1();
         break;
       default:
@@ -48,7 +48,7 @@ const MemberList = () => {
       const response = await Axios.get(
         "http://localhost:3001/api/get/member_list",
         {
-          params: resultParams
+          params: resultParams,
         }
       );
       const allData = response.data;
@@ -85,19 +85,19 @@ const MemberList = () => {
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "등록일" },
     { field: "bank_num", headerName: "입금계좌" },
-  ]
+  ];
   const checkGrade = (data) => {
     switch (data) {
       case 1:
-        return "슈퍼관리자"
+        return "슈퍼관리자";
       case 2:
-        return "지점관리자"
+        return "지점관리자";
       case 3:
-        return "영업사원"
+        return "영업사원";
       default:
         return "";
     }
-  }
+  };
   const rows = memberData.map((data, index) => ({
     id: index + 1,
     idx: data.idx,
@@ -140,8 +140,18 @@ const MemberList = () => {
             {grade !== "영업사원" && (
               <div className="tab_area">
                 <div className="tab_back">
-                  <div className={`tab_menu ${tab === 1 && "active"}`} onClick={() => setTab(1)}>승인회원</div>
-                  <div className={`tab_menu ${tab === 3 && "active"}`} onClick={() => setTab(3)}>대기회원</div>
+                  <div
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => setTab(1)}
+                  >
+                    승인회원
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 3 && "active"}`}
+                    onClick={() => setTab(3)}
+                  >
+                    대기회원
+                  </div>
                 </div>
               </div>
             )}

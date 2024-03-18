@@ -8,12 +8,10 @@ const BranchViewModal = (props) => {
     useBranchContext();
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [selectName, setSelectName] = useState(""); // 지점장 선택
-  const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
+  // const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
   const [listModal, setListModal] = useState(false); // 지점장 선택 Modal
   const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
-  const [branchType, setBranchType] = useState(""); // 지점종류
-  const [type, setType] = useState(""); // 변경할 지점종류
-  const [companyName, setCompanyName] = useState(""); // 회사명
+  const [type, setType] = useState(""); // 지점종류
   const [company, setCompany] = useState(""); // 변경할 회사명
   const [branchName, setBranchName] = useState(""); // 지점명
   const [city, setCity] = useState(""); // 현재 지역(도) 데이터 분리
@@ -22,6 +20,12 @@ const BranchViewModal = (props) => {
   const [districts, setDistricts] = useState([]); //선택 지역(도)
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
+
+  console.log("district", district);
+  console.log("cities", cities);
+  console.log("districts", districts);
+  console.log("selectedCity", selectedCity);
+  console.log("selectedDistrict", selectedDistrict);
 
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
@@ -40,6 +44,7 @@ const BranchViewModal = (props) => {
   useEffect(() => {
     setContextType(type);
   }, [type]);
+
   useEffect(() => {
     setContextCompany(company);
   }, [company]);
@@ -101,14 +106,15 @@ const BranchViewModal = (props) => {
   // 선택한 지점장 데이터
   const chooseData = (name, num) => {
     setSelectName(name);
-    setSelectNum(num);
+    // setSelectNum(num);
   };
 
   // 상세데이터
   const setDetailValue = () => {
-    setBranchType(branchDetailData.branch_type);
-    setCompanyName(branchDetailData.company_name);
+    setType(branchDetailData.branch_type);
+    setCompany(branchDetailData.company_name);
     setBranchName(branchDetailData.branch_name);
+    setSelectName(branchDetailData.owner_name);
   };
 
   // 수정완료버튼
@@ -128,6 +134,7 @@ const BranchViewModal = (props) => {
           branchType: type,
           companyName: company,
           branchName: branchName,
+          ownerName: selectName,
           location: location,
         }
       );
@@ -310,7 +317,7 @@ const BranchViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">지점장</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{selectName}</div>
+                  <div className="table_inner_text">[ {selectName} ]</div>
                   <div
                     className="table_inner_btn"
                     onClick={() => listModalOpen()}

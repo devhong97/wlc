@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [name, setName] = useState(""); // 매니저 이름
   const [grade, setGrade] = useState(""); // 등급
   const [id, setId] = useState(""); // 로그인 시 ID
+  const [remainingSessionTime, setRemainingSessionTime] = useState(null); // 남은세션시간
   const navigate = useNavigate();
 
   //로그인(로드 시) 초기데이터
@@ -36,12 +37,23 @@ export const AuthProvider = ({ children }) => {
   // 쿠키 만료시간 및 알람메세지
   useEffect(() => {
     if (loginAccess) {
-      const timer = setTimeout(() => {
-        logout();
-        alert("세션 시간이 만료되었습니다.");
-      }, 6000000);
+      const timeout = 600000; // 10분
+      let remainingTime = timeout;
 
-      return () => clearTimeout(timer);
+      const timer = setInterval(() => {
+        remainingTime -= 1000;
+        if (remainingTime <= 0) {
+          clearInterval(timer);
+          logout();
+          alert("세션 시간이 만료되었습니다.");
+        } else {
+          const minutes = Math.floor(remainingTime / 60000);
+          const seconds = Math.floor((remainingTime % 60000) / 1000);
+          setRemainingSessionTime({ minutes, seconds });
+        }
+      }, 1000);
+
+      return () => clearInterval(timer);
     }
   }, [loginAccess]);
 
@@ -75,7 +87,6 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S3");
     Cookies.remove("S4");
     Cookies.remove("S5");
-
     alert("로그아웃 되었습니다.");
     navigate("/");
   };
@@ -160,6 +171,7 @@ export const AuthProvider = ({ children }) => {
         branch, //지점명
         grade, //등급
         id, //로그인 시 아이디
+        remainingSessionTime, // 세션 만료까지 남은 시간
 
         decodeS1,
         decodeS2,
