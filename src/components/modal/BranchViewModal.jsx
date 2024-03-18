@@ -235,7 +235,7 @@ const BranchViewModal = (props) => {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                   >
-                    <option value="">선택</option>
+                    <option value="">{company}</option>
                     {companyGroup.map((data, index) => {
                       return (
                         <option key={index} value={data}>
@@ -329,7 +329,7 @@ const BranchViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">영업사원수</div>
+                <div className="table_title">사원수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">-</div>
                 </div>
