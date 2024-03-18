@@ -8,6 +8,7 @@ import SalesList from "../components/Sales/SalesList";
 import CommissionList from "../components/Commission/CommissionList";
 import CommissionDetail from "../components/Commission/CommissionDetail";
 import Notice from "../components/Board/Notice";
+import Delme from './../components/Common/Delme';
 
 const Router = () => {
   return (
@@ -20,6 +21,8 @@ const Router = () => {
       <Route path="/commission" element={<CommissionList />} />
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />
+
+      <Route path="/delme" element={<Delme />} />
     </Routes>
   );
 };
