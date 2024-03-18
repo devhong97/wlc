@@ -89,7 +89,7 @@ const MemberViewModal = (props) => {
     setBankAccount(memberData.deposit_account);
     setType(memberData.branch_type);
     setCompany(memberData.company_name);
-    setBranchName(memberData.branch);
+    setBranchName(memberData.branch_name);
     setBranchIdx(memberData.branch_idx);
   };
 
@@ -370,7 +370,7 @@ const MemberViewModal = (props) => {
                     {branchGroup.map((data, index) => {
                       return (
                         <option key={index} value={data.idx}>
-                          {data.branch}
+                          {data.branch_name}
                         </option>
                       );
                     })}

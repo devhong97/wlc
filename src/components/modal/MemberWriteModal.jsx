@@ -277,7 +277,7 @@ const MemberWriteModal = (props) => {
                     {branchGroup.map((data, index) => {
                       return (
                         <option key={index} value={data.idx}>
-                          {data.branch}
+                          {data.branch_name}
                         </option>
                       );
                     })}
