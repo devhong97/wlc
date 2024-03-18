@@ -218,7 +218,7 @@ const MemberWriteModal = (props) => {
             <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">
-                  분류1<p className="title_point">*</p>
+                  지점종류<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <select
@@ -240,7 +240,7 @@ const MemberWriteModal = (props) => {
               </div>
               <div className="table_section half">
                 <div className="table_title">
-                  분류2<p className="title_point">*</p>
+                  회사명<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <select

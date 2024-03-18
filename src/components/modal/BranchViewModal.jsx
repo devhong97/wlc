@@ -20,12 +20,7 @@ const BranchViewModal = (props) => {
   const [districts, setDistricts] = useState([]); //선택 지역(도)
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
-
-  console.log("district", district);
-  console.log("cities", cities);
-  console.log("districts", districts);
-  console.log("selectedCity", selectedCity);
-  console.log("selectedDistrict", selectedDistrict);
+  const [branchIdx, setBranchIdx] = useState("");
 
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
@@ -104,9 +99,9 @@ const BranchViewModal = (props) => {
   };
 
   // 선택한 지점장 데이터
-  const chooseData = (name, num) => {
+  const chooseData = (name, branchIdx) => {
     setSelectName(name);
-    // setSelectNum(num);
+    setBranchIdx(branchIdx);
   };
 
   // 상세데이터
@@ -115,6 +110,7 @@ const BranchViewModal = (props) => {
     setCompany(branchDetailData.company_name);
     setBranchName(branchDetailData.branch_name);
     setSelectName(branchDetailData.owner_name);
+    setBranchIdx(branchDetailData.branch_idx);
   };
 
   // 수정완료버튼
@@ -130,12 +126,12 @@ const BranchViewModal = (props) => {
       const response = await Axios.post(
         "http://localhost:3001/api/post/branch_modify",
         {
-          idx: props.detailIdx,
           branchType: type,
           companyName: company,
           branchName: branchName,
           ownerName: selectName,
           location: location,
+          idx: props.detailIdx,
         }
       );
       alert("수정이 완료되었습니다.");
@@ -235,7 +231,7 @@ const BranchViewModal = (props) => {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                   >
-                    <option value="">{company}</option>
+                    <option value="">선택</option>
                     {companyGroup.map((data, index) => {
                       return (
                         <option key={index} value={data}>
@@ -329,7 +325,7 @@ const BranchViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">사원수</div>
+                <div className="table_title">영업사원수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">-</div>
                 </div>
@@ -371,6 +367,7 @@ const BranchViewModal = (props) => {
         <MemberListModal
           closeModal={listModalOpen}
           chooseData={chooseData}
+          branchIdx={branchDetailData.branch_idx}
         ></MemberListModal>
       )}
     </div>

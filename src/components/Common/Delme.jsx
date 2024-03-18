@@ -15,6 +15,8 @@ const Delme = () => {
           companyName: companyName,
         });
         alert("지점등록 완료.");
+        setBranchType("");
+        setCompanyName("");
       }
     } catch (err) {
       console.log(err);
@@ -24,24 +26,32 @@ const Delme = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div>type_total 데이터추가</div>
+        <div>[ type_total 테이블 ]</div>
         <div>
-          지점종류
+          1. branch_type(지점종류)
+          <br />
+          2. company_name(회사명) 등록
+        </div>
+        <br />
+        <div>
+          지점종류: &nbsp;
           <input
             type="text"
             value={branchType}
             onChange={(e) => setBranchType(e.target.value)}
           />
         </div>
+        <br />
         <div>
-          회사명
+          회사명: &nbsp;
           <input
             type="text"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
           />
         </div>
-        <div onClick={typeTotalInsert}>등록</div>
+        <br />
+        <div onClick={typeTotalInsert}>등록(버튼임)</div>
       </div>
     </div>
   );
