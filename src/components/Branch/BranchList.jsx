@@ -115,11 +115,15 @@ const BranchList = () => {
               </div>
             </div>
             <div className="table_box list">
-              <TableDefault
-                rows={branchList}
-                columns={columns}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+              {branchList.length === 0 ? (
+                <div>정보가 없습니다.</div>
+              ) : (
+                <TableDefault
+                  rows={branchList}
+                  columns={columns}
+                  viewModalOpen={viewModalOpen}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -74,6 +74,11 @@
             bottom: 50px;
           }
 
+          &.delme {
+            position: fixed;
+            bottom: 100px;
+          }
+
           .main_menu_box {
             .menu_icon {
               @include background_set(40px, 30px, contain);
@@ -103,6 +108,13 @@
               vertical-align: middle;
               padding-left: 10px;
               font-size: 18px;
+            }
+
+            .delme_icon {
+              @include background_set(40px, 30px, contain);
+              background-image: url("../img/home_icon.png");
+              display: inline-block;
+              vertical-align: middle;
             }
 
             .home_icon {
@@ -161,7 +173,7 @@
   .header_back {
     padding: 0 50px;
 
-    .header_info_box {
+    .header_info_box.left {
       width: 50%;
       font-size: 14px;
       display: inline-block;
@@ -175,6 +187,31 @@
 
         &:last-child {
           padding-right: 0;
+        }
+      }
+    }
+
+    .header_info_box.right {
+      width: 50%;
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 40px;
+      text-align: right;
+
+      .info_text {
+        padding-right: 10px;
+        vertical-align: middle;
+        display: inline-block;
+        animation: blinker 3s step-start infinite;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+      @keyframes blinker {
+        50% {
+          color: red;
         }
       }
     }
@@ -576,7 +613,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $sub-color;
         }
       }

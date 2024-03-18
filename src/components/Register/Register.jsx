@@ -187,7 +187,7 @@ const Register = () => {
         domainInput.focus();
       }
       return;
-    } else if (bank === "") {
+    } /* else if (bank === "") {
       alert("은행을 선택해주세요.");
       const bankInput = document.getElementById("user_bank");
       if (bankInput) {
@@ -203,7 +203,7 @@ const Register = () => {
         depositAccountInput.focus();
       }
       return;
-    } else if (agreeTerms === false) {
+    } */ else if (agreeTerms === false) {
       alert("약관에 동의해주세요.");
       const agreeTermsInput = document.getElementById("user_agreeTerms");
       if (agreeTermsInput) {
@@ -478,7 +478,7 @@ const Register = () => {
               <option value="직접입력">직접입력</option>
             </select>
           </div>
-          <div className="input_row">
+          {/* <div className="input_row">
             <div className="input_title">입금계좌</div>
             <select
               value={bank}
@@ -499,7 +499,7 @@ const Register = () => {
               id="user_depositAccount"
               className="register_input bank"
             />
-          </div>
+            </div> */}
           <div className="input_row terms">
             <input
               type="checkbox"

@@ -3,14 +3,23 @@ import Axios from "axios";
 import { useBranchContext } from "../Context/BranchContext";
 
 const BranchWriteModal = (props) => {
-  const { typeGroup } = useBranchContext();
+  const { typeGroup, companyGroup, setContextType, setContextCompany } =
+    useBranchContext();
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
   const [cities, setCities] = useState([]); //지역(시)
   const [districts, setDistricts] = useState([]); //지역(도)
-  const [branchType, setBranchType] = useState(""); // 지점종류
-  const [companyName, setCompanyName] = useState(""); //회사명
+  const [type, setType] = useState("");
+  const [company, setCompany] = useState("");
   const [branchName, setBranchName] = useState(""); //지점명
+
+  useEffect(() => {
+    setContextType(type);
+  }, [type]);
+
+  useEffect(() => {
+    setContextCompany(company);
+  }, [company]);
 
   useEffect(() => {
     // 지역(시) 데이터 호출
@@ -50,18 +59,18 @@ const BranchWriteModal = (props) => {
 
   //지점 등록버튼
   const handleSubmit = async () => {
-    if (branchType === "") {
+    if (type === "") {
       alert("지점종류를 선택해주세요.");
-      const branchTypeInput = document.getElementById("user_branchType");
-      if (branchTypeInput) {
-        branchTypeInput.focus();
+      const typeInput = document.getElementById("user_type");
+      if (typeInput) {
+        typeInput.focus();
       }
       return;
-    } else if (companyName === "") {
+    } else if (company === "") {
       alert("회사명을 입력해주세요.");
-      const companyNameInput = document.getElementById("user_companyName");
-      if (companyNameInput) {
-        companyNameInput.focus();
+      const companyInput = document.getElementById("user_company");
+      if (companyInput) {
+        companyInput.focus();
       }
       return;
     } else if (branchName === "") {
@@ -78,8 +87,8 @@ const BranchWriteModal = (props) => {
 
     // 지점등록
     Axios.post("http://localhost:3001/api/post/branch_account", {
-      branchType,
-      companyName,
+      branchType: type,
+      companyName: company,
       branchName,
       location,
     })
@@ -113,8 +122,8 @@ const BranchWriteModal = (props) => {
                 </div>
                 <div className="table_contents w100">
                   <select
-                    value={branchType}
-                    onChange={(e) => setBranchType(e.target.value)}
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
                     id="user_branchType"
                     className="table_select"
                   >
@@ -136,14 +145,21 @@ const BranchWriteModal = (props) => {
                   회사명<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <input
-                    className="table_input modal"
-                    type="text"
-                    id="title"
-                    placeholder="회사명을 입력해주세요."
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                  ></input>
+                  <select
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    id="user_compnayName"
+                    className="table_select"
+                  >
+                    <option value="">선택</option>
+                    {companyGroup.map((type, index) => {
+                      return (
+                        <option key={index} value={type}>
+                          {type}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               </div>
             </div>

@@ -36,7 +36,9 @@ const Aside = () => {
   const home = () => {
     navigate("/");
   };
-
+  const delme = () => {
+    navigate("/delme");
+  };
 
   return (
     <div className="side_wrap">
@@ -44,9 +46,7 @@ const Aside = () => {
         <div className={`side_menu_back ${isOpen ? "active" : ""}`}>
           <div className="side_top_box" onClick={() => openSide()}>
             <div className="top_icon"></div>
-            <div className="top_text">
-              웰라이프케어
-            </div>
+            <div className="top_text">웰라이프케어</div>
           </div>
           <div className="side_menu_box">
             <div className="menu_row" onClick={() => openSub(1)}>
@@ -95,6 +95,11 @@ const Aside = () => {
               >
                 <div className="menu_icon fifth"></div>
                 <div className="menu_text">게시판관리</div>
+              </div>
+            </div>
+            <div className="menu_row delme">
+              <div className="main_menu_box">
+                <div className="delme_icon" onClick={() => delme()}></div>
               </div>
             </div>
             <div className="menu_row home">
