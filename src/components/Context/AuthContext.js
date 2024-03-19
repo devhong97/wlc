@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   // 쿠키 만료시간 및 알람메세지
   useEffect(() => {
     if (loginAccess) {
-      const timeout = 600000; // 10분
+      const timeout = 6000000; // 10분
       let remainingTime = timeout;
 
       const timer = setInterval(() => {

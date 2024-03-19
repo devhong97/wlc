@@ -277,7 +277,7 @@ const Register = () => {
 
   return (
     <div className="register_wrap">
-      <div className="register_back">
+      <div className="register_back register">
         <div className="logo_title_box">
           <div className="logo_img"></div>
           <div className="logo_title">WLC</div>

@@ -74,42 +74,52 @@ const Login = () => {
 
   return (
     <div className="login_wrap">
-      <div className="login_back_img"></div>
       <div className="login_back">
         <form onSubmit={handleSubmit} className="input_wrap">
           <div className="input_back">
             <div className="logo_title_box">
               <div className="logo_img"></div>
-              <div className="logo_title">WLC</div>
+              <div className="logo_title">웰라이프케어입니다.</div>
+              <div className="logo_title">서비스 이용을 위해 로그인 해주세요.</div>
             </div>
-            <div className="input_row">
-              <div className="input_box">
-                <input
-                  type="text"
-                  placeholder="ID"
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
-                  ref={idInputRef}
-                  className="login_input"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  ref={passwordInputRef}
-                  className="login_input"
-                />
+            <div className="input_box">
+              <input
+                type="text"
+                placeholder="아이디를 입력하세요"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                ref={idInputRef}
+                className="login_input"
+              />
+              <input
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                ref={passwordInputRef}
+                className="login_input"
+              />
+            </div>
+            <div className="login_check_box">
+              <input
+                type="checkbox"
+                id="re_id"
+                className="login_check"
+              />
+              <label className="login_label" htmlFor="re_id">
+                아이디 저장
+              </label>
+            </div>
+            <button className="login_btn" type="submit">
+              로그인
+            </button>
+            <div className="bottom_btn_box">
+              <div className="bottom_btn" onClick={() => registerHandle()}>
+                회원가입
               </div>
-              <button className="login_btn" type="submit">
-                LOGIN
-              </button>
-            </div>
-            <div className="bottom_btn" onClick={() => searchHandle()}>
-              ID/PW찾기
-            </div>
-            <div className="bottom_btn" onClick={() => registerHandle()}>
-              회원가입
+              <div className="bottom_btn" onClick={() => searchHandle()}>
+                ID/PW찾기
+              </div>
             </div>
           </div>
         </form>

@@ -100,26 +100,25 @@ const PwSearch = () => {
   return (
     <div className="register_container">
       <div className="input_row">
-        <div className="input_title">아이디</div>
         <input
           type="text"
           value={id}
           placeholder="아이디를 입력하세요."
           onChange={(e) => setId(e.target.value)}
           id="user_id"
-          className="register_input"
+          className="search_input"
         />
       </div>
 
       <div className="input_row">
-        <div className="input_title">연락처</div>
         <input
           type="phone"
           value={tel1}
           onChange={(e) => handlePhone(e, "tel1")}
           id="tel1"
           maxlength="3"
-          className="register_input phone"
+          className="search_input short_phone"
+          placeholder="010"
         />
         <p className="phone_icon">-</p>
         <input
@@ -128,7 +127,8 @@ const PwSearch = () => {
           onChange={(e) => handlePhone(e, "tel2")}
           id="tel2"
           maxlength="4"
-          className="register_input phone"
+          className="search_input short_phone"
+          placeholder="1234"
         />
         <p className="phone_icon">-</p>
         <input
@@ -137,7 +137,8 @@ const PwSearch = () => {
           onChange={(e) => handlePhone(e, "tel3")}
           id="tel3"
           maxlength="4"
-          className="register_input phone"
+          className="search_input short_phone"
+          placeholder="1234"
         />
         {isVerified ? (
           <div className="verified" onClick={() => reVerifiedHandle()}>
@@ -151,12 +152,11 @@ const PwSearch = () => {
       </div>
       {verificationInput && (
         <div className="input_row">
-          <div className="input_title">인증번호</div>
           <input
             type="text"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
-            className="register_input"
+            className="search_input"
             placeholder="인증번호를 입력하세요."
           />
         </div>

@@ -81,10 +81,10 @@ const CommissionDetail = (props) => {
         <div className='detail_wrap'>
             <div className='detail_back'>
                 <div className='detail_title_box'>
-                    <div className='detail_title'>커미션 관리 상세</div>
+                    커미션 관리 상세
                 </div>
                 <div className='detail_container'>
-                    <div className='detail_title_box'>
+                    <div className='container_title_box'>
                         <div className='detail_title sub'>지점 커미션</div>
                     </div>
                     <div className='detail_table_box top'>
@@ -96,7 +96,7 @@ const CommissionDetail = (props) => {
                     </div>
                 </div>
                 <div className='detail_container'>
-                    <div className='detail_title_box'>
+                    <div className='container_title_box'>
                         <div className='detail_title sub'>사원 커미션</div>
                         <div className='title_btn' onClick={() => updateMemberPay()}>선택완료</div>
                     </div>

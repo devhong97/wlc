@@ -35,11 +35,13 @@ function App() {
         </div>
       ) : (
         //로그인화면 컴포넌트
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
+        <div className="screen">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        </div>
       )}
     </Fragment>
   );
