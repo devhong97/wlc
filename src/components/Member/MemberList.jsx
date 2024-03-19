@@ -105,7 +105,7 @@ const MemberList = () => {
     grade: checkGrade(data.grade),
     branch: data.branch,
     phone: data.phone,
-    date: moment(data.date).format("YY.MM.DD"),
+    date: moment(data.date).format("YYYY.MM.DD"),
     pay: data.pay,
     customer_num: data.customer_num,
     hope_num: data.hope_num,
@@ -158,17 +158,20 @@ const MemberList = () => {
             <div className="search_box">
               <div className="search_select">
                 <select className="list_select">
-                  <option>메뉴</option>
-                  <option>제목</option>
-                  <option>내용</option>
-                  <option>작성자</option>
+                  <option>지점종류</option>
+                </select>
+                <select className="list_select">
+                  <option>회사명</option>
+                </select>
+                <select className="list_select">
+                  <option>지점명</option>
                 </select>
               </div>
               <div className="search_input">
-                <input
+                {/*<input
                   className="list_input"
                   placeholder="검색어를 입력하세요"
-                ></input>
+                ></input>*/}
                 <div className="list_search" style={{ marginRight: 10 }}>
                   검색
                 </div>
@@ -179,6 +182,15 @@ const MemberList = () => {
                   등록
                 </div>
               )}
+              <div className="total_btn">
+                <div className="total_box">커미션합계 : 10000</div>
+              </div>
+              <div className="total_btn">
+                <div className="total_box">지급예정커미션: 10000</div>
+              </div>
+              <div className="total_btn">
+                <div className="total_box">영업사원수: 10000</div>
+              </div>
             </div>
             <div className="table_box list">
               <TableDefault

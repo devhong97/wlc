@@ -3,6 +3,7 @@ import BranchWriteModal from "../modal/BranchWriteModal";
 import BranchViewModal from "../modal/BranchViewModal";
 import TableDefault from "../Table/TableDefault";
 import Axios from "axios";
+import moment from "moment";
 
 const BranchList = () => {
   const [writeModal, setWriteModal] = useState(false); // 지점등록 모달
@@ -33,7 +34,7 @@ const BranchList = () => {
               registered_num: data.registered_num,
               consulting_num: data.consulting_num,
               contract_num: data.contract_num,
-              date: data.date,
+              date: moment(data.date).format("YYYY.MM.DD"),
             }))
           );
         } else {
@@ -92,10 +93,10 @@ const BranchList = () => {
                 </select>
               </div>
               <div className="search_input">
-                <input
+                {/*<input
                   className="list_input"
                   placeholder="검색어를 입력하세요"
-                ></input>
+                ></input>*/}
                 <div className="list_search" style={{ marginRight: 10 }}>
                   검색
                 </div>
