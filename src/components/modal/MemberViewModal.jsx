@@ -381,13 +381,13 @@ const MemberViewModal = (props) => {
             {memberData.status === 1 && (
               <div className="table_row">
                 <div className="table_section half">
-                  <div className="table_title">고객수</div>
+                  <div className="table_title">가입회원수</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">0</div>
                   </div>
                 </div>
                 <div className="table_section half">
-                  <div className="table_title">상담희망수</div>
+                  <div className="table_title">상담희망고객수</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">0</div>
                   </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Axios from "axios";
 
 const PwSearch = () => {
   const [id, setId] = useState(""); // 아이디
@@ -78,6 +79,24 @@ const PwSearch = () => {
     setReVerified(reVerified + 1); // 재인증 시도 횟수 증가
   };
 
+  const handleSubmit = () => {
+    // id와 phone을 서버로 전송하는 요청
+    Axios.post("http://localhost:3001/api/post/pw_search", {
+      id: id,
+      phone: totalPhone,
+    })
+      .then((res) => {
+        if (res.data.success === true) {
+          const password = res.data.data[0].password;
+          alert(`${id}님의 비밀번호는 [ ${password} ]입니다.`);
+        } else {
+          alert("일치하는 정보가 없습니다.");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="register_container">
       <div className="input_row">
@@ -146,7 +165,9 @@ const PwSearch = () => {
         <div className="cooldown_message">10분 후에 다시 시도해주세요.</div>
       ) : null}
       <div className="register_btn_box search">
-        <button className="register_btn">찾기</button>
+        <button className="register_btn" onClick={() => handleSubmit()}>
+          찾기
+        </button>
       </div>
     </div>
   );

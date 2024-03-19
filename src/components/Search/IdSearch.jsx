@@ -1,16 +1,44 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBranchContext } from "../Context/BranchContext";
 
 const IdSearch = () => {
-  const [name, setName] = useState("");
-  const [companyType, setCompanyType] = useState(""); // 회사종류
-  const [companyName, setCompanyName] = useState(""); // 회사명
-  const [branch, setBranch] = useState(""); // 지점
+  const {
+    typeGroup,
+    companyGroup,
+    branchGroup,
+    setContextType,
+    setContextCompany,
+  } = useBranchContext();
+
+  const [name, setName] = useState(""); // 영업사원 이름
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
+  const [type, setType] = useState("");
+  const [company, setCompany] = useState("");
+  const [branchName, setBranchName] = useState("");
+  const [branchIdx, setBranchIdx] = useState("");
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setContextType(type);
+  }, [type]);
+
+  useEffect(() => {
+    setContextCompany(company);
+  }, [company]);
+
+  const selectBranch = (num) => {
+    setBranchIdx(num);
+    const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
+    if (selectedBranch) {
+      console.log("선택된 지점:", selectedBranch);
+      setBranchName(selectedBranch.branch_name);
+    }
+  };
 
   const totalPhone = `${tel1}-${tel2}-${tel3}`;
 
@@ -41,25 +69,25 @@ const IdSearch = () => {
         nameInput.focus();
       }
       return;
-    } else if (companyType === "") {
-      alert("분류1을 입력해주세요.");
-      const companyTypeInput = document.getElementById("user_companyType");
-      if (companyTypeInput) {
-        companyTypeInput.focus();
+    } else if (type === "") {
+      alert("지점종류를 선택해주세요.");
+      const typeInput = document.getElementById("user_branchType");
+      if (typeInput) {
+        typeInput.focus();
       }
       return;
-    } else if (companyName === "") {
-      alert("분류2을 입력해주세요.");
-      const companyNameInput = document.getElementById("user_companyName");
-      if (companyNameInput) {
-        companyNameInput.focus();
+    } else if (company === "") {
+      alert("회사명을 선택해주세요.");
+      const companyInput = document.getElementById("user_companyName");
+      if (companyInput) {
+        companyInput.focus();
       }
       return;
-    } else if (branch === "") {
-      alert("지점을 입력해주세요.");
-      const branchInput = document.getElementById("user_branch");
-      if (branchInput) {
-        branchInput.focus();
+    } else if (branchName === "") {
+      alert("지점명을 선택해주세요.");
+      const branchNameInput = document.getElementById("user_branch");
+      if (branchNameInput) {
+        branchNameInput.focus();
       }
       return;
     } else if (tel1 === "" || tel2 === "" || tel3 === "") {
@@ -74,16 +102,23 @@ const IdSearch = () => {
     // id와 phone을 서버로 전송하는 요청
     Axios.post("http://localhost:3001/api/post/id_search", {
       name: name,
-      companyType: companyType,
-      companyName: companyName,
-      branch: branch,
+      branchType: type,
+      companyName: company,
+      branchName: branchName,
       phone: totalPhone,
     })
       .then((res) => {
+        console.log("서버로 전송된 데이터:", {
+          name: name,
+          branchType: type,
+          companyName: company,
+          branchName: branchName,
+          phone: totalPhone,
+        });
+
         if (res.data.success === true) {
           const userId = res.data.data[0].id;
           alert(`${name}님의 ID는 [ ${userId} ]입니다.`);
-          navigate("/");
         } else {
           alert("일치하는 정보가 없습니다.");
         }
@@ -110,43 +145,55 @@ const IdSearch = () => {
       <div className="input_row">
         <div className="input_title">지점종류</div>
         <select
-          value={companyType}
-          onChange={(e) => setCompanyType(e.target.value)}
-          id="user_companyType"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          id="user_branchType"
           className="register_select"
         >
           <option value="">지점종류 선택</option>
-          <option value="보험사">보험사</option>
-          <option value="상조">상조</option>
-          <option value="무소속">무소속</option>
+          {typeGroup.map((type, index) => {
+            return (
+              <option key={index} value={type}>
+                {type}
+              </option>
+            );
+          })}
         </select>
       </div>
       <div className="input_row">
         <div className="input_title">회사명</div>
         <select
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
-          id="user_companyName"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          id="user_compnayName"
           className="register_select"
         >
           <option value="">회사명 선택</option>
-          <option value="기홍에셋">기홍에셋</option>
-          <option value="기홍상조">기홍상조</option>
-          <option value="무소속">무소속</option>
+          {companyGroup.map((type, index) => {
+            return (
+              <option key={index} value={type}>
+                {type}
+              </option>
+            );
+          })}
         </select>
       </div>
       <div className="input_row">
         <div className="input_title">지점명</div>
         <select
-          value={branch}
-          onChange={(e) => setBranch(e.target.value)}
+          value={branchIdx}
+          onChange={(e) => selectBranch(e.target.value)}
           id="user_branch"
           className="register_select"
         >
-          <option value="">지점 선택</option>
-          <option value="아산점">아산점</option>
-          <option value="지점2">지점2</option>
-          <option value="지점3">지점3</option>
+          <option value="">지점명 선택</option>
+          {branchGroup.map((data, index) => {
+            return (
+              <option key={index} value={data.idx}>
+                {data.branch_name}
+              </option>
+            );
+          })}
         </select>
       </div>
       <div className="input_row">
