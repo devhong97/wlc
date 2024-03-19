@@ -5,6 +5,7 @@ import Axios from "axios";
 
 const MemberListModal = (props) => {
   const [selectData, setSelectData] = useState([]);
+  const { branchIdx } = props;
 
   useEffect(() => {
     getMember();
@@ -15,8 +16,9 @@ const MemberListModal = (props) => {
     { field: "name", headerName: "이름" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "등록일" },
-    { field: "category", headerName: "종류" },
-    { field: "company_name", headerName: "지점" },
+    { field: "branch_type", headerName: "지점종류" },
+    { field: "company_name", headerName: "회사명" },
+    { field: "branch_name", headerName: "지점명" },
     {
       field: "select",
       headerName: "-",
@@ -32,7 +34,12 @@ const MemberListModal = (props) => {
   const getMember = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_manager_list"
+        "http://localhost:3001/api/get/branch_manager_list",
+        {
+          params: {
+            branch_idx: branchIdx, // branchIdx를 파라미터로 전달
+          },
+        }
       );
       const allData = response.data;
       setSelectData(allData);
@@ -46,8 +53,10 @@ const MemberListModal = (props) => {
     name: data.name,
     phone: data.phone,
     date: moment(data.date).format("YY.MM.DD"),
-    category: data.branch_type,
+    branch_type: data.branch_type,
     company_name: data.company_name,
+    branch_name: data.branch,
+    branch_idx: data.branch_idx,
   }));
 
   const clearModal = () => {
@@ -55,8 +64,9 @@ const MemberListModal = (props) => {
   };
 
   const selectRow = (data) => {
-    console.log(data);
     const name = data.name;
+    const branchIdx = data.branch_idx;
+    console.log("name", name, "branchIdx", branchIdx);
     // const num = data.id;
     // props.chooseData(name, num);
     props.chooseData(name);
