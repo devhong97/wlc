@@ -17,13 +17,13 @@ const Search = () => {
             className={`tab_menu ${tab === 1 && "active"}`}
             onClick={() => moveTab(1)}
           >
-            ID찾기
+            아이디 찾기
           </div>
           <div
             className={`tab_menu ${tab === 2 && "active"}`}
             onClick={() => moveTab(2)}
           >
-            PW찾기
+            비밀번호 찾기
           </div>
         </div>
         {tab === 1 && <IdSearch></IdSearch>}

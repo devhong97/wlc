@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <div className="header_wrap">
-      <div className="header_back">
+      <div className="header_top_back">
         <div className="header_info_box left">
           <Clock></Clock>
           <div className="info_text">{decodeS4()}&nbsp; |</div>
@@ -36,6 +36,15 @@ const Header = () => {
                 &nbsp;]
               </Fragment>
             )}
+          </div>
+        </div>
+      </div>
+      <div className="header_bottom_back">
+        <div className="header_info_box">
+          <div className="info_icon"></div>
+          <div className="info_text_box">
+            <div className="info_name">{decodeS2()}</div>
+            <div className="info_id">{decodeS5()}</div>
           </div>
         </div>
       </div>

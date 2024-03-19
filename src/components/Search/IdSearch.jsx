@@ -131,19 +131,17 @@ const IdSearch = () => {
   return (
     <div className="register_container">
       <div className="input_row">
-        <div className="input_title">이름</div>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="이름을 입력하세요."
+          placeholder="성명을 입력하세요."
           id="user_name"
-          className="register_input"
+          className="search_input"
         />
       </div>
 
       <div className="input_row">
-        <div className="input_title">지점종류</div>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
@@ -161,7 +159,6 @@ const IdSearch = () => {
         </select>
       </div>
       <div className="input_row">
-        <div className="input_title">회사명</div>
         <select
           value={company}
           onChange={(e) => setCompany(e.target.value)}
@@ -179,7 +176,6 @@ const IdSearch = () => {
         </select>
       </div>
       <div className="input_row">
-        <div className="input_title">지점명</div>
         <select
           value={branchIdx}
           onChange={(e) => selectBranch(e.target.value)}
@@ -197,14 +193,14 @@ const IdSearch = () => {
         </select>
       </div>
       <div className="input_row">
-        <div className="input_title">연락처</div>
         <input
           type="phone"
           value={tel1}
           onChange={(e) => handlePhone(e, "tel1")}
           id="tel1"
           maxlength="3"
-          className="register_input phone"
+          className="search_input phone"
+          placeholder="010"
         />
         <p className="phone_icon">-</p>
         <input
@@ -213,7 +209,8 @@ const IdSearch = () => {
           onChange={(e) => handlePhone(e, "tel2")}
           id="tel2"
           maxlength="4"
-          className="register_input phone"
+          className="search_input phone"
+          placeholder="1234"
         />
         <p className="phone_icon">-</p>
         <input
@@ -222,7 +219,8 @@ const IdSearch = () => {
           onChange={(e) => handlePhone(e, "tel3")}
           id="tel3"
           maxlength="4"
-          className="register_input phone"
+          className="search_input phone"
+          placeholder="1234"
         />
       </div>
       <div className="register_btn_box search">

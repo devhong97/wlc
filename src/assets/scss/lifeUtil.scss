@@ -4,14 +4,20 @@
   margin: 0;
   padding: 0;
   font-family: "Pretendard_m";
+  word-break: keep-all;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body,
 html,
 #root {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 ol,
@@ -83,16 +89,10 @@ $light-gray: #707070;
 $back-gray: #dbdbdb;
 $line-gray: #e8e8e8;
 
-$main-color: #129448;
-$sub-color: #234726d7;
-$shadow-color: #b1472d69;
-$box-icon-color: #fd9f9f;
-$shadow-color: #0000004d;
-$shadow-color-input: #00000010;
-$shadow-color-box: #00000029;
-$back-color: #f8f3f2;
-$input-color: #f2e5e2;
-$delete-color: #fa3737cc;
+$main-color: #669B2E;
+$back-color : #F8FCF4;
+$sub-color_2 : #2F5C00;
+$sub-color: #DBEBCA;
 $modal-color: #9999999f;
 
 @keyframes growDown {

@@ -1,11 +1,10 @@
 @import "lifeUtil.scss";
 
 .screen {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
+  position: relative;
 }
 
 .menu_area {
@@ -14,34 +13,35 @@
   left: 0;
   top: 0;
   z-index: 2;
+  box-shadow: 0px 5px 6px #00000029;
 
   .side_wrap {
     height: 100%;
 
     .side_back {
       height: 100%;
-      background-color: #e9e8e8;
-      border-right: 1px solid #c6c6c6;
+      background-color: #fff;
+      width: 100%;
 
       .side_menu_back {
-        width: 60px;
+        width: 80px;
         height: 100%;
         transition: all 500ms cubic-bezier(0.9, 0, 0.33, 1);
         overflow: hidden;
 
+
         &.active {
-          width: 180px;
+          width: 270px;
         }
       }
 
       .side_top_box {
-        height: 50px;
-        width: 150px;
-        padding-top: 20px;
+        width: 270px;
+        padding: 80px 0 80px 15px;
         cursor: pointer;
 
         .top_icon {
-          @include background_set(50px, 45px, contain);
+          @include background_set(45px, 45px, cover);
           background-image: url("../img/logo_img.png");
           display: inline-block;
           vertical-align: middle;
@@ -50,76 +50,91 @@
         .top_text {
           display: inline-block;
           vertical-align: middle;
-          padding-left: 10px;
-          font-size: 17px;
+          padding-left: 25px;
+          font-size: 24px;
+          font-family: "Pretendard_b";
+          color: #212121;
         }
       }
 
       .side_menu_box {
-        padding: 50px 10px;
-        width: 150px;
+        padding: 0 0px 50px 0px;
+        width: 270px;
         height: calc(100% - 50px);
 
         .menu_row {
-          padding-bottom: 20px;
           cursor: pointer;
+
 
           &.logout {
             position: fixed;
             bottom: 0;
+            padding-bottom: 50px;
           }
 
           &.home {
             position: fixed;
-            bottom: 50px;
+            bottom: 95px;
           }
 
           &.delme {
             position: fixed;
-            bottom: 100px;
+            bottom: 155px;
           }
 
           .main_menu_box {
+            padding: 15px 0 15px 20px;
+
+            &.active {
+              background-color: $main-color;
+
+              .menu_text {
+                color: #fff;
+              }
+
+            }
+
             .menu_icon {
-              @include background_set(40px, 30px, contain);
-              background-image: url("../img/aside_3.png");
+              @include background_set(30px, 30px, contain);
+              background-image: url("../img/aside_1.png");
               display: inline-block;
               vertical-align: middle;
 
               &.second {
-                background-image: url("../img/aside_5.png");
+                background-image: url("../img/aside_2.png");
               }
 
               &.third {
-                background-image: url("../img/paper_icon.png");
+                background-image: url("../img/aside_3.png");
               }
 
               &.fourth {
-                background-image: url("../img/report_icon.png");
+                background-image: url("../img/aside_4.png");
               }
 
               &.fifth {
-                background-image: url("../img/aside_1.png");
+                background-image: url("../img/aside_5.png");
               }
             }
 
             .menu_text {
               display: inline-block;
               vertical-align: middle;
-              padding-left: 10px;
-              font-size: 18px;
+              padding-left: 30px;
+              font-size: 24px;
+              color: #212121
             }
 
             .delme_icon {
               @include background_set(40px, 30px, contain);
-              background-image: url("../img/home_icon.png");
+              background-image: url("../img/aside_home.png");
               display: inline-block;
               vertical-align: middle;
             }
 
             .home_icon {
               @include background_set(40px, 30px, contain);
-              background-image: url("../img/home_icon.png");
+              background-image: url("../img/aside_home.png");
               display: inline-block;
               vertical-align: middle;
             }
@@ -134,7 +149,7 @@
 
           .sub_menu_box {
             display: none;
-            padding-top: 10px;
+            padding: 5px 20px 20px;
             animation: growDown 300ms ease-in-out forwards;
             transform-origin: top center;
 
@@ -143,9 +158,15 @@
             }
 
             .sub_menu {
-              padding-left: 50px;
-              padding-bottom: 10px;
-              font-size: 15px;
+              padding-left: 60px;
+              padding-bottom: 20px;
+              font-size: 20px;
+              color: #212121;
+
+              &.active {
+                color: $main-color;
+                font-family: "Pretendard_b";
+              }
 
               &:last-child {
                 padding-bottom: 0;
@@ -161,29 +182,69 @@
 .main_area {
   width: 100%;
   height: 100%;
-  padding-left: 50px;
+  padding-left: 80px;
 }
 
 .header_wrap {
-  height: 40px;
-  background-color: #dbdbdb78;
   width: 100%;
-  border-bottom: 1px solid #c6c6c6;
 
-  .header_back {
-    padding: 0 50px;
+  .header_bottom_back {
+    padding: 25px 50px;
+    border-bottom: 1px solid #C9C9C9;
 
-    .header_info_box.left {
+    .header_info_box {
+      .info_icon {
+        @include background_set(60px, 60px, contain);
+        background-image: url("../img/header_user_icon.png");
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .info_text_box {
+        padding-left: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #414141;
+        font-size: 20px;
+
+        .info_name {
+          font-family: "Pretendard_b";
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .header_top_back {
+    padding: 10px 50px;
+    background-color: $sub-color_2;
+    color: #fff;
+
+    .header_info_box {
       width: 50%;
       font-size: 14px;
       display: inline-block;
       vertical-align: middle;
-      line-height: 40px;
+
+      &.right {
+        text-align: right;
+
+        .info_text {
+          animation: blinker 3s step-start infinite;
+        }
+
+        @keyframes blinker {
+          50% {
+            color: red;
+          }
+        }
+      }
 
       .info_text {
         padding-right: 10px;
         vertical-align: middle;
         display: inline-block;
+        font-family: "Pretendard_l";
 
         &:last-child {
           padding-right: 0;
@@ -196,7 +257,6 @@
       font-size: 14px;
       display: inline-block;
       vertical-align: middle;
-      line-height: 40px;
       text-align: right;
 
       .info_text {
@@ -209,11 +269,6 @@
           padding-right: 0;
         }
       }
-      @keyframes blinker {
-        50% {
-          color: red;
-        }
-      }
     }
   }
 }
@@ -221,10 +276,11 @@
 .footer_wrap {
   position: absolute;
   bottom: 0;
-  margin-left: 10px;
-  border-top: 1px solid #c6c6c6;
-  width: 100%;
-  background-color: #ebeaea67;
+  width: calc(100% - 80px);
+  background-color: $sub-color_2;
+  color: #fff;
+  padding: 20px 0;
+  text-align: right;
 }
 
 .footer_back {
@@ -232,20 +288,16 @@
 }
 
 .footer_back .txt {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 40px;
-  padding-left: 10px;
   font-size: 15px;
-
-  font-family: "AppleSD_R";
+  padding-right: 20px;
+  font-family: "Pretendard_l";
 }
 
 .main_wrap {
-  padding: 50px;
+  // padding: 50px;
   height: 100%;
   width: 100%;
+  background-color: $back-color;
 
   .main_back {
     width: 100%;
@@ -254,155 +306,160 @@
 }
 
 .main_title_box {
-  font-size: 30px;
-  padding-bottom: 30px;
+  font-size: 25px;
   font-family: "Pretendard_bb";
-}
+  border-bottom: 1px solid #C9C9C9;
+  padding: 10px 50px;
+  background-color: #fff;
 
-//로그인
-.login-wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  .total_data_box {
+    display: inline-block;
+    vertical-align: middle;
 
-  .input-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    input {
-      height: 50px;
+    .total_box {
+      display: inline-block;
+      font-size: 17px;
+      color: #707070;
+      padding-left: 30px;
     }
   }
 }
+
+//로그인
+
 
 .login_wrap {
   width: 100%;
   height: 100%;
   position: relative;
-
-  .login_back_img {
-    background-image: url("../img/login_back.jpg");
-    @include background_set(100%, 100%, cover);
-    filter: blur(5px);
-    position: fixed;
-  }
-
-  &::after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    background-color: #234726d7;
-    width: 40%;
-    height: 100%;
-    z-index: 1;
-  }
+  background-color: $back-color;
+  overflow: scroll;
 
   .login_back {
-    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 100%;
-    position: relative;
-
-    // &::after {
-    //   position: absolute;
-    //   content: "";
-    //   transform: translate(0, -50%);
-    //   top: 50%;
-    //   left: 0;
-    //   background-color: #b6fa7e9f;
-    //   width: 50%;
-    //   height: 90%;
-    //   border-top-right-radius: 50%;
-    //   border-bottom-right-radius: 50%;
-    //   box-shadow: 30px 10px 30px 10px #b6fa7e9f;
-    //   z-index: 2;
-    // }
 
     .input_wrap {
-      width: 100%;
-      position: relative;
-      z-index: 3;
-      top: 50%;
-      left: 0;
-      transform: translate(0, -50%);
-      padding-left: 5%;
+      padding: 50px 0;
 
       .input_back {
         width: 100%;
         height: 100%;
 
         .logo_title_box {
-          padding-bottom: 50px;
+          padding-bottom: 60px;
 
           .logo_img {
-            @include background_set(70px, 70px, cover);
+            @include background_set(90px, 90px, cover);
             background-image: url("../img/logo_img.png");
-            display: inline-block;
-
-            vertical-align: middle;
+            margin-bottom: 45px;
           }
 
           .logo_title {
-            display: inline-block;
-            color: #fff;
-            font-family: "Nps_m";
-            vertical-align: middle;
-            padding-left: 50px;
-            font-size: 50px;
-            letter-spacing: 20px;
+            color: #212121;
+            font-family: "Pretendard_b";
+            font-size: 35px;
+            line-height: 50px;
           }
+        }
+
+        .login_check_box {
+          padding-bottom: 47px;
+
+          .login_label {
+            font-size: 25px;
+            color: #707070;
+            position: relative;
+            padding-left: 53px;
+
+            &::before {
+              position: absolute;
+              content: "";
+              width: 35px;
+              height: 35px;
+              top: 0;
+              border-radius: 5px;
+              background-color: #C9C9C9;
+              left: 0;
+            }
+
+            &::after {
+              position: absolute;
+              content: "";
+              width: 12px;
+              height: 20px;
+              border-right: 3px solid #fff;
+              border-bottom: 3px solid #fff;
+              top: 2px;
+              left: 10px;
+              rotate: 45deg;
+            }
+          }
+
+          .login_check {
+            display: none;
+          }
+
+          .login_check:checked+.login_label::before {
+            background-color: $main-color;
+          }
+        }
+
+        .bottom_btn_box {
+          padding-top: 16px;
         }
 
         .bottom_btn {
           display: inline-block;
-          margin-right: 20px;
-          border-bottom: 1px solid #fff;
-          color: #fff;
+          margin-right: 18px;
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
+          color: #707070;
           cursor: pointer;
-          height: 25px;
-          width: 150px;
+          width: calc((100% - 18px) / 2);
           text-align: center;
-          letter-spacing: 5px;
-          font-family: "Nps_m";
+          font-size: 25px;
+          padding: 28px 0;
+          background-color: #fff;
+
+          &:last-child {
+            margin-right: 0;
+          }
         }
 
-        .input_row {
+
+        .input_box {
+          padding-bottom: 8px;
+        }
+
+        .login_btn {
+          background-color: $main-color;
+          border: none;
           width: 100%;
-          padding-bottom: 50px;
-
-          .input_box {
-            display: inline-block;
-            vertical-align: middle;
-            padding-right: 50px;
-          }
-
-          .login_btn {
-            display: inline-block;
-            vertical-align: middle;
-            background-color: #fff;
-            border: none;
-            width: 100px;
-            height: 130px;
-            border-radius: 5px;
-            font-size: 20px;
-            font-family: "Nps_m";
-            cursor: pointer;
-          }
+          border-radius: 10px;
+          font-size: 35px;
+          font-family: "Pretendard_b";
+          cursor: pointer;
+          color: #fff;
+          padding: 24px 0;
         }
 
         .login_input {
           display: block;
           outline: none;
-          border: none;
-          border-bottom: 2px solid #707070;
-          background-color: inherit;
-          margin-bottom: 20px;
-          width: 300px;
-          height: 50px;
-          font-size: 20px;
-          color: #fff;
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
+          background-color: #fff;
+          margin-bottom: 16px;
+          width: 100%;
+          height: 87px;
+          font-size: 24px;
+          color: #707070;
+          padding: 0 34px;
+
         }
       }
     }
@@ -411,32 +468,23 @@
 
 .register_wrap {
   width: 100%;
-  background-color: $sub-color;
-  min-height: 100%;
-  height: auto;
+  height: 100%;
   position: relative;
+  overflow: scroll;
 
   .register_tab_area {
-    text-align: center;
-    margin: 0 auto;
+    padding-bottom: 43px;
 
     .tab_menu {
-      width: calc((100% - 20px) / 2);
       display: inline-block;
-      margin-right: 20px;
-      background-color: #fff;
-      height: 60px;
-      border-radius: 20px;
+      margin-right: 27px;
       font-size: 30px;
-      font-family: "Pretendard_bb";
-      border: 3px solid $sub-color;
+      font-family: "Pretendard_b";
       cursor: pointer;
-      color: $sub-color;
-      padding: 10px 0;
+      color: #CECECE;
 
       &.active {
-        background-color: $sub-color;
-        color: #fff;
+        color: #212121;
       }
 
       &:last-child {
@@ -446,19 +494,20 @@
   }
 
   .register_back {
-    width: 50%;
-    margin: 0 auto;
-    height: 100%;
-    padding: 50px 0 0;
-    background-color: #fff;
+    &.register {
+      width: 50%;
+      margin: 0 auto;
+      // height: 100%;
+      padding: 50px 0 0;
+      background-color: #fff;
+    }
 
     &.search {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      height: auto;
-      padding: 50px;
+      padding: 50px 0;
     }
 
     .logo_title_box {
@@ -485,11 +534,9 @@
     }
 
     .register_container {
-      padding: 50px 50px 0;
-      height: 100%;
 
       .input_row {
-        padding: 0 0 30px;
+        padding: 0 0 16px;
 
         &.terms {
           text-align: center;
@@ -522,15 +569,14 @@
           text-align: center;
         }
 
-        .register_input {
-          width: calc(100% - 150px);
-          height: 40px;
+        .search_input {
+          width: 100%;
           vertical-align: middle;
-          border-radius: 5px;
-          border: 1px solid $light-gray;
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
           outline: none;
-          padding: 0 10px;
-          font-size: 15px;
+          padding: 29px 34px;
+          font-size: 25px;
           color: $deep-gray;
 
           &.tel {
@@ -542,7 +588,11 @@
           }
 
           &.phone {
-            width: calc((100% - 505px) / 3);
+            width: calc((100% - 40px) / 3);
+          }
+
+          &.short_phone {
+            width: calc((100% - 155px) / 3);
           }
 
           &.bank {
@@ -551,28 +601,56 @@
           }
         }
 
-        .verified {
-          display: inline-block;
-          padding: 5px 10px;
-          margin-left: 18px;
-          background-color: $sub-color;
-          border-radius: 20px;
-          font-family: "Pretendard_bb";
-          border: 3px solid $sub-color;
+        .register_input {
+          width: calc(100% - 150px);
+          vertical-align: middle;
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
+          outline: none;
+          padding: 29px 34px;
+          font-size: 25px;
+          color: $deep-gray;
+
+          &.tel {
+            width: calc(100% - 250px);
+          }
+
+          &.email {
+            width: calc((100% - 180px) / 3);
+          }
+
+          &.phone {
+            width: calc((100% - 190px) / 3);
+          }
+
+          &.bank {
+            margin-left: 15px;
+            width: calc((100% - 370px));
+          }
+        }
+
+        .search_select {
+          width: 100%;
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
+          outline: none;
+          padding: 29px 34px;
+          font-size: 25px;
           cursor: pointer;
-          color: #fff;
+          color: #707070;
         }
 
         .register_select {
-          width: 200px;
-          border: 1px solid $light-gray;
+          width: calc(100% - 150px);
+          border: 1px solid #C9C9C9;
+          border-radius: 10px;
           outline: none;
-          padding: 0 10px;
-          font-size: 15px;
-          height: 40px;
-          border-radius: 5px;
+          padding: 29px 34px;
+          font-size: 25px;
           cursor: pointer;
-          color: $deep-gray;
+          color: #707070;
+          vertical-align: middle;
+
 
           &.email {
             width: calc((100% - 180px) / 3);
@@ -580,31 +658,31 @@
         }
 
         .terms_label {
-          font-size: 20px;
-          font-family: "Pretendard_bb";
+          font-size: 25px;
+          color: #707070;
           position: relative;
+          padding-left: 53px;
 
           &::before {
             position: absolute;
             content: "";
-            width: 25px;
-            height: 25px;
+            width: 35px;
+            height: 35px;
             top: 0;
-            border: 1px solid $light-gray;
             border-radius: 5px;
-            background-color: #fff;
-            left: -40px;
+            background-color: #C9C9C9;
+            left: 0;
           }
 
           &::after {
             position: absolute;
             content: "";
-            width: 8px;
-            height: 18px;
+            width: 12px;
+            height: 20px;
             border-right: 3px solid #fff;
             border-bottom: 3px solid #fff;
-            top: 0;
-            left: -31px;
+            top: 2px;
+            left: 10px;
             rotate: 45deg;
           }
         }
@@ -613,9 +691,22 @@
           display: none;
         }
 
-        .terms_checkbox:checked + .terms_label::before {
-          background-color: $sub-color;
+        .terms_checkbox:checked+.terms_label::before {
+          background-color: $main-color;
         }
+      }
+
+      .verified {
+        display: inline-block;
+        padding: 5px 10px;
+        margin-left: 18px;
+        background-color: $main-color;
+        border-radius: 20px;
+        font-family: "Pretendard_bb";
+        border: 3px solid $sub-color;
+        cursor: pointer;
+        color: #fff;
+        vertical-align: middle;
       }
 
       .register_btn_box {
@@ -628,15 +719,14 @@
         }
 
         .register_btn {
-          background-color: $sub-color;
+          background-color: $main-color;
           color: #fff;
           width: 100%;
-          height: 70px;
+          height: 90px;
           border: none;
           border-radius: 5px;
           font-size: 30px;
           font-family: "Pretendard_bb";
-          letter-spacing: 5px;
           cursor: pointer;
         }
       }

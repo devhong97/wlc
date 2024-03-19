@@ -134,9 +134,45 @@ const MemberList = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">영업사원관리</div>
+        <div className="main_title_box">영업사원관리
+          <div className="total_data_box">
+            <div className="total_box">커미션합계 : 10000</div>
+            <div className="total_box">지급예정커미션: 10000</div>
+            <div className="total_box">영업사원수: 10000</div>
+          </div>
+        </div>
         <div className="board_list_wrap">
           <div className="list_area">
+
+            <div className="search_box">
+              <div className="search_select">
+                <select className="list_select">
+                  <option>지점종류</option>
+                </select>
+                <select className="list_select">
+                  <option>회사명</option>
+                </select>
+                <select className="list_select">
+                  <option>지점명</option>
+                </select>
+              </div>
+              <div className="search_input">
+                {/* <input
+                  className="list_input"
+                  placeholder="검색어를 입력하세요"
+                ></input> */}
+                <div className="list_search">
+                  검색
+                </div>
+                <div className="list_search reset_btn">초기화</div>
+              </div>
+              {grade !== "영업사원" && (
+                <div className="title_btn" onClick={() => writeModalOpen()}>
+                  등록
+                </div>
+              )}
+
+            </div>
             {grade !== "영업사원" && (
               <div className="tab_area">
                 <div className="tab_back">
@@ -155,43 +191,6 @@ const MemberList = () => {
                 </div>
               </div>
             )}
-            <div className="search_box">
-              <div className="search_select">
-                <select className="list_select">
-                  <option>지점종류</option>
-                </select>
-                <select className="list_select">
-                  <option>회사명</option>
-                </select>
-                <select className="list_select">
-                  <option>지점명</option>
-                </select>
-              </div>
-              <div className="search_input">
-                {/*<input
-                  className="list_input"
-                  placeholder="검색어를 입력하세요"
-                ></input>*/}
-                <div className="list_search" style={{ marginRight: 10 }}>
-                  검색
-                </div>
-                <div className="list_search reset_btn">초기화</div>
-              </div>
-              {grade !== "영업사원" && (
-                <div className="title_btn" onClick={() => writeModalOpen()}>
-                  등록
-                </div>
-              )}
-              <div className="total_btn">
-                <div className="total_box">커미션합계 : 10000</div>
-              </div>
-              <div className="total_btn">
-                <div className="total_box">지급예정커미션: 10000</div>
-              </div>
-              <div className="total_btn">
-                <div className="total_box">영업사원수: 10000</div>
-              </div>
-            </div>
             <div className="table_box list">
               <TableDefault
                 rows={rows}
