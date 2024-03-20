@@ -28,7 +28,9 @@ export const BranchProvider = ({ children }) => {
 
   const getType = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/api/get/type");
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/type"
+      );
       setTypeGroup(response.data);
     } catch (error) {
       console.error("Error fetching type list:", error);
