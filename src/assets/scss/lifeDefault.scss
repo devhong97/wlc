@@ -29,7 +29,6 @@
         transition: all 500ms cubic-bezier(0.9, 0, 0.33, 1);
         overflow: hidden;
 
-
         &.active {
           width: 270px;
         }
@@ -65,21 +64,20 @@
         .menu_row {
           cursor: pointer;
 
-
           &.logout {
             position: fixed;
             bottom: 0;
-            padding-bottom: 50px;
+            padding-bottom: 35px;
           }
 
           &.home {
             position: fixed;
-            bottom: 95px;
+            bottom: 85px;
           }
 
           &.delme {
             position: fixed;
-            bottom: 155px;
+            bottom: 135px;
           }
 
           .main_menu_box {
@@ -91,7 +89,6 @@
               .menu_text {
                 color: #fff;
               }
-
             }
 
             .menu_icon {
@@ -122,7 +119,7 @@
               vertical-align: middle;
               padding-left: 30px;
               font-size: 24px;
-              color: #212121
+              color: #212121;
             }
 
             .delme_icon {
@@ -190,7 +187,7 @@
 
   .header_bottom_back {
     padding: 25px 50px;
-    border-bottom: 1px solid #C9C9C9;
+    border-bottom: 1px solid #c9c9c9;
 
     .header_info_box {
       .info_icon {
@@ -222,9 +219,10 @@
 
     .header_info_box {
       width: 50%;
-      font-size: 14px;
+      font-size: 13px;
       display: inline-block;
       vertical-align: middle;
+      margin-top: -2px;
 
       &.right {
         text-align: right;
@@ -235,7 +233,7 @@
 
         @keyframes blinker {
           50% {
-            color: red;
+            color: crimson;
           }
         }
       }
@@ -245,6 +243,8 @@
         vertical-align: middle;
         display: inline-block;
         font-family: "Pretendard_l";
+        margin-top: -2px;
+        letter-spacing: 0.7px;
 
         &:last-child {
           padding-right: 0;
@@ -254,7 +254,7 @@
 
     .header_info_box.right {
       width: 50%;
-      font-size: 14px;
+      font-size: 13px;
       display: inline-block;
       vertical-align: middle;
       text-align: right;
@@ -273,14 +273,19 @@
   }
 }
 
+.info_id {
+  padding-top: 3px;
+  font-size: 15px;
+}
+
 .footer_wrap {
   position: absolute;
   bottom: 0;
   width: calc(100% - 80px);
   background-color: $sub-color_2;
   color: #fff;
-  padding: 20px 0;
-  text-align: right;
+  padding: 10.5px 0;
+  text-align: center;
 }
 
 .footer_back {
@@ -308,7 +313,7 @@
 .main_title_box {
   font-size: 25px;
   font-family: "Pretendard_bb";
-  border-bottom: 1px solid #C9C9C9;
+  border-bottom: 1px solid #c9c9c9;
   padding: 10px 50px;
   background-color: #fff;
 
@@ -326,7 +331,6 @@
 }
 
 //로그인
-
 
 .login_wrap {
   width: 100%;
@@ -382,7 +386,7 @@
               height: 35px;
               top: 0;
               border-radius: 5px;
-              background-color: #C9C9C9;
+              background-color: #c9c9c9;
               left: 0;
             }
 
@@ -403,7 +407,7 @@
             display: none;
           }
 
-          .login_check:checked+.login_label::before {
+          .login_check:checked + .login_label::before {
             background-color: $main-color;
           }
         }
@@ -415,7 +419,7 @@
         .bottom_btn {
           display: inline-block;
           margin-right: 18px;
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           color: #707070;
           cursor: pointer;
@@ -429,7 +433,6 @@
             margin-right: 0;
           }
         }
-
 
         .input_box {
           padding-bottom: 8px;
@@ -450,7 +453,7 @@
         .login_input {
           display: block;
           outline: none;
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           background-color: #fff;
           margin-bottom: 16px;
@@ -459,7 +462,6 @@
           font-size: 24px;
           color: #707070;
           padding: 0 34px;
-
         }
       }
     }
@@ -481,7 +483,7 @@
       font-size: 30px;
       font-family: "Pretendard_b";
       cursor: pointer;
-      color: #CECECE;
+      color: #cecece;
 
       &.active {
         color: #212121;
@@ -534,7 +536,6 @@
     }
 
     .register_container {
-
       .input_row {
         padding: 0 0 16px;
 
@@ -572,7 +573,7 @@
         .search_input {
           width: 100%;
           vertical-align: middle;
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           outline: none;
           padding: 29px 34px;
@@ -602,9 +603,9 @@
         }
 
         .register_input {
-          width: calc(100% - 150px);
+          width: calc(100% - 265px);
           vertical-align: middle;
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           outline: none;
           padding: 29px 34px;
@@ -631,7 +632,7 @@
 
         .search_select {
           width: 100%;
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           outline: none;
           padding: 29px 34px;
@@ -642,7 +643,7 @@
 
         .register_select {
           width: calc(100% - 150px);
-          border: 1px solid #C9C9C9;
+          border: 1px solid #c9c9c9;
           border-radius: 10px;
           outline: none;
           padding: 29px 34px;
@@ -650,7 +651,6 @@
           cursor: pointer;
           color: #707070;
           vertical-align: middle;
-
 
           &.email {
             width: calc((100% - 180px) / 3);
@@ -670,7 +670,7 @@
             height: 35px;
             top: 0;
             border-radius: 5px;
-            background-color: #C9C9C9;
+            background-color: #c9c9c9;
             left: 0;
           }
 
@@ -691,7 +691,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $main-color;
         }
       }

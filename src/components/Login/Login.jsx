@@ -38,7 +38,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/api/post/login", {
+      const res = await axios.post("http://49.50.174.248:3001/api/post/login", {
         id,
         password,
       });
@@ -80,7 +80,9 @@ const Login = () => {
             <div className="logo_title_box">
               <div className="logo_img"></div>
               <div className="logo_title">웰라이프케어입니다.</div>
-              <div className="logo_title">서비스 이용을 위해 로그인 해주세요.</div>
+              <div className="logo_title">
+                서비스 이용을 위해 로그인 해주세요.
+              </div>
             </div>
             <div className="input_box">
               <input
@@ -101,11 +103,7 @@ const Login = () => {
               />
             </div>
             <div className="login_check_box">
-              <input
-                type="checkbox"
-                id="re_id"
-                className="login_check"
-              />
+              <input type="checkbox" id="re_id" className="login_check" />
               <label className="login_label" htmlFor="re_id">
                 아이디 저장
               </label>

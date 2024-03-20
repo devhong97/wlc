@@ -16,7 +16,7 @@ const BranchList = () => {
   }, []);
 
   const fetchBranchList = () => {
-    Axios.get("http://localhost:3001/api/get/branch_list")
+    Axios.get("http://49.50.174.248:3001/api/get/branch_list")
       .then((res) => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
@@ -77,7 +77,14 @@ const BranchList = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">지점 관리</div>
+        <div className="main_title_box">
+          지점 관리
+          <div className="total_data_box">
+            <div className="total_box">커미션합계 : 10000</div>
+            <div className="total_box">지급예정커미션: 10000</div>
+            <div className="total_box">영업사원수: 10000</div>
+          </div>
+        </div>
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
@@ -104,15 +111,6 @@ const BranchList = () => {
               </div>
               <div className="title_btn" onClick={() => writeModalOpen()}>
                 지점등록
-              </div>
-              <div className="total_btn">
-                <div className="total_box">가입회원수 : 10000</div>
-              </div>
-              <div className="total_btn">
-                <div className="total_box">상담희망: 10000</div>
-              </div>
-              <div className="total_btn">
-                <div className="total_box">계약고객수: 10000</div>
               </div>
             </div>
             <div className="table_box list">

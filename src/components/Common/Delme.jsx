@@ -10,7 +10,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("지점을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/type_total", {
+        await Axios.post("http://49.50.174.248:3001/api/post/type_total", {
           branchType: branchType,
           companyName: companyName,
         });

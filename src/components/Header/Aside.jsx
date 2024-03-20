@@ -9,11 +9,11 @@ const Aside = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
-  console.log(path);
+  // console.log(path);
 
   const openSide = () => {
     setIsOpen(!isOpen);
-    setSubOpen(false)
+    setSubOpen(false);
     console.log(isOpen);
     // 라우터 정해지면 라우터 이동 전에 open유무 체크해서 수정
   };
@@ -54,23 +54,37 @@ const Aside = () => {
           </div>
           <div className="side_menu_box">
             <div className={`menu_row`} onClick={() => openSub(1)}>
-              <div className={`main_menu_box ${(isOpen && (path === "/branch" || path === "/member")) && "active"}`}>
+              <div
+                className={`main_menu_box ${
+                  isOpen &&
+                  (path === "/branch" || path === "/member") &&
+                  "active"
+                }`}
+              >
                 <div className="menu_icon first"></div>
                 <div className="menu_text">영업관리</div>
               </div>
               <div className={`sub_menu_box ${subOpen === 1 && "active"}`}>
-                <div className={`sub_menu ${(path === "/branch" && "active")}`} onClick={() => movePage("/branch")}>
+                <div
+                  className={`sub_menu ${path === "/branch" && "active"}`}
+                  onClick={() => movePage("/branch")}
+                >
                   지점관리
                 </div>
-                <div className={`sub_menu ${(path === "/member" && "active")}`} onClick={() => movePage("/member")}>
+                <div
+                  className={`sub_menu ${path === "/member" && "active"}`}
+                  onClick={() => movePage("/member")}
+                >
                   영업사원관리
                 </div>
               </div>
             </div>
 
-            <div className={`menu_row`} >
+            <div className={`menu_row`}>
               <div
-                className={`main_menu_box ${(isOpen && path === "/customer") && "active"}`}
+                className={`main_menu_box ${
+                  isOpen && path === "/customer" && "active"
+                }`}
                 onClick={() => movePage("/customer")}
               >
                 <div className="menu_icon second"></div>
@@ -79,7 +93,9 @@ const Aside = () => {
             </div>
             <div className={`menu_row`}>
               <div
-                className={`main_menu_box ${(isOpen && path === "/commission") && "active"}`}
+                className={`main_menu_box ${
+                  isOpen && path === "/commission" && "active"
+                }`}
                 onClick={() => movePage("/commission")}
               >
                 <div className="menu_icon third"></div>
@@ -87,14 +103,21 @@ const Aside = () => {
               </div>
             </div>
             <div className={`menu_row`}>
-              <div className={`main_menu_box ${(isOpen && path === "/sales") && "active"}`} onClick={() => movePage("/sales")}>
+              <div
+                className={`main_menu_box ${
+                  isOpen && path === "/sales" && "active"
+                }`}
+                onClick={() => movePage("/sales")}
+              >
                 <div className="menu_icon fourth"></div>
                 <div className="menu_text">실적관리</div>
               </div>
             </div>
             <div className={`menu_row`}>
               <div
-                className={`main_menu_box ${(isOpen && path === "/notice") && "active"}`}
+                className={`main_menu_box ${
+                  isOpen && path === "/notice" && "active"
+                }`}
                 onClick={() => movePage("/notice")}
               >
                 <div className="menu_icon fifth"></div>

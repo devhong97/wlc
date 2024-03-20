@@ -46,7 +46,7 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_list",
+        "http://49.50.174.248:3001/api/get/member_list",
         {
           params: resultParams,
         }
@@ -134,7 +134,8 @@ const MemberList = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">영업사원관리
+        <div className="main_title_box">
+          영업사원관리
           <div className="total_data_box">
             <div className="total_box">커미션합계 : 10000</div>
             <div className="total_box">지급예정커미션: 10000</div>
@@ -143,7 +144,6 @@ const MemberList = () => {
         </div>
         <div className="board_list_wrap">
           <div className="list_area">
-
             <div className="search_box">
               <div className="search_select">
                 <select className="list_select">
@@ -161,9 +161,7 @@ const MemberList = () => {
                   className="list_input"
                   placeholder="검색어를 입력하세요"
                 ></input> */}
-                <div className="list_search">
-                  검색
-                </div>
+                <div className="list_search">검색</div>
                 <div className="list_search reset_btn">초기화</div>
               </div>
               {grade !== "영업사원" && (
@@ -171,7 +169,6 @@ const MemberList = () => {
                   등록
                 </div>
               )}
-
             </div>
             {grade !== "영업사원" && (
               <div className="tab_area">
