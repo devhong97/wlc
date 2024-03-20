@@ -1,0 +1,188 @@
+@import "lifeUtil.scss";
+
+@media (max-width: 1000px) {
+    .login_wrap {
+        .login_back {
+            height: 100%;
+
+            .input_wrap {
+                .input_back {
+                    .logo_title_box {
+                        padding-bottom: 30px;
+
+                        .logo_img {
+                            width: 50px !important;
+                            height: 50px !important;
+                            margin-bottom: 30px !important;
+                        }
+
+                        .logo_title {
+                            font-size: 20px;
+                            line-height: 30px;
+                        }
+                    }
+
+                    .login_check_box {
+                        .login_label {}
+                    }
+
+                    .bottom_btn_box {
+                        .bottom_btn {
+                            font-size: 15px;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .input_box {
+                        .login_input {
+                            font-size: 15px;
+                        }
+                    }
+
+                    .login_btn {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+    .register_wrap {
+        .register_back {
+            &.register {
+                width: 90%;
+            }
+
+            &.search {
+                width: 90%;
+            }
+
+            .register_container {
+                .input_row {
+                    .input_title {
+                        font-size: 15px;
+                        width: 70px;
+                    }
+
+                    .confirm_msg {
+                        padding-left: 70px;
+                    }
+
+                    .register_input {
+                        width: calc(100% - 70px);
+                        padding: 15px 10px;
+                        font-size: 13px;
+
+                        &.phone {
+                            width: calc((100% - 110px) / 3);
+                        }
+
+                        &.email {
+                            width: calc((100% - 86px) / 3);
+                        }
+
+                        &.code_input {
+                            width: calc(100% - 180px);
+                        }
+                    }
+
+                    .register_select {
+                        width: calc(100% - 70px);
+                        padding: 15px 10px;
+                        font-size: 13px;
+
+                        &.email {
+                            width: calc((100% - 110px) / 3);
+                        }
+                    }
+                }
+
+                .register_btn_box {
+                    .register_btn {
+                        height: 50px;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .login_wrap {
+        .login_back {
+            width: 90%;
+        }
+    }
+
+    .register_wrap {
+        .register_back {
+            .register_tab_area {
+                .tab_menu {
+                    font-size: 20px;
+                }
+            }
+
+            .register_container {
+                .verified {
+                    display: block;
+                    margin-left: 0;
+                    text-align: center;
+                    margin-top: 20px;
+                    border-radius: 5px;
+                    font-size: 15px;
+                }
+
+                .input_row {
+                    .input_title {
+                        display: block;
+                        padding-bottom: 10px;
+                    }
+
+                    .confirm_msg {
+                        padding-left: 0;
+                    }
+
+                    .search_input {
+                        padding: 15px 10px;
+                        font-size: 13px;
+
+                        &.short_phone {
+                            width: calc((100% - 40px) / 3);
+                        }
+                    }
+
+                    .search_select {
+                        padding: 15px 10px;
+                        font-size: 13px;
+                    }
+
+                    .register_input {
+                        width: 100%;
+
+                        &.phone {
+                            width: calc((100% - 40px) / 3);
+                        }
+
+                        &.email {
+                            width: calc((100% - 16px) / 3);
+                        }
+
+                        &.code_input {
+                            width: 100%;
+                        }
+                    }
+
+                    .register_select {
+                        width: 100%;
+
+                        &.email {
+                            width: calc((100% - 40px) / 3);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
