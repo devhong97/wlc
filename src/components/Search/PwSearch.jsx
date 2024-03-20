@@ -149,7 +149,7 @@ const PwSearch = (props) => {
             type="text"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
-            className="register_input"
+            className="register_input code_input"
             placeholder="인증번호를 입력하세요."
           />
           <div className="verified" onClick={confirmHandle}>

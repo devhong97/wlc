@@ -146,7 +146,7 @@ const IdSearch = () => {
           value={type}
           onChange={(e) => setType(e.target.value)}
           id="user_branchType"
-          className="register_select"
+          className="search_select"
         >
           <option value="">지점종류 선택</option>
           {typeGroup.map((type, index) => {
@@ -163,7 +163,7 @@ const IdSearch = () => {
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           id="user_compnayName"
-          className="register_select"
+          className="search_select"
         >
           <option value="">회사명 선택</option>
           {companyGroup.map((type, index) => {
@@ -180,7 +180,7 @@ const IdSearch = () => {
           value={branchIdx}
           onChange={(e) => selectBranch(e.target.value)}
           id="user_branch"
-          className="register_select"
+          className="search_select"
         >
           <option value="">지점명 선택</option>
           {branchGroup.map((data, index) => {
