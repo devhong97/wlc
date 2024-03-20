@@ -16,7 +16,7 @@ const BranchList = () => {
   }, []);
 
   const fetchBranchList = () => {
-    Axios.get("http://49.50.174.248:3001/api/get/branch_list")
+    Axios.get("http://localhost:3001/api/get/branch_list")
       .then((res) => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
