@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useBranchContext } from "../Context/BranchContext";
 
-const BranchWriteModal = (props) => {
+const PwChangeModal = (props) => {
   const { typeGroup, companyGroup, setContextType, setContextCompany } =
     useBranchContext();
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
@@ -108,7 +108,7 @@ const BranchWriteModal = (props) => {
       <div className="modal_back">
         <div className="modal_box">
           <div className="modal_title_box">
-            <div className="modal_title">지점 등록</div>
+            <div className="modal_title">비밀번호 변경</div>
             <div className="modal_close_btn" onClick={() => clearModal()}>
               X
             </div>
@@ -118,55 +118,7 @@ const BranchWriteModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  지점종류<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                    id="user_branchType"
-                    className="table_select"
-                  >
-                    <option value="">선택</option>
-                    {typeGroup.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  회사명<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    id="user_compnayName"
-                    className="table_select"
-                  >
-                    <option value="">선택</option>
-                    {companyGroup.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  지점명<p className="title_point">*</p>
+                  비밀번호 입력<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <input
@@ -180,43 +132,20 @@ const BranchWriteModal = (props) => {
                 </div>
               </div>
             </div>
-
-            <div className="table_box">
-              <div className="table_row">
-                <div className="table_section">
-                  <div className="table_title">
-                    지역(시, 도)<p className="title_point">*</p>
-                  </div>
-                  <div className="table_contents w100">
-                    <select
-                      name="city"
-                      value={selectedCity}
-                      onChange={handleCityChange}
-                      className="table_select"
-                    >
-                      <option value="">시 선택</option>
-                      {cities.map((city) => (
-                        <option key={city} value={city}>
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="district"
-                      value={selectedDistrict}
-                      onChange={(event) =>
-                        setSelectedDistrict(event.target.value)
-                      }
-                      className="table_select"
-                    >
-                      <option value="">도 선택</option>
-                      {districts.map((district) => (
-                        <option key={district} value={district}>
-                          {district}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  비밀번호 재입력<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="title"
+                    placeholder="지점명을 입력해주세요."
+                    value={branchName}
+                    onChange={(e) => setBranchName(e.target.value)}
+                  ></input>
                 </div>
               </div>
             </div>
@@ -236,4 +165,4 @@ const BranchWriteModal = (props) => {
   );
 };
 
-export default BranchWriteModal;
+export default PwChangeModal;

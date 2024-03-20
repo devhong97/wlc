@@ -1,102 +1,106 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
+import PwChangeModal from "./../modal/PwChangeModal";
 
 const PwSearch = () => {
   const [id, setId] = useState(""); // 아이디
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
-  const [isVerified, setIsVerified] = useState(false); //인증상태 확인
-  const [verificationCode, setVerificationCode] = useState(""); //인증번호 상태
+  const [isVerified, setIsVerified] = useState(false); // 인증유무 확인
+  const [verificationCode, setVerificationCode] = useState(""); //인증번호 입력값
   const [verificationInput, setVerificationInput] = useState(false); //인증하기클릭 시 인증여부 상태
-  //인증 횟수 및 시간제한
-  const [reVerified, setReVerified] = useState(1); // 남은 재인증 횟수
-  const [cooldown, setCooldown] = useState(false); // 재인증 횟수 제한 후 재시도 가능한지 여부
-  const cooldownTime = 10 * 60 * 1000; // 10분 (밀리초 단위)
+  const [pullCode, setPullCode] = useState(""); // 생성된 인증번호값
+  const [showPwChangeModal, setShowPwChangeModal] = useState(false); // 비밀번호 변경 모달 표시 여부
+
+  // 인증관련 데이터 초기화(인증번호 입력값 오류 시)
+  const resetFields = () => {
+    setVerificationCode("");
+    setVerificationInput(false);
+  };
 
   //연락처 형태변경
   const totalPhone = `${tel1}-${tel2}-${tel3}`;
-
-  //연락처 체크
-  const handlePhone = (e, target) => {
-    const value = e.target.value;
-    if (target === "tel1" && value.length === 3) {
-      document.getElementById("tel2").focus();
-    } else if (target === "tel2" && value.length === 4) {
-      document.getElementById("tel3").focus();
-    } else if (target === "tel3" && value.length === 4) {
-    }
-
-    if (target === "tel1") {
-      setTel1(value);
-    } else if (target === "tel2") {
-      setTel2(value);
-    } else if (target === "tel3") {
-      setTel3(value);
-    }
-  };
 
   //인증하기 버튼
   const verifiedHandle = () => {
     if (id === "") {
       alert("아이디를 입력해주세요.");
-      const idInput = document.getElementById("user_id");
-      if (idInput) {
-        idInput.focus();
-      }
       return;
     } else if (tel1 === "" || tel2 === "" || tel3 === "") {
       alert("연락처를 입력해주세요.");
-      const phoneInput = document.getElementById("tel1");
-      if (phoneInput) {
-        phoneInput.focus();
-      }
       return;
     }
 
-    setIsVerified(true); //인증상태 TRUE
-    setVerificationInput(true); //인증번호 입력칸 TRUE
-  };
-
-  //재인증하기 버튼
-  const reVerifiedHandle = () => {
-    // 재인증 횟수 체크
-    if (reVerified === 3) {
-      alert("인증 횟수 초과 10분 후에 시도해주세요.");
-      setCooldown(true);
-      setTimeout(() => {
-        setReVerified(1); // 재인증 시도 횟수 초기화
-        setCooldown(false);
-      }, cooldownTime);
-      return;
-    }
-
-    // 재인증 시도 횟수 체크
-    if (reVerified <= 3) {
-      alert(`재인증 횟수: ${reVerified} [3회 제한]`);
-    }
-
-    setReVerified(reVerified + 1); // 재인증 시도 횟수 증가
-  };
-
-  const handleSubmit = () => {
-    // id와 phone을 서버로 전송하는 요청
-    Axios.post("http://localhost:3001/api/post/pw_search", {
+    // 서버로 인증코드 요청
+    Axios.post("http://49.50.174.248:3001/api/post/send_verification_code", {
       id: id,
       phone: totalPhone,
     })
       .then((res) => {
         if (res.data.success === true) {
-          const password = res.data.data[0].password;
-          alert(`${id}님의 비밀번호는 [ ${password} ]입니다.`);
+          setPullCode(res.data.verifiedCode);
+          setVerificationInput(true); // 인증번호 입력칸 활성화
+          alert("인증번호가 발송되었습니다.");
+        } else {
+          alert("인증코드 전송에 실패했습니다.");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("인증코드 전송에 실패했습니다.");
+      });
+  };
+
+  //확인하기 버튼
+  const confirmHandle = () => {
+    // 서버로 인증코드 확인 요청
+    Axios.post("http://49.50.174.248:3001/api/post/verify_code_check", {
+      code: pullCode, // 랜덤으로 생성된 인증번호값
+      inputCode: verificationCode, //사용자가 입력한 인증번호값
+    })
+      .then((res) => {
+        if (res.data.success === true) {
+          setIsVerified(true); // 인증 완료
+          alert("인증되었습니다.");
+        } else {
+          alert("인증에 실패했습니다.\n다시 인증해주세요.");
+          resetFields();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("인증에 실패했습니다.");
+      });
+  };
+
+  // 찾기 버튼 클릭 시
+  const handleSubmit = () => {
+    // 인증이 완료되지 않은 경우
+    if (!isVerified) {
+      alert("본인인증을 먼저 진행해주세요.");
+      return;
+    }
+
+    // 서버로 비밀번호 찾기 요청
+    Axios.post("http://49.50.174.248:3001/api/post/pw_change", {
+      id: id,
+      phone: totalPhone,
+    })
+      .then((res) => {
+        if (res.data.success === true) {
+          const data = res.data.data;
+          setShowPwChangeModal(true); // 비밀번호 변경 모달창 true
         } else {
           alert("일치하는 정보가 없습니다.");
         }
       })
       .catch((err) => {
         console.log(err);
+        alert("비밀번호 찾기에 실패했습니다.");
       });
   };
+
   return (
     <div className="register_container">
       <div className="input_row">
@@ -105,70 +109,59 @@ const PwSearch = () => {
           value={id}
           placeholder="아이디를 입력하세요."
           onChange={(e) => setId(e.target.value)}
-          id="user_id"
           className="search_input"
         />
       </div>
 
       <div className="input_row">
         <input
-          type="phone"
+          type="tel"
           value={tel1}
-          onChange={(e) => handlePhone(e, "tel1")}
-          id="tel1"
-          maxlength="3"
+          onChange={(e) => setTel1(e.target.value)}
           className="search_input short_phone"
           placeholder="010"
         />
         <p className="phone_icon">-</p>
         <input
-          type="phone"
+          type="tel"
           value={tel2}
-          onChange={(e) => handlePhone(e, "tel2")}
-          id="tel2"
-          maxlength="4"
+          onChange={(e) => setTel2(e.target.value)}
           className="search_input short_phone"
           placeholder="1234"
         />
         <p className="phone_icon">-</p>
         <input
-          type="phone"
+          type="tel"
           value={tel3}
-          onChange={(e) => handlePhone(e, "tel3")}
-          id="tel3"
-          maxlength="4"
+          onChange={(e) => setTel3(e.target.value)}
           className="search_input short_phone"
           placeholder="1234"
         />
-        {isVerified ? (
-          <div className="verified" onClick={() => reVerifiedHandle()}>
-            재인증하기
-          </div>
-        ) : (
-          <div className="verified" onClick={() => verifiedHandle()}>
-            인증하기
-          </div>
-        )}
+        <div className="verified" onClick={verifiedHandle}>
+          {verificationInput ? "재발송" : "인증하기"}
+        </div>
       </div>
       {verificationInput && (
         <div className="input_row">
+          <div className="input_title">인증번호</div>
           <input
             type="text"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
-            className="search_input"
+            className="register_input"
             placeholder="인증번호를 입력하세요."
           />
+          <div className="verified" onClick={confirmHandle}>
+            확인
+          </div>
         </div>
       )}
-      {cooldown ? (
-        <div className="cooldown_message">10분 후에 다시 시도해주세요.</div>
-      ) : null}
       <div className="register_btn_box search">
         <button className="register_btn" onClick={() => handleSubmit()}>
-          찾기
+          비밀번호 변경
         </button>
       </div>
+      {showPwChangeModal && <PwChangeModal />}
     </div>
   );
 };

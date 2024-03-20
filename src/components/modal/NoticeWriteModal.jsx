@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useBranchContext } from "../Context/BranchContext";
 
-const BranchWriteModal = (props) => {
+const NoticeWriteModal = (props) => {
   const { typeGroup, companyGroup, setContextType, setContextCompany } =
     useBranchContext();
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
@@ -236,4 +236,4 @@ const BranchWriteModal = (props) => {
   );
 };
 
-export default BranchWriteModal;
+export default NoticeWriteModal;

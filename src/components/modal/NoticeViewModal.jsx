@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import MemberListModal from "./MemberListModal";
 import Axios from "axios";
 import { useBranchContext } from "../Context/BranchContext";
 
-const BranchViewModal = (props) => {
+const NoticeViewModal = (props) => {
   const { typeGroup, companyGroup, setContextType, setContextCompany } =
     useBranchContext();
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [selectName, setSelectName] = useState(""); // 지점장 선택
   // const [selectNum, setSelectNum] = useState(""); // 지점장 선택 시 Idx
-  const [listModal, setListModal] = useState(false); // 지점장 선택 Modal
   const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
   const [type, setType] = useState(""); // 지점종류
   const [company, setCompany] = useState(""); // 변경할 회사명
@@ -164,11 +162,6 @@ const BranchViewModal = (props) => {
     }
   };
 
-  // 지점장 선택 모달창 OPEN 버튼
-  const listModalOpen = () => {
-    setListModal(!listModal);
-  };
-
   // 모달창닫기
   const clearModal = () => {
     props.closeModal();
@@ -314,12 +307,7 @@ const BranchViewModal = (props) => {
                 <div className="table_title">지점장</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">[ {selectName} ]</div>
-                  <div
-                    className="table_inner_btn"
-                    onClick={() => listModalOpen()}
-                  >
-                    선택
-                  </div>
+                  <div className="table_inner_btn">선택</div>
                 </div>
               </div>
             </div>
@@ -363,15 +351,7 @@ const BranchViewModal = (props) => {
           </div>
         </div>
       </div>
-      {listModal && (
-        <MemberListModal
-          closeModal={listModalOpen}
-          chooseData={chooseData}
-          branchIdx={branchDetailData.branch_idx}
-        ></MemberListModal>
-      )}
     </div>
   );
 };
-
-export default BranchViewModal;
+export default NoticeViewModal;
