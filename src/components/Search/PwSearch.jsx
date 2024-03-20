@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import PwChangeModal from "./../modal/PwChangeModal";
 
-const PwSearch = () => {
+const PwSearch = (props) => {
   const [id, setId] = useState(""); // 아이디
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
@@ -11,7 +11,7 @@ const PwSearch = () => {
   const [verificationCode, setVerificationCode] = useState(""); //인증번호 입력값
   const [verificationInput, setVerificationInput] = useState(false); //인증하기클릭 시 인증여부 상태
   const [pullCode, setPullCode] = useState(""); // 생성된 인증번호값
-  const [showPwChangeModal, setShowPwChangeModal] = useState(false); // 비밀번호 변경 모달 표시 여부
+
 
   // 인증관련 데이터 초기화(인증번호 입력값 오류 시)
   const resetFields = () => {
@@ -33,7 +33,7 @@ const PwSearch = () => {
     }
 
     // 서버로 인증코드 요청
-    Axios.post("http://49.50.174.248:3001/api/post/send_verification_code", {
+    Axios.post("http://localhost:3001/api/post/send_verification_code", {
       id: id,
       phone: totalPhone,
     })
@@ -55,7 +55,7 @@ const PwSearch = () => {
   //확인하기 버튼
   const confirmHandle = () => {
     // 서버로 인증코드 확인 요청
-    Axios.post("http://49.50.174.248:3001/api/post/verify_code_check", {
+    Axios.post("http://localhost:3001/api/post/verify_code_check", {
       code: pullCode, // 랜덤으로 생성된 인증번호값
       inputCode: verificationCode, //사용자가 입력한 인증번호값
     })
@@ -83,14 +83,15 @@ const PwSearch = () => {
     }
 
     // 서버로 비밀번호 찾기 요청
-    Axios.post("http://49.50.174.248:3001/api/post/pw_change", {
+    Axios.post("http://localhost:3001/api/post/pw_change", {
       id: id,
       phone: totalPhone,
     })
       .then((res) => {
         if (res.data.success === true) {
           const data = res.data.data;
-          setShowPwChangeModal(true); // 비밀번호 변경 모달창 true
+          props.setShowPwChangeModal(true); // 비밀번호 변경 모달창 true
+          props.setUserData(data);//유저 정보 전달
         } else {
           alert("일치하는 정보가 없습니다.");
         }
@@ -161,7 +162,7 @@ const PwSearch = () => {
           비밀번호 변경
         </button>
       </div>
-      {showPwChangeModal && <PwChangeModal />}
+      {/* {showPwChangeModal && <PwChangeModal />} */}
     </div>
   );
 };
