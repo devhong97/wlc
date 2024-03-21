@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 import Clock from "../Common/Clock";
 import { useAuth } from "../Context/AuthContext";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+  const path = location.pathname;
   const {
     decodeS1,
     decodeS2,
@@ -39,17 +42,20 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="header_bottom_back">
-        <div className="header_info_box">
-          <div className="info_icon"></div>
-          <div className="info_text_box">
-            <div className="info_name">{decodeS2()}</div>
-            <div className="info_id">
-              {decodeS3()} | {decodeS4()}
+      {!path.includes("/reserv") && (
+        <div className="header_bottom_back">
+          <div className="header_info_box">
+            <div className="info_icon"></div>
+            <div className="info_text_box">
+              <div className="info_name">{decodeS2()}</div>
+              <div className="info_id">
+                {decodeS3()} | {decodeS4()}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
     </div>
   );
 };

@@ -1408,15 +1408,16 @@
           }
         }
 
-        .table_inner_btn {
-          background-color: $main-color;
-          color: #fff;
-          padding: 3px 20px;
-          letter-spacing: 5px;
-          cursor: pointer;
-          border-radius: 3px;
-        }
       }
     }
   }
+}
+
+.table_inner_btn {
+  background-color: $main-color;
+  color: #fff;
+  padding: 3px 20px;
+  letter-spacing: 5px;
+  cursor: pointer;
+  border-radius: 3px;
 }
