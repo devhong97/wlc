@@ -124,7 +124,7 @@
 
             .delme_icon {
               @include background_set(40px, 30px, contain);
-              background-image: url("../img/aside_home.png");
+              background-image: url("../img/aside_delme.png");
               display: inline-block;
               vertical-align: middle;
             }
@@ -407,7 +407,7 @@
             display: none;
           }
 
-          .login_check:checked+.login_label::before {
+          .login_check:checked + .login_label::before {
             background-color: $main-color;
           }
         }
@@ -696,7 +696,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $main-color;
         }
       }

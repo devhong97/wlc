@@ -79,6 +79,10 @@
         border-radius: 5px;
         padding: 0 10px;
 
+        &.num {
+          width: calc((100% - 622px) / 3);
+        }
+
         &.half {
           width: calc((100% - 90px) / 2);
         }
@@ -435,7 +439,7 @@
 .search_box {
   background-color: #fff;
   padding: 10px 50px;
-  border-bottom: 1px solid #C9C9C9;
+  border-bottom: 1px solid #c9c9c9;
 
   &.tab {
     border-radius: 0 15px 15px;
@@ -473,7 +477,7 @@
 
     .list_select {
       padding: 10px 15px;
-      border: 1px solid #C9C9C9;
+      border: 1px solid #c9c9c9;
       border-radius: 10px;
       margin-left: 13px;
       outline: 0 none;
@@ -497,7 +501,7 @@
     .list_input {
       display: inline-block;
       padding: 10px 15px;
-      border: 1px solid #C9C9C9;
+      border: 1px solid #c9c9c9;
       border-radius: 10px;
       margin-left: 5px;
       outline: 0 none;
@@ -1362,14 +1366,12 @@
 // 상세
 .detail_wrap {
   .detail_back {
-
     .detail_title_box {
       font-size: 25px;
       font-family: "Pretendard_bb";
-      border-bottom: 1px solid #C9C9C9;
+      border-bottom: 1px solid #c9c9c9;
       padding: 10px 50px;
       background-color: #fff;
-
     }
 
     .detail_container {
