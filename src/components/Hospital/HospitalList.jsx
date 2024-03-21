@@ -6,6 +6,7 @@ import moment from "moment";
 import HospitalWriteModal from "../modal/HospitalWriteModal";
 import HospitalViewModal from "../modal/HospitalViewModal";
 
+
 const HospitalList = () => {
   const [writeModal, setWriteModal] = useState(false); // 병원등록 모달
   const [viewModal, setViewModal] = useState(false); // 병원상세 수정모달
