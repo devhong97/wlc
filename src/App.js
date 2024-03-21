@@ -4,7 +4,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Aside from "./components/Header/Aside";
 import Header from "./components/Header/Header";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useAuth } from "./components/Context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
@@ -13,6 +13,7 @@ import Footer from './components/Footer/Footer';
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
 
+
   useEffect(() => {
     const loginStatus = localStorage.getItem("Access");
     if (loginStatus === "true") {
@@ -20,14 +21,16 @@ function App() {
     }
   }, []);
 
+
+
   return (
     <Fragment>
       {loginAccess ? (
         <div className="screen">
-          <div className="menu_area">
+          <div className={`menu_area `}>
             <Aside />
           </div>
-          <div className="main_area">
+          <div className={`main_area`}>
             <Header />
             <Router />
             <Footer />

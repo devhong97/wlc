@@ -106,6 +106,25 @@
             }
         }
     }
+
+    .side_wrap {
+        .side_back {
+            display: none;
+
+            &.mobile {
+                display: block !important;
+            }
+        }
+    }
+
+    .main_area {
+        padding-left: 0 !important;
+
+        .footer_wrap {
+            width: 100% !important;
+        }
+    }
+
 }
 
 @media (max-width: 500px) {
