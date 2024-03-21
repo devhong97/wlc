@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useReservContext } from '../Context/ReservContext';
 
 const Reservation = () => {
+    const { clearReservData } = useReservContext();
     const navigation = useNavigate();
     const location = useLocation();
     const pathname = location.pathname;
@@ -9,6 +11,10 @@ const Reservation = () => {
     const movePage = (path) => {
         navigation(`${pathname}${path}`)
     }
+
+    useEffect(() => {
+        clearReservData();
+    }, [])
     return (
         <div className='reserv_wrap'>
             <div className='reserv_back'>

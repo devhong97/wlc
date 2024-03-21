@@ -46,10 +46,11 @@ export const ReservProvider = ({ children }) => {
 
 
     useEffect(() => {
-        if (product.length !== 0) {
-            console.log(product);
+        if (product !== "" && hospitalIdx === "") {
+            console.log("상품먼저");
         }
     }, [product]);
+
 
 
     const clearReservData = () => {

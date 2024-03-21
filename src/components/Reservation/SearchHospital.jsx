@@ -7,7 +7,7 @@ import { useReservContext } from "../Context/ReservContext";
 
 
 const SearchHospital = () => {
-    const { setHospitalName, setHospitalIdx } = useReservContext();
+    const { setHospitalName, setHospitalIdx, product } = useReservContext();
     const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
     const [selectHospital, setSelectHospital] = useState([]);
     const navigation = useNavigate();
@@ -17,7 +17,20 @@ const SearchHospital = () => {
     }, []);
 
     const fetchHospitalList = () => {
-        Axios.get("http://localhost:3001/api/get/reserv/hospital_list")
+        let setParams = {}
+        let resultApi = ""
+        if (product !== "") {
+            setParams.p_key = product;
+            resultApi = "correct_hospital"
+        } else {
+            resultApi = "hospital_list"
+        }
+
+        Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`,
+            {
+                params: setParams
+            }
+        )
             .then((res) => {
                 if (res.data.success) {
                     // 서버로부터 받아온 데이터를 rows로 설정합니다.
@@ -62,7 +75,11 @@ const SearchHospital = () => {
         console.log(data.name);
         setHospitalName(data.name);
         setHospitalIdx(data.idx)
-        navigation("/reserv/product");
+        if (product !== "") {
+            navigation("/reserv/date");
+        } else {
+            navigation("/reserv/product");
+        }
     }
     return (
         <div className="main_wrap">

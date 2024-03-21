@@ -210,9 +210,10 @@
                 position: relative;
                 height: 340px;
                 cursor: pointer;
+                margin-left: 30px;
 
-                &:last-child {
-                    margin-left: 30px;
+                &:first-child {
+                    margin-left: 0;
                 }
 
                 .product_img {
