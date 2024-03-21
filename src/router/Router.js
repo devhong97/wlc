@@ -8,7 +8,8 @@ import SalesList from "../components/Sales/SalesList";
 import CommissionList from "../components/Commission/CommissionList";
 import CommissionDetail from "../components/Commission/CommissionDetail";
 import Notice from "../components/Board/Notice";
-import Delme from './../components/Common/Delme';
+import Delme from "./../components/Common/Delme";
+import Hospital from "../components/Hospital/HospitalList";
 
 const Router = () => {
   return (
@@ -18,6 +19,8 @@ const Router = () => {
       <Route path="/member" element={<MemberList />} />
       <Route path="/customer" element={<CustomerList />} />
       <Route path="/sales" element={<SalesList />} />
+      <Route path="/hospital" element={<Hospital />} />
+      <Route path="/product" element={<Hospital />} />
       <Route path="/commission" element={<CommissionList />} />
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />

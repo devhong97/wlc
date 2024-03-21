@@ -116,6 +116,28 @@ const Aside = () => {
             <div className={`menu_row`}>
               <div
                 className={`main_menu_box ${
+                  isOpen && path === "/hospital" && "active"
+                }`}
+                onClick={() => movePage("/hospital")}
+              >
+                <div className="menu_icon fourth"></div>
+                <div className="menu_text">병원관리</div>
+              </div>
+            </div>
+            <div className={`menu_row`}>
+              <div
+                className={`main_menu_box ${
+                  isOpen && path === "/product" && "active"
+                }`}
+                onClick={() => movePage("/product")}
+              >
+                <div className="menu_icon fourth"></div>
+                <div className="menu_text">상품관리</div>
+              </div>
+            </div>
+            <div className={`menu_row`}>
+              <div
+                className={`main_menu_box ${
                   isOpen && path === "/notice" && "active"
                 }`}
                 onClick={() => movePage("/notice")}
