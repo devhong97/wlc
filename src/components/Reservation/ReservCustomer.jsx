@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import { useReservContext } from '../Context/ReservContext';
 import { useNavigate } from 'react-router-dom';
+import SignComponent from './SignComponent';
 
 const ReservCustomer = () => {
     const { hospitalName, product, hopeDate1, hopeDate2, hospitalIdx } = useReservContext();
@@ -108,31 +109,14 @@ const ReservCustomer = () => {
                 </div>
             )}
             {step === 3 && (
-                <div className='reserv_back'>
+                <div className='reserv_back sign'>
                     <div className='reserv_top_box'>
                         <div className='reserv_title'>
                             <p className='point_text'>서명</p>해주세요.
                         </div>
                     </div>
-                    <div className='reserv_bottom_box'>
-                        <div className='sign_container'>
-                            <div className='sign_box'>
-                                <div className='sign_title'>성명자필</div>
-                                <div className='sign'></div>
-                                <div className='sign_btn_box'>
-                                    <div className='sign_btn'>다시하기</div>
-                                    <div className='sign_btn blue'>완료</div>
-                                </div>
-                            </div>
-                            <div className='sign_box'>
-                                <div className='sign_title'>성명자필</div>
-                                <div className='sign'></div>
-                                <div className='sign_btn_box'>
-                                    <div className='sign_btn'>다시하기</div>
-                                    <div className='sign_btn blue'>완료</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className='reserv_bottom_box sign'>
+                        <SignComponent></SignComponent>
                     </div>
                     <div className='reserv_btn_box'>
                         <div className='reserv_btn' onClick={() => submitHandle()}>완료</div>
