@@ -49,6 +49,7 @@ const SignComponent = () => {
                         brushColor="#000000"
                         className='sign_canvas'
                         brushRadius={3}
+                        hideGrid="true"
                     />
                 </div>
                 <div className='sign_btn_box'>
@@ -64,6 +65,7 @@ const SignComponent = () => {
                         brushColor="#000000"
                         className='sign_canvas'
                         brushRadius={3}
+                        hideGrid="true"
                     />
                 </div>
                 <div className='sign_btn_box'>
