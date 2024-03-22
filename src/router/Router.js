@@ -15,6 +15,7 @@ import SearchProduct from "../components/Reservation/SearchProduct";
 import SearchHospital from "../components/Reservation/SearchHospital";
 import SelectDate from "../components/Reservation/SelectDate";
 import ReservCustomer from "../components/Reservation/ReservCustomer";
+import ProductList from "../components/Product/ProductList";
 
 const Router = () => {
   return (
@@ -25,7 +26,7 @@ const Router = () => {
       <Route path="/customer" element={<CustomerList />} />
       <Route path="/sales" element={<SalesList />} />
       <Route path="/hospital" element={<Hospital />} />
-      <Route path="/product" element={<Hospital />} />
+      <Route path="/product" element={<ProductList />} />
       <Route path="/commission" element={<CommissionList />} />
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />
