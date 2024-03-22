@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import moment from "moment";
+import { useReservContext } from "../Context/ReservContext";
 const CustomerViewModal = (props) => {
+  const { setProductKey, setHospitalUpdateKey, hospitalList, productList, setHospitalName } = useReservContext();
+
   const [memberData, setMemberData] = useState([]);
   const [detailNum, setDetailNum] = useState("");
   const [inspectionStatus, setInspectionStatus] = useState("N");
@@ -56,11 +59,10 @@ const CustomerViewModal = (props) => {
     // setCName(memberData.contractor_name);
     // setName(memberData.name);
     setPhone(memberData.phone);
-    // setDate(memberData.date);
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
-    setProduct(memberData.product);
-    setHospital(memberData.hospital);
+    setProduct(memberData.p_key);
+    setHospital(memberData.h_key);
     setResultDate(memberData.result_date);
     setMemo(memberData.memo);
     setManager(memberData.manager);
@@ -74,6 +76,24 @@ const CustomerViewModal = (props) => {
   const handleRadioChange = (event) => {
     setInspectionStatus(event.target.value);
   };
+
+  const handleProduct = (data) => {
+    console.log(data);
+    setProductKey(data)
+    setProduct(data);
+  }
+
+  const handleHospital = (data) => {
+    setHospital(data);
+    setHospitalUpdateKey(data);
+
+    const selectedBranch = hospitalList.find(branch => branch.idx === Number(data));
+    console.log(selectedBranch);
+    if (selectedBranch) {
+      console.log(selectedBranch);
+      setHospitalName(selectedBranch.name);
+    }
+  }
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -120,37 +140,49 @@ const CustomerViewModal = (props) => {
                   <div className="table_inner_text">{memberData.branch}</div>
                 </div>
               </div>
-              <div className="table_section half">
-                <div className="table_title">영업자</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.manager}</div>
-                </div>
-              </div>
             </div>
             <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">상품명</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input modal"
-                    type="text"
-                    id="title"
-                    placeholder="상품명을 입력해주세요."
-                    value={product}
-                  ></input>
-                </div>
+                {productList && (
+                  <div className="table_contents w100">
+                    <select
+                      value={product}
+                      onChange={(e) => handleProduct(e.target.value)}
+                      className="table_select"
+                    >
+                      <option value="">선택</option>
+                      {productList.map((data, index) => {
+                        return (
+                          <option key={data.idx} value={data.p_key}>
+                            {data.name_1}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                )}
               </div>
               <div className="table_section half">
                 <div className="table_title">병원</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input modal"
-                    type="text"
-                    id="title"
-                    placeholder="병원명을 입력해주세요."
-                    value={hospital}
-                  ></input>
-                </div>
+                {hospitalList && (
+                  <div className="table_contents w100">
+                    <select
+                      value={hospital}
+                      onChange={(e) => handleHospital(e.target.value)}
+                      className="table_select"
+                    >
+                      <option value="">선택</option>
+                      {hospitalList.map((data, index) => {
+                        return (
+                          <option key={data.idx} value={data.idx}>
+                            {data.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                )}
               </div>
             </div>
             <div className="table_row">
