@@ -10,7 +10,6 @@ export const ReservProvider = ({ children }) => {
     const [product, setProduct] = useState("");
     const [hopeDate1, setHopeDate1] = useState("");
     const [hopeDate2, setHopeDate2] = useState("");
-    const [customerData, setCustomerData] = useState([]);
     const [signData1, setSignData1] = useState("");
     const [signData2, setSignData2] = useState("");
 
@@ -91,7 +90,6 @@ export const ReservProvider = ({ children }) => {
                 hopeDate1,
                 setHopeDate2,
                 hopeDate2,
-                setCustomerData,
                 clearReservData,
                 setSignData1,
                 setSignData2,
