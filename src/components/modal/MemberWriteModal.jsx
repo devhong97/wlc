@@ -31,9 +31,9 @@ const MemberWriteModal = (props) => {
 
   const selectBranch = (num) => {
     setBranchIdx(num);
-    const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
+    const selectedBranch = branchGroup.find((data) => data.branch_idx === num);
     if (selectedBranch) {
-      setBranchName(selectedBranch.branch);
+      setBranchName(selectedBranch.branch_name);
     }
   };
   const selectType = (data) => {
@@ -62,6 +62,7 @@ const MemberWriteModal = (props) => {
       !branchIdx
     ) {
       alert("필수 사항을 모두 입력해주세요");
+      console.log(id, password, name, email, phone, bank, bankAccount, type, company, branchName, branchIdx);
       return;
     }
 
@@ -276,7 +277,7 @@ const MemberWriteModal = (props) => {
                     <option value="">선택</option>
                     {branchGroup.map((data, index) => {
                       return (
-                        <option key={index} value={data.idx}>
+                        <option key={index} value={data.branch_idx}>
                           {data.branch_name}
                         </option>
                       );

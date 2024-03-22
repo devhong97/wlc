@@ -3,9 +3,11 @@ import Axios from "axios";
 import { useReservContext } from '../Context/ReservContext';
 import { useNavigate } from 'react-router-dom';
 import SignComponent from './SignComponent';
+import { useAuth } from '../Context/AuthContext';
 
 const ReservCustomer = () => {
     const { hospitalName, product, hopeDate1, hopeDate2, hospitalIdx } = useReservContext();
+    const { decodeS3, decodeS1 } = useAuth();
     const [step, setStep] = useState(1);
     const [name, setName] = useState("");
     const [customerName, setCustomerName] = useState("");
@@ -32,6 +34,7 @@ const ReservCustomer = () => {
     }
 
     const submitHandle = async () => {
+        let uid = decodeS1();
         let sendParams = {
             contractor_name: name,
             name: customerName,
@@ -40,6 +43,7 @@ const ReservCustomer = () => {
             h_key: hospitalIdx,
             hope_date_1: hopeDate1,
             hope_date_2: hopeDate2,
+            manager_uid: uid
         }
         try {
             const response = await Axios.post(
