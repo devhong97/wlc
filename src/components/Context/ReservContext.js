@@ -11,6 +11,8 @@ export const ReservProvider = ({ children }) => {
     const [hopeDate1, setHopeDate1] = useState("");
     const [hopeDate2, setHopeDate2] = useState("");
     const [customerData, setCustomerData] = useState([]);
+    const [signData1, setSignData1] = useState("");
+    const [signData2, setSignData2] = useState("");
 
     useEffect(() => {
         if (hospitalName !== "") {
@@ -36,6 +38,18 @@ export const ReservProvider = ({ children }) => {
         }
 
     }
+
+    useEffect(() => {
+        if (signData1 !== "") {
+            console.log(signData1);
+        }
+    }, [signData1]);
+
+    useEffect(() => {
+        if (signData2 !== "") {
+            console.log(signData2);
+        }
+    }, [signData2]);
 
     useEffect(() => {
         if (hospitalKey.length !== 0) {
@@ -79,6 +93,8 @@ export const ReservProvider = ({ children }) => {
                 hopeDate2,
                 setCustomerData,
                 clearReservData,
+                setSignData1,
+                setSignData2,
             }}
         >
             {children}
