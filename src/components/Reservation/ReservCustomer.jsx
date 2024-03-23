@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import { useReservContext } from '../Context/ReservContext';
 import { useNavigate } from 'react-router-dom';
+import SignComponent from './SignComponent';
+import { useAuth } from '../Context/AuthContext';
 
 const ReservCustomer = () => {
     const { hospitalName, product, hopeDate1, hopeDate2, hospitalIdx } = useReservContext();
+    const { decodeS3, decodeS1 } = useAuth();
     const [step, setStep] = useState(1);
     const [name, setName] = useState("");
     const [customerName, setCustomerName] = useState("");
@@ -31,6 +34,7 @@ const ReservCustomer = () => {
     }
 
     const submitHandle = async () => {
+        let uid = decodeS1();
         let sendParams = {
             contractor_name: name,
             name: customerName,
@@ -39,6 +43,7 @@ const ReservCustomer = () => {
             h_key: hospitalIdx,
             hope_date_1: hopeDate1,
             hope_date_2: hopeDate2,
+            manager_uid: uid
         }
         try {
             const response = await Axios.post(
@@ -108,31 +113,14 @@ const ReservCustomer = () => {
                 </div>
             )}
             {step === 3 && (
-                <div className='reserv_back'>
+                <div className='reserv_back sign'>
                     <div className='reserv_top_box'>
                         <div className='reserv_title'>
                             <p className='point_text'>서명</p>해주세요.
                         </div>
                     </div>
-                    <div className='reserv_bottom_box'>
-                        <div className='sign_container'>
-                            <div className='sign_box'>
-                                <div className='sign_title'>성명자필</div>
-                                <div className='sign'></div>
-                                <div className='sign_btn_box'>
-                                    <div className='sign_btn'>다시하기</div>
-                                    <div className='sign_btn blue'>완료</div>
-                                </div>
-                            </div>
-                            <div className='sign_box'>
-                                <div className='sign_title'>성명자필</div>
-                                <div className='sign'></div>
-                                <div className='sign_btn_box'>
-                                    <div className='sign_btn'>다시하기</div>
-                                    <div className='sign_btn blue'>완료</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className='reserv_bottom_box sign'>
+                        <SignComponent></SignComponent>
                     </div>
                     <div className='reserv_btn_box'>
                         <div className='reserv_btn' onClick={() => submitHandle()}>완료</div>

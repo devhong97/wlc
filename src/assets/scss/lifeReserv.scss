@@ -14,6 +14,10 @@
             width: 80%;
         }
 
+        &.sign {
+            width: 80%;
+        }
+
         .reserv_top_box {
             .reserv_title {
                 font-size: 30px;
@@ -49,6 +53,10 @@
 
             &.product {
                 text-align: center;
+            }
+
+            &.sign {
+                padding-top: 50px;
             }
 
             .reserv_menu_box {
@@ -123,6 +131,7 @@
                     width: calc((100% - 50px) / 2);
                     background-color: #fff;
                     padding: 30px;
+                    vertical-align: top;
 
                     &:last-child {
                         margin-left: 50px;
@@ -135,13 +144,20 @@
                         padding-bottom: 10px;
                     }
 
-                    .sign {
+                    .sign_contents {
                         background-color: #707070;
-                        height: 160px;
+                        height: 300px;
+                        width: 100%;
+                        position: relative;
+
+                        .sign_canvas {
+                            width: 100% !important;
+                            height: 100% !important;
+                        }
                     }
 
                     .sign_btn_box {
-                        padding-top: 10px;
+                        padding-top: 20px;
 
                         .sign_btn {
                             display: inline-block;
