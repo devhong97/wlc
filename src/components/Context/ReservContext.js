@@ -4,128 +4,87 @@ import Axios from "axios";
 const ReservContext = createContext();
 
 export const ReservProvider = ({ children }) => {
-<<<<<<< HEAD
+  const [productList, setProductList] = useState([]);
+  const [hospitalList, setHospitalList] = useState([]);
+  const [productKey, setProductKey] = useState("");
+  const [hospitalUpdateKey, setHospitalUpdateKey] = useState("");
+
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalIdx, setHospitalIdx] = useState("");
   const [hospitalKey, setHospitalKey] = useState([]);
   const [product, setProduct] = useState("");
   const [hopeDate1, setHopeDate1] = useState("");
   const [hopeDate2, setHopeDate2] = useState("");
-  const [customerData, setCustomerData] = useState([]);
+  const [signData1, setSignData1] = useState("");
+  const [signData2, setSignData2] = useState("");
+
+  useEffect(() => {
+    if (hospitalUpdateKey === "") {
+      getProductList();
+    } else {
+      callHospitalKey(getProductList);
+    }
+  }, [hospitalUpdateKey]);
+
+  useEffect(() => {
+    if (productKey !== "") {
+      getHospitalList();
+      console.log("여기");
+    } else {
+      getHospitalAllList();
+    }
+  }, [productKey]);
 
   useEffect(() => {
     if (hospitalName !== "") {
       callHospitalKey();
-=======
-    const [productList, setProductList] = useState([]);
-    const [hospitalList, setHospitalList] = useState([]);
-    const [productKey, setProductKey] = useState("");
-    const [hospitalUpdateKey, setHospitalUpdateKey] = useState("");
-
-
-    const [hospitalName, setHospitalName] = useState("");
-    const [hospitalIdx, setHospitalIdx] = useState("");
-    const [hospitalKey, setHospitalKey] = useState([]);
-    const [product, setProduct] = useState("");
-    const [hopeDate1, setHopeDate1] = useState("");
-    const [hopeDate2, setHopeDate2] = useState("");
-    const [signData1, setSignData1] = useState("");
-    const [signData2, setSignData2] = useState("");
-
-    useEffect(() => {
-        if (hospitalUpdateKey === "") {
-            getProductList();
-        } else {
-            callHospitalKey(getProductList);
-        }
-    }, [hospitalUpdateKey])
-
-    useEffect(() => {
-        if (productKey !== "") {
-            getHospitalList();
-            console.log("여기");
-        } else {
-            getHospitalAllList();
-        }
-    }, [productKey]);
-
-    useEffect(() => {
-        if (hospitalName !== "") {
-            callHospitalKey();
-        }
-    }, [hospitalName]);
-
-
-    const getProductList = async () => {
-        try {
-            const response = await Axios.get(
-                "http://localhost:3001/api/get/reserv/product_list",
-                {
-                    params: {
-                        key: hospitalKey
-                    }
-                }
-            );
-            const allData = response.data.data;
-            setProductList(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
-    const getHospitalAllList = async () => {
-        try {
-            const response = await Axios.get(
-                "http://localhost:3001/api/get/reserv/hospital_list",
-
-            );
-            const allData = response.data.data;
-            setHospitalList(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
-    const getHospitalList = async () => {
-        try {
-            const response = await Axios.get(
-                "http://localhost:3001/api/get/reserv/correct_hospital",
-                {
-                    params: {
-                        p_key: productKey
-                    }
-                }
-            );
-            const allData = response.data.data;
-            setHospitalList(allData);
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
-    }
-    const callHospitalKey = async (callback) => {
-        try {
-            const response = await Axios.get(
-                "http://localhost:3001/api/get/reserv/select_hospital",
-                {
-                    params: {
-                        name: hospitalName
-                    }
-                }
-            );
-            const allData = response.data.data;
-            const keys = allData.map(item => parseInt(item.p_key));
-            setHospitalKey(keys);
-            // hospitalKey가 설정된 후에 콜백 함수 호출
-            if (typeof callback === 'function') {
-                callback();
-            }
-        } catch (error) {
-            console.error("Error fetching list:", error);
-        }
->>>>>>> f7eeb9c068e537837b4b3e20fcbcd861fa93951b
     }
   }, [hospitalName]);
 
-<<<<<<< HEAD
-  const callHospitalKey = async () => {
+  const getProductList = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/reserv/product_list",
+        {
+          params: {
+            key: hospitalKey,
+          },
+        }
+      );
+      const allData = response.data.data;
+      setProductList(allData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
+  const getHospitalAllList = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/reserv/hospital_list"
+      );
+      const allData = response.data.data;
+      setHospitalList(allData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
+  const getHospitalList = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/reserv/correct_hospital",
+        {
+          params: {
+            p_key: productKey,
+          },
+        }
+      );
+      const allData = response.data.data;
+      setHospitalList(allData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
+  const callHospitalKey = async (callback) => {
     try {
       const response = await Axios.get(
         "http://localhost:3001/api/get/reserv/select_hospital",
@@ -138,34 +97,14 @@ export const ReservProvider = ({ children }) => {
       const allData = response.data.data;
       const keys = allData.map((item) => parseInt(item.p_key));
       setHospitalKey(keys);
+      // hospitalKey가 설정된 후에 콜백 함수 호출
+      if (typeof callback === "function") {
+        callback();
+      }
     } catch (error) {
       console.error("Error fetching list:", error);
-=======
-
-
-    const clearReservData = () => {
-        setHospitalName("");
-        setHospitalIdx("");
-        setHospitalKey([]);
-        setProduct("");
-        setHopeDate1("");
-        setHopeDate2("");
->>>>>>> f7eeb9c068e537837b4b3e20fcbcd861fa93951b
     }
   };
-
-<<<<<<< HEAD
-  useEffect(() => {
-    if (hospitalKey.length !== 0) {
-      console.log(hospitalKey);
-    }
-  }, [hospitalKey]);
-
-  useEffect(() => {
-    if (product !== "" && hospitalIdx === "") {
-      console.log("상품먼저");
-    }
-  }, [product]);
 
   const clearReservData = () => {
     setHospitalName("");
@@ -191,42 +130,18 @@ export const ReservProvider = ({ children }) => {
         hopeDate1,
         setHopeDate2,
         hopeDate2,
-        setCustomerData,
         clearReservData,
+        setSignData1,
+        setSignData2,
+        setProductKey,
+        hospitalList,
+        productList,
+        setHospitalUpdateKey,
       }}
     >
       {children}
     </ReservContext.Provider>
   );
-=======
-    return (
-        <ReservContext.Provider
-            value={{
-                setHospitalName,
-                hospitalName,
-                setHospitalIdx,
-                hospitalIdx,
-                setHospitalKey,
-                hospitalKey,
-                setProduct,
-                product,
-                setHopeDate1,
-                hopeDate1,
-                setHopeDate2,
-                hopeDate2,
-                clearReservData,
-                setSignData1,
-                setSignData2,
-                setProductKey,
-                hospitalList,
-                productList,
-                setHospitalUpdateKey
-            }}
-        >
-            {children}
-        </ReservContext.Provider>
-    );
->>>>>>> f7eeb9c068e537837b4b3e20fcbcd861fa93951b
 };
 
 export const useReservContext = () => {
