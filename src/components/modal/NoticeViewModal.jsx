@@ -12,13 +12,14 @@ function stripHtml(html) {
 }
 
 const NoticeViewModal = (props) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(props.detailData.title || "");
+  const [detailNum, setDetailNum] = useState(props.detailData.idx || "")
   const [updateContentHTML, setUpdateContentHTML] = useState("");
   const [updateAttachment, setUpdateAttachment] = useState("");
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
 
-  // LIST에서 가져온 상세보기 idx 호출
+  // LIST에서 가져온 상세보기 데이터
   useEffect(() => {
     if (props.detailData) {
       console.log(props.detailData);
@@ -32,7 +33,7 @@ const NoticeViewModal = (props) => {
       const editorInstance = editorRef.current.getInstance();
 
       const formData = new FormData();
-      formData.append("idx", props.detailData.idx);
+      formData.append("idx", detailNum);
       formData.append("title", title);
       formData.append("content", editorInstance.getHTML());
       formData.append("file", file);
@@ -87,7 +88,7 @@ const NoticeViewModal = (props) => {
       const response = await Axios.post(
         "http://localhost:3001/api/post/notice_delete",
         {
-          idx: props.detailData.idx,
+          idx: detailNum,
         }
       );
       alert("지점이 삭제되었습니다.");
