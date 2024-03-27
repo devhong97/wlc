@@ -6,6 +6,7 @@ import moment from "moment";
 import HospitalWriteModal from "../modal/HospitalWriteModal";
 import HospitalViewModal from "../modal/HospitalViewModal";
 import ProductWriteModal from "../modal/ProductWriteModal";
+import ProductViewModal from "./../modal/ProductViewModal";
 
 const ProductList = () => {
   const [writeModal, setWriteModal] = useState(false); // 병원등록 모달
@@ -109,10 +110,10 @@ const ProductList = () => {
         <ProductWriteModal closeModal={writeModalOpen}></ProductWriteModal>
       )}
       {viewModal && (
-        <HospitalViewModal
+        <ProductViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
-        ></HospitalViewModal>
+        ></ProductViewModal>
       )}
     </div>
   );
