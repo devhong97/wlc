@@ -12,7 +12,6 @@ const PwSearch = (props) => {
   const [verificationInput, setVerificationInput] = useState(false); //인증하기클릭 시 인증여부 상태
   const [pullCode, setPullCode] = useState(""); // 생성된 인증번호값
 
-
   // 인증관련 데이터 초기화(인증번호 입력값 오류 시)
   const resetFields = () => {
     setVerificationCode("");
@@ -91,7 +90,7 @@ const PwSearch = (props) => {
         if (res.data.success === true) {
           const data = res.data.data;
           props.setShowPwChangeModal(true); // 비밀번호 변경 모달창 true
-          props.setUserData(data);//유저 정보 전달
+          props.setUserData(data); //유저 정보 전달
         } else {
           alert("일치하는 정보가 없습니다.");
         }

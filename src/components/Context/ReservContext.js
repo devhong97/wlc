@@ -8,8 +8,6 @@ export const ReservProvider = ({ children }) => {
     const [hospitalList, setHospitalList] = useState([]);
     const [productKey, setProductKey] = useState("");
     const [hospitalUpdateKey, setHospitalUpdateKey] = useState("");
-
-
     const [hospitalName, setHospitalName] = useState("");
     const [hospitalIdx, setHospitalIdx] = useState("");
     const [hospitalKey, setHospitalKey] = useState([]);
@@ -25,11 +23,12 @@ export const ReservProvider = ({ children }) => {
         } else {
             callHospitalKey(getProductList);
         }
-    }, [hospitalUpdateKey])
+    }, [hospitalUpdateKey]);
 
     useEffect(() => {
         if (productKey !== "") {
             getHospitalList();
+            console.log("여기");
         } else {
             getHospitalAllList();
         }
@@ -41,15 +40,14 @@ export const ReservProvider = ({ children }) => {
         }
     }, [hospitalName]);
 
-
     const getProductList = async () => {
         try {
             const response = await Axios.get(
                 "http://localhost:3001/api/get/reserv/product_list",
                 {
                     params: {
-                        key: hospitalKey
-                    }
+                        key: hospitalKey,
+                    },
                 }
             );
             const allData = response.data.data;
@@ -57,27 +55,26 @@ export const ReservProvider = ({ children }) => {
         } catch (error) {
             console.error("Error fetching list:", error);
         }
-    }
+    };
     const getHospitalAllList = async () => {
         try {
             const response = await Axios.get(
-                "http://localhost:3001/api/get/reserv/hospital_list",
-
+                "http://localhost:3001/api/get/reserv/hospital_list"
             );
             const allData = response.data.data;
             setHospitalList(allData);
         } catch (error) {
             console.error("Error fetching list:", error);
         }
-    }
+    };
     const getHospitalList = async () => {
         try {
             const response = await Axios.get(
                 "http://localhost:3001/api/get/reserv/correct_hospital",
                 {
                     params: {
-                        p_key: productKey
-                    }
+                        p_key: productKey,
+                    },
                 }
             );
             const allData = response.data.data;
@@ -85,30 +82,28 @@ export const ReservProvider = ({ children }) => {
         } catch (error) {
             console.error("Error fetching list:", error);
         }
-    }
+    };
     const callHospitalKey = async (callback) => {
         try {
             const response = await Axios.get(
                 "http://localhost:3001/api/get/reserv/select_hospital",
                 {
                     params: {
-                        name: hospitalName
-                    }
+                        name: hospitalName,
+                    },
                 }
             );
             const allData = response.data.data;
-            const keys = allData.map(item => parseInt(item.p_key));
+            const keys = allData.map((item) => parseInt(item.p_key));
             setHospitalKey(keys);
             // hospitalKey가 설정된 후에 콜백 함수 호출
-            if (typeof callback === 'function') {
+            if (typeof callback === "function") {
                 callback();
             }
         } catch (error) {
             console.error("Error fetching list:", error);
         }
-    }
-
-
+    };
 
     const clearReservData = () => {
         setHospitalName("");
@@ -117,7 +112,7 @@ export const ReservProvider = ({ children }) => {
         setProduct("");
         setHopeDate1("");
         setHopeDate2("");
-    }
+    };
 
     return (
         <ReservContext.Provider
@@ -140,7 +135,7 @@ export const ReservProvider = ({ children }) => {
                 setProductKey,
                 hospitalList,
                 productList,
-                setHospitalUpdateKey
+                setHospitalUpdateKey,
             }}
         >
             {children}

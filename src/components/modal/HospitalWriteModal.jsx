@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import HospitalProductModal from "./HospitalProductModal";
 
 const HospitalWriteModal = (props) => {
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
   const [cities, setCities] = useState([]); //지역(시)
   const [districts, setDistricts] = useState([]); //지역(도)
+  const [productModal, setProductModal] = useState(false); // 검진가능상품
 
   const [name, setName] = useState(""); // 병원명
   const [tel1, setTel1] = useState(""); // 연락처1
@@ -60,6 +62,11 @@ const HospitalWriteModal = (props) => {
       .catch((err) => {
         console.error(`(도)호출 실패 ${selectedCity}:`, err);
       });
+  };
+
+  // 검진상품 선택 모달창 OPEN 버튼
+  const productModalOpen = () => {
+    setProductModal(!productModal);
   };
 
   //모달 초기화
@@ -257,6 +264,20 @@ const HospitalWriteModal = (props) => {
                 <div className="table_contents w100">0</div>
               </div>
             </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">검진가능상품</div>
+                <div className="table_contents w100">
+                  <div className="table_inner_text">1</div>
+                  <div
+                    className="table_inner_btn"
+                    onClick={() => productModalOpen()}
+                  >
+                    선택
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="modal_footer_box">
@@ -269,6 +290,11 @@ const HospitalWriteModal = (props) => {
           </div>
         </div>
       </div>
+      {productModal && (
+        <HospitalProductModal
+          closeModal={productModalOpen}
+        ></HospitalProductModal>
+      )}
     </div>
   );
 };

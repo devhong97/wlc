@@ -3,7 +3,13 @@ import Axios from "axios";
 import moment from "moment";
 import { useReservContext } from "../Context/ReservContext";
 const CustomerViewModal = (props) => {
-  const { setProductKey, setHospitalUpdateKey, hospitalList, productList, setHospitalName } = useReservContext();
+  const {
+    setProductKey,
+    setHospitalUpdateKey,
+    hospitalList,
+    productList,
+    setHospitalName,
+  } = useReservContext();
 
   const [memberData, setMemberData] = useState([]);
   const [detailNum, setDetailNum] = useState("");
@@ -14,14 +20,14 @@ const CustomerViewModal = (props) => {
   // const [name, setName] = useState(""); //검진자 이름
   const [phone, setPhone] = useState(""); // 연락처
   // const [date, setDate] = useState("");//가입일
-  const [hope_date_1, setHopeDate1] = useState("");//희망일1
-  const [hope_date_2, setHopeDate2] = useState("");//희망일2
-  const [product, setProduct] = useState("");//상품명
-  const [hospital, setHospital] = useState("");//병원명
-  const [result_date, setResultDate] = useState("");//검진확정일
-  const [memo, setMemo] = useState("");//비고
-  const [manager, setManager] = useState("");//영업자 이름
-  const [branch, setBranch] = useState("");//지점 이름
+  const [hope_date_1, setHopeDate1] = useState(""); //희망일1
+  const [hope_date_2, setHopeDate2] = useState(""); //희망일2
+  const [product, setProduct] = useState(""); //상품명
+  const [hospital, setHospital] = useState(""); //병원명
+  const [result_date, setResultDate] = useState(""); //검진확정일
+  const [memo, setMemo] = useState(""); //비고
+  const [manager, setManager] = useState(""); //영업자 이름
+  const [branch, setBranch] = useState(""); //지점 이름
   useEffect(() => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
@@ -72,28 +78,30 @@ const CustomerViewModal = (props) => {
     setPayStatus(memberData.pay_status);
   };
 
-  const handleSubmit = () => { };
+  const handleSubmit = () => {};
   const handleRadioChange = (event) => {
     setInspectionStatus(event.target.value);
   };
 
   const handleProduct = (data) => {
     console.log(data);
-    setProductKey(data)
+    setProductKey(data);
     setProduct(data);
-  }
+  };
 
   const handleHospital = (data) => {
     setHospital(data);
     setHospitalUpdateKey(data);
 
-    const selectedBranch = hospitalList.find(branch => branch.idx === Number(data));
+    const selectedBranch = hospitalList.find(
+      (branch) => branch.idx === Number(data)
+    );
     console.log(selectedBranch);
     if (selectedBranch) {
       console.log(selectedBranch);
       setHospitalName(selectedBranch.name);
     }
-  }
+  };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -115,7 +123,9 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">계약자</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.contractor_name}</div>
+                  <div className="table_inner_text">
+                    {memberData.contractor_name}
+                  </div>
                 </div>
               </div>
             </div>
@@ -123,7 +133,9 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">가입일</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{moment(memberData.date).format("YYYY-MM-DD")}</div>
+                  <div className="table_inner_text">
+                    {moment(memberData.date).format("YYYY-MM-DD")}
+                  </div>
                 </div>
               </div>
               <div className="table_section half">
@@ -321,7 +333,11 @@ const CustomerViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title image">비고</div>
                 <div className="table_contents w100">
-                  <textarea className="table_textarea" value={memo} onChange={(e) => setMemo(e.target.value)}></textarea>
+                  <textarea
+                    className="table_textarea"
+                    value={memo}
+                    onChange={(e) => setMemo(e.target.value)}
+                  ></textarea>
                 </div>
               </div>
             </div>

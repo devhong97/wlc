@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const PwChangeModal = (props) => {
-  const [userIdx, setUserIdx] = useState("")
+  const [userIdx, setUserIdx] = useState("");
   const [password, setPassword] = useState(""); //비밀번호
   const [passwordChk, setPasswordChk] = useState(""); //비밀번호 체크
   const [regexMessage, setRegexMessage] = useState(""); //비밀번호 유효성검사
@@ -14,7 +14,7 @@ const PwChangeModal = (props) => {
       console.log(props.userData.idx);
       setUserIdx(props.userData.idx);
     }
-  }, [props.userData])
+  }, [props.userData]);
 
   // 비밀번호 체크
   const handlePw = (e) => {
@@ -71,19 +71,17 @@ const PwChangeModal = (props) => {
 
     Axios.post("http://localhost:3001/api/post/edit_password", {
       password: password,
-      idx: userIdx
+      idx: userIdx,
     })
       .then((res) => {
         console.log(res.data);
-        alert(
-          `비밀번호 변경이 완료되었습니다.`
-        );
+        alert(`비밀번호 변경이 완료되었습니다.`);
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   return (
     <div className="modal_wrap">

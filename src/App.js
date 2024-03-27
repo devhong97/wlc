@@ -8,11 +8,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useAuth } from "./components/Context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
-import Footer from './components/Footer/Footer';
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
-
 
   useEffect(() => {
     const loginStatus = localStorage.getItem("Access");
@@ -20,8 +19,6 @@ function App() {
       login();
     }
   }, []);
-
-
 
   return (
     <Fragment>

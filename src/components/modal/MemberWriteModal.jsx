@@ -62,7 +62,19 @@ const MemberWriteModal = (props) => {
       !branchIdx
     ) {
       alert("필수 사항을 모두 입력해주세요");
-      console.log(id, password, name, email, phone, bank, bankAccount, type, company, branchName, branchIdx);
+      console.log(
+        id,
+        password,
+        name,
+        email,
+        phone,
+        bank,
+        bankAccount,
+        type,
+        company,
+        branchName,
+        branchIdx
+      );
       return;
     }
 

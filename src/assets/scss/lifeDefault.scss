@@ -160,6 +160,14 @@
               }
 
               &.fifth {
+                background-image: url("../img/aside_hospital.png");
+              }
+
+              &.sixth {
+                background-image: url("../img/aside_product.png");
+              }
+
+              &.seventh {
                 background-image: url("../img/aside_5.png");
               }
             }
@@ -174,6 +182,7 @@
 
             .delme_icon {
               @include background_set(40px, 30px, contain);
+              background-image: url("../img/aside_delme.png");
               display: inline-block;
               vertical-align: middle;
             }
@@ -473,7 +482,7 @@
             display: none;
           }
 
-          .login_check:checked+.login_label::before {
+          .login_check:checked + .login_label::before {
             background-color: $main-color;
           }
         }
@@ -659,8 +668,6 @@
             width: calc((100% - 40px) / 3);
           }
 
-
-
           &.bank {
             margin-left: 15px;
             width: calc((100% - 370px));
@@ -764,7 +771,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $main-color;
         }
       }
