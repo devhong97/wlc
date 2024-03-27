@@ -3,9 +3,9 @@ import { useReservContext } from '../Context/ReservContext';
 import { useNavigate } from 'react-router-dom';
 
 const SelectDate = () => {
-    const { hospitalName, product, setHopeDate1, setHopeDate2 } = useReservContext();
-    const [date1, setDate1] = useState("");
-    const [date2, setDate2] = useState("");
+    const { hospitalName, product, setHopeDate1, setHopeDate2, hopeDate1, hopeDate2 } = useReservContext();
+    const [date1, setDate1] = useState(hopeDate1 || "");
+    const [date2, setDate2] = useState(hopeDate2 || "");
     const navigation = useNavigate();
 
     const moveNext = () => {

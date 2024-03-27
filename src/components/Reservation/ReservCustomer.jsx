@@ -3,16 +3,13 @@ import Axios from "axios";
 import { useReservContext } from "../Context/ReservContext";
 import { useNavigate } from "react-router-dom";
 import SignComponent from "./SignComponent";
-import { useAuth } from "../Context/AuthContext";
 
 const ReservCustomer = () => {
-  const { hospitalName, product, hopeDate1, hopeDate2, hospitalIdx } =
-    useReservContext();
-  const { decodeS3, decodeS1 } = useAuth();
+  const { signData1, signData2, setCustomerData, customerData } = useReservContext();
   const [step, setStep] = useState(1);
-  const [name, setName] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState(customerData.name || "");
+  const [customerName, setCustomerName] = useState(customerData.customerName || "");
+  const [phone, setPhone] = useState(customerData.phone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const navigation = useNavigate();
   const moveSecondStep = () => {
@@ -33,30 +30,20 @@ const ReservCustomer = () => {
     setStep(3);
   };
 
-  const submitHandle = async () => {
-    let uid = decodeS1();
-    let sendParams = {
-      contractor_name: name,
-      name: customerName,
-      phone: phone,
-      p_key: product,
-      h_key: hospitalIdx,
-      hope_date_1: hopeDate1,
-      hope_date_2: hopeDate2,
-      manager_uid: uid,
-    };
-    try {
-      const response = await Axios.post(
-        "http://localhost:3001/api/post/customer",
-        sendParams
-      );
-      console.log(response.data);
-      alert("등록이 완료되었습니다.");
-      navigation("/");
-    } catch (error) {
-      console.error("Error fetching list:", error);
+  const checkSign = () => {
+    console.log(signData1, signData2);
+    if (signData1 === "" || signData2 === "") {
+      alert("서명란의 완료버튼을 눌러주세요");
+    } else {
+      setCustomerData({
+        name: name,
+        customerName: customerName,
+        phone: phone
+      });
+
+      navigation("/reserv/check");
     }
-  };
+  }
   return (
     <div className="reserv_wrap">
       {step === 1 && (
@@ -142,8 +129,8 @@ const ReservCustomer = () => {
             <SignComponent></SignComponent>
           </div>
           <div className="reserv_btn_box">
-            <div className="reserv_btn" onClick={() => submitHandle()}>
-              완료
+            <div className="reserv_btn" onClick={() => checkSign()}>
+              다음
             </div>
           </div>
         </div>
