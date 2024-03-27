@@ -12,39 +12,19 @@ function stripHtml(html) {
 }
 
 const NoticeViewModal = (props) => {
-  const [title, setTitle] = useState("");
-  const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
-  const [updateContentHTML, setUpdateContentHTML] = useState(
-    props.bbsData.content
-  );
+  const [title, setTitle] = useState(props.detailData.title || "");
+  const [detailNum, setDetailNum] = useState(props.detailData.idx || "");
+  const [updateContentHTML, setUpdateContentHTML] = useState("");
   const [updateAttachment, setUpdateAttachment] = useState("");
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
 
-  // LIST에서 가져온 상세보기 idx 호출
+  // LIST에서 가져온 상세보기 데이터
   useEffect(() => {
-    if (props.detailIdx) {
-      setDetailNum(props.detailIdx);
-      getDetail();
+    if (props.detailData) {
+      console.log(props.detailData);
     }
-  }, [props.detailIdx]);
-
-  const getDetail = async () => {
-    try {
-      const response = await Axios.get(
-        "http://localhost:3001/api/get/notice_detail",
-        {
-          params: {
-            idx: props.detailIdx,
-          },
-        }
-      );
-      const allData = response.data;
-
-    } catch (error) {
-      console.error("Error fetching list:", error);
-    }
-  };
+  }, [props.detailData]);
 
   // 수정 완료버튼
   const handleSubmit = async () => {
@@ -107,7 +87,7 @@ const NoticeViewModal = (props) => {
       const response = await Axios.post(
         "http://localhost:3001/api/post/notice_delete",
         {
-          idx: props.detailIdx,
+          idx: detailNum,
         }
       );
       alert("지점이 삭제되었습니다.");
@@ -254,7 +234,7 @@ const NoticeViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">조회수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{props.bbsData.hit}</div>
+                  <div className="table_inner_text">asd</div>
                 </div>
               </div>
             </div>
