@@ -36,17 +36,20 @@ const ProductWriteModal = (props) => {
       Axios.get(`http://localhost:3001/api/get/products/${selectedCategory}`)
         .then((response) => {
           setProducts(response.data);
-          //p_key 저장
-          const pKeyFromData = response.data.find((product) => product.p_key);
-          if (pKeyFromData) {
-            setPKey(pKeyFromData.p_key);
+
+          // 선택한 상품명1에 해당하는 p_key 찾기
+          const selectedProductData = response.data.find(
+            (product) => product.product_1 === selectedProduct
+          );
+          if (selectedProductData) {
+            setPKey(selectedProductData.p_key);
           }
         })
         .catch((err) => {
           console.error("상품 데이터 호출 실패:", err);
         });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedProduct]);
 
   //모달 초기화
   const clearModal = () => {
@@ -158,8 +161,8 @@ const ProductWriteModal = (props) => {
                     <option value="">선택</option>
                     {products.length > 0 &&
                       products.map((product, index) => (
-                        <option key={index} value={product.name_1}>
-                          {product.name_1}
+                        <option key={index} value={product.product_1}>
+                          {product.product_1}
                         </option>
                       ))}
                   </select>
