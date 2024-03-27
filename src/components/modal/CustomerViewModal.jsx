@@ -9,6 +9,8 @@ const CustomerViewModal = (props) => {
     hospitalList,
     productList,
     setHospitalName,
+    productKey,
+    hospitalUpdateKey
   } = useReservContext();
 
   const [memberData, setMemberData] = useState([]);
@@ -16,18 +18,20 @@ const CustomerViewModal = (props) => {
   const [inspectionStatus, setInspectionStatus] = useState("N");
   const [hopeStatus, setHopeStatus] = useState("N");
   const [payStatus, setPayStatus] = useState("N");
+  const [refundStatus, setRefundStatus] = useState("N");
   // const [c_name, setCName] = useState(""); //계약자 이름
-  // const [name, setName] = useState(""); //검진자 이름
+  const [customerName, setCustomerName] = useState(""); //검진자 이름
   const [phone, setPhone] = useState(""); // 연락처
   // const [date, setDate] = useState("");//가입일
   const [hope_date_1, setHopeDate1] = useState(""); //희망일1
   const [hope_date_2, setHopeDate2] = useState(""); //희망일2
   const [product, setProduct] = useState(""); //상품명
-  const [hospital, setHospital] = useState(""); //병원명
+  const [hospital, setHospital] = useState(0); //병원명
   const [result_date, setResultDate] = useState(""); //검진확정일
   const [memo, setMemo] = useState(""); //비고
   const [manager, setManager] = useState(""); //영업자 이름
   const [branch, setBranch] = useState(""); //지점 이름
+  const [company, setCompany] = useState(""); //회사 이름
   useEffect(() => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
@@ -62,8 +66,7 @@ const CustomerViewModal = (props) => {
   };
 
   const setDetailValue = () => {
-    // setCName(memberData.contractor_name);
-    // setName(memberData.name);
+    setCustomerName(memberData.name);
     setPhone(memberData.phone);
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
@@ -73,12 +76,59 @@ const CustomerViewModal = (props) => {
     setMemo(memberData.memo);
     setManager(memberData.manager);
     setBranch(memberData.branch);
+    setCompany(memberData.company);
     setInspectionStatus(memberData.status);
     setHopeStatus(memberData.hope_status);
     setPayStatus(memberData.pay_status);
+    setRefundStatus(memberData.refund_status);
+
+    //
+    setProductKey(memberData.p_key);
+    setHospitalUpdateKey(memberData.h_key);
+    setHospitalName(memberData.hospital);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if (
+      !customerName ||
+      !phone ||
+      !product ||
+      !hospital ||
+      !hope_date_1 ||
+      !hope_date_2
+    ) {
+      alert("필수 사항을 모두 입력해주세요");
+      return;
+    }
+    const paramsArray = {
+      name: customerName,
+      phone: phone,
+      p_key: product,
+      h_key: hospital,
+      hope_date_1: hope_date_1,
+      hope_date_2: hope_date_2,
+      result_date: result_date,
+      status: inspectionStatus,
+      pay_status: payStatus,
+      hope_status: hopeStatus,
+      refund_status: refundStatus,
+      memo: memo,
+      idx: detailNum,
+    };
+    console.log(paramsArray);
+
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/customer_edit",
+        paramsArray
+      );
+
+      console.log(response.data);
+      props.closeModal();
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
   const handleRadioChange = (event) => {
     setInspectionStatus(event.target.value);
   };
@@ -92,6 +142,7 @@ const CustomerViewModal = (props) => {
   const handleHospital = (data) => {
     setHospital(data);
     setHospitalUpdateKey(data);
+    console.log(data);
 
     const selectedBranch = hospitalList.find(
       (branch) => branch.idx === Number(data)
@@ -117,7 +168,16 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진자</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.name}</div>
+
+                  <input
+                    className="table_input w100"
+                    type="text"
+                    id="customerName"
+                    placeholder="검진자를 입력해주세요."
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    disabled={inspectionStatus === "2"}
+                  ></input>
                 </div>
               </div>
               <div className="table_section half">
@@ -149,7 +209,7 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">지점명</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.branch}</div>
+                  <div className="table_inner_text">{memberData.company} {memberData.branch}</div>
                 </div>
               </div>
             </div>
@@ -162,6 +222,7 @@ const CustomerViewModal = (props) => {
                       value={product}
                       onChange={(e) => handleProduct(e.target.value)}
                       className="table_select"
+                      disabled={inspectionStatus === "2"}
                     >
                       <option value="">선택</option>
                       {productList.map((data, index) => {
@@ -183,6 +244,7 @@ const CustomerViewModal = (props) => {
                       value={hospital}
                       onChange={(e) => handleHospital(e.target.value)}
                       className="table_select"
+                      disabled={inspectionStatus === "2"}
                     >
                       <option value="">선택</option>
                       {hospitalList.map((data, index) => {
@@ -202,12 +264,13 @@ const CustomerViewModal = (props) => {
                 <div className="table_title">희망일1</div>
                 <div className="table_contents w100">
                   <input
-                    className="table_input modal"
+                    className="table_input w100"
                     type="text"
                     id="title"
                     placeholder="희망일을 입력해주세요."
                     value={hope_date_1}
-                    onChange={() => setHopeDate1()}
+                    onChange={(e) => setHopeDate1(e.target.value)}
+                    disabled={inspectionStatus === "2"}
                   ></input>
                 </div>
               </div>
@@ -215,33 +278,33 @@ const CustomerViewModal = (props) => {
                 <div className="table_title">희망일2</div>
                 <div className="table_contents w100">
                   <input
-                    className="table_input modal"
+                    className="table_input w100"
                     type="text"
                     id="title"
                     placeholder="희망일을 입력해주세요."
                     value={hope_date_2}
-                    onChange={() => setHopeDate2()}
+                    onChange={(e) => setHopeDate2(e.target.value)}
+                    disabled={inspectionStatus === "2"}
                   ></input>
                 </div>
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section">
+              <div className="table_section half">
                 <div className="table_title">검진확정일</div>
                 <div className="table_contents w100">
                   <input
-                    className="table_input modal"
+                    className="table_input w100"
                     type="text"
                     id="title"
                     placeholder="확정일 입력해주세요."
                     value={result_date}
-                    onChange={() => setResultDate()}
+                    onChange={(e) => setResultDate(e.target.value)}
+                    disabled={inspectionStatus === "2"}
                   ></input>
                 </div>
               </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section triple">
+              <div className="table_section half">
                 <div className="table_title">검진유무</div>
                 <div className="table_contents w100">
                   <div className="table_radio">
@@ -249,11 +312,11 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="inspectionStatus"
-                        value="y"
-                        checked={inspectionStatus === "Y"}
+                        value="1"
+                        checked={inspectionStatus === "1"}
                         onChange={(e) => setInspectionStatus(e.target.value)}
                       />
-                      Yes
+                      검진완료
                     </label>
                   </div>
                   <div className="table_radio">
@@ -261,16 +324,30 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="inspectionStatus"
-                        value="n"
-                        checked={inspectionStatus === "N"}
+                        value="2"
+                        checked={inspectionStatus === "2"}
                         onChange={(e) => setInspectionStatus(e.target.value)}
                       />
-                      No
+                      검진취소
+                    </label>
+                  </div>
+                  <div className="table_radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="inspectionStatus"
+                        value="3"
+                        checked={inspectionStatus === "3"}
+                        onChange={(e) => setInspectionStatus(e.target.value)}
+                      />
+                      검진대기
                     </label>
                   </div>
                 </div>
               </div>
-              <div className="table_section triple">
+            </div>
+            <div className="table_row">
+              <div className="table_section half">
                 <div className="table_title">상담희망</div>
                 <div className="table_contents w100">
                   <div className="table_radio">
@@ -278,7 +355,7 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="hopeStatus"
-                        value="y"
+                        value="Y"
                         checked={hopeStatus === "Y"}
                         onChange={(e) => setHopeStatus(e.target.value)}
                       />
@@ -290,7 +367,7 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="hopeStatus"
-                        value="n"
+                        value="N"
                         checked={hopeStatus === "N"}
                         onChange={(e) => setHopeStatus(e.target.value)}
                       />
@@ -299,7 +376,7 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="table_section triple">
+              <div className="table_section half">
                 <div className="table_title">입금유무</div>
                 <div className="table_contents w100">
                   <div className="table_radio">
@@ -307,7 +384,7 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="payStatus"
-                        value="y"
+                        value="Y"
                         checked={payStatus === "Y"}
                         onChange={(e) => setPayStatus(e.target.value)}
                       />
@@ -319,7 +396,7 @@ const CustomerViewModal = (props) => {
                       <input
                         type="radio"
                         name="payStatus"
-                        value="n"
+                        value="N"
                         checked={payStatus === "N"}
                         onChange={(e) => setPayStatus(e.target.value)}
                       />
@@ -329,6 +406,39 @@ const CustomerViewModal = (props) => {
                 </div>
               </div>
             </div>
+            {inspectionStatus === "2" && (
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">환불여부</div>
+                  <div className="table_contents w100">
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="refundStatus"
+                          value="Y"
+                          checked={refundStatus === "Y"}
+                          onChange={(e) => setRefundStatus(e.target.value)}
+                        />
+                        Yes
+                      </label>
+                    </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="refundStatus"
+                          value="N"
+                          checked={refundStatus === "N"}
+                          onChange={(e) => setRefundStatus(e.target.value)}
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title image">비고</div>
@@ -344,7 +454,7 @@ const CustomerViewModal = (props) => {
           </div>
 
           <div className="modal_footer_box">
-            <div className="modal_btn" onClick={handleSubmit}>
+            <div className="modal_btn" onClick={() => handleSubmit()}>
               수정
             </div>
             <div className="modal_btn close" onClick={clearModal}>
@@ -353,7 +463,7 @@ const CustomerViewModal = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
