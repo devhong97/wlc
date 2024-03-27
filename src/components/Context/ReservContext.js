@@ -33,6 +33,7 @@ export const ReservProvider = ({ children }) => {
             console.log("여기");
         } else {
             getHospitalAllList();
+            getProductList("reset");
         }
     }, [productKey]);
 
@@ -42,14 +43,22 @@ export const ReservProvider = ({ children }) => {
         }
     }, [hospitalName]);
 
-    const getProductList = async () => {
+    const getProductList = async (status, keys) => {
+        console.log(keys);
+        let setParams = {
+            key: hospitalKey
+        }
+        if (status !== "") {
+            setParams.key = ""
+        }
+        if (keys !== "") {
+            setParams.key = keys
+        }
         try {
             const response = await Axios.get(
                 "http://localhost:3001/api/get/reserv/product_list",
                 {
-                    params: {
-                        key: hospitalKey,
-                    },
+                    params: setParams
                 }
             );
             const allData = response.data.data;
@@ -97,10 +106,11 @@ export const ReservProvider = ({ children }) => {
             );
             const allData = response.data.data;
             const keys = allData.map((item) => parseInt(item.p_key));
+            console.log(keys);
             setHospitalKey(keys);
             // hospitalKey가 설정된 후에 콜백 함수 호출
             if (typeof callback === "function") {
-                callback();
+                callback("", keys);
             }
         } catch (error) {
             console.error("Error fetching list:", error);
