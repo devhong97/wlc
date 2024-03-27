@@ -8,7 +8,7 @@ import NoticeViewModal from "../modal/NoticeViewModal";
 const Notice = () => {
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
-  const [detailIdx, setDetailIdx] = useState("");
+  const [detailData, setDetailData] = useState([]);
   const [bbsData, setBbsData] = useState([]);
   const [tab, setTab] = useState(1);
 
@@ -87,9 +87,7 @@ const Notice = () => {
   };
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
-    const idx = data.idx;
-    setDetailIdx(idx);
-    setBbsData(bbsData);
+    setDetailData(data);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -151,8 +149,7 @@ const Notice = () => {
       {viewModal && (
         <NoticeViewModal
           closeModal={viewModalClose}
-          detailIdx={detailIdx}
-          bbsData={bbsData}
+          detailData={detailData}
         ></NoticeViewModal>
       )}
     </div>
