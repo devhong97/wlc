@@ -61,9 +61,13 @@ const ProductList = () => {
     setViewModal(!viewModal);
     setDetailIdx(idx);
   };
-  const viewModalClose = () => {
+  const viewModalClose = (status) => {
     setViewModal(false);
-    window.location.reload();
+    if (status === "reload") {
+      window.location.reload();
+    } else {
+      fetchProductList();
+    }
   };
 
   return (

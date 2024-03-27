@@ -74,9 +74,13 @@ const BranchList = () => {
     setDetailIdx(idx);
     setBranchIdx(branchIdx);
   };
-  const viewModalClose = () => {
+  const viewModalClose = (status) => {
     setViewModal(false);
-    window.location.reload();
+    if (status === "reload") {
+      window.location.reload();
+    } else {
+      fetchBranchList();
+    }
   };
 
   return (

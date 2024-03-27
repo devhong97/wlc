@@ -92,8 +92,8 @@ const ProductViewModal = (props) => {
           idx: props.detailIdx,
         }
       );
-      alert("지점이 삭제되었습니다.");
-      props.closeModal();
+      alert("상품이 삭제되었습니다.");
+      props.closeModal("reload");
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -135,9 +135,9 @@ const ProductViewModal = (props) => {
                     name="affiliation"
                     className="table_select"
                     value={selectedCategory}
-                    // onChange={(e) => {
-                    //   handleCategoryChange(e);
-                    // }}
+                  // onChange={(e) => {
+                  //   handleCategoryChange(e);
+                  // }}
                   >
                     <option value="">카테고리 선택</option>
                     {[
