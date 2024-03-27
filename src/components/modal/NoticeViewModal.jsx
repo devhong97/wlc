@@ -13,7 +13,7 @@ function stripHtml(html) {
 
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState(props.detailData.title || "");
-  const [detailNum, setDetailNum] = useState(props.detailData.idx || "")
+  const [detailNum, setDetailNum] = useState(props.detailData.idx || "");
   const [updateContentHTML, setUpdateContentHTML] = useState("");
   const [updateAttachment, setUpdateAttachment] = useState("");
   const [file, setFile] = useState(null);
@@ -25,7 +25,6 @@ const NoticeViewModal = (props) => {
       console.log(props.detailData);
     }
   }, [props.detailData]);
-
 
   // 수정 완료버튼
   const handleSubmit = async () => {
