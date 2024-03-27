@@ -4,7 +4,7 @@ import Axios from "axios";
 import { useReservContext } from "../Context/ReservContext";
 
 const SearchProduct = () => {
-  const { hospitalKey, setProduct } = useReservContext();
+  const { hospitalKey, setProduct, setProductName } = useReservContext();
   const [productList, setProductList] = useState([]);
   const navigation = useNavigate();
 
@@ -35,7 +35,8 @@ const SearchProduct = () => {
 
   const selectProduct = (data) => {
     console.log(data);
-    setProduct(data);
+    setProduct(data.p_key);
+    setProductName(data.name_1);
     if (hospitalKey.length !== 0) {
       navigation("/reserv/date");
     } else {
@@ -61,7 +62,7 @@ const SearchProduct = () => {
                   <div className="product_btn">상세</div>
                   <div
                     className="product_btn"
-                    onClick={() => selectProduct(data.p_key)}
+                    onClick={() => selectProduct(data)}
                   >
                     선택
                   </div>

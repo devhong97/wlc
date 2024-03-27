@@ -12,10 +12,12 @@ export const ReservProvider = ({ children }) => {
     const [hospitalIdx, setHospitalIdx] = useState("");
     const [hospitalKey, setHospitalKey] = useState([]);
     const [product, setProduct] = useState("");
+    const [productName, setProductName] = useState("")
     const [hopeDate1, setHopeDate1] = useState("");
     const [hopeDate2, setHopeDate2] = useState("");
     const [signData1, setSignData1] = useState("");
     const [signData2, setSignData2] = useState("");
+    const [customerData, setCustomerData] = useState([]);
 
     useEffect(() => {
         if (hospitalUpdateKey === "") {
@@ -112,7 +114,17 @@ export const ReservProvider = ({ children }) => {
         setProduct("");
         setHopeDate1("");
         setHopeDate2("");
+        setCustomerData([]);
+        setProductName("");
     };
+
+    const keepReservData = () => {
+        setHospitalName("");
+        setHospitalIdx("");
+        setHospitalKey([]);
+        setProduct("");
+        setProductName("");
+    }
 
     return (
         <ReservContext.Provider
@@ -131,11 +143,18 @@ export const ReservProvider = ({ children }) => {
                 hopeDate2,
                 clearReservData,
                 setSignData1,
+                signData1,
+                signData2,
                 setSignData2,
                 setProductKey,
                 hospitalList,
                 productList,
                 setHospitalUpdateKey,
+                setCustomerData,
+                customerData,
+                setProductName,
+                productName,
+                keepReservData
             }}
         >
             {children}
