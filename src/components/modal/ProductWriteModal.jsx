@@ -2,45 +2,51 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
 const ProductWriteModal = (props) => {
-  const [categories, setCategories] = useState([]); // 상품 카테고리 목록
-  const [products, setProducts] = useState([]); // 선택된 상품 카테고리에 속한 상품 목록
+  const [categories, setCategories] = useState([]); // 전체 상품카테고리
+  const [products, setProducts] = useState([]); // 상품명1 데이터저장
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 상품 카테고리
   const [selectedProduct, setSelectedProduct] = useState(""); // 선택된 상품명1
+  const [name2, setName2] = useState(""); // 상품명2(직접입력)
+  const [ogPriceTxt, setOgPriceTxt] = useState(""); // 의료수가
+  const [priceTxt, setPriceTxt] = useState(""); // 검진비용
+  const [commision1, setCommision1] = useState(""); // 지점장커미션
+  const [commision2, setCommision2] = useState(""); // 영업자커미션
+  const [commision3, setCommision3] = useState(""); // 브로커커미션
+  const [pKey, setPKey] = useState(""); // p_key 값
+
+  console.log(selectedCategory);
 
   useEffect(() => {
-    // 상품 카테고리 데이터 호출
     Axios.get("http://localhost:3001/api/get/categories")
       .then((response) => {
-        setCategories(response.data); // 수정된 부분: response.data를 그대로 사용
-        console.log("categories", response.data);
+        setCategories(response.data);
       })
       .catch((err) => {
         console.error("상품 카테고리 호출 실패:", err);
       });
   }, []);
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
+  };
+
   useEffect(() => {
-    if (selectedCategory) {
-      // 선택된 상품 카테고리에 속한 상품명1 데이터 호출
+    if (selectedCategory !== "") {
       Axios.get(`http://localhost:3001/api/get/products/${selectedCategory}`)
         .then((response) => {
-          setProducts(response.data.data);
+          setProducts(response.data);
+          //p_key 저장
+          const pKeyFromData = response.data.find((product) => product.p_key);
+          if (pKeyFromData) {
+            setPKey(pKeyFromData.p_key);
+          }
         })
         .catch((err) => {
           console.error("상품 데이터 호출 실패:", err);
         });
     }
-  }, [selectedCategory]); // selectedCategory 값이 변경될 때마다 호출
-
-  // 상품 카테고리 변경 시 호출되는 함수
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  // 상품명1 변경 시 호출되는 함수
-  const handleProductChange = (event) => {
-    setSelectedProduct(event.target.value);
-  };
+  }, [selectedCategory]);
 
   //모달 초기화
   const clearModal = () => {
@@ -79,12 +85,17 @@ const ProductWriteModal = (props) => {
     //   return;
     // }
 
-    // 병원등록
-    Axios.post("http://localhost:3001/api/post/hospital", {
-      //   hospitalName: name,
-      //   number: number,
-      //   province: selectedCity,
-      //   city: selectedDistrict,
+    // 상품등록
+    Axios.post("http://localhost:3001/api/post/product_write", {
+      type: selectedCategory,
+      name1: selectedProduct,
+      name2: name2,
+      ogPriceTxt: ogPriceTxt,
+      priceTxt: priceTxt,
+      commision1: commision1,
+      commision2: commision2,
+      commision3: commision3,
+      pKey: pKey,
     })
       .then((res) => {
         console.log(res.data);
@@ -121,13 +132,14 @@ const ProductWriteModal = (props) => {
                     value={selectedCategory}
                     onChange={(e) => {
                       handleCategoryChange(e);
-                      handleProductChange({ target: { value: "" } }); // 상품명1 선택 초기화
                     }}
                   >
                     <option value="">카테고리 선택</option>
-                    {categories.map((category) => (
-                      <option key={category.p_key} value={category.p_key}>
-                        {category.product_1}
+                    {[
+                      ...new Set(categories.map((category) => category.type)),
+                    ].map((type) => (
+                      <option key={type} value={type}>
+                        {type === "2" ? "패키지" : "단일"}
                       </option>
                     ))}
                   </select>
@@ -140,15 +152,16 @@ const ProductWriteModal = (props) => {
                     name="product"
                     className="table_select"
                     value={selectedProduct}
-                    onChange={handleProductChange}
+                    onChange={(e) => setSelectedProduct(e.target.value)}
                     disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
                   >
                     <option value="">선택</option>
-                    {products.map((product) => (
-                      <option key={product.p_key} value={product.p_key}>
-                        {product.name_2}
-                      </option>
-                    ))}
+                    {products.length > 0 &&
+                      products.map((product, index) => (
+                        <option key={index} value={product.name_1}>
+                          {product.name_1}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -164,8 +177,8 @@ const ProductWriteModal = (props) => {
                     type="text"
                     id="title"
                     placeholder="상품명2를 입력해주세요."
-                    //value={branchName}
-                    //onChange={(e) => setBranchName(e.target.value)}
+                    value={name2}
+                    onChange={(e) => setName2(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -176,25 +189,73 @@ const ProductWriteModal = (props) => {
                     className="table_input modal"
                     type="text"
                     id="title"
-                    placeholder="의료수가"
-                    readOnly
-                    style={{ backgroundColor: "#f2f2f2" }}
-                    //value={branchName}
-                    //onChange={(e) => setBranchName(e.target.value)}
+                    // placeholder="의료수가 입력"
+                    // readOnly
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={ogPriceTxt}
+                    onChange={(e) => setOgPriceTxt(e.target.value)}
                   ></input>
                 </div>
               </div>
-              <div className="table_section">
+            </div>
+
+            <div className="table_row">
+              <div className="table_section half">
                 <div className="table_title">검진비용</div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
                     id="title"
-                    placeholder="검진비용"
-                    style={{ backgroundColor: "#f2f2f2" }}
-                    //value={branchName}
-                    //onChange={(e) => setBranchName(e.target.value)}
+                    // placeholder="검진비용"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={priceTxt}
+                    onChange={(e) => setPriceTxt(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">지점장커미션</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="title"
+                    // placeholder="지점장커미션"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={commision1}
+                    onChange={(e) => setCommision1(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+            </div>
+
+            <div className="table_row">
+              <div className="table_section half">
+                <div className="table_title">영업자커미션</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="title"
+                    // placeholder="영업자커미션"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={commision2}
+                    onChange={(e) => setCommision2(e.target.value)}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">브로커커미션</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="title"
+                    // placeholder="브로커커미션"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={commision3}
+                    onChange={(e) => setCommision3(e.target.value)}
                   ></input>
                 </div>
               </div>
