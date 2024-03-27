@@ -30,7 +30,6 @@ export const ReservProvider = ({ children }) => {
     useEffect(() => {
         if (productKey !== "") {
             getHospitalList();
-            console.log("여기");
         } else {
             getHospitalAllList();
         }
