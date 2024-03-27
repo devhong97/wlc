@@ -12,24 +12,28 @@ const CustomerList = () => {
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
   const [customerData, setCustomerData] = useState([]);
+  const [tab, setTab] = useState(3);
 
   useEffect(() => {
     getCustomer();
-  }, []);
+  }, [tab]);
 
   const getCustomer = async () => {
     const resultParams = {};
     switch (grade) {
       case "슈퍼관리자":
         resultParams.grade = 1;
+        resultParams.status = tab;
         break;
       case "지점관리자":
         resultParams.grade = 2;
         resultParams.uid = decodeS1();
+        resultParams.status = tab;
         break;
       case "영업사원":
         resultParams.grade = 3;
         resultParams.uid = decodeS1();
+        resultParams.status = tab;
         break;
       default:
         return;
@@ -47,11 +51,11 @@ const CustomerList = () => {
       console.error("Error fetching list:", error);
     }
   };
-
-  const columns = [
+  //검진대기
+  const columns3 = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "contractor_name", headerName: "계약자" },
-    { field: "name", headerName: "검진자" },
+    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "name", headerName: "검진자", flex: 0.5 },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
     { field: "product", headerName: "상품명" },
@@ -59,11 +63,10 @@ const CustomerList = () => {
     { field: "hope_date_1", headerName: "희망일1" },
     { field: "hope_date_2", headerName: "희망일2" },
     { field: "result_date", headerName: "확정일" },
-    { field: "status", headerName: "검진유무" },
-    { field: "pay_status", headerName: "입금여부" },
-    { field: "hope_status", headerName: "상담희망" },
-    // { field: 'branch', headerName: '지점명', },
-    // { field: 'manager', headerName: '영업자' },
+    // { field: "status", headerName: "검진유무", flex: 0.5 },
+    { field: "pay_status", headerName: "입금여부", flex: 0.5 },
+    { field: "hope_status", headerName: "상담희망", flex: 0.5 },
+    { field: 'branch', headerName: '지점명', flex: 0.5 },
     {
       field: "send",
       headerName: "문자전송",
@@ -75,6 +78,37 @@ const CustomerList = () => {
       ),
     },
   ];
+  //검진완료
+  const columns1 = [
+    { field: "id", headerName: "No", flex: 0.5 },
+    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "name", headerName: "검진자", flex: 0.5 },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "가입일" },
+    { field: "product", headerName: "상품명" },
+    { field: "hospital", headerName: "병원" },
+    { field: "result_date", headerName: "확정일" },
+    { field: "pay_status", headerName: "입금여부", flex: 0.5 },
+    { field: "hope_status", headerName: "상담희망", flex: 0.5 },
+    { field: 'branch', headerName: '지점명', flex: 0.5 },
+  ]
+  //검진취소
+  const columns2 = [
+    { field: "id", headerName: "No", flex: 0.5 },
+    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "name", headerName: "검진자", flex: 0.5 },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "가입일" },
+    { field: "product", headerName: "상품명" },
+    { field: "hospital", headerName: "병원" },
+    // { field: "hope_date_1", headerName: "희망일1" },
+    // { field: "hope_date_2", headerName: "희망일2" },
+    { field: "result_date", headerName: "확정일" },
+    { field: "pay_status", headerName: "입금여부", flex: 0.5 },
+    { field: "hope_status", headerName: "상담희망", flex: 0.5 },
+    { field: "refund_status", headerName: "환불여부", flex: 0.5 },
+    { field: 'branch', headerName: '지점명', flex: 0.5 },
+  ]
 
   const rows = customerData.map((data, index) => ({
     id: index + 1,
@@ -91,8 +125,8 @@ const CustomerList = () => {
     status: data.status,
     pay_status: data.pay_status,
     hope_status: data.hope_status,
-    branch: data.branch,
-    manager: data.manager,
+    refund_status: data.refund_status,
+    branch: `${data.company} ${data.branch}`,
   }));
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
@@ -139,10 +173,32 @@ const CustomerList = () => {
               </div>
               {/* <div className="title_btn">등록</div> */}
             </div>
-            <div className="table_box list">
+            <div className="tab_area">
+              <div className="tab_back">
+                <div
+                  className={`tab_menu ${tab === 3 && "active"}`}
+                  onClick={() => setTab(3)}
+                >
+                  검진대기
+                </div>
+                <div
+                  className={`tab_menu ${tab === 1 && "active"}`}
+                  onClick={() => setTab(1)}
+                >
+                  검진완료
+                </div>
+                <div
+                  className={`tab_menu ${tab === 2 && "active"}`}
+                  onClick={() => setTab(2)}
+                >
+                  검진취소
+                </div>
+              </div>
+            </div>
+            <div className="table_box tab_list">
               <TableDefault
                 rows={rows}
-                columns={columns}
+                columns={tab === 1 ? columns1 : tab === 2 ? columns2 : columns3}
                 viewModalOpen={viewModalOpen}
               ></TableDefault>
             </div>

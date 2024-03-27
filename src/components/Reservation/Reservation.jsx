@@ -3,18 +3,25 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useReservContext } from '../Context/ReservContext';
 
 const Reservation = () => {
-    const { clearReservData } = useReservContext();
+    const { clearReservData, customerData, keepReservData } = useReservContext();
     const navigation = useNavigate();
     const location = useLocation();
     const pathname = location.pathname;
+    const { status } = location.state;
 
     const movePage = (path) => {
         navigation(`${pathname}${path}`)
     }
 
     useEffect(() => {
-        clearReservData();
-    }, [])
+        if (status !== "keep") {
+            clearReservData();
+            console.log(customerData);
+        } else {
+            keepReservData();
+        }
+        console.log(customerData);
+    }, [status])
     return (
         <div className='reserv_wrap'>
             <div className='reserv_back'>

@@ -15,7 +15,7 @@ const Home = () => {
         <div>총영업자수</div>
         <div>계약고객수(청약고객수)</div>
         <div className="customer_btn_box">
-          <div className="customer_btn" onClick={() => navigation("/reserv")}>
+          <div className="customer_btn" onClick={() => navigation("/reserv", { state: { status: "" } })}>
             예약 시작
           </div>
         </div>

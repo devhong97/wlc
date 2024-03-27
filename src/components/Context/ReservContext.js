@@ -12,10 +12,12 @@ export const ReservProvider = ({ children }) => {
     const [hospitalIdx, setHospitalIdx] = useState("");
     const [hospitalKey, setHospitalKey] = useState([]);
     const [product, setProduct] = useState("");
+    const [productName, setProductName] = useState("")
     const [hopeDate1, setHopeDate1] = useState("");
     const [hopeDate2, setHopeDate2] = useState("");
     const [signData1, setSignData1] = useState("");
     const [signData2, setSignData2] = useState("");
+    const [customerData, setCustomerData] = useState([]);
 
     useEffect(() => {
         if (hospitalUpdateKey === "") {
@@ -31,6 +33,7 @@ export const ReservProvider = ({ children }) => {
             console.log("여기");
         } else {
             getHospitalAllList();
+            getProductList("reset");
         }
     }, [productKey]);
 
@@ -40,14 +43,22 @@ export const ReservProvider = ({ children }) => {
         }
     }, [hospitalName]);
 
-    const getProductList = async () => {
+    const getProductList = async (status, keys) => {
+        console.log(keys);
+        let setParams = {
+            key: hospitalKey
+        }
+        if (status !== "") {
+            setParams.key = ""
+        }
+        if (keys !== "") {
+            setParams.key = keys
+        }
         try {
             const response = await Axios.get(
                 "http://localhost:3001/api/get/reserv/product_list",
                 {
-                    params: {
-                        key: hospitalKey,
-                    },
+                    params: setParams
                 }
             );
             const allData = response.data.data;
@@ -95,10 +106,11 @@ export const ReservProvider = ({ children }) => {
             );
             const allData = response.data.data;
             const keys = allData.map((item) => parseInt(item.p_key));
+            console.log(keys);
             setHospitalKey(keys);
             // hospitalKey가 설정된 후에 콜백 함수 호출
             if (typeof callback === "function") {
-                callback();
+                callback("", keys);
             }
         } catch (error) {
             console.error("Error fetching list:", error);
@@ -112,7 +124,17 @@ export const ReservProvider = ({ children }) => {
         setProduct("");
         setHopeDate1("");
         setHopeDate2("");
+        setCustomerData([]);
+        setProductName("");
     };
+
+    const keepReservData = () => {
+        setHospitalName("");
+        setHospitalIdx("");
+        setHospitalKey([]);
+        setProduct("");
+        setProductName("");
+    }
 
     return (
         <ReservContext.Provider
@@ -131,11 +153,18 @@ export const ReservProvider = ({ children }) => {
                 hopeDate2,
                 clearReservData,
                 setSignData1,
+                signData1,
+                signData2,
                 setSignData2,
                 setProductKey,
                 hospitalList,
                 productList,
                 setHospitalUpdateKey,
+                setCustomerData,
+                customerData,
+                setProductName,
+                productName,
+                keepReservData
             }}
         >
             {children}

@@ -16,6 +16,7 @@ import SearchHospital from "../components/Reservation/SearchHospital";
 import SelectDate from "../components/Reservation/SelectDate";
 import ReservCustomer from "../components/Reservation/ReservCustomer";
 import ProductList from "../components/Product/ProductList";
+import ReservCheck from "../components/Reservation/ReservCheck";
 
 const Router = () => {
   return (
@@ -36,6 +37,7 @@ const Router = () => {
       <Route path="/reserv/hospital" element={<SearchHospital />} />
       <Route path="/reserv/date" element={<SelectDate />} />
       <Route path="/reserv/customer" element={<ReservCustomer />} />
+      <Route path="/reserv/check" element={<ReservCheck />} />
       <Route path="/delme" element={<Delme />} />
     </Routes>
   );
