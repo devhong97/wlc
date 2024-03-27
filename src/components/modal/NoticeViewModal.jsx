@@ -13,58 +13,71 @@ function stripHtml(html) {
 
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState("");
-  const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [updateContentHTML, setUpdateContentHTML] = useState("");
+  const [updateAttachment, setUpdateAttachment] = useState("");
+  const [file, setFile] = useState(null);
   const editorRef = useRef(null);
 
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
-    if (props.detailIdx) {
-      setDetailNum(props.detailIdx);
-      getDetail();
+    if (props.detailData) {
+      console.log(props.detailData);
     }
-  }, [props.detailIdx]);
+  }, [props.detailData]);
 
-  const getDetail = async () => {
-    try {
-      const response = await Axios.get(
-        "http://localhost:3001/api/get/notice_detail",
-        {
-          params: {
-            idx: props.detailIdx,
-          },
-        }
-      );
-      const allData = response.data;
-      setTitle(allData[0].title);
-      setUpdateContentHTML(stripHtml(allData[0].content));
-    } catch (error) {
-      console.error("Error fetching list:", error);
-    }
-  };
 
-  // 수정완료버튼
+  // 수정 완료버튼
   const handleSubmit = async () => {
-    const confirmModify = window.confirm(`수정을 완료하시겠습니까?`);
-    if (!confirmModify) {
-      return;
-    }
     try {
+      const editorInstance = editorRef.current.getInstance();
+
+      const formData = new FormData();
+      formData.append("idx", props.detailData.idx);
+      formData.append("title", title);
+      formData.append("content", editorInstance.getHTML());
+      formData.append("file", file);
+
+      if (!file && updateAttachment) {
+        // 이미지가 없는 경우는 기존 이미지를 재사용
+        formData.append("existingImage", updateAttachment);
+      }
+
       const response = await Axios.post(
         "http://localhost:3001/api/post/notice_modify",
-        {
-          idx: props.detailIdx,
-        }
+        formData
       );
-      alert("수정이 완료되었습니다.");
-      props.closeModal();
+
+      // 서버 응답에서 이미지 URL을 가져와서 상태 업데이트
+      if (response.data) {
+        // 이미지 URL이 제대로 반환된 경우
+        if (response.data.success) {
+          if (response.data.imageUrl) {
+            setUpdateAttachment(response.data.imageUrl);
+          }
+          alert("글 수정이 완료되었습니다.");
+          clearModal();
+        } else {
+          // 이미지가 없어도 수정이 가능하게 하기 위해 success가 false인 경우도 처리
+          alert("글 수정이 완료되었습니다.");
+          clearModal();
+        }
+      } else {
+        // 서버 응답이 없는 경우
+        alert(
+          "서버 응답에서 이미지 URL을 가져오지 못했습니다. 콘솔을 확인하세요."
+        );
+        console.error(response); // 콘솔에 서버 응답 출력
+      }
+
+      console.log(formData);
     } catch (error) {
-      console.error("Error fetching list:", error);
+      alert("글 수정 중 오류가 발생했습니다. 콘솔을 확인하세요.");
+      console.error(error); // 콘솔에 에러 출력
     }
   };
 
   // 공지삭제버튼
-  const deleteBranch = async () => {
+  const deleteBbs = async () => {
     const confirmDelete = window.confirm(`공지글을 삭제하시겠습니까?`);
     if (!confirmDelete) {
       return;
@@ -74,7 +87,7 @@ const NoticeViewModal = (props) => {
       const response = await Axios.post(
         "http://localhost:3001/api/post/notice_delete",
         {
-          idx: props.detailIdx,
+          idx: props.detailData.idx,
         }
       );
       alert("지점이 삭제되었습니다.");
@@ -90,7 +103,7 @@ const NoticeViewModal = (props) => {
       formData.append("image", blob);
 
       const response = await Axios.post(
-        "http://101.101.210.243:3001/api/post/upload",
+        "http://localhost:3001/api/post/upload",
         formData,
         {
           headers: {
@@ -103,6 +116,20 @@ const NoticeViewModal = (props) => {
     } catch (error) {
       console.error("이미지 업로드 중 오류 발생", error);
     }
+  };
+
+  const handleDownload = (fileName) => {
+    const link = document.createElement("a");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   // 모달창닫기
@@ -133,7 +160,7 @@ const NoticeViewModal = (props) => {
                     id="title"
                     placeholder="제목을 입력해주세요."
                     value={title}
-                    onChange={() => setTitle()}
+                    onChange={(e) => setTitle(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -170,7 +197,34 @@ const NoticeViewModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  회사명<p className="title_point">*</p>
+                  첨부파일<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input type="file" onChange={handleFileChange} />
+                  {updateAttachment ? (
+                    <div>
+                      <div
+                        onClick={() => handleDownload(updateAttachment)}
+                        style={{ border: "1px solid #c6c6c6", padding: "15px" }}
+                      >
+                        <img
+                          style={{ border: "1px solid #c6c6c6", width: 200 }}
+                          src={`http://localhost:3001/uploads/${updateAttachment}`}
+                          alt={updateAttachment}
+                        />
+                        <div>{updateAttachment} 다운로드</div>
+                      </div>
+                    </div>
+                  ) : updateAttachment === null ? (
+                    <div>첨부된 파일이 없습니다.</div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  작성자<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">asd</div>
               </div>
@@ -178,7 +232,15 @@ const NoticeViewModal = (props) => {
 
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">생성일</div>
+                <div className="table_title">조회수</div>
+                <div className="table_contents w100">
+                  <div className="table_inner_text">asd</div>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">등록일</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">asd</div>
                 </div>
@@ -190,7 +252,7 @@ const NoticeViewModal = (props) => {
             <div className="modal_btn" onClick={handleSubmit}>
               수정
             </div>
-            <div className="modal_btn close" onClick={() => deleteBranch()}>
+            <div className="modal_btn close" onClick={() => deleteBbs()}>
               삭제
             </div>
           </div>
