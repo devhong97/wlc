@@ -181,7 +181,7 @@ const BranchViewModal = (props) => {
         }
       );
       alert("지점이 삭제되었습니다.");
-      props.closeModal();
+      props.closeModal("reload");
     } catch (error) {
       console.error("Error fetching list:", error);
     }

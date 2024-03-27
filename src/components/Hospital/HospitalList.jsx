@@ -62,9 +62,13 @@ const HospitalList = () => {
     setViewModal(!viewModal);
     setDetailIdx(idx);
   };
-  const viewModalClose = () => {
+  const viewModalClose = (status) => {
     setViewModal(false);
-    window.location.reload();
+    if (status === "reload") {
+      window.location.reload();
+    } else {
+      fetchHospitalList();
+    }
   };
 
   return (

@@ -90,8 +90,8 @@ const NoticeViewModal = (props) => {
           idx: detailNum,
         }
       );
-      alert("지점이 삭제되었습니다.");
-      props.closeModal();
+      alert("게시글이 삭제되었습니다.");
+      props.closeModal("reload");
     } catch (error) {
       console.error("Error fetching list:", error);
     }

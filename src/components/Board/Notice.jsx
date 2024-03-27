@@ -13,7 +13,7 @@ const Notice = () => {
   const [tab, setTab] = useState(1);
 
   useEffect(() => {
-    getMember();
+    getBoard();
   }, [tab]);
 
   const downloadImage = (imageUrl) => {
@@ -25,7 +25,7 @@ const Notice = () => {
     document.body.removeChild(link);
   };
 
-  const getMember = async () => {
+  const getBoard = async () => {
     try {
       const response = await Axios.get(
         "http://localhost:3001/api/get/notice_list"
@@ -83,7 +83,7 @@ const Notice = () => {
 
   const writeModalOpen = () => {
     setWriteModal(!writeModal);
-    getMember();
+    getBoard();
   };
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
@@ -94,7 +94,7 @@ const Notice = () => {
     if (status === "reload") {
       window.location.reload();
     } else {
-      getMember();
+      getBoard();
     }
   };
 
