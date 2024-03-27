@@ -10,6 +10,7 @@ const BranchList = () => {
   const [viewModal, setViewModal] = useState(false); // 지점상세 수정모달
   const [detailIdx, setDetailIdx] = useState(""); //상세페이지 Idx
   const [branchList, setBranchList] = useState([]); // 지점 리스트
+  const [branchIdx, setBranchIdx] = useState("");
 
   useEffect(() => {
     fetchBranchList();
@@ -24,6 +25,7 @@ const BranchList = () => {
             res.data.data.map((data, index) => ({
               id: index + 1,
               idx: data.idx,
+              branch_grade: data.branch_grade,
               branch_idx: data.branch_idx,
               branch_type: data.branch_type,
               company_name: data.company_name,
@@ -48,6 +50,7 @@ const BranchList = () => {
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
+    { field: "branch_grade", headerName: "지점등급" },
     { field: "branch_idx", headerName: "지점코드" },
     { field: "branch_type", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
@@ -66,8 +69,10 @@ const BranchList = () => {
   };
   const viewModalOpen = (data) => {
     const idx = data.idx;
+    const branchIdx = data.branch_idx;
     setViewModal(!viewModal);
     setDetailIdx(idx);
+    setBranchIdx(branchIdx);
   };
   const viewModalClose = () => {
     setViewModal(false);
@@ -134,6 +139,7 @@ const BranchList = () => {
         <BranchViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
+          branchIdx={branchIdx}
         ></BranchViewModal>
       )}
     </div>

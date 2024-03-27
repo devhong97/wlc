@@ -24,6 +24,8 @@ const BranchViewModal = (props) => {
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
   const [branchIdx, setBranchIdx] = useState("");
   const [detailIdx, setDetailIdx] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [bgrade, setBGrade] = useState(""); //지점등급
 
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
@@ -89,13 +91,22 @@ const BranchViewModal = (props) => {
         }
       );
       const allData = response.data;
+      const allProduct = allData[0].product;
       setBranchDetailData(allData[0]);
-      setDetailValue();
+      const product2 = allData[0]?.product
+        ? allData[0].product.replace(/\|/g, ", ")
+        : null;
+
+      if (product2) {
+        setSelectedProduct(product2);
+        console.log(allProduct);
+      }
 
       // location 문자열 분리
-      const [city, district] = allData[0].location.split(" ");
-      setCity(city);
-      setDistrict(district);
+      const [selectedCity, selectedDistrict] = allData[0].location.split(" ");
+      setCity(selectedCity);
+      setDistrict(selectedDistrict);
+      setDetailValue();
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -113,6 +124,7 @@ const BranchViewModal = (props) => {
     setCompany(branchDetailData.company_name);
     setBranchName(branchDetailData.branch_name);
     setSelectName(branchDetailData.owner_name);
+    setBGrade(branchDetailData.branch_grade);
     setBranchIdx(branchDetailData.branch_idx);
   };
 
@@ -123,13 +135,21 @@ const BranchViewModal = (props) => {
       return;
     }
     try {
-      // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
-      const location = `${city} ${district}`;
+      // 변경사항 없으면 기존데이터 전송
+      let location;
+      if (selectedCity && selectedDistrict) {
+        location = `${selectedCity} ${selectedDistrict}`;
+      } else {
+        location = `${city} ${district}`;
+      }
+
+      console.log("location", location);
 
       const response = await Axios.post(
         "http://localhost:3001/api/post/branch_modify",
         {
           branchType: type,
+          bgrade: bgrade,
           companyName: company,
           branchName: branchName,
           ownerName: selectName,
@@ -176,6 +196,7 @@ const BranchViewModal = (props) => {
   const productModalOpen = () => {
     setProductModal(!productModal);
     setDetailIdx(props.detailIdx);
+    setBranchIdx(branchIdx);
   };
 
   // 모달창닫기
@@ -201,6 +222,27 @@ const BranchViewModal = (props) => {
                 </div>
                 <div className="table_contents w100">
                   {branchDetailData.branch_idx}
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  지점등급<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <select
+                    name="affiliation"
+                    className="table_select"
+                    value={bgrade}
+                    onChange={(e) => setBGrade(e.target.value)}
+                  >
+                    <option value="">선택</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -364,7 +406,7 @@ const BranchViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">지점판매상품</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">[ {selectName} ]</div>
+                  <div className="table_inner_text">[ {selectedProduct} ]</div>
                   <div
                     className="table_inner_btn"
                     onClick={() => productModalOpen()}
@@ -397,6 +439,8 @@ const BranchViewModal = (props) => {
         <BranchProductModal
           closeModal={productModalOpen}
           detailIdx={detailIdx}
+          branchIdx={branchIdx}
+          selectedProduct={selectedProduct}
         ></BranchProductModal>
       )}
     </div>

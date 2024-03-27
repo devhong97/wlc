@@ -30,6 +30,7 @@ const Router = () => {
       <Route path="/commission" element={<CommissionList />} />
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />
+
       <Route path="/reserv" element={<Reservation />} />
       <Route path="/reserv/product" element={<SearchProduct />} />
       <Route path="/reserv/hospital" element={<SearchHospital />} />

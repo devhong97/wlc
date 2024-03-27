@@ -1,55 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Axios from "axios";
-import { useBranchContext } from "../Context/BranchContext";
+import { useAuth } from "../Context/AuthContext";
+/* eslint-disable-next-line */
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import "tui-color-picker/dist/tui-color-picker.css";
 
 const NoticeWriteModal = (props) => {
-  const { typeGroup, companyGroup, setContextType, setContextCompany } =
-    useBranchContext();
-  const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
-  const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
-  const [cities, setCities] = useState([]); //지역(시)
-  const [districts, setDistricts] = useState([]); //지역(도)
-  const [type, setType] = useState("");
-  const [company, setCompany] = useState("");
+  const { decodeS2 } = useAuth();
+
+  const [title, setTitle] = useState(""); // 제목
+  const [content, setContent] = useState(""); // 게시글
+  const [writer, setWriter] = useState(""); // 작성자
+  const [selectedFile, setSelectedFile] = useState(null); //파일첨부
+  const [fileUrl, setFileUrl] = useState(""); //파일 URL
+  const editorRef = useRef(null);
   const [branchName, setBranchName] = useState(""); //지점명
 
-  useEffect(() => {
-    setContextType(type);
-  }, [type]);
+  //Editor 파일 업로드 관련 함수
+  const onUploadImage = async (blob, callback) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", blob);
 
-  useEffect(() => {
-    setContextCompany(company);
-  }, [company]);
-
-  useEffect(() => {
-    // 지역(시) 데이터 호출
-    Axios.get("http://localhost:3001/api/get/cities")
-      .then((response) => {
-        setCities(response.data);
-      })
-      .catch((err) => {
-        console.error("(시)호출 실패:", err);
-      });
-  }, []);
-
-  // 지역(시) 선택 시 일치하는 지역(도) 데이터 호출
-  const handleCityChange = (event) => {
-    const selectedCity = event.target.value;
-    setSelectedCity(selectedCity);
-    // 지역(시) 선택값 없거나 초기값이면 리셋
-    if (selectedCity === "" || selectedCity === "시 선택") {
-      setDistricts([]);
-      return;
+      // 서버의 엔드포인트 URL을 올바르게 수정해야 합니다.
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // 업로드된 이미지의 URL을 받아와서 callback 함수에 전달합니다.
+      const imageUrl = response.data.imageUrl;
+      callback(imageUrl, "alt text");
+    } catch (error) {
+      console.error("이미지 업로드 중 오류 발생", error);
     }
+  };
 
-    // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
-      .then((response) => {
-        setDistricts(response.data);
-      })
-      .catch((err) => {
-        console.error(`(도)호출 실패 ${selectedCity}:`, err);
-      });
+  //내용 체크
+  const handleContent = () => {
+    const editorInstance = editorRef.current.getInstance();
+    const htmlContent = editorInstance.getHTML();
+    setContent(htmlContent);
+  };
+
+  //파일 선택 핸들러
+  const handleFileSelect = (e) => {
+    setSelectedFile(e.target.files[0]);
+    const fileURL = URL.createObjectURL(e.target.files[0]);
+    setFileUrl(fileURL);
   };
 
   //모달 초기화
@@ -59,47 +63,47 @@ const NoticeWriteModal = (props) => {
 
   //지점 등록버튼
   const handleSubmit = async () => {
-    if (type === "") {
-      alert("지점종류를 선택해주세요.");
-      const typeInput = document.getElementById("user_type");
-      if (typeInput) {
-        typeInput.focus();
+    if (title === "") {
+      alert("제목을 입력해주세요.");
+      const titleInput = document.getElementById("user_title");
+      if (titleInput) {
+        titleInput.focus();
       }
       return;
-    } else if (company === "") {
-      alert("회사명을 입력해주세요.");
-      const companyInput = document.getElementById("user_company");
-      if (companyInput) {
-        companyInput.focus();
-      }
-      return;
-    } else if (branchName === "") {
-      alert("지점명을 입력해주세요.");
-      const branchNameInput = document.getElementById("user_branchName");
-      if (branchNameInput) {
-        branchNameInput.focus();
+    } else if (content === "") {
+      alert("내용을 입력해주세요.");
+      const contentInput = document.getElementById("user_content");
+      if (contentInput) {
+        contentInput.focus();
       }
       return;
     }
 
-    // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
-    const location = `${selectedCity} ${selectedDistrict}`;
+    //첨부파일
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("writer", decodeS2());
 
-    // 지점등록
-    Axios.post("http://localhost:3001/api/post/branch_account", {
-      branchType: type,
-      companyName: company,
-      branchName,
-      location,
+    if (selectedFile) {
+      formData.append("file", selectedFile, selectedFile.name);
+    } else {
+      formData.append("file", ""); // 파일이 없는 경우 빈 값을 추가합니다.
+    }
+
+    // Axios를 사용하여 서버로 데이터 전송
+    Axios.post("http://localhost:3001/api/post/notice_write", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     })
       .then((res) => {
         console.log(res.data);
-        alert(`[${branchName}]\n지점등록이 완료되었습니다.`);
+        alert(`글등록이 완료되었습니다.`);
         clearModal();
-        window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -108,7 +112,7 @@ const NoticeWriteModal = (props) => {
       <div className="modal_back">
         <div className="modal_box">
           <div className="modal_title_box">
-            <div className="modal_title">지점 등록</div>
+            <div className="modal_title">공지사항 등록</div>
             <div className="modal_close_btn" onClick={() => clearModal()}>
               X
             </div>
@@ -118,106 +122,70 @@ const NoticeWriteModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  지점종류<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                    id="user_branchType"
-                    className="table_select"
-                  >
-                    <option value="">선택</option>
-                    {typeGroup.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  회사명<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    id="user_compnayName"
-                    className="table_select"
-                  >
-                    <option value="">선택</option>
-                    {companyGroup.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  지점명<p className="title_point">*</p>
+                  제목<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
                     id="title"
-                    placeholder="지점명을 입력해주세요."
-                    value={branchName}
-                    onChange={(e) => setBranchName(e.target.value)}
+                    placeholder="제목을 입력해주세요."
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                   ></input>
                 </div>
               </div>
             </div>
-
-            <div className="table_box">
-              <div className="table_row">
-                <div className="table_section">
-                  <div className="table_title">
-                    지역(시, 도)<p className="title_point">*</p>
-                  </div>
-                  <div className="table_contents w100">
-                    <select
-                      name="city"
-                      value={selectedCity}
-                      onChange={handleCityChange}
-                      className="table_select"
-                    >
-                      <option value="">시 선택</option>
-                      {cities.map((city) => (
-                        <option key={city} value={city}>
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="district"
-                      value={selectedDistrict}
-                      onChange={(event) =>
-                        setSelectedDistrict(event.target.value)
-                      }
-                      className="table_select"
-                    >
-                      <option value="">도 선택</option>
-                      {districts.map((district) => (
-                        <option key={district} value={district}>
-                          {district}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  내용<p className="title_point">*</p>
                 </div>
+                <div className="table_contents w100">
+                  <Editor
+                    initialValue=" " // content를 Editor의 초기값으로 사용;
+                    height="300px"
+                    initialEditType="wysiwyg"
+                    plugins={[colorSyntax]}
+                    placeholder="내용을 입력하세요"
+                    ref={editorRef}
+                    hooks={{
+                      addImageBlobHook: onUploadImage,
+                    }}
+                    onChange={handleContent} // value가 아니라 함수 자체를 전달
+                    id="content"
+                  ></Editor>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  첨부파일<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <label htmlFor="file" className="image_label">
+                    {fileUrl ? (
+                      <img className="table_img" src={fileUrl} alt="이미지1" />
+                    ) : (
+                      <div className="btn_upload"></div>
+                    )}
+                  </label>
+                  <input
+                    type="file"
+                    onChange={handleFileSelect}
+                    id="file"
+                    className="file_input"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  작성자<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">{decodeS2()}</div>
               </div>
             </div>
           </div>

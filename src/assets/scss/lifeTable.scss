@@ -698,6 +698,17 @@
   display: inline-block;
 }
 
+.add_btn {
+  margin-top: 2px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #669b2e;
+  cursor: pointer;
+  box-shadow: 4px 4px 4px -4px #999999;
+}
 .modal_wrap {
   background-color: #9999999f;
   position: fixed;
@@ -1408,7 +1419,6 @@
             display: none !important;
           }
         }
-
       }
     }
   }

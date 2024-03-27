@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../Context/AuthContext";
-import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import TableDefault from "./../Table/TableDefault";
 import moment from "moment";
@@ -8,54 +6,44 @@ import NoticeWriteModal from "./../modal/NoticeWriteModal";
 import NoticeViewModal from "../modal/NoticeViewModal";
 
 const Notice = () => {
-  const { decodeS3, decodeS1 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
-  const [memberData, setMemberData] = useState([]);
+  const [bbsData, setBbsData] = useState([]);
   const [tab, setTab] = useState(1);
-  const location = useLocation();
-  const { grade } = location.state || {};
 
   useEffect(() => {
     getMember();
   }, [tab]);
 
+  const downloadImage = (imageUrl) => {
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = "image.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const getMember = async () => {
-    const selectGrade = [];
-    const resultParams = {};
-    switch (grade) {
-      case "슈퍼관리자":
-        resultParams.grade = [1, 2, 3];
-        resultParams.status = tab;
-        break;
-      case "지점관리자":
-        // 본인 지점과 같은 사원만 노출해야함 (나중에하기)
-        resultParams.grade = [2, 3];
-        resultParams.status = tab;
-        resultParams.branch = decodeS3();
-        break;
-      case "영업사원":
-        resultParams.grade = [3];
-        resultParams.status = tab;
-        resultParams.uid = decodeS1();
-        break;
-      default:
-        return;
-    }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/notice_list",
-        {
-          params: resultParams,
-        }
+        "http://localhost:3001/api/get/notice_list"
       );
       const allData = response.data;
-      setMemberData(allData);
+      setBbsData(allData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
   };
+
+  // HTML태그 변환
+  const sanitizeHTML = (htmlString) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlString;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+
   const columns = [
     {
       field: "id",
@@ -64,32 +52,33 @@ const Notice = () => {
     },
     { field: "title", headerName: "제목" },
     { field: "content", headerName: "내용" },
+    { field: "writer", headerName: "작성자" },
+    {
+      field: "attachment",
+      headerName: "첨부",
+      renderCell: (params) => (
+        <div
+          onClick={() =>
+            params.row.attachment ? downloadImage(params.row.attachment) : null
+          }
+        >
+          {params.row.attachment ? "O" : "X"}
+        </div>
+      ),
+    },
+    { field: "hit", headerName: "조회수" },
     { field: "date", headerName: "등록일" },
   ];
-  const checkGrade = (data) => {
-    switch (data) {
-      case 1:
-        return "슈퍼관리자";
-      case 2:
-        return "지점관리자";
-      case 3:
-        return "영업사원";
-      default:
-        return "";
-    }
-  };
-  const rows = memberData.map((data, index) => ({
+
+  const rows = bbsData.map((data, index) => ({
     id: index + 1,
+    category: data.category,
+    writer: data.writer,
+    attachment: data.img,
+    title: data.title,
+    content: sanitizeHTML(data.content),
+    date: data.date,
     idx: data.idx,
-    name: data.name,
-    grade: checkGrade(data.grade),
-    branch: data.branch,
-    phone: data.phone,
-    date: moment(data.date).format("YYYY.MM.DD"),
-    pay: data.pay,
-    customer_num: data.customer_num,
-    hope_num: data.hope_num,
-    bank_num: data.bank + data.deposit_account,
   }));
 
   const writeModalOpen = () => {
@@ -99,8 +88,8 @@ const Notice = () => {
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
     const idx = data.idx;
-    console.log(idx);
     setDetailIdx(idx);
+    setBbsData(bbsData);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -132,24 +121,20 @@ const Notice = () => {
                 <div className="list_search">검색</div>
                 <div className="list_search reset_btn">초기화</div>
               </div>
-              {grade !== "영업사원" && (
-                <div className="title_btn" onClick={() => writeModalOpen()}>
-                  등록
-                </div>
-              )}
+              <div className="title_btn" onClick={() => writeModalOpen()}>
+                등록
+              </div>
             </div>
-            {grade !== "영업사원" && (
-              <div className="tab_area">
-                <div className="tab_back">
-                  <div
-                    className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => setTab(1)}
-                  >
-                    공지사항
-                  </div>
+            <div className="tab_area">
+              <div className="tab_back">
+                <div
+                  className={`tab_menu ${tab === 1 && "active"}`}
+                  onClick={() => setTab(1)}
+                >
+                  공지사항
                 </div>
               </div>
-            )}
+            </div>
             <div className="table_box list">
               <TableDefault
                 rows={rows}
@@ -167,6 +152,7 @@ const Notice = () => {
         <NoticeViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
+          bbsData={bbsData}
         ></NoticeViewModal>
       )}
     </div>
