@@ -14,7 +14,9 @@ function stripHtml(html) {
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState("");
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
-  const [updateContentHTML, setUpdateContentHTML] = useState("");
+  const [updateContentHTML, setUpdateContentHTML] = useState(
+    props.bbsData.content
+  );
   const [updateAttachment, setUpdateAttachment] = useState("");
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
@@ -38,7 +40,7 @@ const NoticeViewModal = (props) => {
         }
       );
       const allData = response.data;
-      setUpdateContentHTML(stripHtml(allData[0].content));
+
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -252,7 +254,7 @@ const NoticeViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">조회수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">asd</div>
+                  <div className="table_inner_text">{props.bbsData.hit}</div>
                 </div>
               </div>
             </div>
