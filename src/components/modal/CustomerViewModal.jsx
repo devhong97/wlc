@@ -153,6 +153,16 @@ const CustomerViewModal = (props) => {
       setHospitalName(selectedBranch.name);
     }
   };
+
+  const handleDownload = (fileName) => {
+    const link = document.createElement("a");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -448,6 +458,24 @@ const CustomerViewModal = (props) => {
                     value={memo}
                     onChange={(e) => setMemo(e.target.value)}
                   ></textarea>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section half">
+                <div className="table_title">성명자필</div>
+                <div className="table_contents w100">
+                  <div className="sign_text" onClick={() => handleDownload(memberData.sign_img_1)}>
+                    {memberData.sign_img_1}
+                  </div>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">서명</div>
+                <div className="table_contents w100">
+                  <div className="sign_text" onClick={() => handleDownload(memberData.sign_img_2)}>
+                    {memberData.sign_img_2}
+                  </div>
                 </div>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SignComponent from "./SignComponent";
 
 const ReservCustomer = () => {
-  const { signData1, signData2, setCustomerData, customerData } = useReservContext();
+  const { signData1, signData2, setCustomerData, customerData, uploadFiles } = useReservContext();
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
   const [customerName, setCustomerName] = useState(customerData.customerName || "");

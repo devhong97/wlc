@@ -147,3 +147,7 @@ $modal-color: #9999999f;
 .w100 {
   width: 100%;
 }
+
+.sortable-handler {
+  touch-action: none;
+}

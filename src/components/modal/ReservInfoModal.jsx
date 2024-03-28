@@ -4,7 +4,7 @@ import { useReservContext } from "../Context/ReservContext";
 import Axios from "axios";
 import { useNavigate } from 'react-router-dom';
 const ReservInfoModal = (props) => {
-    const { customerData, product, hospitalIdx, hopeDate1, hopeDate2 } = useReservContext();
+    const { customerData, product, hospitalIdx, hopeDate1, hopeDate2, uploadFiles } = useReservContext();
     const { decodeS3, decodeS1 } = useAuth();
     const navigation = useNavigate();
 
@@ -26,8 +26,9 @@ const ReservInfoModal = (props) => {
                 sendParams
             );
             console.log(response.data);
-            alert("등록이 완료되었습니다.");
-            navigation("/");
+            uploadFiles(response.data.data);
+            // alert("등록이 완료되었습니다.");
+            // navigation("/");
         } catch (error) {
             console.error("Error fetching list:", error);
         }

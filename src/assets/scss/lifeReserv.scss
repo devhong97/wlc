@@ -3,7 +3,7 @@
 .reserv_wrap {
     background-color: $back-color_2;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
 
     .reserv_back {
         width: 50%;
