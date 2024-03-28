@@ -36,7 +36,7 @@ const SearchProduct = () => {
   const selectProduct = (data) => {
     console.log(data);
     setProduct(data.p_key);
-    setProductName(data.name_1);
+    setProductName(data.product_1);
     if (hospitalKey.length !== 0) {
       navigation("/reserv/date");
     } else {
@@ -55,8 +55,8 @@ const SearchProduct = () => {
               <div className="product_box" key={index}>
                 <div className="product_img"></div>
                 <div className="product_text_box">
-                  <div className="product_title">{data.name_1}</div>
-                  <div className="product_text">{data.price_txt}</div>
+                  <div className="product_title">{data.product_1}</div>
+                  {/* <div className="product_text">{data.price_txt}</div> */}
                 </div>
                 <div className="product_btn_box">
                   <div className="product_btn">상세</div>
