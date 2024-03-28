@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ReservContext = createContext();
 
@@ -18,6 +19,7 @@ export const ReservProvider = ({ children }) => {
     const [signData1, setSignData1] = useState("");
     const [signData2, setSignData2] = useState("");
     const [customerData, setCustomerData] = useState([]);
+    const navigation = useNavigate();
 
     useEffect(() => {
         if (hospitalUpdateKey === "") {
@@ -136,6 +138,39 @@ export const ReservProvider = ({ children }) => {
         setProductName("");
     }
 
+    const uploadFiles = async (uid) => {
+        console.log(signData1);
+        if (signData1 && signData2) {
+            [...Array(parseInt(2))].map((_, index) => {
+                const file = index === 0 ? signData1 : signData2;
+                const resultFile = new File([file], `${uid}_${index}.png`);
+                const columnName = index === 0 ? "sign_img_1" : "sign_img_2";
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('file', resultFile);
+                    formData.append('uid', uid);
+                    formData.append("columnName", columnName)
+                    console.log(formData);
+
+                    Axios.post("http://localhost:3001/api/post/customer_upload", formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    })
+                        .then((res) => {
+                            console.log(res.data);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                }
+            });
+            alert(`등록이 완료되었습니다.`);
+            navigation("/");
+        }
+    };
+
+
     return (
         <ReservContext.Provider
             value={{
@@ -164,7 +199,8 @@ export const ReservProvider = ({ children }) => {
                 customerData,
                 setProductName,
                 productName,
-                keepReservData
+                keepReservData,
+                uploadFiles
             }}
         >
             {children}

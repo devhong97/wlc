@@ -71,6 +71,12 @@
         padding-left: 0;
       }
 
+      .sign_text {
+        text-decoration: underline;
+        text-decoration-color: $main-color;
+        cursor: pointer;
+      }
+
       .table_input {
         width: 350px;
         outline: none;
