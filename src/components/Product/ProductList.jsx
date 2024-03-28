@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BranchViewModal from "../modal/BranchViewModal";
 import TableDefault from "../Table/TableDefault";
 import Axios from "axios";
@@ -7,20 +7,29 @@ import HospitalWriteModal from "../modal/HospitalWriteModal";
 import HospitalViewModal from "../modal/HospitalViewModal";
 import ProductWriteModal from "../modal/ProductWriteModal";
 import ProductViewModal from "./../modal/ProductViewModal";
+import ProductSelect from "./ProductSelect";
 
 const ProductList = () => {
+  const selectRef = useRef(null);
   const [writeModal, setWriteModal] = useState(false); // 병원등록 모달
   const [viewModal, setViewModal] = useState(false); // 병원상세 수정모달
   const [detailIdx, setDetailIdx] = useState(""); //상세페이지 Idx
   const [productList, setProduct] = useState([]); // 병원 리스트
   const [detailData, setDetailData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
     fetchProductList();
-  }, []);
+  }, [searchData]);
 
   const fetchProductList = () => {
-    Axios.get("http://localhost:3001/api/get/product_list")
+    const resultParams = {};
+    if (searchData) {
+      resultParams.searchData = searchData
+    }
+    Axios.get("http://localhost:3001/api/get/product_list", {
+      params: resultParams
+    })
       .then((res) => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
@@ -44,6 +53,10 @@ const ProductList = () => {
           );
         } else {
           console.error("지점 관리 데이터호출 실패");
+          if (searchData) {
+            alert("검색조건에 맞는 데이터가 없습니다.")
+            selectRef.current.clearSearch();
+          }
         }
       })
       .catch((err) => {
@@ -85,21 +98,7 @@ const ProductList = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <div className="search_select">
-                <select className="list_select">
-                  <option>상품명1</option>
-                </select>
-              </div>
-              <div className="search_input">
-                {/*<input
-                  className="list_input"
-                  placeholder="검색어를 입력하세요"
-                ></input>*/}
-                <div className="list_search" style={{ marginRight: 10 }}>
-                  검색
-                </div>
-                <div className="list_search reset_btn">초기화</div>
-              </div>
+              <ProductSelect ref={selectRef} setSearchData={setSearchData}></ProductSelect>
               <div className="title_btn" onClick={() => writeModalOpen()}>
                 상품등록
               </div>

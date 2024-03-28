@@ -57,7 +57,7 @@ const CustomerViewModal = (props) => {
           },
         }
       );
-      const allData = response.data;
+      const allData = response.data.data;
       setMemberData(allData[0]);
       setDetailValue();
     } catch (error) {

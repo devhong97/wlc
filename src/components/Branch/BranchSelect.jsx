@@ -35,8 +35,11 @@ const BranchSelect = (props, ref) => {
         setCompany("");
         setBranchIdx("");
         setBranchName("");
-        setBranchGrade("")
     };
+
+    const resetData = () => {
+        setBranchGrade("")
+    }
 
     const handleSearch = () => {
         if (props.setSearchData) {
@@ -51,7 +54,8 @@ const BranchSelect = (props, ref) => {
     const clearSearch = () => {
         if (props.setSearchData) {
             props.setSearchData([]);
-            selectType("")
+            selectType("");
+            resetData();
         }
     }
     return (

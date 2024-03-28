@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import MemberWriteModal from "../modal/MemberWriteModal";
 import MemberViewModal from "../modal/MemberViewModal";
 import { DataGrid } from "@mui/x-data-grid";
-import Axios from "axios";
+import Axios, { all } from "axios";
 import TableDefault from "../Table/TableDefault";
 import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
@@ -60,6 +60,10 @@ const MemberList = () => {
       );
       const allData = response.data;
       setMemberData(allData);
+      if (searchData && allData.length === 0) {
+        alert("검색조건에 맞는 데이터가 없습니다.")
+        selectRef.current.clearSearch();
+      }
     } catch (error) {
       console.error("Error fetching list:", error);
     }
