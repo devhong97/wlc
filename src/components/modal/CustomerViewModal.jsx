@@ -228,7 +228,7 @@ const CustomerViewModal = (props) => {
                       {productList.map((data, index) => {
                         return (
                           <option key={data.idx} value={data.p_key}>
-                            {data.name_1}
+                            {data.product_1}
                           </option>
                         );
                       })}
