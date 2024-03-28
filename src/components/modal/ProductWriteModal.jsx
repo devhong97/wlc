@@ -37,12 +37,12 @@ const ProductWriteModal = (props) => {
         .then((response) => {
           setProducts(response.data);
 
-          // 선택한 상품명1에 해당하는 p_key 찾기
+          // 선택한 상품명1에 해당하는 c_key 찾기
           const selectedProductData = response.data.find(
             (product) => product.product_1 === selectedProduct
           );
           if (selectedProductData) {
-            setPKey(selectedProductData.p_key);
+            setPKey(selectedProductData.c_key);
           }
         })
         .catch((err) => {

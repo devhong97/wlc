@@ -13,6 +13,7 @@ const ProductList = () => {
   const [viewModal, setViewModal] = useState(false); // 병원상세 수정모달
   const [detailIdx, setDetailIdx] = useState(""); //상세페이지 Idx
   const [productList, setProduct] = useState([]); // 병원 리스트
+  const [detailData, setDetailData] = useState([]);
 
   useEffect(() => {
     fetchProductList();
@@ -32,6 +33,12 @@ const ProductList = () => {
               ogPriceTxt: data.og_price_txt,
               priceTxt: data.price_txt,
               date: moment(data.date).format("YYYY.MM.DD"),
+
+              //커미션
+              commision1: data.commision_manager,
+              commision2: data.commision_user,
+              commision3: data.commision_broker,
+              idx: data.idx,
             }))
           );
         } else {
@@ -59,7 +66,7 @@ const ProductList = () => {
   const viewModalOpen = (data) => {
     const idx = data.idx;
     setViewModal(!viewModal);
-    setDetailIdx(idx);
+    setDetailData(data);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -117,6 +124,7 @@ const ProductList = () => {
         <ProductViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
+          detailData={detailData}
         ></ProductViewModal>
       )}
     </div>
