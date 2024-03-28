@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MemberWriteModal from "../modal/MemberWriteModal";
 import MemberViewModal from "../modal/MemberViewModal";
 import { DataGrid } from "@mui/x-data-grid";
@@ -7,8 +7,10 @@ import TableDefault from "../Table/TableDefault";
 import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
 import { useAuth } from "../Context/AuthContext";
+import MemberSelect from "./MemberSelect";
 
 const MemberList = () => {
+  const selectRef = useRef(null);
   const { decodeS3, decodeS1 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
@@ -17,10 +19,12 @@ const MemberList = () => {
   const [tab, setTab] = useState(1);
   const location = useLocation();
   const { grade } = location.state || {};
+  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
     getMember();
-  }, [tab]);
+  }, [tab, searchData]);
+
 
   const getMember = async () => {
     const selectGrade = [];
@@ -29,17 +33,20 @@ const MemberList = () => {
       case "슈퍼관리자":
         resultParams.grade = [1, 2, 3];
         resultParams.status = tab;
+        resultParams.searchData = searchData;
         break;
       case "지점관리자":
         // 본인 지점과 같은 사원만 노출해야함 (나중에하기)
         resultParams.grade = [2, 3];
         resultParams.status = tab;
         resultParams.branch = decodeS3();
+        resultParams.searchData = searchData;
         break;
       case "영업사원":
         resultParams.grade = [3];
         resultParams.status = tab;
         resultParams.uid = decodeS1();
+        resultParams.searchData = searchData;
         break;
       default:
         return;
@@ -107,8 +114,8 @@ const MemberList = () => {
     phone: data.phone,
     date: moment(data.date).format("YYYY.MM.DD"),
     pay: data.pay,
-    customer_num: data.customer_num,
-    hope_num: data.hope_num,
+    customer_num: data.customer_list ? data.customer_list.length : 0,
+    hope_num: data.hope_list ? data.hope_list.length : 0,
     bank_num: data.bank + data.deposit_account,
   }));
 
@@ -131,6 +138,11 @@ const MemberList = () => {
     }
   };
 
+  const changeTab = (num) => {
+    setTab(num)
+    selectRef.current.clearSearch();
+  }
+
   return (
     <div className="main_wrap">
       <div className="main_back">
@@ -139,31 +151,13 @@ const MemberList = () => {
           <div className="total_data_box">
             <div className="total_box">커미션합계 : 10000</div>
             <div className="total_box">지급예정커미션: 10000</div>
-            <div className="total_box">영업사원수: 10000</div>
+            <div className="total_box">영업사원수: {memberData.length}</div>
           </div>
         </div>
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <div className="search_select">
-                <select className="list_select">
-                  <option>지점종류</option>
-                </select>
-                <select className="list_select">
-                  <option>회사명</option>
-                </select>
-                <select className="list_select">
-                  <option>지점명</option>
-                </select>
-              </div>
-              <div className="search_input">
-                {/* <input
-                  className="list_input"
-                  placeholder="검색어를 입력하세요"
-                ></input> */}
-                <div className="list_search">검색</div>
-                <div className="list_search reset_btn">초기화</div>
-              </div>
+              <MemberSelect ref={selectRef} setSearchData={setSearchData}></MemberSelect>
               {grade !== "영업사원" && (
                 <div className="title_btn" onClick={() => writeModalOpen()}>
                   등록
@@ -175,13 +169,13 @@ const MemberList = () => {
                 <div className="tab_back">
                   <div
                     className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => setTab(1)}
+                    onClick={() => changeTab(1)}
                   >
                     승인회원
                   </div>
                   <div
                     className={`tab_menu ${tab === 3 && "active"}`}
-                    onClick={() => setTab(3)}
+                    onClick={() => changeTab(3)}
                   >
                     대기회원
                   </div>
