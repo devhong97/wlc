@@ -125,6 +125,16 @@
         font-size: 15px;
       }
 
+      .table_more_btn {
+        display: inline-block;
+        cursor: pointer;
+        vertical-align: middle;
+        background-color: #999999;
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+
       .table_inner_btn {
         display: inline-block;
         vertical-align: middle;
@@ -440,6 +450,10 @@
   box-shadow: 4px 4px 4px -4px #999999;
   display: inline-block;
   font-size: 16px;
+}
+
+.list_select_area {
+  display: inline-block;
 }
 
 .search_box {

@@ -22,6 +22,8 @@ const MemberViewModal = (props) => {
   const [company, setCompany] = useState("");
   const [branchName, setBranchName] = useState("");
   const [branchIdx, setBranchIdx] = useState("");
+  const [customerNum, setCustomerNum] = useState(0);
+  const [hopeNum, setHopeNum] = useState(0);
 
   // 분류소스
   useEffect(() => {
@@ -41,9 +43,9 @@ const MemberViewModal = (props) => {
 
   const selectBranch = (num) => {
     setBranchIdx(num);
-    const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
+    const selectedBranch = branchGroup.find((data) => data.branch_idx === num);
     if (selectedBranch) {
-      setBranchName(selectedBranch.branch);
+      setBranchName(selectedBranch.branch_name);
     }
   };
 
@@ -89,8 +91,10 @@ const MemberViewModal = (props) => {
     setBankAccount(memberData.deposit_account);
     setType(memberData.branch_type);
     setCompany(memberData.company_name);
-    setBranchName(memberData.branch_name);
+    setBranchName(memberData.branch);
     setBranchIdx(memberData.branch_idx);
+    setCustomerNum(memberData.customer_list ? memberData.customer_list.length : 0);
+    setHopeNum(memberData.hope_list ? memberData.hope_list.length : 0);
   };
 
   const handleUpdate = async () => {
@@ -369,7 +373,7 @@ const MemberViewModal = (props) => {
                     <option value="">선택</option>
                     {branchGroup.map((data, index) => {
                       return (
-                        <option key={index} value={data.idx}>
+                        <option key={index} value={data.branch_idx}>
                           {data.branch_name}
                         </option>
                       );
@@ -383,13 +387,23 @@ const MemberViewModal = (props) => {
                 <div className="table_section half">
                   <div className="table_title">가입회원수</div>
                   <div className="table_contents w100">
-                    <div className="table_inner_text">0</div>
+                    <div className="table_inner_text">{customerNum}</div>
+                    {customerNum !== 0 && (
+                      <div className="table_more_btn">
+                        자세히보기
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="table_section half">
                   <div className="table_title">상담희망고객수</div>
                   <div className="table_contents w100">
-                    <div className="table_inner_text">0</div>
+                    <div className="table_inner_text">{hopeNum}</div>
+                    {hopeNum !== 0 && (
+                      <div className="table_more_btn">
+                        자세히보기
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
