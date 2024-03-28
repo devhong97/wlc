@@ -3,19 +3,18 @@ import Axios from "axios";
 
 const HospitalProductModal = (props) => {
   const [productData, setProductData] = useState([]);
-  const [type, setType] = useState([]);
-  const [product1, setProduct1] = useState([]);
-  const [product2, setProduct2] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState([]);
+  const [newProductName, setNewProductName] = useState(""); // 새로운 상품명1을 위한 state
 
   useEffect(() => {
     getDetail();
   }, [props.detailIdx]);
 
-  //지점판매상품 리스트호출
+  // 지점판매상품 리스트 호출
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_product",
+        "http://localhost:3001/api/get/hospital_product",
         {
           params: {
             idx: props.detailIdx,
@@ -37,11 +36,9 @@ const HospitalProductModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_modify",
+        "http://localhost:3001/api/post/hospital_product_modify",
         {
-          type: type,
-          product1: product1,
-          product2: product2,
+          products: selectedProduct,
           idx: props.detailIdx,
         }
       );
@@ -54,6 +51,25 @@ const HospitalProductModal = (props) => {
 
   const clearModal = () => {
     props.closeModal();
+  };
+
+  const handleCreate = () => {
+    // 새로운 상품명1이 입력되었는지 확인
+    if (!newProductName) {
+      alert("새로운 상품명1을 입력해야 합니다.");
+      return;
+    }
+    // 선택한 name_2 데이터를 selectedProduct 배열에 추가
+    setSelectedProduct([...selectedProduct, { product1: newProductName }]);
+    // 입력 필드 초기화
+    setNewProductName("");
+  };
+
+  const handleDelete = (index) => {
+    // 선택한 상품명1을 선택 목록에서 제거
+    const updatedSelectedProduct = [...selectedProduct];
+    updatedSelectedProduct.splice(index, 1);
+    setSelectedProduct(updatedSelectedProduct);
   };
 
   return (
@@ -70,80 +86,41 @@ const HospitalProductModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  검진항목 대분류<p className="title_point">*</p>
+                  상품명1<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <select
-                    name="affiliation"
+                    name="product"
                     className="table_select"
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
+                    value={newProductName}
+                    onChange={(e) => setNewProductName(e.target.value)}
                   >
                     <option value="">선택</option>
-                    {type.map((type, index) => {
+                    {productData.map((product, index) => {
                       return (
-                        <option key={index} value={type}>
-                          {type}
+                        <option key={index} value={product.product_1}>
+                          {product.product_1}
                         </option>
                       );
                     })}
                   </select>
+                  &nbsp;&nbsp;
+                  <div className="add_btn" onClick={handleCreate}>
+                    생성
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="table_box">
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  검진항목 중분류<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    name="affiliation"
-                    className="table_select"
-                    value={product1}
-                    onChange={(e) => setProduct1(e.target.value)}
-                  >
-                    <option value="">선택</option>
-                    {product1.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
+          {/* 선택한 name_1 데이터를 화면에 출력 */}
+          {selectedProduct.map((product, index) => (
+            <div key={index}>
+              <div style={{ paddingTop: "10px" }}>
+                {product.product1}
+                <button onClick={() => handleDelete(index)}>삭제</button>
               </div>
             </div>
-          </div>
-          <div className="table_box">
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  검진항목 소분류<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <select
-                    name="affiliation"
-                    className="table_select"
-                    value={product2}
-                    onChange={(e) => setProduct2(e.target.value)}
-                  >
-                    <option value="">선택</option>
-                    {product2.map((type, index) => {
-                      return (
-                        <option key={index} value={type}>
-                          {type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
           <div className="modal_footer_box">
             <div className="modal_btn" onClick={handleSubmit}>
               등록 / 수정

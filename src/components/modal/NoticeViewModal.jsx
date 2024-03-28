@@ -6,11 +6,6 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "tui-color-picker/dist/tui-color-picker.css";
 
-function stripHtml(html) {
-  var doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.body.textContent || "";
-}
-
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState(props.detailData.title || "");
   const [detailNum, setDetailNum] = useState(props.detailData.idx || "");
