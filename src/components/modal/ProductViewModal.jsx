@@ -7,8 +7,8 @@ const ProductViewModal = (props) => {
   const [productModal, setProductModal] = useState(false); // 지점판매상품모달
   const [categories, setCategories] = useState([]); // 전체 상품카테고리
   const [products, setProducts] = useState([]); // 상품명1 데이터저장
-  const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 상품 카테고리
-  const [selectedProduct, setSelectedProduct] = useState(""); // 선택된 상품명1
+  const [selectedCategory, setSelectedCategory] = useState(props.detailData.realType); // 선택된 상품 카테고리
+  const [selectedProduct, setSelectedProduct] = useState(props.detailData.name1); // 선택된 상품명1
   const [name2, setName2] = useState(props.detailData.name2); // 상품명2(직접입력)
   const [ogPriceTxt, setOgPriceTxt] = useState(props.detailData.ogPriceTxt); // 의료수가
   const [priceTxt, setPriceTxt] = useState(props.detailData.priceTxt); // 검진비용
@@ -17,8 +17,6 @@ const ProductViewModal = (props) => {
   const [commision3, setCommision3] = useState(props.detailData.commision3); // 브로커커미션
   const [pKey, setPKey] = useState(""); // p_key 값
 
-  console.log(props.detailData.type);
-  console.log(props.detailData.name1);
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
     if (props.detailIdx) {
@@ -26,13 +24,7 @@ const ProductViewModal = (props) => {
     }
   }, [props.detailIdx]);
 
-  // 기존 데이터를 가져와서 선택 상자에 채움
-  useEffect(() => {
-    if (props.detailData) {
-      setSelectedCategory(props.detailData.type || ""); // 기존 상품 카테고리 선택
-      setSelectedProduct(props.detailData.name1 || ""); // 기존 상품명1 선택
-    }
-  }, [props.detailData]);
+
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get/categories")
@@ -45,6 +37,7 @@ const ProductViewModal = (props) => {
   }, []);
 
   const handleCategoryChange = (event) => {
+
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
   };
@@ -172,7 +165,7 @@ const ProductViewModal = (props) => {
                     className="table_select"
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                    // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
+                  // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
                   >
                     <option value="">선택</option>
                     {products.length > 0 &&

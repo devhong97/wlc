@@ -28,6 +28,7 @@ const ProductList = () => {
             res.data.data.map((data, index) => ({
               id: index + 1,
               type: data.type === "2" ? "패키지" : "단일",
+              realType: data.type,
               name1: data.name_1,
               name2: data.name_2,
               ogPriceTxt: data.og_price_txt,
