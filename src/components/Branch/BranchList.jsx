@@ -50,6 +50,10 @@ const BranchList = () => {
           );
         } else {
           console.error("지점 관리 데이터호출 실패");
+          if (searchData) {
+            alert("검색조건에 맞는 데이터가 없습니다.")
+            selectRef.current.clearSearch();
+          }
         }
       })
       .catch((err) => {
