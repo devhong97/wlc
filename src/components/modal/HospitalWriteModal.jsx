@@ -8,6 +8,8 @@ const HospitalWriteModal = (props) => {
   const [cities, setCities] = useState([]); //지역(시)
   const [districts, setDistricts] = useState([]); //지역(도)
   const [productModal, setProductModal] = useState(false); // 검진가능상품
+  const [selectedProduct, setSelectedProduct] = useState([]); //검진등록상품
+  const [mode, setMode] = useState("write");
 
   const [name, setName] = useState(""); // 병원명
   const [tel1, setTel1] = useState(""); // 연락처1
@@ -110,11 +112,12 @@ const HospitalWriteModal = (props) => {
     const number = `${tel1}-${tel2}-${tel3}`;
 
     // 병원등록
-    Axios.post("http://localhost:3001/api/post/hospital", {
+    Axios.post("http://localhost:3001/api/post/hospital_write", {
       hospitalName: name,
       number: number,
       province: selectedCity,
       city: selectedDistrict,
+      yProduct: selectedProduct,
     })
       .then((res) => {
         console.log(res.data);
@@ -268,7 +271,16 @@ const HospitalWriteModal = (props) => {
               <div className="table_section">
                 <div className="table_title">검진가능상품</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">1</div>
+                  <div className="table_inner_text">
+                    [&nbsp;
+                    {selectedProduct.map((product, index) => (
+                      <span key={index}>
+                        {product.product1}
+                        {index !== selectedProduct.length - 1 && ", "}
+                      </span>
+                    ))}
+                    &nbsp;]
+                  </div>
                   <div
                     className="table_inner_btn"
                     onClick={() => productModalOpen()}
@@ -293,6 +305,9 @@ const HospitalWriteModal = (props) => {
       {productModal && (
         <HospitalProductModal
           closeModal={productModalOpen}
+          selectedProduct={selectedProduct}
+          setSelectedProduct={setSelectedProduct} // setSelectedProduct을 props로 전달합니다.
+          setMode={mode}
         ></HospitalProductModal>
       )}
     </div>

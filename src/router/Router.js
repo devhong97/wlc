@@ -8,7 +8,6 @@ import SalesList from "../components/Sales/SalesList";
 import CommissionList from "../components/Commission/CommissionList";
 import CommissionDetail from "../components/Commission/CommissionDetail";
 import Notice from "../components/Board/Notice";
-import Delme from "./../components/Common/Delme";
 import Hospital from "../components/Hospital/HospitalList";
 import Reservation from "../components/Reservation/Reservation";
 import SearchProduct from "../components/Reservation/SearchProduct";
@@ -17,6 +16,7 @@ import SelectDate from "../components/Reservation/SelectDate";
 import ReservCustomer from "../components/Reservation/ReservCustomer";
 import ProductList from "../components/Product/ProductList";
 import ReservCheck from "../components/Reservation/ReservCheck";
+import Delme from "./../components/Delmetenz/Delme";
 
 const Router = () => {
   return (

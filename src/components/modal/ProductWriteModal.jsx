@@ -58,35 +58,42 @@ const ProductWriteModal = (props) => {
 
   //지점 등록버튼
   const handleSubmit = async () => {
-    // if (name === "") {
-    //   alert("병원명을 입력해주세요.");
-    //   const nameInput = document.getElementById("user_name");
-    //   if (nameInput) {
-    //     nameInput.focus();
-    //   }
-    //   return;
-    // } else if (tel1 === "" || tel2 === "" || tel3 === "") {
-    //   alert("연락처를 입력해주세요.");
-    //   const numberInput = document.getElementById("user_number");
-    //   if (numberInput) {
-    //     numberInput.focus();
-    //   }
-    //   return;
-    // } else if (selectedCity === "") {
-    //   alert("지역(도)를 선택해주세요.");
-    //   const provinceInput = document.getElementById("user_province");
-    //   if (provinceInput) {
-    //     provinceInput.focus();
-    //   }
-    //   return;
-    // } else if (selectedDistrict === "") {
-    //   alert("지역(시)를 선택해주세요.");
-    //   const cityInput = document.getElementById("user_city");
-    //   if (cityInput) {
-    //     cityInput.focus();
-    //   }
-    //   return;
-    // }
+    if (selectedCategory === "") {
+      alert("상품카테고리를 선택해주세요.");
+      const selectedCategoryInput = document.getElementById("user_cate");
+      if (selectedCategoryInput) {
+        selectedCategoryInput.focus();
+      }
+      return;
+    } else if (selectedProduct === "") {
+      alert("상품명1을 선택해주세요.");
+      const selectedProductInput = document.getElementById("user_prd");
+      if (selectedProductInput) {
+        selectedProductInput.focus();
+      }
+      return;
+    } else if (name2 === "") {
+      alert("상품명2를 입력해주세요.");
+      const name2Input = document.getElementById("user_prd2");
+      if (name2Input) {
+        name2Input.focus();
+      }
+      return;
+    } else if (ogPriceTxt === "") {
+      alert("의료수가를 입력해주세요.");
+      const ogPriceTxtInput = document.getElementById("user_price1");
+      if (ogPriceTxtInput) {
+        ogPriceTxtInput.focus();
+      }
+      return;
+    } else if (priceTxt === "") {
+      alert("검진비용을 입력해주세요.");
+      const priceTxtInput = document.getElementById("user_price2");
+      if (priceTxtInput) {
+        priceTxtInput.focus();
+      }
+      return;
+    }
 
     // 상품등록
     Axios.post("http://localhost:3001/api/post/product_write", {
@@ -132,6 +139,7 @@ const ProductWriteModal = (props) => {
                   <select
                     name="affiliation"
                     className="table_select"
+                    id="user_cate"
                     value={selectedCategory}
                     onChange={(e) => {
                       handleCategoryChange(e);
@@ -149,11 +157,14 @@ const ProductWriteModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">상품명1</div>
+                <div className="table_title">
+                  상품명1<p className="title_point">*</p>
+                </div>
                 <div className="table_contents w100">
                   <select
                     name="product"
                     className="table_select"
+                    id="user_prd"
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
                     disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
@@ -178,7 +189,7 @@ const ProductWriteModal = (props) => {
                   <input
                     className="table_input modal"
                     type="text"
-                    id="title"
+                    id="user_prd2"
                     placeholder="상품명2를 입력해주세요."
                     value={name2}
                     onChange={(e) => setName2(e.target.value)}
@@ -186,13 +197,15 @@ const ProductWriteModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">의료수가</div>
+                <div className="table_title">
+                  의료수가<p className="title_point">*</p>
+                </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
-                    id="title"
-                    // placeholder="의료수가 입력"
+                    id="user_price1"
+                    placeholder="의료수가를 입력해주세요"
                     // readOnly
                     // style={{ backgroundColor: "#f2f2f2" }}
                     value={ogPriceTxt}
@@ -204,13 +217,15 @@ const ProductWriteModal = (props) => {
 
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">검진비용</div>
+                <div className="table_title">
+                  검진비용<p className="title_point">*</p>
+                </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
-                    id="title"
-                    // placeholder="검진비용"
+                    id="user_price2"
+                    placeholder="검진비용을 입력해주세요"
                     // style={{ backgroundColor: "#f2f2f2" }}
                     value={priceTxt}
                     onChange={(e) => setPriceTxt(e.target.value)}
@@ -224,7 +239,7 @@ const ProductWriteModal = (props) => {
                     className="table_input modal"
                     type="text"
                     id="title"
-                    // placeholder="지점장커미션"
+                    placeholder="0"
                     // style={{ backgroundColor: "#f2f2f2" }}
                     value={commision1}
                     onChange={(e) => setCommision1(e.target.value)}
@@ -241,7 +256,7 @@ const ProductWriteModal = (props) => {
                     className="table_input modal"
                     type="text"
                     id="title"
-                    // placeholder="영업자커미션"
+                    placeholder="0"
                     // style={{ backgroundColor: "#f2f2f2" }}
                     value={commision2}
                     onChange={(e) => setCommision2(e.target.value)}
@@ -255,7 +270,7 @@ const ProductWriteModal = (props) => {
                     className="table_input modal"
                     type="text"
                     id="title"
-                    // placeholder="브로커커미션"
+                    placeholder="0"
                     // style={{ backgroundColor: "#f2f2f2" }}
                     value={commision3}
                     onChange={(e) => setCommision3(e.target.value)}

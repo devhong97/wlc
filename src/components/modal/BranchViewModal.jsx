@@ -99,7 +99,6 @@ const BranchViewModal = (props) => {
 
       if (product2) {
         setSelectedProduct(product2);
-        console.log(allProduct);
       }
 
       // location 문자열 분리
@@ -441,6 +440,7 @@ const BranchViewModal = (props) => {
           detailIdx={detailIdx}
           branchIdx={branchIdx}
           selectedProduct={selectedProduct}
+          updateSelectedProduct={setSelectedProduct}
         ></BranchProductModal>
       )}
     </div>

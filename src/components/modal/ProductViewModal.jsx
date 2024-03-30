@@ -7,8 +7,12 @@ const ProductViewModal = (props) => {
   const [productModal, setProductModal] = useState(false); // 지점판매상품모달
   const [categories, setCategories] = useState([]); // 전체 상품카테고리
   const [products, setProducts] = useState([]); // 상품명1 데이터저장
-  const [selectedCategory, setSelectedCategory] = useState(props.detailData.realType); // 선택된 상품 카테고리
-  const [selectedProduct, setSelectedProduct] = useState(props.detailData.name1); // 선택된 상품명1
+  const [selectedCategory, setSelectedCategory] = useState(
+    props.detailData.realType
+  ); // 선택된 상품 카테고리
+  const [selectedProduct, setSelectedProduct] = useState(
+    props.detailData.name1
+  ); // 선택된 상품명1
   const [name2, setName2] = useState(props.detailData.name2); // 상품명2(직접입력)
   const [ogPriceTxt, setOgPriceTxt] = useState(props.detailData.ogPriceTxt); // 의료수가
   const [priceTxt, setPriceTxt] = useState(props.detailData.priceTxt); // 검진비용
@@ -24,8 +28,6 @@ const ProductViewModal = (props) => {
     }
   }, [props.detailIdx]);
 
-
-
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get/categories")
       .then((response) => {
@@ -37,7 +39,6 @@ const ProductViewModal = (props) => {
   }, []);
 
   const handleCategoryChange = (event) => {
-
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
   };
@@ -91,7 +92,7 @@ const ProductViewModal = (props) => {
   };
 
   // 상품삭제버튼
-  const deleteBranch = async () => {
+  const deleteProduct = async () => {
     const confirmDelete = window.confirm(` 상품을 삭제하시겠습니까?`);
     if (!confirmDelete) {
       return;
@@ -99,9 +100,9 @@ const ProductViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_delete",
+        "http://localhost:3001/api/post/product_delete",
         {
-          idx: props.detailIdx,
+          idx: props.detailData.idx,
         }
       );
       alert("상품이 삭제되었습니다.");
@@ -165,7 +166,7 @@ const ProductViewModal = (props) => {
                     className="table_select"
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                  // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
+                    // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
                   >
                     <option value="">선택</option>
                     {products.length > 0 &&
@@ -278,7 +279,7 @@ const ProductViewModal = (props) => {
             <div className="modal_btn" onClick={handleSubmit}>
               수정
             </div>
-            <div className="modal_btn close" onClick={() => deleteBranch()}>
+            <div className="modal_btn close" onClick={() => deleteProduct()}>
               삭제
             </div>
           </div>
