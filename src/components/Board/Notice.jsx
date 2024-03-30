@@ -11,19 +11,12 @@ const Notice = () => {
   const [detailData, setDetailData] = useState([]);
   const [bbsData, setBbsData] = useState([]);
   const [tab, setTab] = useState(1);
+  const [searchType, setSearchType] = useState("title"); //기본 검색타입
+  const [searchKeyword, setSearchKeyword] = useState(""); //검색어
 
   useEffect(() => {
     getBoard();
   }, [tab]);
-
-  const downloadImage = (imageUrl) => {
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = "image.jpg";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   const getBoard = async () => {
     try {
@@ -37,11 +30,20 @@ const Notice = () => {
     }
   };
 
-  // HTML태그 변환
-  const sanitizeHTML = (htmlString) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = htmlString;
-    return tempDiv.textContent || tempDiv.innerText || "";
+  const searchBoard = async () => {
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/search_notice",
+        {
+          searchType,
+          searchKeyword,
+        }
+      );
+      const searchData = response.data;
+      setBbsData(searchData);
+    } catch (error) {
+      console.error("Error searching data:", error);
+    }
   };
 
   const columns = [
@@ -51,20 +53,12 @@ const Notice = () => {
       flex: 0.5,
     },
     { field: "title", headerName: "제목" },
-    { field: "content", headerName: "내용" },
+    { field: "htmlContent", headerName: "내용" },
     { field: "writer", headerName: "작성자" },
     {
       field: "attachment",
       headerName: "첨부",
-      renderCell: (params) => (
-        <div
-          onClick={() =>
-            params.row.attachment ? downloadImage(params.row.attachment) : null
-          }
-        >
-          {params.row.attachment ? "O" : "X"}
-        </div>
-      ),
+      renderCell: (params) => <div>{params.row.attachment ? "O" : "X"}</div>,
     },
     { field: "hit", headerName: "조회수" },
     { field: "date", headerName: "등록일" },
@@ -76,7 +70,9 @@ const Notice = () => {
     writer: data.writer,
     attachment: data.img,
     title: data.title,
-    content: sanitizeHTML(data.content),
+    content: data.content,
+    hit: data.hit,
+    htmlContent: data.content.replace(/<[^>]+>/g, ""),
     date: data.date,
     idx: data.idx,
   }));
@@ -85,10 +81,29 @@ const Notice = () => {
     setWriteModal(!writeModal);
     getBoard();
   };
+
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
     setDetailData(data);
+
+    //조회수증가
+    Axios.post("http://localhost:3001/api/post/notice_hit", {
+      idx: data.idx,
+    })
+      .then((response) => {
+        if (response.data.success) {
+          if (!viewModal) {
+            setViewModal(true);
+          }
+        } else {
+          console.error("Failed to update hit count.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error while updating hit count:", error);
+      });
   };
+
   const viewModalClose = (status) => {
     setViewModal(false);
     if (status === "reload") {
@@ -96,6 +111,24 @@ const Notice = () => {
     } else {
       getBoard();
     }
+  };
+
+  const handleSearchTypeChange = (e) => {
+    setSearchType(e.target.value);
+  };
+
+  const handleSearchKeywordChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const handleSearch = () => {
+    searchBoard();
+  };
+
+  const handleResetSearch = () => {
+    setSearchKeyword("");
+    setSearchType("");
+    getBoard();
   };
 
   return (
@@ -106,18 +139,32 @@ const Notice = () => {
           <div className="list_area">
             <div className="search_box">
               <div className="search_select">
-                <select className="list_select">
-                  <option>제목</option>
-                  <option>내용</option>
+                <select
+                  className="list_select"
+                  value={searchType}
+                  onChange={(e) => setSearchType(e.target.value)}
+                >
+                  <option value="title">제목</option>
+                  <option value="content">내용</option>
+                  <option value="writer">작성자</option>
                 </select>
               </div>
               <div className="search_input">
                 <input
                   className="list_input"
                   placeholder="검색어를 입력하세요"
+                  value={searchKeyword}
+                  onChange={handleSearchKeywordChange}
                 ></input>
-                <div className="list_search">검색</div>
-                <div className="list_search reset_btn">초기화</div>
+                <div className="list_search" onClick={handleSearch}>
+                  검색
+                </div>
+                <div
+                  className="list_search reset_btn"
+                  onClick={handleResetSearch}
+                >
+                  초기화
+                </div>
               </div>
               <div className="title_btn" onClick={() => writeModalOpen()}>
                 등록

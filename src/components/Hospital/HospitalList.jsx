@@ -15,6 +15,7 @@ const HospitalList = () => {
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
   const [searchData, setSearchData] = useState([]);
   const [numberData, setNumberData] = useState("");
+  const [detailData, setDetailData] = useState([]);
 
   useEffect(() => {
     fetchHospitalList();
@@ -23,15 +24,15 @@ const HospitalList = () => {
   const fetchHospitalList = () => {
     const resultParams = {};
     if (searchData) {
-      resultParams.searchData = searchData
+      resultParams.searchData = searchData;
     }
     Axios.get("http://localhost:3001/api/get/hospital_list", {
-      params: resultParams
+      params: resultParams,
     })
       .then((res) => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
-          setNumberData(res.data.allCount);
+          setNumberData(res.data.total);
           setHospitalList(
             res.data.data.map((data, index) => ({
               id: index + 1,
@@ -41,14 +42,14 @@ const HospitalList = () => {
               city: data.city,
               product: data.product,
               member_num: data.member_num,
-              product_idx: data.product_idx,
               date: moment(data.date).format("YYYY.MM.DD"),
+              idx: data.idx,
             }))
           );
         } else {
           console.error("지점 관리 데이터호출 실패");
           if (searchData) {
-            alert("검색조건에 맞는 데이터가 없습니다.")
+            alert("검색조건에 맞는 데이터가 없습니다.");
             selectRef.current.clearSearch();
           }
         }
@@ -76,6 +77,7 @@ const HospitalList = () => {
     const idx = data.idx;
     setViewModal(!viewModal);
     setDetailIdx(idx);
+    setDetailData(data);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -98,7 +100,10 @@ const HospitalList = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <HospitalSelect ref={selectRef} setSearchData={setSearchData}></HospitalSelect>
+              <HospitalSelect
+                ref={selectRef}
+                setSearchData={setSearchData}
+              ></HospitalSelect>
               <div className="title_btn" onClick={() => writeModalOpen()}>
                 병원등록
               </div>
@@ -124,6 +129,7 @@ const HospitalList = () => {
         <HospitalViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
+          detailData={detailData}
         ></HospitalViewModal>
       )}
     </div>

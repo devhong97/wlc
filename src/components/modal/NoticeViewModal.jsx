@@ -9,8 +9,15 @@ import "tui-color-picker/dist/tui-color-picker.css";
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState(props.detailData.title || "");
   const [detailNum, setDetailNum] = useState(props.detailData.idx || "");
-  const [updateContentHTML, setUpdateContentHTML] = useState("");
-  const [updateAttachment, setUpdateAttachment] = useState("");
+  const [updateContentHTML, setUpdateContentHTML] = useState(
+    props.detailData.content || ""
+  );
+  const [updateAttachment, setUpdateAttachment] = useState(
+    props.detailData.attachment
+  );
+  const [writer, setWriter] = useState(props.detailData.writer || "");
+  const [hit, setHit] = useState(props.detailData.hit || "");
+  const [date, setDate] = useState(props.detailData.date || "");
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
 
@@ -203,11 +210,14 @@ const NoticeViewModal = (props) => {
                         style={{ border: "1px solid #c6c6c6", padding: "15px" }}
                       >
                         <img
-                          style={{ border: "1px solid #c6c6c6", width: 200 }}
+                          style={{
+                            border: "1px solid #c6c6c6",
+                            width: 200,
+                            cursor: "pointer",
+                          }}
                           src={`http://localhost:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
-                        <div>{updateAttachment} 다운로드</div>
                       </div>
                     </div>
                   ) : updateAttachment === null ? (
@@ -221,7 +231,7 @@ const NoticeViewModal = (props) => {
                 <div className="table_title">
                   작성자<p className="title_point">*</p>
                 </div>
-                <div className="table_contents w100">asd</div>
+                <div className="table_contents w100">{writer}</div>
               </div>
             </div>
 
@@ -229,7 +239,7 @@ const NoticeViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">조회수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">asd</div>
+                  <div className="table_inner_text">{hit}</div>
                 </div>
               </div>
             </div>
@@ -237,7 +247,7 @@ const NoticeViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">등록일</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">asd</div>
+                  <div className="table_inner_text">{date}</div>
                 </div>
               </div>
             </div>

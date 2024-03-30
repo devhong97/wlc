@@ -6,6 +6,7 @@ import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 
 const NoticeWriteModal = (props) => {
   const { decodeS2 } = useAuth();
@@ -16,7 +17,6 @@ const NoticeWriteModal = (props) => {
   const [selectedFile, setSelectedFile] = useState(null); //파일첨부
   const [fileUrl, setFileUrl] = useState(""); //파일 URL
   const editorRef = useRef(null);
-  const [branchName, setBranchName] = useState(""); //지점명
 
   //Editor 파일 업로드 관련 함수
   const onUploadImage = async (blob, callback) => {
@@ -36,6 +36,7 @@ const NoticeWriteModal = (props) => {
       );
       // 업로드된 이미지의 URL을 받아와서 callback 함수에 전달합니다.
       const imageUrl = response.data.imageUrl;
+      console.log("Uploaded image URL:", imageUrl); // 이미지 URL 콘솔에 출력
       callback(imageUrl, "alt text");
     } catch (error) {
       console.error("이미지 업로드 중 오류 발생", error);
