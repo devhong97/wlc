@@ -56,7 +56,7 @@ const CustomerList = () => {
       setCustomerData(allData.data);
       setNumberData(allData.numbers);
       if (searchData && allData.data.length === 0) {
-        alert("검색조건에 맞는 데이터가 없습니다.")
+        alert("검색조건에 맞는 데이터가 없습니다.");
         selectRef.current.clearSearch();
       }
     } catch (error) {
@@ -78,7 +78,7 @@ const CustomerList = () => {
     // { field: "status", headerName: "검진유무", flex: 0.5 },
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
+    { field: "branch", headerName: "지점명", flex: 0.5 },
     {
       field: "send",
       headerName: "문자전송",
@@ -102,8 +102,8 @@ const CustomerList = () => {
     { field: "result_date", headerName: "확정일" },
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
-  ]
+    { field: "branch", headerName: "지점명", flex: 0.5 },
+  ];
   //검진취소
   const columns2 = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -119,8 +119,8 @@ const CustomerList = () => {
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
     { field: "refund_status", headerName: "환불여부", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
-  ]
+    { field: "branch", headerName: "지점명", flex: 0.5 },
+  ];
 
   const rows = customerData.map((data, index) => ({
     id: index + 1,
@@ -160,17 +160,22 @@ const CustomerList = () => {
   };
 
   const changeTab = (num) => {
-    setTab(num)
+    setTab(num);
     selectRef.current.clearSearch();
-  }
+  };
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">고객 관리
+        <div className="main_title_box">
+          고객 관리
           <div className="total_data_box">
             <div className="total_box">총 고객 : {numberData.allNum}</div>
-            <div className="total_box">검진완료고객: {numberData.statusNum1}</div>
-            <div className="total_box">검진대기고객: {numberData.statusNum3}</div>
+            <div className="total_box">
+              검진완료고객: {numberData.statusNum1}
+            </div>
+            <div className="total_box">
+              검진대기고객: {numberData.statusNum3}
+            </div>
             <div className="total_box">상담희망고객: {numberData.hopeNum}</div>
             <div className="total_box">계약고객: </div>
           </div>
@@ -178,7 +183,10 @@ const CustomerList = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <CustomerSelect ref={selectRef} setSearchData={setSearchData}></CustomerSelect>
+              <CustomerSelect
+                ref={selectRef}
+                setSearchData={setSearchData}
+              ></CustomerSelect>
               {/* <div className="title_btn">등록</div> */}
             </div>
             <div className="tab_area">

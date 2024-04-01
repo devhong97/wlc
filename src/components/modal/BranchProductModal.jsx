@@ -10,10 +10,10 @@ const BranchProductModal = (props) => {
   const [uniqueTypes, setUniqueTypes] = useState([]);
   const [normalData, setNormalData] = useState(props.selectedProduct);
 
-  // useEffect(() => {
-  //   console.log("normalData", normalData);
-  //   console.log("selectedProduct", selectedProduct);
-  // }, [selectedProduct, selectedProduct]);
+  useEffect(() => {
+    console.log("normalData", normalData); // 기존상품데이터
+    console.log("selectedProduct", selectedProduct); // 생성된 상품
+  }, [selectedProduct, selectedProduct]);
 
   useEffect(() => {
     getDetail();
@@ -63,7 +63,13 @@ const BranchProductModal = (props) => {
         }
       );
       alert("수정이 완료되었습니다.");
-      props.closeModal(selectedProduct);
+      // const mergedData = {
+      //   normalData: normalData,
+      //   selectedProduct: selectedProduct,
+      // };
+      // props.mergedData(mergedData);
+      props.closeModal();
+      // console.log("mergedData", mergedData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -80,11 +86,14 @@ const BranchProductModal = (props) => {
       return;
     }
 
+    const trimmedProduct2 = product2.trim();
+
     // 선택한 name_2 데이터를 selectedProduct 배열에 추가
     const newSelectedProduct = {
+      id: Date.now(),
       type: type,
       product1: product1,
-      product2: product2,
+      product2: trimmedProduct2,
     };
     setSelectedProduct([...selectedProduct, newSelectedProduct]);
     // select box 값 초기화
@@ -102,17 +111,19 @@ const BranchProductModal = (props) => {
     setSelectedProduct(updatedSelectedProduct);
   };
 
-  const handleDelete = (index) => {
-    const updatedSelectedProduct = [...selectedProduct];
-    updatedSelectedProduct.splice(index, 1);
-    setSelectedProduct(updatedSelectedProduct);
+  const plusDataDelete = (productName) => {
+    const updatedNormalData = normalData
+      .split(",")
+      .filter((item) => item !== productName)
+      .join(",");
+    setNormalData(updatedNormalData); // 정상적으로 업데이트된 데이터로 설정
   };
 
-  const plusDataDelete = (index) => {
-    const updatedSelectedProduct = normalData.split(",");
-    console.log(updatedSelectedProduct);
-    updatedSelectedProduct.splice(index, 1);
-    props.updateSelectedProduct(updatedSelectedProduct.join(","));
+  const handleDelete = (id) => {
+    const updatedSelectedProduct = selectedProduct.filter(
+      (product) => product.id !== id
+    );
+    setSelectedProduct(updatedSelectedProduct);
   };
 
   return (
@@ -223,9 +234,7 @@ const BranchProductModal = (props) => {
                     )
                   }
                 />
-                <button
-                  onClick={() => plusDataDelete(selectedProduct.length + index)}
-                >
+                <button onClick={() => plusDataDelete(productName)}>
                   삭제
                 </button>
               </div>
@@ -238,7 +247,14 @@ const BranchProductModal = (props) => {
                   value={product.product2}
                   onChange={(e) => handleProductChange(e.target.value, index)}
                 />
-                <button onClick={() => handleDelete(index)}>삭제</button>
+                <button
+                  onClick={() => {
+                    console.log("Deleting selected product:", product);
+                    handleDelete(product.id);
+                  }}
+                >
+                  삭제
+                </button>
               </div>
             </div>
           ))}
