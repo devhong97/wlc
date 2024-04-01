@@ -25,7 +25,6 @@ const MemberList = () => {
     getMember();
   }, [tab, searchData]);
 
-
   const getMember = async () => {
     const selectGrade = [];
     const resultParams = {};
@@ -61,7 +60,7 @@ const MemberList = () => {
       const allData = response.data;
       setMemberData(allData);
       if (searchData && allData.length === 0) {
-        alert("검색조건에 맞는 데이터가 없습니다.")
+        alert("검색조건에 맞는 데이터가 없습니다.");
         selectRef.current.clearSearch();
       }
     } catch (error) {
@@ -143,9 +142,9 @@ const MemberList = () => {
   };
 
   const changeTab = (num) => {
-    setTab(num)
+    setTab(num);
     selectRef.current.clearSearch();
-  }
+  };
 
   return (
     <div className="main_wrap">
@@ -161,7 +160,10 @@ const MemberList = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <MemberSelect ref={selectRef} setSearchData={setSearchData}></MemberSelect>
+              <MemberSelect
+                ref={selectRef}
+                setSearchData={setSearchData}
+              ></MemberSelect>
               {grade !== "영업사원" && (
                 <div className="title_btn" onClick={() => writeModalOpen()}>
                   등록
@@ -186,7 +188,11 @@ const MemberList = () => {
                 </div>
               </div>
             )}
-            <div className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"}`}>
+            <div
+              className={`table_box ${
+                grade !== "영업사원" ? "tab_list" : "list"
+              }`}
+            >
               <TableDefault
                 rows={rows}
                 columns={tab === 1 ? columns : subColumns}

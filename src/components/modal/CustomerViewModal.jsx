@@ -10,7 +10,7 @@ const CustomerViewModal = (props) => {
     productList,
     setHospitalName,
     productKey,
-    hospitalUpdateKey
+    hospitalUpdateKey,
   } = useReservContext();
 
   const [memberData, setMemberData] = useState([]);
@@ -178,7 +178,6 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진자</div>
                 <div className="table_contents w100">
-
                   <input
                     className="table_input w100"
                     type="text"
@@ -219,7 +218,9 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">지점명</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.company} {memberData.branch}</div>
+                  <div className="table_inner_text">
+                    {memberData.company} {memberData.branch}
+                  </div>
                 </div>
               </div>
             </div>
@@ -465,7 +466,10 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">성명자필</div>
                 <div className="table_contents w100">
-                  <div className="sign_text" onClick={() => handleDownload(memberData.sign_img_1)}>
+                  <div
+                    className="sign_text"
+                    onClick={() => handleDownload(memberData.sign_img_1)}
+                  >
                     {memberData.sign_img_1}
                   </div>
                 </div>
@@ -473,7 +477,10 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">서명</div>
                 <div className="table_contents w100">
-                  <div className="sign_text" onClick={() => handleDownload(memberData.sign_img_2)}>
+                  <div
+                    className="sign_text"
+                    onClick={() => handleDownload(memberData.sign_img_2)}
+                  >
                     {memberData.sign_img_2}
                   </div>
                 </div>
@@ -491,7 +498,7 @@ const CustomerViewModal = (props) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

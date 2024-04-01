@@ -94,7 +94,7 @@ const BranchViewModal = (props) => {
       const allProduct = allData[0].product;
       setBranchDetailData(allData[0]);
       const product2 = allData[0]?.product
-        ? allData[0].product.replace(/\|/g, ", ")
+        ? allData[0].product.replace(/\|/g, ",")
         : null;
 
       if (product2) {

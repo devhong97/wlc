@@ -93,7 +93,9 @@ const MemberViewModal = (props) => {
     setCompany(memberData.company_name);
     setBranchName(memberData.branch);
     setBranchIdx(memberData.branch_idx);
-    setCustomerNum(memberData.customer_list ? memberData.customer_list.length : 0);
+    setCustomerNum(
+      memberData.customer_list ? memberData.customer_list.length : 0
+    );
     setHopeNum(memberData.hope_list ? memberData.hope_list.length : 0);
   };
 
@@ -389,9 +391,7 @@ const MemberViewModal = (props) => {
                   <div className="table_contents w100">
                     <div className="table_inner_text">{customerNum}</div>
                     {customerNum !== 0 && (
-                      <div className="table_more_btn">
-                        자세히보기
-                      </div>
+                      <div className="table_more_btn">자세히보기</div>
                     )}
                   </div>
                 </div>
@@ -400,9 +400,7 @@ const MemberViewModal = (props) => {
                   <div className="table_contents w100">
                     <div className="table_inner_text">{hopeNum}</div>
                     {hopeNum !== 0 && (
-                      <div className="table_more_btn">
-                        자세히보기
-                      </div>
+                      <div className="table_more_btn">자세히보기</div>
                     )}
                   </div>
                 </div>

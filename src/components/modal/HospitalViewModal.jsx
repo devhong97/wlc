@@ -22,8 +22,8 @@ const HospitalViewModal = (props) => {
     props.detailData.product || ""
   );
   const [productModal, setProductModal] = useState(false); // 검진가능상품
+  const [choiceData, setChoiceData] = useState("");
 
-  console.log(props.detailData);
   //연락처 체크
   const handlePhone = (e, target) => {
     const value = e.target.value;
@@ -95,10 +95,10 @@ const HospitalViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_detail",
+        "http://localhost:3001/api/get/hospital_detail",
         {
           params: {
-            idx: props.detailIdx,
+            name: props.detailData.name,
           },
         }
       );
@@ -114,6 +114,8 @@ const HospitalViewModal = (props) => {
       console.error("Error fetching list:", error);
     }
   };
+
+  console.log("branchDetailData", branchDetailData);
   // 상세데이터
   const setDetailValue = () => {
     setType(branchDetailData.branch_type);
@@ -291,7 +293,7 @@ const HospitalViewModal = (props) => {
                 <div className="table_title">검진가능상품</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
-                    {selectedProduct}
+                    {choiceData ? choiceData : selectedProduct}
                     <div
                       style={{ marginLeft: "10px" }}
                       className="table_inner_btn"
@@ -325,6 +327,7 @@ const HospitalViewModal = (props) => {
         <HospitalProductModal
           closeModal={productModalOpen}
           selectedProduct={selectedProduct}
+          setChoiceData={setChoiceData}
         ></HospitalProductModal>
       )}
     </div>
