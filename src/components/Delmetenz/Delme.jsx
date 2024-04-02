@@ -1,5 +1,5 @@
 import Axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Delme.css"; // CSS 파일 import
 /* eslint-disable-next-line */
 import { Editor } from "@toast-ui/react-editor";
@@ -22,7 +22,26 @@ const Delme = () => {
   const [detailPKey, setDetailPKey] = useState("");
   const [selectedFile, setSelectedFile] = useState(null); //파일첨부
   const [fileUrl, setFileUrl] = useState(""); //파일 URL
-  const editorRef = useRef(null);
+  const editorRef1 = useRef(null);
+  const editorRef2 = useRef(null);
+
+  useEffect(() => {
+    // DB에서 데이터를 가져와 content 변수에 설정
+    fetchTermsData();
+  }, []);
+
+  const fetchTermsData = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/terms_data"
+      );
+      const termsData = response.data.terms_info; // 서버에서 받은 데이터
+      console.log(termsData);
+      setContent(termsData); // content를 가져와서 setContent에 전달
+    } catch (error) {
+      console.error("데이터 가져오기 중 오류 발생", error);
+    }
+  };
 
   //Editor 파일 업로드 관련 함수
   const onUploadImage = async (blob, callback) => {
@@ -51,14 +70,14 @@ const Delme = () => {
 
   //내용 체크
   const handleContent = () => {
-    const editorInstance = editorRef.current.getInstance();
+    const editorInstance = editorRef1.current.getInstance();
     const htmlContent = editorInstance.getHTML();
     setContent(htmlContent);
   };
 
   //내용 체크
   const handleContent2 = () => {
-    const editorInstance = editorRef.current.getInstance();
+    const editorInstance = editorRef2.current.getInstance();
     const htmlContent = editorInstance.getHTML();
     setContent2(htmlContent);
   };
@@ -132,9 +151,9 @@ const Delme = () => {
       const confirmResult = window.confirm("수정완료 하시겠습니까");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/terms_text", {
-          parmas: content,
+          content: content, // content 변수명 수정
         });
-        alert("개인정보약관동의 내용수정완료.");
+        alert("개인정보약관동의 내용 수정완료.");
       }
     } catch (err) {
       console.log(err);
@@ -147,9 +166,9 @@ const Delme = () => {
       const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/marketing_text", {
-          params: content2,
+          content2: content2, // content2 변수명 수정
         });
-        alert("마케팅약관동의 내용수정완료.");
+        alert("마케팅약관동의 내용 수정완료.");
       }
     } catch (err) {
       console.log(err);
@@ -252,12 +271,12 @@ const Delme = () => {
           <div className="section_title delme">[ 개인정보약관동의 내용 ]</div>
           <div>
             <Editor
-              initialValue=" " // content를 Editor의 초기값으로 사용;
+              initialValue={content} // content를 Editor의 초기값으로 사용;
               height="300px"
               initialEditType="wysiwyg"
               plugins={[colorSyntax]}
               placeholder="내용을 입력하세요"
-              ref={editorRef}
+              ref={editorRef1}
               hooks={{
                 addImageBlobHook: onUploadImage,
               }}
@@ -275,12 +294,12 @@ const Delme = () => {
           <div className="section_title delme">[ 마케팅약관동의 내용 ]</div>
           <div>
             <Editor
-              initialValue=" " // content를 Editor의 초기값으로 사용;
+              initialValue={content2} // content를 Editor의 초기값으로 사용;
               height="300px"
               initialEditType="wysiwyg"
               plugins={[colorSyntax]}
               placeholder="내용을 입력하세요"
-              ref={editorRef}
+              ref={editorRef2}
               hooks={{
                 addImageBlobHook: onUploadImage,
               }}
