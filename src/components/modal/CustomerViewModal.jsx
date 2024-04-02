@@ -21,6 +21,7 @@ const CustomerViewModal = (props) => {
   const [refundStatus, setRefundStatus] = useState("N");
   // const [c_name, setCName] = useState(""); //계약자 이름
   const [customerName, setCustomerName] = useState(""); //검진자 이름
+  const [customerNumber, setCustomerNumber] = useState("") //검진 인원
   const [phone, setPhone] = useState(""); // 연락처
   // const [date, setDate] = useState("");//가입일
   const [hope_date_1, setHopeDate1] = useState(""); //희망일1
@@ -32,6 +33,8 @@ const CustomerViewModal = (props) => {
   const [manager, setManager] = useState(""); //영업자 이름
   const [branch, setBranch] = useState(""); //지점 이름
   const [company, setCompany] = useState(""); //회사 이름
+  const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
+  const [resultPrice, setResultPrice] = useState("")//금액
   useEffect(() => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
@@ -81,6 +84,9 @@ const CustomerViewModal = (props) => {
     setHopeStatus(memberData.hope_status);
     setPayStatus(memberData.pay_status);
     setRefundStatus(memberData.refund_status);
+    setCustomerNumber(memberData.number);
+    setMTerms(memberData.marketing_terms);
+
 
     //
     setProductKey(memberData.p_key);
@@ -102,6 +108,7 @@ const CustomerViewModal = (props) => {
     }
     const paramsArray = {
       name: customerName,
+      number: customerNumber,
       phone: phone,
       p_key: product,
       h_key: hospital,
@@ -112,6 +119,7 @@ const CustomerViewModal = (props) => {
       pay_status: payStatus,
       hope_status: hopeStatus,
       refund_status: refundStatus,
+      marketing_terms: m_terms,
       memo: memo,
       idx: detailNum,
     };
@@ -200,6 +208,20 @@ const CustomerViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
+                <div className="table_title">검진인원</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input w100"
+                    type="text"
+                    id="customerNumber"
+                    placeholder="검진자를 입력해주세요."
+                    value={customerNumber}
+                    onChange={(e) => setCustomerNumber(e.target.value)}
+                    disabled={inspectionStatus === "2"}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
                 <div className="table_title">가입일</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
@@ -207,14 +229,15 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
               </div>
+
+            </div>
+            <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">영업자</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">{memberData.manager}</div>
                 </div>
               </div>
-            </div>
-            <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">지점명</div>
                 <div className="table_contents w100">
@@ -385,6 +408,43 @@ const CustomerViewModal = (props) => {
                       No
                     </label>
                   </div>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">마케팅동의여부</div>
+                <div className="table_contents w100">
+                  <div className="table_radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="mterms"
+                        value="Y"
+                        checked={m_terms === "Y"}
+                        onChange={(e) => setMTerms(e.target.value)}
+                      />
+                      Yes
+                    </label>
+                  </div>
+                  <div className="table_radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="mterms"
+                        value="N"
+                        checked={m_terms === "N"}
+                        onChange={(e) => setMTerms(e.target.value)}
+                      />
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section half">
+                <div className="table_title">입금금액</div>
+                <div className="table_contents w100">
+                  <div className="table_inner_text">{memberData.price * memberData.number} 원</div>
                 </div>
               </div>
               <div className="table_section half">

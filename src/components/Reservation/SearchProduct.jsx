@@ -56,7 +56,7 @@ const SearchProduct = () => {
                 <div className="product_img"></div>
                 <div className="product_text_box">
                   <div className="product_title">{data.product_1}</div>
-                  {/* <div className="product_text">{data.price_txt}</div> */}
+                  <div className="product_text">{data.price_txt}</div>
                 </div>
                 <div className="product_btn_box">
                   <div className="product_btn">상세</div>
