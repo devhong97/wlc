@@ -61,9 +61,9 @@ const CustomerList = () => {
       const allData = response.data;
       setCustomerData(allData.data);
       setNumberData(allData.numbers);
-      if (!defaultSelect && searchData && allData.data.length === 0) {
+      if (searchData && allData.data.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
-        selectRef.current.clearSearch();
+        // selectRef.current.clearSearch();
       }
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -204,7 +204,7 @@ const CustomerList = () => {
 
   const changeTab = (num) => {
     setTab(num);
-    // selectRef.current.clearSearch();
+
   };
   return (
     <div className="main_wrap">
