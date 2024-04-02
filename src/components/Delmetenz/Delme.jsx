@@ -18,7 +18,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("지점을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/type_total", {
+        await Axios.post("http://192.168.45.226:3001/api/post/type_total", {
           branchType: branchType,
           companyName: companyName,
         });
@@ -36,7 +36,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("카테고리를 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/product_category", {
+        await Axios.post("http://192.168.45.226:3001/api/post/product_category", {
           p_key: pKey,
           c_key: cKey,
           type: type,
@@ -58,7 +58,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/product_detail", {
+        await Axios.post("http://192.168.45.226:3001/api/post/product_detail", {
           p_key: detailPKey,
         });
         alert("검진항목등록 완료.");

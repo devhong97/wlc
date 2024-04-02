@@ -24,7 +24,7 @@ const BranchList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://localhost:3001/api/get/branch_list", {
+    Axios.get("http://192.168.45.226:3001/api/get/branch_list", {
       params: resultParams,
     })
       .then((res) => {

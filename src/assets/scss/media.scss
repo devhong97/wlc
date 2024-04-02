@@ -1,6 +1,6 @@
 @import "lifeUtil.scss";
 
-@media (max-width: 1000px) {
+@media (max-width: 1600px) {
     .login_wrap {
         .login_back {
             height: 100%;
@@ -125,6 +125,46 @@
         }
     }
 
+    .modal_wrap {
+        .modal_back {
+            width: 90%;
+        }
+    }
+
+    .header_wrap {
+        .header_top_back {
+            padding: 10px;
+            font-size: 12px;
+        }
+    }
+
+    .reserv_wrap {
+        .reserv_back {
+            width: 80% !important;
+
+            &.product {
+                width: 90% !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .reserv_wrap {
+        .reserv_back {
+            .reserv_bottom_box {
+                .product_box {
+                    width: 100% !important;
+                    margin-right: 0 !important;
+                    height: auto !important;
+
+                    .product_img {
+                        height: 200px !important;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 500px) {
@@ -204,4 +244,35 @@
         }
     }
 
+    .reserv_wrap {
+        .reserv_back {
+            .reserv_top_box {
+                .reserv_title {
+                    font-size: 25px !important;
+                    line-height: 30px !important;
+                }
+            }
+
+            .reserv_bottom_box {
+                .reserv_menu_box {
+                    display: block !important;
+                    width: 100% !important;
+                    height: 200px !important;
+
+                    &.right {
+                        margin-left: 0px !important;
+                        margin-top: 20px !important;
+                    }
+
+                    .menu_inner_box {
+                        width: 80% !important;
+
+                        .menu_text {
+                            font-size: 20px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

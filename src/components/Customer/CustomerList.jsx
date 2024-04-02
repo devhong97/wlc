@@ -53,7 +53,7 @@ const CustomerList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_list",
+        "http://192.168.45.226:3001/api/get/customer_list",
         {
           params: resultParams,
         }
@@ -179,7 +179,7 @@ const CustomerList = () => {
       h_location,
     } = data;
     // 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/send_message", {
+    Axios.post("http://192.168.45.226:3001/api/post/send_message", {
       uid,
       name,
       product,

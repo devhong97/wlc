@@ -28,6 +28,7 @@ const ReservInfoModal = (props) => {
       name: customerData.customerName,
       number: customerData.customerNumber,
       phone: customerData.phone,
+      c_phone: customerData.cPhone,
       p_key: product,
       h_key: hospitalIdx,
       hope_date_1: hopeDate1,
@@ -37,7 +38,7 @@ const ReservInfoModal = (props) => {
     };
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/customer",
+        "http://192.168.45.226:3001/api/post/customer",
         sendParams
       );
       console.log(response.data);

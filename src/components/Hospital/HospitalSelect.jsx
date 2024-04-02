@@ -15,7 +15,7 @@ const HospitalSelect = (props, ref) => {
   }, []);
 
   const getLocation = async () => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://192.168.45.226:3001/api/get/cities")
       .then((response) => {
         setCityList(response.data);
       })
@@ -34,7 +34,7 @@ const HospitalSelect = (props, ref) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`http://192.168.45.226:3001/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistrictList(response.data);
       })

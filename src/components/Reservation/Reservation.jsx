@@ -27,7 +27,8 @@ const Reservation = () => {
             <div className='reserv_back'>
                 <div className='reserv_top_box'>
                     <div className='reserv_title'>
-                        회원님, 원하시는 <p className='point_text'>메뉴</p>를 선택하세요.
+                        회원님, 원하시는 <br />
+                        <p className='point_text'>메뉴</p>를 선택하세요.
                     </div>
                 </div>
                 <div className='reserv_bottom_box'>
