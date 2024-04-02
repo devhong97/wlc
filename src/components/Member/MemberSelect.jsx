@@ -8,7 +8,7 @@ const MemberSelect = (props, ref) => {
     const [branchName, setBranchName] = useState("");
     const [branchIdx, setBranchIdx] = useState("");
     useImperativeHandle(ref, () => ({
-        clearSearch
+        clearSearch,
     }))
     useEffect(() => {
         setContextType(type);
@@ -35,14 +35,15 @@ const MemberSelect = (props, ref) => {
 
     const handleSearch = () => {
         if (props.setSearchData) {
-            props.setSearchData({
+            props.setSearchData([{
                 "branch_type": type,
                 "company_name": company,
                 "branch_name": branchName
-            });
+            }]);
         }
     }
     const clearSearch = () => {
+        console.log("여기");
         if (props.setSearchData) {
             props.setSearchData([]);
             selectType("")
