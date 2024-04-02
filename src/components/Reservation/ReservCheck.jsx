@@ -36,6 +36,12 @@ const ReservCheck = () => {
                     </div>
                     <div className="reserv_text_box">
                         <div className="reserv_text_box">
+                            <div className='reserv_title'>인원수</div>
+                            <div className='reserv_text'>{customerData.customerNumber}</div>
+                        </div>
+                    </div>
+                    <div className="reserv_text_box">
+                        <div className="reserv_text_box">
                             <div className='reserv_title'>연락처</div>
                             <div className='reserv_text'>{customerData.phone}</div>
                         </div>

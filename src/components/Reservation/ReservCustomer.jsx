@@ -9,8 +9,10 @@ const ReservCustomer = () => {
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
   const [customerName, setCustomerName] = useState(customerData.customerName || "");
+  const [customerNumber, setCustomerNumber] = useState(customerData.customerNumber || "");
   const [phone, setPhone] = useState(customerData.phone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
+  const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (name === "" || customerName === "" || phone === "") {
@@ -22,28 +24,31 @@ const ReservCustomer = () => {
   const handleAgreeTerms = (e) => {
     setAgreeTerms(e.target.checked);
   };
+  const handleMterms = (e) => {
+    setMTerms(e.target.checked)
+  }
   const moveThirdStep = () => {
     if (!agreeTerms) {
-      alert("약관에 동의해주세요.");
+      alert("필수 약관에 동의해주세요.");
       return;
     }
     setStep(3);
   };
 
   const checkSign = () => {
-    console.log(signData1, signData2);
-    if (signData1 === "" || signData2 === "") {
-      alert("서명란의 완료버튼을 눌러주세요");
-    } else {
-      setCustomerData({
-        name: name,
-        customerName: customerName,
-        phone: phone
-      });
+    console.log("여기");
+    const newData = {
+      name: name,
+      customerName: customerName,
+      customerNumber: customerNumber,
+      phone: phone,
+      m_terms: mTerms,
+    };
+    setCustomerData(newData);
+    console.log(newData); // 새로운 데이터 확인
+    navigation("/reserv/check");
+  };
 
-      navigation("/reserv/check");
-    }
-  }
   return (
     <div className="reserv_wrap">
       {step === 1 && (
@@ -68,6 +73,14 @@ const ReservCustomer = () => {
                 placeholder="검진자 성명"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
+              ></input>
+            </div>
+            <div className="reserv_input_box">
+              <input
+                className="reserv_input"
+                placeholder="인원수"
+                value={customerNumber}
+                onChange={(e) => setCustomerNumber(e.target.value)}
               ></input>
             </div>
             <div className="reserv_input_box">
@@ -107,7 +120,26 @@ const ReservCustomer = () => {
                 className="terms_checkbox"
               />
               <label className="terms_label" htmlFor="user_agreeTerms">
-                약관에 동의합니다.
+                [필수] 약관에 동의합니다.
+              </label>
+            </div>
+
+          </div>
+          <div className="reserv_bottom_box">
+            <div className="terms_box">
+              <div className="terms_title">개인정보 동의 약관</div>
+              <div className="terms_text">약관 내용~~</div>
+            </div>
+            <div className="terms_checkbox">
+              <input
+                type="checkbox"
+                checked={mTerms}
+                onChange={handleMterms}
+                id="user_mTerms"
+                className="terms_checkbox"
+              />
+              <label className="terms_label" htmlFor="user_mTerms">
+                [선택] 약관에 동의합니다.
               </label>
             </div>
           </div>
@@ -126,13 +158,13 @@ const ReservCustomer = () => {
             </div>
           </div>
           <div className="reserv_bottom_box sign">
-            <SignComponent></SignComponent>
+            <SignComponent checkSign={checkSign}></SignComponent>
           </div>
-          <div className="reserv_btn_box">
+          {/* <div className="reserv_btn_box">
             <div className="reserv_btn" onClick={() => checkSign()}>
               다음
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

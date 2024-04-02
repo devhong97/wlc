@@ -146,7 +146,6 @@ const CustomerList = () => {
     h_location: data.location,
   }));
 
-  console.log(rows);
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
     const idx = data.idx;
