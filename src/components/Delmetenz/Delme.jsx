@@ -1,6 +1,12 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Delme.css"; // CSS 파일 import
+/* eslint-disable-next-line */
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 
 const Delme = () => {
   const [branchType, setBranchType] = useState("");
@@ -11,7 +17,58 @@ const Delme = () => {
   const [type, setType] = useState("");
   const [product1, setProduct1] = useState("");
 
+  const [content, setContent] = useState(""); // 게시글
+  const [content2, setContent2] = useState(""); // 게시글
   const [detailPKey, setDetailPKey] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null); //파일첨부
+  const [fileUrl, setFileUrl] = useState(""); //파일 URL
+  const editorRef = useRef(null);
+
+  //Editor 파일 업로드 관련 함수
+  const onUploadImage = async (blob, callback) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", blob);
+
+      // 서버의 엔드포인트 URL을 올바르게 수정해야 합니다.
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // 업로드된 이미지의 URL을 받아와서 callback 함수에 전달합니다.
+      const imageUrl = response.data.imageUrl;
+      console.log("Uploaded image URL:", imageUrl); // 이미지 URL 콘솔에 출력
+      callback(imageUrl, "alt text");
+    } catch (error) {
+      console.error("이미지 업로드 중 오류 발생", error);
+    }
+  };
+
+  //내용 체크
+  const handleContent = () => {
+    const editorInstance = editorRef.current.getInstance();
+    const htmlContent = editorInstance.getHTML();
+    setContent(htmlContent);
+  };
+
+  //내용 체크
+  const handleContent2 = () => {
+    const editorInstance = editorRef.current.getInstance();
+    const htmlContent = editorInstance.getHTML();
+    setContent2(htmlContent);
+  };
+
+  //파일 선택 핸들러
+  const handleFileSelect = (e) => {
+    setSelectedFile(e.target.files[0]);
+    const fileURL = URL.createObjectURL(e.target.files[0]);
+    setFileUrl(fileURL);
+  };
 
   // 델미텐츠 지점등록
   const typeTotalInsert = async () => {
@@ -63,6 +120,36 @@ const Delme = () => {
         });
         alert("검진항목등록 완료.");
         setDetailPKey("");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // 개인정보약관동의 내용
+  const termsInsert = async () => {
+    try {
+      const confirmResult = window.confirm("수정완료 하시겠습니까");
+      if (confirmResult) {
+        await Axios.post("http://localhost:3001/api/post/terms_text", {
+          parmas: content,
+        });
+        alert("개인정보약관동의 내용수정완료.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // 마케팅약관동의 내용
+  const marketingInsert = async () => {
+    try {
+      const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
+      if (confirmResult) {
+        await Axios.post("http://localhost:3001/api/post/marketing_text", {
+          params: content2,
+        });
+        alert("마케팅약관동의 내용수정완료.");
       }
     } catch (err) {
       console.log(err);
@@ -156,6 +243,53 @@ const Delme = () => {
           </div>
           <div className="delme-btn-wrap">
             <div className="delme_btn" onClick={productDetailInsert}>
+              등록
+            </div>
+          </div>
+        </div>
+
+        <div className="section delme">
+          <div className="section_title delme">[ 개인정보약관동의 내용 ]</div>
+          <div>
+            <Editor
+              initialValue=" " // content를 Editor의 초기값으로 사용;
+              height="300px"
+              initialEditType="wysiwyg"
+              plugins={[colorSyntax]}
+              placeholder="내용을 입력하세요"
+              ref={editorRef}
+              hooks={{
+                addImageBlobHook: onUploadImage,
+              }}
+              onChange={handleContent} // value가 아니라 함수 자체를 전달
+              id="content"
+            ></Editor>
+          </div>
+          <div className="delme-btn-wrap">
+            <div className="delme_btn" onClick={termsInsert}>
+              등록
+            </div>
+          </div>
+        </div>
+        <div className="section delme">
+          <div className="section_title delme">[ 마케팅약관동의 내용 ]</div>
+          <div>
+            <Editor
+              initialValue=" " // content를 Editor의 초기값으로 사용;
+              height="300px"
+              initialEditType="wysiwyg"
+              plugins={[colorSyntax]}
+              placeholder="내용을 입력하세요"
+              ref={editorRef}
+              hooks={{
+                addImageBlobHook: onUploadImage,
+              }}
+              onChange={handleContent2} // value가 아니라 함수 자체를 전달
+              id="content"
+            ></Editor>
+          </div>
+          <div className="delme-btn-wrap">
+            <div className="delme_btn" onClick={marketingInsert}>
               등록
             </div>
           </div>

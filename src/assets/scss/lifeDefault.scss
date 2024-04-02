@@ -817,3 +817,45 @@
     }
   }
 }
+
+.list_area {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sales-info-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sales-info-item {
+  width: calc(20% - 20px);
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.sales-info-title {
+  font-weight: bold;
+}
+
+.sales-info-content {
+  margin-top: 5px;
+}
+
+.update_button {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update_button:hover {
+  background-color: #0056b3;
+}

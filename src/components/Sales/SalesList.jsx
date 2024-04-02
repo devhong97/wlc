@@ -108,16 +108,26 @@ const SalesList = () => {
           <div className="list_area">
             <div className="sales-info-container">
               <div className="sales-info-item">
-                지점명: {salesData.branch_name}
+                <div className="sales-info-title">
+                  지점명: {salesData.branch_name}
+                </div>
               </div>
               <div className="sales-info-item">
-                지점장: {salesData.owner_name}
+                <div className="sales-info-title">
+                  지점장: {salesData.owner_name}
+                </div>
               </div>
               <div className="sales-info-item">
-                가입회원수: {salesData.salesCount}
+                <div className="sales-info-title">
+                  가입회원수: {salesData.salesCount}
+                </div>
               </div>
-              <div className="sales-info-item">상담희망고객수: X</div>
-              <div className="sales-info-item">계약고객수: X</div>
+              <div className="sales-info-item">
+                <div className="sales-info-title">상담희망고객수: X</div>
+              </div>
+              <div className="sales-info-item">
+                <div className="sales-info-title">계약고객수: X</div>
+              </div>
             </div>
           </div>
           <div className="table_box tab_list">

@@ -50,15 +50,14 @@ const SearchProduct = () => {
   const openModal = (data) => {
     setModal(!modal);
     setModalData(data);
-  }
+  };
 
   const closeModal = () => {
-    setModal(false)
-  }
+    setModal(false);
+  };
   return (
     <div className="reserv_wrap">
       <div className="reserv_back product">
-
         <div className="reserv_bottom_box product">
           {productList.map((data, index) => {
             return (
@@ -72,14 +71,22 @@ const SearchProduct = () => {
                       {data.product_1} 등급의 검진 패키지 상품입니다.
                     </div>
                     {data.product_1 === "PREMIUM 1+1" ? (
-                      <div className="product_text">{data.price_txt * 2} 원 (2인)</div>
+                      <div className="product_text">
+                        {data.price_txt * 2} 원 (2인)
+                      </div>
                     ) : (
-                      <div className="product_text">{data.price_txt} 원 (1인)</div>
+                      <div className="product_text">
+                        {data.price_txt} 원 (1인)
+                      </div>
                     )}
-
                   </div>
                   <div className="product_btn_box">
-                    <div className="product_btn" onClick={() => openModal(data)}>상세</div>
+                    <div
+                      className="product_btn"
+                      onClick={() => openModal(data)}
+                    >
+                      상세
+                    </div>
                     <div
                       className="product_btn"
                       onClick={() => selectProduct(data)}
@@ -94,10 +101,12 @@ const SearchProduct = () => {
         </div>
       </div>
       {modal && (
-        <ProductDetailModal closeModal={closeModal} modalData={modalData}></ProductDetailModal>
+        <ProductDetailModal
+          closeModal={closeModal}
+          modalData={modalData}
+        ></ProductDetailModal>
       )}
-
-    </div >
+    </div>
   );
 };
 
