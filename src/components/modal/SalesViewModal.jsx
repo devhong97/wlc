@@ -52,6 +52,7 @@ const SalesViewModal = (props) => {
       .then((res) => {
         console.log(res);
         alert("메모가 업데이트되었습니다.");
+        props.closeModal();
       })
       .catch((error) => {
         console.error(error);
@@ -66,7 +67,7 @@ const SalesViewModal = (props) => {
     //detailNum 사용하여 상세 api 호출
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -81,7 +82,7 @@ const SalesViewModal = (props) => {
             <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">
-                  계약자성명<p className="title_point">*</p>
+                  계약자성명
                 </div>
                 <div className="table_contents w100">
                   {detailNum.contractor_name}
@@ -95,13 +96,13 @@ const SalesViewModal = (props) => {
             <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">
-                  계약자 연락처<p className="title_point">*</p>
+                  계약자 연락처
                 </div>
                 <div className="table_contents w100">{detailNum.phone}</div>
               </div>
               <div className="table_section half">
                 <div className="table_title">검진자 연락처</div>
-                <div className="table_contents w100">{detailNum.phone}</div>
+                <div className="table_contents w100">{detailNum.phone_2}</div>
               </div>
             </div>
 
@@ -138,32 +139,37 @@ const SalesViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">계약</div>
                 <div className="table_contents w100">
-                  <input
-                    className="chk_input checkx"
-                    type="checkbox"
-                    id="contractCheckbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label className="sla" htmlFor="contractCheckbox">
-                    유
-                  </label>
-                  <input
-                    className="chk_input checkx"
-                    type="checkbox"
-                    id="noContractCheckbox"
-                    checked={!isChecked}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label className="sla" htmlFor="noContractCheckbox">
-                    무
-                  </label>
+                  <div className="table_radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="contractCheckbox"
+                        value="1"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                      />
+                      유
+                    </label>
+                  </div>
+                  <div className="table_radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="contractCheckbox"
+                        value="2"
+                        checked={!isChecked}
+                        onChange={handleCheckboxChange}
+                      />
+                      무
+                    </label>
+                  </div>
+
                 </div>
               </div>
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">비고</div>
+                <div className="table_title image">비고</div>
                 <div className="table_contents w100">
                   <textarea
                     className="table_textarea"
@@ -174,11 +180,17 @@ const SalesViewModal = (props) => {
                     value={memo}
                     onChange={(e) => setMemo(e.target.value)}
                   ></textarea>
-                  <div className="update_button" onClick={handleMemoUpdate}>
-                    수정
-                  </div>
+
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="modal_footer_box">
+            <div className="modal_btn" onClick={() => handleMemoUpdate()}>
+              수정
+            </div>
+            <div className="modal_btn close" onClick={clearModal}>
+              닫기
             </div>
           </div>
         </div>

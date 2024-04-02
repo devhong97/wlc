@@ -34,6 +34,12 @@
       width: calc(100% / 3);
     }
 
+    .board_contents_box {
+      padding: 20px;
+      border: 1px solid #ececec;
+
+    }
+
     .table_title {
       display: inline-block;
       padding: 10px 0;
@@ -91,7 +97,8 @@
       .sla {
         display: inline-block;
         vertical-align: middle;
-        margin-left: -8px; /* 체크박스와 레이블 사이의 간격 조정 */
+        margin-left: -8px;
+        /* 체크박스와 레이블 사이의 간격 조정 */
       }
 
       .table_input {
