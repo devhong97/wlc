@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useReservContext } from "../Context/ReservContext";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ const ReservCustomer = () => {
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
+  const [agreeTermsData, setAgreeTermsData] = useState("")
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (name === "" || customerName === "" || phone === "" || c_phone === "" || customerNumber === "") {
@@ -57,6 +58,26 @@ const ReservCustomer = () => {
       setTermsStatus(num)
     } else if (termsStatus === num) {
       setTermsStatus(0)
+    }
+  }
+
+  useEffect(() => {
+    getTerms();
+  }, [])
+
+  const getTerms = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/terms_data",
+
+      );
+      const allData = response.data.terms_info;
+      console.log(allData);
+      setAgreeTermsData(allData);
+
+
+    } catch (error) {
+      console.error("Error fetching list:", error);
     }
   }
 
@@ -132,7 +153,7 @@ const ReservCustomer = () => {
                 [자세히 보기]
               </div>
               <div className={`terms_contents_box ${termsStatus === 1 && "active"}`}>
-                <div className="terms_contents">여기에 넣기!</div>
+                <div className="terms_contents" dangerouslySetInnerHTML={{ __html: agreeTermsData }}></div>
               </div>
             </div>
             <div className="terms_checkbox">
