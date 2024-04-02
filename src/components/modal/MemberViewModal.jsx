@@ -74,7 +74,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://192.168.45.226:3001/api/get/member_detail",
+        "http://localhost:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx,
@@ -137,7 +137,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/member_edit",
+        "http://localhost:3001/api/post/member_edit",
         paramsArray
       );
 
@@ -150,7 +150,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/member_delete",
+        "http://localhost:3001/api/post/member_delete",
         {
           idx: props.detailIdx,
         }
@@ -177,7 +177,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/member_status",
+        "http://localhost:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx,
@@ -192,16 +192,19 @@ const MemberViewModal = (props) => {
   };
 
   const moveCustomer = (num) => {
-    let defaultSelect = {}
-    if (num === 1) {//가입고객수
+    let defaultSelect = {};
+    if (num === 1) {
+      //가입고객수
       defaultSelect.manager = memberData.name;
-
-    } else {//상담희망고객
+    } else {
+      //상담희망고객
       defaultSelect.manager = memberData.name;
       defaultSelect.hope = "Y";
     }
-    navigation("/customer", { state: { grade: userGrade, defaultSelect: defaultSelect } })
-  }
+    navigation("/customer", {
+      state: { grade: userGrade, defaultSelect: defaultSelect },
+    });
+  };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -408,7 +411,12 @@ const MemberViewModal = (props) => {
                   <div className="table_contents w100">
                     <div className="table_inner_text">{customerNum}</div>
                     {customerNum !== 0 && (
-                      <div className="table_more_btn" onClick={() => moveCustomer(1)}>자세히보기</div>
+                      <div
+                        className="table_more_btn"
+                        onClick={() => moveCustomer(1)}
+                      >
+                        자세히보기
+                      </div>
                     )}
                   </div>
                 </div>

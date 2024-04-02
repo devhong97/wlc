@@ -17,6 +17,7 @@ import ReservCustomer from "../components/Reservation/ReservCustomer";
 import ProductList from "../components/Product/ProductList";
 import ReservCheck from "../components/Reservation/ReservCheck";
 import Delme from "./../components/Delmetenz/Delme";
+import Mypage from "./../components/Mypage/Mypage";
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
       <Route path="/commission" element={<CommissionList />} />
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />
+      <Route path="/mypage" element={<Mypage />} />
 
       <Route path="/reserv" element={<Reservation />} />
       <Route path="/reserv/product" element={<SearchProduct />} />

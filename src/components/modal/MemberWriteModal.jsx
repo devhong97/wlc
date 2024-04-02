@@ -80,7 +80,7 @@ const MemberWriteModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/member",
+        "http://localhost:3001/api/post/member",
         {
           id: id,
           password: password,

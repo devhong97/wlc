@@ -5,6 +5,7 @@ import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "tui-color-picker/dist/tui-color-picker.css";
+import { useAuth } from "../Context/AuthContext";
 
 const NoticeViewModal = (props) => {
   const [title, setTitle] = useState(props.detailData.title || "");
@@ -20,6 +21,7 @@ const NoticeViewModal = (props) => {
   const [date, setDate] = useState(props.detailData.date || "");
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
+  const { decodeS4 } = useAuth();
 
   // LIST에서 가져온 상세보기 데이터
   useEffect(() => {
@@ -45,7 +47,7 @@ const NoticeViewModal = (props) => {
       }
 
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/notice_modify",
+        "http://localhost:3001/api/post/notice_modify",
         formData
       );
 
@@ -87,7 +89,7 @@ const NoticeViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/notice_delete",
+        "http://localhost:3001/api/post/notice_delete",
         {
           idx: detailNum,
         }
@@ -105,7 +107,7 @@ const NoticeViewModal = (props) => {
       formData.append("image", blob);
 
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/upload",
+        "http://localhost:3001/api/post/upload",
         formData,
         {
           headers: {
@@ -122,7 +124,7 @@ const NoticeViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://192.168.45.226:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -163,6 +165,7 @@ const NoticeViewModal = (props) => {
                     placeholder="제목을 입력해주세요."
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    readOnly={decodeS4() !== "슈퍼관리자"}
                   ></input>
                 </div>
               </div>
@@ -172,6 +175,7 @@ const NoticeViewModal = (props) => {
                 <div className="table_title">
                   내용<p className="title_point">*</p>
                 </div>
+
                 <div className="table_contents w100">
                   <Editor
                     initialValue={updateContentHTML}
@@ -192,6 +196,7 @@ const NoticeViewModal = (props) => {
                       },
                     }}
                     id="content"
+                    readOnly={decodeS4() !== "슈퍼관리자"}
                   />
                 </div>
               </div>
@@ -202,7 +207,9 @@ const NoticeViewModal = (props) => {
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <input type="file" onChange={handleFileChange} />
+                  {decodeS4() === "슈퍼관리자" && (
+                    <input type="file" onChange={handleFileChange} />
+                  )}
                   {updateAttachment ? (
                     <div>
                       <div
@@ -215,7 +222,7 @@ const NoticeViewModal = (props) => {
                             width: 200,
                             cursor: "pointer",
                           }}
-                          src={`http://192.168.45.226:3001/uploads/${updateAttachment}`}
+                          src={`http://localhost:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
                       </div>
@@ -252,15 +259,16 @@ const NoticeViewModal = (props) => {
               </div>
             </div>
           </div>
-
-          <div className="modal_footer_box">
-            <div className="modal_btn" onClick={handleSubmit}>
-              수정
+          {decodeS4() === "슈퍼관리자" ? (
+            <div className="modal_footer_box">
+              <div className="modal_btn" onClick={handleSubmit}>
+                수정
+              </div>
+              <div className="modal_btn close" onClick={() => deleteBbs()}>
+                삭제
+              </div>
             </div>
-            <div className="modal_btn close" onClick={() => deleteBbs()}>
-              삭제
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>

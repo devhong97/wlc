@@ -32,7 +32,7 @@ const PwSearch = (props) => {
     }
 
     // 서버로 인증코드 요청
-    Axios.post("http://192.168.45.226:3001/api/post/send_verification_code", {
+    Axios.post("http://localhost:3001/api/post/send_verification_code", {
       id: id,
       phone: totalPhone,
     })
@@ -54,7 +54,7 @@ const PwSearch = (props) => {
   //확인하기 버튼
   const confirmHandle = () => {
     // 서버로 인증코드 확인 요청
-    Axios.post("http://192.168.45.226:3001/api/post/verify_code_check", {
+    Axios.post("http://localhost:3001/api/post/verify_code_check", {
       code: pullCode, // 랜덤으로 생성된 인증번호값
       inputCode: verificationCode, //사용자가 입력한 인증번호값
     })
@@ -82,7 +82,7 @@ const PwSearch = (props) => {
     }
 
     // 서버로 비밀번호 찾기 요청
-    Axios.post("http://192.168.45.226:3001/api/post/pw_change", {
+    Axios.post("http://localhost:3001/api/post/pw_change", {
       id: id,
       phone: totalPhone,
     })

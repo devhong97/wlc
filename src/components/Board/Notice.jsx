@@ -4,6 +4,7 @@ import TableDefault from "./../Table/TableDefault";
 import moment from "moment";
 import NoticeWriteModal from "./../modal/NoticeWriteModal";
 import NoticeViewModal from "../modal/NoticeViewModal";
+import { useAuth } from "../Context/AuthContext";
 
 const Notice = () => {
   const [writeModal, setWriteModal] = useState(false);
@@ -13,6 +14,7 @@ const Notice = () => {
   const [tab, setTab] = useState(1);
   const [searchType, setSearchType] = useState("title"); //기본 검색타입
   const [searchKeyword, setSearchKeyword] = useState(""); //검색어
+  const { decodeS4 } = useAuth();
 
   useEffect(() => {
     getBoard();
@@ -21,7 +23,7 @@ const Notice = () => {
   const getBoard = async () => {
     try {
       const response = await Axios.get(
-        "http://192.168.45.226:3001/api/get/notice_list"
+        "http://localhost:3001/api/get/notice_list"
       );
       const allData = response.data;
       setBbsData(allData);
@@ -33,7 +35,7 @@ const Notice = () => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/search_notice",
+        "http://localhost:3001/api/post/search_notice",
         {
           searchType,
           searchKeyword,
@@ -87,7 +89,7 @@ const Notice = () => {
     setDetailData(data);
 
     //조회수증가
-    Axios.post("http://192.168.45.226:3001/api/post/notice_hit", {
+    Axios.post("http://localhost:3001/api/post/notice_hit", {
       idx: data.idx,
     })
       .then((response) => {
@@ -134,7 +136,9 @@ const Notice = () => {
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">게시판관리</div>
+        <div className="main_title_box">
+          {decodeS4() === "슈퍼관리자" ? "게시판관리" : "게시판"}
+        </div>
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
@@ -166,9 +170,11 @@ const Notice = () => {
                   초기화
                 </div>
               </div>
-              <div className="title_btn" onClick={() => writeModalOpen()}>
-                등록
-              </div>
+              {decodeS4() === "슈퍼관리자" ? (
+                <div className="title_btn" onClick={() => writeModalOpen()}>
+                  등록
+                </div>
+              ) : null}
             </div>
             <div className="tab_area">
               <div className="tab_back">

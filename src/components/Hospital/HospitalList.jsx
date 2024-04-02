@@ -26,7 +26,7 @@ const HospitalList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://192.168.45.226:3001/api/get/hospital_list", {
+    Axios.get("http://localhost:3001/api/get/hospital_list", {
       params: resultParams,
     })
       .then((res) => {
