@@ -14,6 +14,7 @@ const ReservCustomer = () => {
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
+  const [termsStatus, setTermsStatus] = useState(0);
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (name === "" || customerName === "" || phone === "" || c_phone === "" || customerNumber === "") {
@@ -50,6 +51,14 @@ const ReservCustomer = () => {
     console.log(newData); // 새로운 데이터 확인
     navigation("/reserv/check");
   };
+
+  const openTerms = (num) => {
+    if (termsStatus === 0 || termsStatus !== num) {
+      setTermsStatus(num)
+    } else if (termsStatus === num) {
+      setTermsStatus(0)
+    }
+  }
 
   return (
     <div className="reserv_wrap">
@@ -119,7 +128,12 @@ const ReservCustomer = () => {
           <div className="reserv_bottom_box">
             <div className="terms_box">
               <div className="terms_title">개인정보 동의 약관</div>
-              <div className="terms_text"></div>
+              <div className="terms_contents_btn" onClick={() => openTerms(1)}>
+                [자세히 보기]
+              </div>
+              <div className={`terms_contents_box ${termsStatus === 1 && "active"}`}>
+                <div className="terms_contents">여기에 넣기!</div>
+              </div>
             </div>
             <div className="terms_checkbox">
               <input
@@ -138,7 +152,12 @@ const ReservCustomer = () => {
           <div className="reserv_bottom_box">
             <div className="terms_box">
               <div className="terms_title">마켓팅 동의 약관</div>
-              <div className="terms_text"></div>
+              <div className="terms_contents_btn" onClick={() => openTerms(2)}>
+                [자세히 보기]
+              </div>
+              <div className={`terms_contents_box ${termsStatus === 2 && "active"}`}>
+                <div className="terms_contents">여기에 넣기!</div>
+              </div>
             </div>
             <div className="terms_checkbox">
               <input
