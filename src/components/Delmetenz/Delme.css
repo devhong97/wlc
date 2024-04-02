@@ -1,0 +1,39 @@
+.main_wrap.delme .main_back.delme {
+  display: flex;
+  flex-wrap: wrap;
+  height: 500px;
+}
+
+.section_title.delme {
+  padding-bottom: 30px;
+  text-align: center;
+}
+.section.delme {
+  width: calc(33.33% - 20px); /* 섹션 너비 설정 */
+  margin-right: 20px; /* 오른쪽 마진 추가 */
+  margin-bottom: 20px; /* 아래쪽 마진 추가 */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.delme_btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delme-btn-wrap {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.delme_btn:hover {
+  background-color: #0056b3;
+}

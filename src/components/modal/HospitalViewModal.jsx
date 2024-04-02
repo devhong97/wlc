@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import Axios from "axios";
+import HospitalProductModal from "./HospitalProductModal";
 const HospitalViewModal = (props) => {
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
   const [type, setType] = useState(""); // 지점종류
-  const [name, setName] = useState(""); // 병원명
+  const [name, setName] = useState(props.detailData.name); // 병원명
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
@@ -17,6 +18,11 @@ const HospitalViewModal = (props) => {
   const [districts, setDistricts] = useState([]); //선택 지역(도)
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
   const [selectedDistrict, setSelectedDistrict] = useState(""); // 지역(도) 선택
+  const [selectedProduct, setSelectedProduct] = useState(
+    props.detailData.product || ""
+  );
+  const [productModal, setProductModal] = useState(false); // 검진가능상품
+  const [choiceData, setChoiceData] = useState("");
 
   //연락처 체크
   const handlePhone = (e, target) => {
@@ -81,13 +87,18 @@ const HospitalViewModal = (props) => {
       });
   };
 
+  // 검진상품 선택 모달창 OPEN 버튼
+  const productModalOpen = () => {
+    setProductModal(!productModal);
+  };
+
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_detail",
+        "http://localhost:3001/api/get/hospital_detail",
         {
           params: {
-            idx: props.detailIdx,
+            name: props.detailData.name,
           },
         }
       );
@@ -103,6 +114,8 @@ const HospitalViewModal = (props) => {
       console.error("Error fetching list:", error);
     }
   };
+
+  console.log("branchDetailData", branchDetailData);
   // 상세데이터
   const setDetailValue = () => {
     setType(branchDetailData.branch_type);
@@ -117,7 +130,7 @@ const HospitalViewModal = (props) => {
       return;
     }
     try {
-      // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
+      // 연락처
       const number = `${tel1}-${tel2}-${tel3}`;
 
       const response = await Axios.post(
@@ -279,7 +292,16 @@ const HospitalViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진가능상품</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">
+                    {choiceData ? choiceData : selectedProduct}
+                    <div
+                      style={{ marginLeft: "10px" }}
+                      className="table_inner_btn"
+                      onClick={() => productModalOpen()}
+                    >
+                      수정
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="table_section half">
@@ -301,6 +323,13 @@ const HospitalViewModal = (props) => {
           </div>
         </div>
       </div>
+      {productModal && (
+        <HospitalProductModal
+          closeModal={productModalOpen}
+          selectedProduct={selectedProduct}
+          setChoiceData={setChoiceData}
+        ></HospitalProductModal>
+      )}
     </div>
   );
 };

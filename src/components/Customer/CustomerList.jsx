@@ -56,13 +56,14 @@ const CustomerList = () => {
       setCustomerData(allData.data);
       setNumberData(allData.numbers);
       if (searchData && allData.data.length === 0) {
-        alert("검색조건에 맞는 데이터가 없습니다.")
+        alert("검색조건에 맞는 데이터가 없습니다.");
         selectRef.current.clearSearch();
       }
     } catch (error) {
       console.error("Error fetching list:", error);
     }
   };
+
   //검진대기
   const columns3 = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -78,7 +79,8 @@ const CustomerList = () => {
     // { field: "status", headerName: "검진유무", flex: 0.5 },
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
+    { field: "branch", headerName: "지점명", flex: 0.5 },
+    { field: "sms_status", headerName: "문자전송여부", flex: 0.5 },
     {
       field: "send",
       headerName: "문자전송",
@@ -102,8 +104,8 @@ const CustomerList = () => {
     { field: "result_date", headerName: "확정일" },
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
-  ]
+    { field: "branch", headerName: "지점명", flex: 0.5 },
+  ];
   //검진취소
   const columns2 = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -119,8 +121,8 @@ const CustomerList = () => {
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
     { field: "refund_status", headerName: "환불여부", flex: 0.5 },
-    { field: 'branch', headerName: '지점명', flex: 0.5 },
-  ]
+    { field: "branch", headerName: "지점명", flex: 0.5 },
+  ];
 
   const rows = customerData.map((data, index) => ({
     id: index + 1,
@@ -138,8 +140,13 @@ const CustomerList = () => {
     pay_status: data.pay_status,
     hope_status: data.hope_status,
     refund_status: data.refund_status,
+    sms_status: data.sms_status,
     branch: `${data.company} ${data.branch}`,
+    uid: data.uid,
+    h_location: data.location,
   }));
+
+  console.log(rows);
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
     const idx = data.idx;
@@ -156,21 +163,57 @@ const CustomerList = () => {
   };
 
   const sendMsg = (data) => {
-    alert(data.id);
+    const {
+      uid,
+      name,
+      product,
+      hospital,
+      phone,
+      hope_date_1,
+      hope_date_2,
+      h_location,
+    } = data;
+    // 서버로 데이터 전송
+    Axios.post("http://localhost:3001/api/post/send_message", {
+      uid,
+      name,
+      product,
+      hospital,
+      phone,
+      hope_date_1,
+      hope_date_2,
+      h_location,
+    })
+      .then((response) => {
+        // 성공 시 처리
+        console.log("Message sent successfully:", response);
+        alert("메시지를 성공적으로 전송했습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        // 실패 시 처리
+        console.error("Error sending message:", error);
+        alert("메시지 전송 중 오류가 발생했습니다.");
+      });
   };
 
   const changeTab = (num) => {
-    setTab(num)
+    setTab(num);
     selectRef.current.clearSearch();
-  }
+  };
   return (
     <div className="main_wrap">
       <div className="main_back">
-        <div className="main_title_box">고객 관리
+        <div className="main_title_box">
+          고객 관리
           <div className="total_data_box">
             <div className="total_box">총 고객 : {numberData.allNum}</div>
-            <div className="total_box">검진완료고객: {numberData.statusNum1}</div>
-            <div className="total_box">검진대기고객: {numberData.statusNum3}</div>
+            <div className="total_box">
+              검진완료고객: {numberData.statusNum1}
+            </div>
+            <div className="total_box">
+              검진대기고객: {numberData.statusNum3}
+            </div>
             <div className="total_box">상담희망고객: {numberData.hopeNum}</div>
             <div className="total_box">계약고객: </div>
           </div>
@@ -178,7 +221,10 @@ const CustomerList = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <CustomerSelect ref={selectRef} setSearchData={setSearchData}></CustomerSelect>
+              <CustomerSelect
+                ref={selectRef}
+                setSearchData={setSearchData}
+              ></CustomerSelect>
               {/* <div className="title_btn">등록</div> */}
             </div>
             <div className="tab_area">

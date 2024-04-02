@@ -8,8 +8,13 @@ const BranchProductModal = (props) => {
   const [product2, setProduct2] = useState("");
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [uniqueTypes, setUniqueTypes] = useState([]);
+  const [normalData, setNormalData] = useState(props.selectedProduct);
 
-  // console.log("selectedProduct", selectedProduct);
+  useEffect(() => {
+    console.log("normalData", normalData); // 기존상품데이터
+    console.log("selectedProduct", selectedProduct); // 생성된 상품
+  }, [selectedProduct, selectedProduct]);
+
   useEffect(() => {
     getDetail();
   }, [props.detailIdx]);
@@ -42,47 +47,29 @@ const BranchProductModal = (props) => {
     }
   };
 
-  // 지점판매상품 리스트호출
-  const getNow = async () => {
-    try {
-      const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_product_data",
-        {
-          params: props.detailIdx,
-        }
-      );
-      const allData = response.data;
-      setProductData(allData);
-    } catch (error) {
-      console.error("Error fetching list:", error);
-    }
-  };
-
-  // 등록/수정
   const handleSubmit = async () => {
     const confirmModify = window.confirm(`수정을 완료하시겠습니까?`);
     if (!confirmModify) {
       return;
     }
 
-    //상품명2 데이터
-    let products = "";
-    if (selectedProduct.length > 0) {
-      products = selectedProduct.map((product) => product.product2).join("|");
-    }
-
     try {
       const response = await Axios.post(
         "http://localhost:3001/api/post/branch_product_modify",
         {
-          type: type,
-          product1: product1,
-          product2: products,
+          normalData: normalData, //DB에 있던 기존 지점판매상품
+          selectedProduct: selectedProduct, //새로 선택한 지점판매상품
           idx: props.detailIdx,
         }
       );
       alert("수정이 완료되었습니다.");
-      props.closeModal(selectedProduct);
+      // const mergedData = {
+      //   normalData: normalData,
+      //   selectedProduct: selectedProduct,
+      // };
+      // props.mergedData(mergedData);
+      props.closeModal();
+      // console.log("mergedData", mergedData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -99,19 +86,24 @@ const BranchProductModal = (props) => {
       return;
     }
 
+    const trimmedProduct2 = product2.trim();
+
     // 선택한 name_2 데이터를 selectedProduct 배열에 추가
     const newSelectedProduct = {
+      id: Date.now(),
       type: type,
       product1: product1,
-      product2: product2,
+      product2: trimmedProduct2,
     };
     setSelectedProduct([...selectedProduct, newSelectedProduct]);
-
     // select box 값 초기화
     setType("");
     setProduct1("");
     setProduct2("");
   };
+  useEffect(() => {
+    console.log("selectedProduct", selectedProduct);
+  }, [selectedProduct]);
 
   const handleProductChange = (value, index) => {
     const updatedSelectedProduct = [...selectedProduct];
@@ -119,10 +111,18 @@ const BranchProductModal = (props) => {
     setSelectedProduct(updatedSelectedProduct);
   };
 
-  const handleDelete = (index) => {
-    // 선택한 상품을 선택 목록에서 제거
-    const updatedSelectedProduct = [...selectedProduct];
-    updatedSelectedProduct.splice(index, 1);
+  const plusDataDelete = (productName) => {
+    const updatedNormalData = normalData
+      .split(",")
+      .filter((item) => item !== productName)
+      .join(",");
+    setNormalData(updatedNormalData); // 정상적으로 업데이트된 데이터로 설정
+  };
+
+  const handleDelete = (id) => {
+    const updatedSelectedProduct = selectedProduct.filter(
+      (product) => product.id !== id
+    );
     setSelectedProduct(updatedSelectedProduct);
   };
 
@@ -174,13 +174,17 @@ const BranchProductModal = (props) => {
                     onChange={(e) => setProduct1(e.target.value)}
                   >
                     <option value="">선택</option>
-                    {productData
-                      .filter((item) => item.type === type) // 선택한 type에 해당하는 데이터 필터링
-                      .map((item, index) => (
-                        <option key={index} value={item.name_1}>
-                          {item.name_1}
-                        </option>
-                      ))}
+                    {[
+                      ...new Set(
+                        productData
+                          .filter((item) => item.type === type)
+                          .map((item) => item.name_1)
+                      ),
+                    ].map((name, index) => (
+                      <option key={index} value={name}>
+                        {name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -217,7 +221,24 @@ const BranchProductModal = (props) => {
             </div>
           </div>
           <br />
-          {/* 선택한 name_2 데이터를 화면에 출력 */}
+          {typeof normalData === "string" &&
+            normalData.split(",").map((productName, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  value={productName}
+                  onChange={(e) =>
+                    handleProductChange(
+                      e.target.value,
+                      index + selectedProduct.length
+                    )
+                  }
+                />
+                <button onClick={() => plusDataDelete(productName)}>
+                  삭제
+                </button>
+              </div>
+            ))}
           {selectedProduct.map((product, index) => (
             <div key={index}>
               <div style={{ paddingTop: "10px" }}>
@@ -226,7 +247,14 @@ const BranchProductModal = (props) => {
                   value={product.product2}
                   onChange={(e) => handleProductChange(e.target.value, index)}
                 />
-                <button onClick={() => handleDelete(index)}>삭제</button>
+                <button
+                  onClick={() => {
+                    console.log("Deleting selected product:", product);
+                    handleDelete(product.id);
+                  }}
+                >
+                  삭제
+                </button>
               </div>
             </div>
           ))}
