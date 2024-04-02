@@ -21,9 +21,16 @@ const CustomerSelect = (props, ref) => {
   const [searchOption, setSearchOption] = useState("manager");
   const [searchInput, setSearchInput] = useState("");
 
+
   useImperativeHandle(ref, () => ({
     clearSearch,
   }));
+  useEffect(() => {
+    if (props.defaultSelect) {
+      setSearchOption("manager");
+      setSearchInput(props.defaultSelect.manager)
+    }
+  }, [props.defaultSelect])
   useEffect(() => {
     setContextType(type);
   }, [type]);
