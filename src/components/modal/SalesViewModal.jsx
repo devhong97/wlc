@@ -66,7 +66,7 @@ const SalesViewModal = (props) => {
     //detailNum 사용하여 상세 api 호출
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
