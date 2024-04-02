@@ -22,8 +22,12 @@ const SalesList = () => {
     setViewModal(!viewModal);
     setDetailIdx(idx);
   };
+  const closeModal = () => {
+    setViewModal(false);
+    getSalesData();
+  }
 
-  const getSalesData = async () => {
+  const getSalesTop = async () => {
     try {
       const response = await Axios.get(
         "http://localhost:3001/api/get/sales_top",
@@ -40,7 +44,7 @@ const SalesList = () => {
     }
   };
 
-  const getSalesTop = async () => {
+  const getSalesData = async () => {
     try {
       const response = await Axios.get(
         "http://localhost:3001/api/get/sales_list",
@@ -76,6 +80,7 @@ const SalesList = () => {
     id: index + 1,
     name: data.name,
     phone: data.phone,
+    phone_2: data.phone_2,
     date: moment(data.date).format("YYYY.MM.DD"),
     product: data.productName,
     hospital: data.hospitalName,
@@ -140,7 +145,7 @@ const SalesList = () => {
         </div>
         {viewModal && (
           <SalesViewModal
-            closeModal={viewModalOpen}
+            closeModal={closeModal}
             detailIdx={detailIdx}
           ></SalesViewModal>
         )}

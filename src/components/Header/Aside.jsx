@@ -74,11 +74,10 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`} onClick={() => openSub(1)}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen &&
+                    className={`main_menu_box ${isOpen &&
                       (path === "/branch" || path === "/member") &&
                       "active"
-                    }`}
+                      }`}
                   >
                     <div className="menu_icon first"></div>
                     <div className="menu_text">영업관리</div>
@@ -101,9 +100,8 @@ const Aside = (props) => {
 
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/customer" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/customer" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/customer")}
                   >
                     <div className="menu_icon second"></div>
@@ -112,9 +110,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/commission" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/commission" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/commission")}
                   >
                     <div className="menu_icon third"></div>
@@ -123,9 +120,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -134,9 +130,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/hospital" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/hospital" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/hospital")}
                   >
                     <div className="menu_icon fifth"></div>
@@ -145,9 +140,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/product" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/product" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/product")}
                   >
                     <div className="menu_icon sixth"></div>
@@ -156,9 +150,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/notice" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/notice")}
                   >
                     <div className="menu_icon seventh"></div>
@@ -198,11 +191,10 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`} onClick={() => openSub(1)}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen &&
+                    className={`main_menu_box ${isOpen &&
                       (path === "/branch" || path === "/member") &&
                       "active"
-                    }`}
+                      }`}
                   >
                     <div className="menu_icon first"></div>
                     <div className="menu_text">영업관리</div>
@@ -225,9 +217,8 @@ const Aside = (props) => {
 
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/customer" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/customer" && "active"
+                      }`}
                     onClick={() => movePage("/customer")}
                   >
                     <div className="menu_icon second"></div>
@@ -236,9 +227,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/commission" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/commission" && "active"
+                      }`}
                     onClick={() => movePage("/commission")}
                   >
                     <div className="menu_icon third"></div>
@@ -247,9 +237,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => movePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -258,9 +247,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/hospital" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/hospital" && "active"
+                      }`}
                     onClick={() => movePage("/hospital")}
                   >
                     <div className="menu_icon fifth"></div>
@@ -269,9 +257,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/product" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/product" && "active"
+                      }`}
                     onClick={() => movePage("/product")}
                   >
                     <div className="menu_icon sixth"></div>
@@ -280,9 +267,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/notice" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      }`}
                     onClick={() => movePage("/notice")}
                   >
                     <div className="menu_icon seventh"></div>
@@ -333,9 +319,8 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/member" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/member" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/member")}
                   >
                     <div className="menu_icon second"></div>
@@ -344,9 +329,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/commission" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/commission" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/commission")}
                   >
                     <div className="menu_icon third"></div>
@@ -355,9 +339,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -366,9 +349,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/hospital" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/hospital" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/hospital")}
                   >
                     <div className="menu_icon fifth"></div>
@@ -377,9 +359,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/product" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/product" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/product")}
                   >
                     <div className="menu_icon sixth"></div>
@@ -388,9 +369,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/notice" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/notice")}
                   >
                     <div className="menu_icon seventh"></div>
@@ -430,9 +410,8 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/member" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/member" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/member")}
                   >
                     <div className="menu_icon first"></div>
@@ -442,9 +421,8 @@ const Aside = (props) => {
 
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/customer" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/customer" && "active"
+                      }`}
                     onClick={() => movePage("/customer")}
                   >
                     <div className="menu_icon third"></div>
@@ -453,9 +431,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => movePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -498,9 +475,8 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/notice" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/notice")}
                   >
                     <div className="menu_icon seventh"></div>
@@ -509,9 +485,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -520,13 +495,22 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/mypage" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/mypage" && "active"
+                      }`}
                     onClick={() => moveMobilePage("/mypage")}
                   >
                     <div className="menu_icon first"></div>
                     <div className="menu_text">마이페이지</div>
+                  </div>
+                </div>
+                <div className={`menu_row`}>
+                  <div
+                    className={`main_menu_box ${isOpen && path === "/link" && "active"
+                      }`}
+                    onClick={() => moveMobilePage("/link")}
+                  >
+                    <div className="menu_icon third"></div>
+                    <div className="menu_text">링크복사</div>
                   </div>
                 </div>
                 <div className="menu_row home">
@@ -554,9 +538,8 @@ const Aside = (props) => {
               <div className="side_menu_box">
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/notice" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      }`}
                     onClick={() => movePage("/notice")}
                   >
                     <div className="menu_icon seventh"></div>
@@ -565,9 +548,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/sales" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      }`}
                     onClick={() => movePage("/sales")}
                   >
                     <div className="menu_icon fourth"></div>
@@ -576,9 +558,8 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/mypage" && "active"
-                    }`}
+                    className={`main_menu_box ${isOpen && path === "/mypage" && "active"
+                      }`}
                     onClick={() => movePage("/mypage")}
                   >
                     <div className="menu_icon first"></div>
@@ -587,10 +568,9 @@ const Aside = (props) => {
                 </div>
                 <div className={`menu_row`}>
                   <div
-                    className={`main_menu_box ${
-                      isOpen && path === "/mypage" && "active"
-                    }`}
-                    onClick={() => movePage("/mypage")}
+                    className={`main_menu_box ${isOpen && path === "/link" && "active"
+                      }`}
+                    onClick={() => movePage("/link")}
                   >
                     <div className="menu_icon third"></div>
                     <div className="menu_text">링크복사</div>

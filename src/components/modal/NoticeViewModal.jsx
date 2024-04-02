@@ -22,6 +22,7 @@ const NoticeViewModal = (props) => {
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
   const { decodeS4 } = useAuth();
+  const [userContents, setUserContents] = useState(props.detailData.content || "")
 
   // LIST에서 가져온 상세보기 데이터
   useEffect(() => {
@@ -141,12 +142,14 @@ const NoticeViewModal = (props) => {
     props.closeModal();
   };
 
+
+
   return (
     <div className="modal_wrap">
       <div className="modal_back">
         <div className="modal_box">
           <div className="modal_title_box">
-            <div className="modal_title">지점 상세</div>
+            <div className="modal_title">게시판 상세</div>
             <div className="modal_close_btn" onClick={() => clearModal()}>
               X
             </div>
@@ -171,35 +174,44 @@ const NoticeViewModal = (props) => {
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">
-                  내용<p className="title_point">*</p>
-                </div>
+              {decodeS4() === "슈퍼관리자" ? (
+                <div className="table_section">
+                  <div className="table_title editor">
+                    내용<p className="title_point">*</p>
+                  </div>
 
-                <div className="table_contents w100">
-                  <Editor
-                    initialValue={updateContentHTML}
-                    height="300px"
-                    initialEditType="wysiwyg"
-                    useCommandShortcut={true}
-                    previewStyle="vertical"
-                    ref={editorRef}
-                    onChange={() =>
-                      setUpdateContentHTML(
-                        editorRef.current.getInstance().getHTML()
-                      )
-                    }
-                    plugins={[colorSyntax]}
-                    hooks={{
-                      addImageBlobHook: (blob, callback) => {
-                        onUploadImage(blob, callback);
-                      },
-                    }}
-                    id="content"
-                    readOnly={decodeS4() !== "슈퍼관리자"}
-                  />
+                  <div className="table_contents w100">
+                    <Editor
+                      initialValue={updateContentHTML}
+                      height="300px"
+                      initialEditType="wysiwyg"
+                      useCommandShortcut={true}
+                      previewStyle="vertical"
+                      ref={editorRef}
+                      onChange={() =>
+                        setUpdateContentHTML(
+                          editorRef.current.getInstance().getHTML()
+                        )
+                      }
+                      plugins={[colorSyntax]}
+                      hooks={{
+                        addImageBlobHook: (blob, callback) => {
+                          onUploadImage(blob, callback);
+                        },
+                      }}
+                      id="content"
+                    // readOnly={decodeS4() !== "슈퍼관리자"}
+
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="table_section">
+                  <div className="board_contents_box">
+                    <div dangerouslySetInnerHTML={{ __html: userContents }}></div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="table_row">
               <div className="table_section">
