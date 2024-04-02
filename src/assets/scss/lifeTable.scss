@@ -506,6 +506,10 @@
 
     .search_input_container {
       padding-top: 10px;
+
+      &.product {
+        padding-top: 0;
+      }
     }
 
     .list_select {

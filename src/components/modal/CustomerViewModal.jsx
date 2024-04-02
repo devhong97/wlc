@@ -23,6 +23,7 @@ const CustomerViewModal = (props) => {
   const [customerName, setCustomerName] = useState(""); //검진자 이름
   const [customerNumber, setCustomerNumber] = useState(""); //검진 인원
   const [phone, setPhone] = useState(""); // 연락처
+  const [cPhone, setCPhone] = useState("");//검진자 연락처
   // const [date, setDate] = useState("");//가입일
   const [hope_date_1, setHopeDate1] = useState(""); //희망일1
   const [hope_date_2, setHopeDate2] = useState(""); //희망일2
@@ -71,6 +72,7 @@ const CustomerViewModal = (props) => {
   const setDetailValue = () => {
     setCustomerName(memberData.name);
     setPhone(memberData.phone);
+    setCPhone(memberData.phone_2);
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
     setProduct(memberData.p_key);
@@ -97,6 +99,7 @@ const CustomerViewModal = (props) => {
     if (
       !customerName ||
       !phone ||
+      !cPhone ||
       !product ||
       !hospital ||
       !hope_date_1 ||
@@ -109,6 +112,7 @@ const CustomerViewModal = (props) => {
       name: customerName,
       number: customerNumber,
       phone: phone,
+      phone_2: cPhone,
       p_key: product,
       h_key: hospital,
       hope_date_1: hope_date_1,
@@ -226,6 +230,36 @@ const CustomerViewModal = (props) => {
                   <div className="table_inner_text">
                     {moment(memberData.date).format("YYYY-MM-DD")}
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section half">
+                <div className="table_title">검진자 연락처</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input w100"
+                    type="text"
+                    id="cPhone"
+                    placeholder="연락처를 입력해주세요."
+                    value={cPhone}
+                    onChange={(e) => setCPhone(e.target.value)}
+                    disabled={inspectionStatus === "2"}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">계약자 연락처</div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input w100"
+                    type="text"
+                    id="phone"
+                    placeholder="연락처를 입력해주세요."
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    disabled={inspectionStatus === "2"}
+                  ></input>
                 </div>
               </div>
             </div>
