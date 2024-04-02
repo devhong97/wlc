@@ -3,17 +3,19 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import HospitalProductModal from "./HospitalProductModal";
 const HospitalViewModal = (props) => {
+  const number = props.detailData.number;
+  const parts = number.split("-");
+
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
-  const [branchDetailData, setBranchDetailData] = useState([]); //지점상세 모달 데이터
+  const [branchDetailData, setBranchDetailData] = useState([]); //병원상세 모달 데이터
   const [type, setType] = useState(""); // 지점종류
   const [name, setName] = useState(props.detailData.name); // 병원명
-  const [tel1, setTel1] = useState(""); // 연락처1
-  const [tel2, setTel2] = useState(""); // 연락처2
-  const [tel3, setTel3] = useState(""); // 연락처3
+  const [tel1, setTel1] = useState(parts[0]); // 연락처1
+  const [tel2, setTel2] = useState(parts[1]); // 연락처2
+  const [tel3, setTel3] = useState(parts[2]); // 연락처3
 
-  const [branchName, setBranchName] = useState(""); // 지점명
-  const [city, setCity] = useState(""); // 현재 지역(도) 데이터 분리
-  const [district, setDistrict] = useState(""); // 현재 지역(시) 데이터 분리
+  const [city, setCity] = useState(props.detailData.province); // 현재 지역(도) 데이터 분리
+  const [district, setDistrict] = useState(props.detailData.city); // 현재 지역(시) 데이터 분리
   const [cities, setCities] = useState([]); //선택 지역(시)
   const [districts, setDistricts] = useState([]); //선택 지역(도)
   const [selectedCity, setSelectedCity] = useState(""); // 지역(시) 선택
@@ -120,7 +122,6 @@ const HospitalViewModal = (props) => {
   const setDetailValue = () => {
     setType(branchDetailData.branch_type);
     setName(branchDetailData.company_name);
-    setBranchName(branchDetailData.branch_name);
   };
 
   // 수정완료버튼
@@ -200,8 +201,8 @@ const HospitalViewModal = (props) => {
                     type="text"
                     id="title"
                     placeholder="병원명을 입력해주세요."
-                    value={branchName}
-                    onChange={(e) => setBranchName(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -283,7 +284,7 @@ const HospitalViewModal = (props) => {
                 <div className="table_title">생성일</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
-                    {branchDetailData.date}
+                    {props.detailData.date}
                   </div>
                 </div>
               </div>
