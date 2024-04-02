@@ -1,7 +1,6 @@
 .main_wrap.delme .main_back.delme {
   display: flex;
   flex-wrap: wrap;
-  height: 500px;
 }
 
 .section_title.delme {

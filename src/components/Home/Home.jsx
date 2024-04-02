@@ -21,7 +21,7 @@ const Home = () => {
         {
           params: {
             uid: decodeS1(),
-          },wjsms
+          },
         }
       );
       const allData = response.data;
