@@ -77,6 +77,15 @@
         cursor: pointer;
       }
 
+      .chk_input {
+        width: 50px;
+        outline: none;
+        border: 1px solid #ececec;
+        height: 25px;
+        border-radius: 5px;
+        margin-top: 8px;
+      }
+
       .table_input {
         width: 350px;
         outline: none;

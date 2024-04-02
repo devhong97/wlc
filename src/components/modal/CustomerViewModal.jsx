@@ -21,7 +21,7 @@ const CustomerViewModal = (props) => {
   const [refundStatus, setRefundStatus] = useState("N");
   // const [c_name, setCName] = useState(""); //계약자 이름
   const [customerName, setCustomerName] = useState(""); //검진자 이름
-  const [customerNumber, setCustomerNumber] = useState("") //검진 인원
+  const [customerNumber, setCustomerNumber] = useState(""); //검진 인원
   const [phone, setPhone] = useState(""); // 연락처
   // const [date, setDate] = useState("");//가입일
   const [hope_date_1, setHopeDate1] = useState(""); //희망일1
@@ -34,7 +34,7 @@ const CustomerViewModal = (props) => {
   const [branch, setBranch] = useState(""); //지점 이름
   const [company, setCompany] = useState(""); //회사 이름
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
-  const [resultPrice, setResultPrice] = useState("")//금액
+  const [resultPrice, setResultPrice] = useState(""); //금액
   useEffect(() => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
@@ -86,7 +86,6 @@ const CustomerViewModal = (props) => {
     setRefundStatus(memberData.refund_status);
     setCustomerNumber(memberData.number);
     setMTerms(memberData.marketing_terms);
-
 
     //
     setProductKey(memberData.p_key);
@@ -229,7 +228,6 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
               </div>
-
             </div>
             <div className="table_row">
               <div className="table_section half">
@@ -444,7 +442,9 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">입금금액</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.price * memberData.number} 원</div>
+                  <div className="table_inner_text">
+                    {memberData.price * memberData.number} 원
+                  </div>
                 </div>
               </div>
               <div className="table_section half">

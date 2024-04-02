@@ -18,9 +18,9 @@ const ReservInfoModal = (props) => {
 
   const submitHandle = async () => {
     let uid = decodeS1();
-    let termsStatus = "N"
+    let termsStatus = "N";
     if (customerData.m_terms === true) {
-      termsStatus = "Y"
+      termsStatus = "Y";
     }
 
     let sendParams = {
