@@ -100,7 +100,7 @@ const IdSearch = () => {
     }
 
     // id와 phone을 서버로 전송하는 요청
-    Axios.post("http://localhost:3001/api/post/id_search", {
+    Axios.post("http://192.168.45.226:3001/api/post/id_search", {
       name: name,
       branchType: type,
       companyName: company,

@@ -20,6 +20,13 @@ html,
   overflow: hidden;
 }
 
+body {
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.0 */
+  padding-top: env(safe-area-inset-top);
+  /* iOS 11+ */
+}
+
 ol,
 ul {
   list-style: none;
@@ -150,4 +157,24 @@ $modal-color: #9999999f;
 
 .sortable-handler {
   touch-action: none;
+}
+
+input {
+  // appearance: none;
+  // -webkit-appearance: none;
+  // -webkit-border-radius: 0;
+  vertical-align: middle;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  color: #000000;
+  vertical-align: middle;
+}
+
+select::-ms-expand {
+  display: none;
 }

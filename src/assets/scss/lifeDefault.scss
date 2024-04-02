@@ -13,7 +13,7 @@
   left: 0;
   top: 0;
   z-index: 2;
-  box-shadow: 0px 5px 6px #00000029;
+  min-width: 40px;
 
   .side_wrap {
     height: 100%;
@@ -22,9 +22,12 @@
       height: 100%;
       background-color: #fff;
       width: 100%;
+      box-shadow: 0px 5px 6px #00000029;
 
       &.mobile {
         display: none;
+        position: relative;
+        background-color: transparent;
 
         .mobile_side_icon {
           width: 40px;
@@ -57,6 +60,7 @@
 
         .side_menu_back {
           width: 0;
+          background-color: #fff;
 
           &.active {
             width: 220px;
@@ -337,7 +341,7 @@
 }
 
 .footer_wrap {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: calc(100% - 80px);
   background-color: $sub-color_2;
@@ -482,7 +486,7 @@
             display: none;
           }
 
-          .login_check:checked + .login_label::before {
+          .login_check:checked+.login_label::before {
             background-color: $main-color;
           }
         }
@@ -771,7 +775,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked + .terms_label::before {
+        .terms_checkbox:checked+.terms_label::before {
           background-color: $main-color;
         }
       }
@@ -812,39 +816,4 @@
       }
     }
   }
-}
-
-.sales-info-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 20px;
-}
-
-.sales-info-item {
-  flex: 1;
-  border: 1px solid #999999;
-  padding: 10px;
-  margin-right: 10px; /* 각 항목 사이의 간격을 조절합니다. */
-  border-radius: 5px;
-  font-weight: 550;
-}
-
-.sales-info-item:last-child {
-  margin-right: 0; /* 마지막 항목의 간격을 없앱니다. */
-}
-
-.update_button {
-  cursor: pointer;
-  color: white;
-  background-color: #007bff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  width: 100px;
-  text-align: center;
-  margin-top: -15px;
-}
-
-.update_button:hover {
-  background-color: #0056b3;
 }

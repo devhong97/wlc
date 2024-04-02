@@ -26,8 +26,10 @@ const MemberList = () => {
   }, [tab, searchData]);
 
   const getMember = async () => {
+    console.log(searchData);
     const selectGrade = [];
     const resultParams = {};
+
     switch (grade) {
       case "슈퍼관리자":
         resultParams.grade = [1, 2, 3];
@@ -52,16 +54,17 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_list",
+        "http://192.168.45.226:3001/api/get/member_list",
         {
           params: resultParams,
         }
       );
       const allData = response.data;
       setMemberData(allData);
-      if (searchData && allData.length === 0) {
+      console.log(searchData.length);
+      if (searchData.length > 0 && allData.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
-        selectRef.current.clearSearch();
+        // selectRef.current.clearSearch();
       }
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -189,9 +192,8 @@ const MemberList = () => {
               </div>
             )}
             <div
-              className={`table_box ${
-                grade !== "영업사원" ? "tab_list" : "list"
-              }`}
+              className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"
+                }`}
             >
               <TableDefault
                 rows={rows}

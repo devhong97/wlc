@@ -21,9 +21,16 @@ const CustomerSelect = (props, ref) => {
   const [searchOption, setSearchOption] = useState("manager");
   const [searchInput, setSearchInput] = useState("");
 
+
   useImperativeHandle(ref, () => ({
     clearSearch,
   }));
+  useEffect(() => {
+    if (props.defaultSelect) {
+      setSearchOption("manager");
+      setSearchInput(props.defaultSelect.manager)
+    }
+  }, [props.defaultSelect])
   useEffect(() => {
     setContextType(type);
   }, [type]);
@@ -39,7 +46,7 @@ const CustomerSelect = (props, ref) => {
   const getProduct = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/product_list"
+        "http://192.168.45.226:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductList(allData);
@@ -51,7 +58,7 @@ const CustomerSelect = (props, ref) => {
   const getHospital = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/hospital_list"
+        "http://192.168.45.226:3001/api/get/reserv/hospital_list"
       );
       const allData = response.data.data;
       setHospitalList(allData);

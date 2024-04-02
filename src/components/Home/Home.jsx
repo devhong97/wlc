@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import TableDefault from "../Table/TableDefault";
 import Axios from "axios";
+import moment from "moment";
 
 const Home = () => {
   const { decodeS1, decodeS4 } = useAuth();
@@ -16,7 +17,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_list",
+        "http://192.168.45.226:3001/api/get/home_list",
         {
           params: {
             uid: decodeS1(),
@@ -34,9 +35,9 @@ const Home = () => {
     { field: "id", headerName: "No", flex: 0.5 },
     { field: "name", headerName: "성명" },
     { field: "phone", headerName: "연락처" },
-    { field: "productName", headerName: "상품" },
-    { field: "hospitalName", headerName: "검진병원" },
-    { field: "resultDate", headerName: "검진일" },
+    { field: "product", headerName: "상품" },
+    { field: "hospital", headerName: "검진병원" },
+    { field: "date", headerName: "검진일" },
   ];
 
   const rows = homeData.map((data, index) => ({
@@ -44,11 +45,12 @@ const Home = () => {
     idx: data.idx,
     name: data.name,
     phone: data.phone,
-    productName: data.productName, // 수정된 부분
-    hospitalName: data.hospitalName, // 수정된 부분
-    resultDate: data.result_date,
+    product: data.product,
+    hospital: data.hospital,
+    date: moment(data.date).format("YYYY.MM.DD"),
   }));
 
+  console.log(rows);
   let decodeResult;
 
   switch (decodeS4()) {
@@ -94,8 +96,13 @@ const Home = () => {
           <div className="main_back">
             <div>
               7일이내 검진예약 고객명단
+              <div>영업사원키: {decodeS1()}</div>
               <div className="table_box list">
-                <TableDefault rows={rows} columns={columns} />
+                <TableDefault
+                  rows={rows}
+                  columns={columns}
+                  // viewModalOpen={viewModalOpen}
+                />
               </div>
               <div className="customer_btn_box">
                 <div

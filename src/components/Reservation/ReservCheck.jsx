@@ -24,50 +24,58 @@ const ReservCheck = () => {
                     </div>
                 </div>
                 <div className="reserv_bottom_box">
-                    <div className="reserv_text_box">
-                        <div className='reserv_title'>계약자명</div>
-                        <div className='reserv_text'>{customerData.name}</div>
-                    </div>
-                    <div className="reserv_text_box">
+                    <div className='reserv_check_box'>
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>검진대상자명</div>
-                            <div className='reserv_text'>{customerData.customerName}</div>
+                            <div className='reserv_title'>계약자명</div>
+                            <div className='reserv_text'>{customerData.name}</div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>인원수</div>
-                            <div className='reserv_text'>{customerData.customerNumber}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>검진대상자명</div>
+                                <div className='reserv_text'>{customerData.customerName}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>연락처</div>
-                            <div className='reserv_text'>{customerData.phone}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>인원수</div>
+                                <div className='reserv_text'>{customerData.customerNumber}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>선택상품</div>
-                            <div className='reserv_text'>{productName}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>계약자 연락처</div>
+                                <div className='reserv_text'>{customerData.phone}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>선택병원</div>
-                            <div className='reserv_text'>{hospitalName}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>검진자 연락처</div>
+                                <div className='reserv_text'>{customerData.cPhone}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>희망검진일1</div>
-                            <div className='reserv_text'>{hopeDate1}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>선택상품</div>
+                                <div className='reserv_text'>{productName}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="reserv_text_box">
                         <div className="reserv_text_box">
-                            <div className='reserv_title'>희망검진일2</div>
-                            <div className='reserv_text'>{hopeDate2}</div>
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>선택병원</div>
+                                <div className='reserv_text'>{hospitalName}</div>
+                            </div>
+                        </div>
+                        <div className="reserv_text_box">
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>희망검진일1</div>
+                                <div className='reserv_text'>{hopeDate1}</div>
+                            </div>
+                        </div>
+                        <div className="reserv_text_box">
+                            <div className="reserv_text_box">
+                                <div className='reserv_title'>희망검진일2</div>
+                                <div className='reserv_text'>{hopeDate2}</div>
+                            </div>
                         </div>
                     </div>
                 </div>

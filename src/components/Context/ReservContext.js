@@ -45,6 +45,7 @@ export const ReservProvider = ({ children }) => {
     }
   }, [hospitalName]);
 
+<<<<<<< HEAD
   const getProductList = async (status, keys) => {
     console.log(keys);
     let setParams = {
@@ -174,6 +175,139 @@ export const ReservProvider = ({ children }) => {
             })
             .catch((err) => {
               console.error(err);
+=======
+    const getProductList = async (status, keys) => {
+        console.log(keys);
+        let setParams = {
+            key: hospitalKey,
+        };
+        if (status !== "") {
+            setParams.key = "";
+        }
+        if (keys !== "") {
+            setParams.key = keys;
+        }
+        try {
+            const response = await Axios.get(
+                "http://192.168.45.226:3001/api/get/reserv/product_list",
+                {
+                    params: setParams,
+                }
+            );
+            const allData = response.data.data;
+            setProductList(allData);
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
+    };
+    const getHospitalAllList = async () => {
+        try {
+            const response = await Axios.get(
+                "http://192.168.45.226:3001/api/get/reserv/hospital_list"
+            );
+            const allData = response.data.data;
+            setHospitalList(allData);
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
+    };
+    const getHospitalList = async () => {
+        try {
+            const response = await Axios.get(
+                "http://192.168.45.226:3001/api/get/reserv/correct_hospital",
+                {
+                    params: {
+                        p_key: productKey,
+                    },
+                }
+            );
+            const allData = response.data.data;
+            setHospitalList(allData);
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
+    };
+    const callHospitalKey = async (callback) => {
+        try {
+            const response = await Axios.get(
+                "http://192.168.45.226:3001/api/get/reserv/select_hospital",
+                {
+                    params: {
+                        name: hospitalName,
+                    },
+                }
+            );
+            const allData = response.data.data;
+            const keys = allData.map((item) => parseInt(item.p_key));
+            console.log(keys);
+            setHospitalKey(keys);
+            // hospitalKey가 설정된 후에 콜백 함수 호출
+            if (typeof callback === "function") {
+                callback("", keys);
+            }
+        } catch (error) {
+            console.error("Error fetching list:", error);
+        }
+    };
+
+    const clearReservData = () => {
+        setHospitalName("");
+        setHospitalIdx("");
+        setHospitalKey([]);
+        setProduct("");
+        setHopeDate1("");
+        setHopeDate2("");
+        setCustomerData([]);
+        setProductName("");
+        setSignData1("");
+        setSignData2("");
+    };
+
+    const keepReservData = () => {
+        setHospitalName("");
+        setHospitalIdx("");
+        setHospitalKey([]);
+        setProduct("");
+        setProductName("");
+        setSignData1("");
+        setSignData2("");
+    };
+
+    useEffect(() => {
+        console.log(customerData);
+    }, [customerData])
+
+    const uploadFiles = async (uid) => {
+        console.log(signData1);
+        if (signData1 && signData2) {
+            [...Array(parseInt(2))].map((_, index) => {
+                const file = index === 0 ? signData1 : signData2;
+                const resultFile = new File([file], `${uid}_${index}.png`);
+                const columnName = index === 0 ? "sign_img_1" : "sign_img_2";
+                if (file) {
+                    const formData = new FormData();
+                    formData.append("file", resultFile);
+                    formData.append("uid", uid);
+                    formData.append("columnName", columnName);
+                    console.log(formData);
+
+                    Axios.post(
+                        "http://192.168.45.226:3001/api/post/customer_upload",
+                        formData,
+                        {
+                            headers: {
+                                "Content-Type": "multipart/form-data",
+                            },
+                        }
+                    )
+                        .then((res) => {
+                            console.log(res.data);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                }
+>>>>>>> b859983cb283657a457afab5010212b8da43f5ce
             });
         }
       });

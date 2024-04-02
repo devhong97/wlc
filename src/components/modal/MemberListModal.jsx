@@ -34,7 +34,7 @@ const MemberListModal = (props) => {
   const getMember = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_manager_list",
+        "http://192.168.45.226:3001/api/get/branch_manager_list",
         {
           params: {
             branch_idx: branchIdx, // branchIdx를 파라미터로 전달
@@ -73,7 +73,7 @@ const MemberListModal = (props) => {
     clearModal();
   };
 
-  const emptyFunc = () => {};
+  const emptyFunc = () => { };
 
   return (
     <div className="modal_wrap">

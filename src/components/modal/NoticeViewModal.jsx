@@ -47,7 +47,7 @@ const NoticeViewModal = (props) => {
       }
 
       const response = await Axios.post(
-        "http://localhost:3001/api/post/notice_modify",
+        "http://192.168.45.226:3001/api/post/notice_modify",
         formData
       );
 
@@ -89,7 +89,7 @@ const NoticeViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/notice_delete",
+        "http://192.168.45.226:3001/api/post/notice_delete",
         {
           idx: detailNum,
         }
@@ -107,7 +107,7 @@ const NoticeViewModal = (props) => {
       formData.append("image", blob);
 
       const response = await Axios.post(
-        "http://localhost:3001/api/post/upload",
+        "http://192.168.45.226:3001/api/post/upload",
         formData,
         {
           headers: {
@@ -124,7 +124,7 @@ const NoticeViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://192.168.45.226:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -222,7 +222,7 @@ const NoticeViewModal = (props) => {
                             width: 200,
                             cursor: "pointer",
                           }}
-                          src={`http://localhost:3001/uploads/${updateAttachment}`}
+                          src={`http://192.168.45.226:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
                       </div>

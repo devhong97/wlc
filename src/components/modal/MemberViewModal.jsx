@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import moment from "moment";
 import { useBranchContext } from "../Context/BranchContext";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 const MemberViewModal = (props) => {
+  const { decodeS4 } = useAuth();
+  const userGrade = decodeS4();
   const {
     typeGroup,
     companyGroup,
@@ -24,6 +28,7 @@ const MemberViewModal = (props) => {
   const [branchIdx, setBranchIdx] = useState("");
   const [customerNum, setCustomerNum] = useState(0);
   const [hopeNum, setHopeNum] = useState(0);
+  const navigation = useNavigate();
 
   // 분류소스
   useEffect(() => {
@@ -69,7 +74,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_detail",
+        "http://192.168.45.226:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx,
@@ -132,7 +137,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_edit",
+        "http://192.168.45.226:3001/api/post/member_edit",
         paramsArray
       );
 
@@ -145,7 +150,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_delete",
+        "http://192.168.45.226:3001/api/post/member_delete",
         {
           idx: props.detailIdx,
         }
@@ -172,7 +177,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_status",
+        "http://192.168.45.226:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx,
@@ -185,6 +190,18 @@ const MemberViewModal = (props) => {
       console.error("Error during registration:", error);
     }
   };
+
+  const moveCustomer = (num) => {
+    let defaultSelect = {}
+    if (num === 1) {//가입고객수
+      defaultSelect.manager = memberData.name;
+
+    } else {//상담희망고객
+      defaultSelect.manager = memberData.name;
+      defaultSelect.hope = "Y";
+    }
+    navigation("/customer", { state: { grade: userGrade, defaultSelect: defaultSelect } })
+  }
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -387,11 +404,11 @@ const MemberViewModal = (props) => {
             {memberData.status === 1 && (
               <div className="table_row">
                 <div className="table_section half">
-                  <div className="table_title">가입회원수</div>
+                  <div className="table_title">가입고객수</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">{customerNum}</div>
                     {customerNum !== 0 && (
-                      <div className="table_more_btn">자세히보기</div>
+                      <div className="table_more_btn" onClick={() => moveCustomer(1)}>자세히보기</div>
                     )}
                   </div>
                 </div>
@@ -399,9 +416,9 @@ const MemberViewModal = (props) => {
                   <div className="table_title">상담희망고객수</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">{hopeNum}</div>
-                    {hopeNum !== 0 && (
-                      <div className="table_more_btn">자세히보기</div>
-                    )}
+                    {/* {hopeNum !== 0 && (
+                      <div className="table_more_btn" onClick={() => moveCustomer(2)}>자세히보기</div>
+                    )} */}
                   </div>
                 </div>
               </div>

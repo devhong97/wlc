@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TableDefault from "../Table/TableDefault";
 import Axios from "axios";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { useReservContext } from "../Context/ReservContext";
+import HospitalSelect from "../Hospital/HospitalSelect";
 
 const SearchHospital = () => {
+  const selectRef = useRef(null);
   const { setHospitalName, setHospitalIdx, product } = useReservContext();
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
   const [selectHospital, setSelectHospital] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const navigation = useNavigate();
 
   useEffect(() => {
     fetchHospitalList();
-  }, []);
+  }, [searchData]);
 
   const fetchHospitalList = () => {
     let setParams = {};
@@ -25,7 +28,11 @@ const SearchHospital = () => {
       resultApi = "hospital_list";
     }
 
-    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
+    if (searchData) {
+      setParams.searchData = searchData;
+    }
+
+    Axios.get(`http://192.168.45.226:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {
@@ -34,6 +41,10 @@ const SearchHospital = () => {
           setHospitalList(res.data.data);
         } else {
           console.error("지점 관리 데이터호출 실패");
+          if (searchData) {
+            alert("검색조건에 맞는 데이터가 없습니다.");
+            selectRef.current.clearSearch();
+          }
         }
       })
       .catch((err) => {
@@ -70,7 +81,7 @@ const SearchHospital = () => {
     city: data.city,
   }));
 
-  const emptyFunc = () => {};
+  const emptyFunc = () => { };
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);
@@ -88,24 +99,10 @@ const SearchHospital = () => {
         <div className="board_list_wrap">
           <div className="list_area">
             <div className="search_box">
-              <div className="search_select">
-                <select className="list_select">
-                  <option>지역(도)</option>
-                </select>
-                <select className="list_select">
-                  <option>지역(시)</option>
-                </select>
-              </div>
-              <div className="search_input">
-                {/*<input
-                    className="list_input"
-                    placeholder="검색어를 입력하세요"
-                  ></input>*/}
-                <div className="list_search" style={{ marginRight: 10 }}>
-                  검색
-                </div>
-                <div className="list_search reset_btn">초기화</div>
-              </div>
+              <HospitalSelect
+                ref={selectRef}
+                setSearchData={setSearchData}
+              ></HospitalSelect>
             </div>
             <div className="table_box list">
               {hospitalList.length === 0 ? (

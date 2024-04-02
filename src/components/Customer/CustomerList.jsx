@@ -11,6 +11,7 @@ const CustomerList = () => {
   const { decodeS3, decodeS1 } = useAuth();
   const location = useLocation();
   const { grade } = location.state || {};
+  const { defaultSelect } = location.state || {};
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
   const [customerData, setCustomerData] = useState([]);
@@ -18,6 +19,11 @@ const CustomerList = () => {
   const [searchData, setSearchData] = useState([]);
   const [numberData, setNumberData] = useState([]);
 
+  useEffect(() => {
+    if (defaultSelect) {
+      setSearchData(defaultSelect)
+    }
+  }, [defaultSelect]);
   useEffect(() => {
     getCustomer();
   }, [tab, searchData]);
@@ -47,7 +53,7 @@ const CustomerList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_list",
+        "http://192.168.45.226:3001/api/get/customer_list",
         {
           params: resultParams,
         }
@@ -57,7 +63,7 @@ const CustomerList = () => {
       setNumberData(allData.numbers);
       if (searchData && allData.data.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
-        selectRef.current.clearSearch();
+        // selectRef.current.clearSearch();
       }
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -173,7 +179,7 @@ const CustomerList = () => {
       h_location,
     } = data;
     // 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/send_message", {
+    Axios.post("http://192.168.45.226:3001/api/post/send_message", {
       uid,
       name,
       product,
@@ -198,7 +204,7 @@ const CustomerList = () => {
 
   const changeTab = (num) => {
     setTab(num);
-    selectRef.current.clearSearch();
+
   };
   return (
     <div className="main_wrap">
@@ -223,6 +229,7 @@ const CustomerList = () => {
               <CustomerSelect
                 ref={selectRef}
                 setSearchData={setSearchData}
+                defaultSelect={defaultSelect}
               ></CustomerSelect>
               {/* <div className="title_btn">등록</div> */}
             </div>

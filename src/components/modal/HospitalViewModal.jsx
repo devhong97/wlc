@@ -60,7 +60,7 @@ const HospitalViewModal = (props) => {
 
   // // 지역(시) 데이터 호출
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://192.168.45.226:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -80,7 +80,7 @@ const HospitalViewModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`http://192.168.45.226:3001/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -97,7 +97,7 @@ const HospitalViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/hospital_detail",
+        "http://192.168.45.226:3001/api/get/hospital_detail",
         {
           params: {
             name: props.detailData.name,
@@ -135,7 +135,7 @@ const HospitalViewModal = (props) => {
       const number = `${tel1}-${tel2}-${tel3}`;
 
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_modify",
+        "http://192.168.45.226:3001/api/post/hospital_modify",
         {
           hospitalName: name,
           number: number,
@@ -162,7 +162,7 @@ const HospitalViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_delete",
+        "http://192.168.45.226:3001/api/post/branch_delete",
         {
           idx: props.detailIdx,
         }
