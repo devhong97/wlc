@@ -32,7 +32,7 @@ const SearchHospital = () => {
       setParams.searchData = searchData;
     }
 
-    Axios.get(`http://192.168.45.226:3001/api/get/reserv/${resultApi}`, {
+    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {
@@ -81,7 +81,7 @@ const SearchHospital = () => {
     city: data.city,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);

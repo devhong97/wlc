@@ -53,7 +53,7 @@ const CustomerViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://192.168.45.226:3001/api/get/customer_detail",
+        "http://localhost:3001/api/get/customer_detail",
         {
           params: {
             idx: props.detailIdx,
@@ -126,7 +126,7 @@ const CustomerViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://192.168.45.226:3001/api/post/customer_edit",
+        "http://localhost:3001/api/post/customer_edit",
         paramsArray
       );
 
@@ -163,7 +163,7 @@ const CustomerViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://192.168.45.226:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();

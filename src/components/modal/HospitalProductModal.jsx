@@ -18,7 +18,7 @@ const HospitalProductModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://192.168.45.226:3001/api/get/hospital_product",
+        "http://localhost:3001/api/get/hospital_product",
         {
           params: {
             idx: props.detailIdx,
