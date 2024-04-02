@@ -36,8 +36,12 @@ const Delme = () => {
         "http://localhost:3001/api/get/terms_data"
       );
       const termsData = response.data.terms_info; // 서버에서 받은 데이터
+      const mTermsData = response.data.marketing;
       console.log(termsData);
       setContent(termsData); // content를 가져와서 setContent에 전달
+      setContent2(mTermsData)
+      editorRef1.current.getInstance().setHTML(termsData);
+      editorRef2.current.getInstance().setHTML(mTermsData);
     } catch (error) {
       console.error("데이터 가져오기 중 오류 발생", error);
     }
@@ -269,7 +273,7 @@ const Delme = () => {
 
         <div className="section delme">
           <div className="section_title delme">[ 개인정보약관동의 내용 ]</div>
-          <div>
+          <div style={{ textAlign: "left" }}>
             <Editor
               initialValue={content} // content를 Editor의 초기값으로 사용;
               height="300px"
@@ -292,7 +296,7 @@ const Delme = () => {
         </div>
         <div className="section delme">
           <div className="section_title delme">[ 마케팅약관동의 내용 ]</div>
-          <div>
+          <div style={{ textAlign: "left" }}>
             <Editor
               initialValue={content2} // content를 Editor의 초기값으로 사용;
               height="300px"
