@@ -36,6 +36,7 @@ const Delme = () => {
         "http://localhost:3001/api/get/terms_data"
       );
       const termsData = response.data.terms_info; // 서버에서 받은 데이터
+      editorRef1.current.getInstance().setHTML(termsData);
       console.log(termsData);
       setContent(termsData); // content를 가져와서 setContent에 전달
     } catch (error) {
@@ -148,7 +149,7 @@ const Delme = () => {
   // 개인정보약관동의 내용
   const termsInsert = async () => {
     try {
-      const confirmResult = window.confirm("수정완료 하시겠습니까");
+      const confirmResult = window.confirm("수정완료 하시겠습니까?");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/terms_text", {
           content: content, // content 변수명 수정
@@ -163,7 +164,7 @@ const Delme = () => {
   // 마케팅약관동의 내용
   const marketingInsert = async () => {
     try {
-      const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
+      const confirmResult = window.confirm("수정완료 등록하시겠습니까?");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/marketing_text", {
           content2: content2, // content2 변수명 수정
