@@ -3,6 +3,7 @@ import { useAuth } from "../Context/AuthContext";
 import { useReservContext } from "../Context/ReservContext";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 const ReservInfoModal = (props) => {
   const {
     customerData,
@@ -17,14 +18,21 @@ const ReservInfoModal = (props) => {
 
   const submitHandle = async () => {
     let uid = decodeS1();
+    let termsStatus = "N"
+    if (customerData.m_terms === true) {
+      termsStatus = "Y"
+    }
+
     let sendParams = {
       contractor_name: customerData.name,
       name: customerData.customerName,
+      number: customerData.customerNumber,
       phone: customerData.phone,
       p_key: product,
       h_key: hospitalIdx,
       hope_date_1: hopeDate1,
       hope_date_2: hopeDate2,
+      marketing_terms: termsStatus,
       manager_uid: uid,
     };
     try {

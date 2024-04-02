@@ -1,25 +1,50 @@
 import React, { useState } from 'react';
 import { useReservContext } from '../Context/ReservContext';
 import { useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import moment from "moment";
 
 const SelectDate = () => {
     const { hospitalName, product, setHopeDate1, setHopeDate2, hopeDate1, hopeDate2 } = useReservContext();
-    const [date1, setDate1] = useState(hopeDate1 || "");
-    const [date2, setDate2] = useState(hopeDate2 || "");
+    const [date1, setDate1] = useState("");
+    const [date2, setDate2] = useState("");
+    const [dateText1, setDateText1] = useState(hopeDate1 || "");
+    const [dateText2, setDateText2] = useState(hopeDate2 || "");
+    const [openStatus, setOpenStatus] = useState(0)
     const navigation = useNavigate();
 
     const moveNext = () => {
-        if (date1 === "" || date2 === "") {
+        if (dateText1 === "" || dateText2 === "") {
             alert("희망검진일을 입력하세요")
             return;
         }
 
-        setHopeDate1(date1);
-        setHopeDate2(date2);
+        setHopeDate1(dateText1);
+        setHopeDate2(dateText2);
 
         navigation("/reserv/customer");
 
 
+    }
+
+    const openCalendar = (num) => {
+        if (openStatus === 0 || num !== openStatus) {
+            setOpenStatus(num)
+        } else {
+            setOpenStatus(0)
+        }
+    }
+
+    const setFormatDate = (date, num) => {
+        const momentDate = moment(date).format("YY.MM.DD");
+        if (num === 1) {
+            setDateText1(momentDate)
+            setDate1(date)
+        } else {
+            setDateText2(momentDate)
+            setDate2(date)
+        }
     }
     return (
         <div className='reserv_wrap'>
@@ -30,11 +55,18 @@ const SelectDate = () => {
                     </div>
                 </div>
                 <div className='reserv_bottom_box'>
-                    <div className='reserv_input_box'>
-                        <input className='reserv_input' placeholder='희망검진일1' value={date1} onChange={(e) => setDate1(e.target.value)}></input>
+                    <div className='reserv_input_box' onClick={() => openCalendar(1)}>
+                        <input className='reserv_input' placeholder='희망검진일1' value={dateText1} readOnly></input>
+                        {openStatus === 1 && (
+                            <Calendar className="reserv_calendar" onChange={(e) => setFormatDate(e, 1)} value={date1} formatDay={(locale, date) => moment(date).format("DD")} />
+                        )}
+
                     </div>
-                    <div className='reserv_input_box'>
-                        <input className='reserv_input' placeholder='희망검진일2' value={date2} onChange={(e) => setDate2(e.target.value)}></input>
+                    <div className='reserv_input_box' onClick={() => openCalendar(2)}>
+                        <input className='reserv_input' placeholder='희망검진일2' value={dateText2} readOnly></input>
+                        {openStatus === 2 && (
+                            <Calendar className="reserv_calendar" onChange={(e) => setFormatDate(e, 2)} value={date2} formatDay={(locale, date) => moment(date).format("DD")} />
+                        )}
                     </div>
                 </div>
                 <div className='reserv_btn_box'>
