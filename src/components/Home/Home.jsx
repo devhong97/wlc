@@ -100,25 +100,24 @@ const Home = () => {
       decodeResult = (
         <div className="main_wrap">
           <div className="main_back">
-            <div>
+            <div className="main_title_box">
               7일이내 검진예약 고객명단
-              <div>영업사원키: {decodeS1()}</div>
-              <div className="table_box list">
-                <TableDefault
-                  rows={rows}
-                  columns={columns}
-                  viewModalOpen={viewModalOpen}
-                />
-              </div>
-              <div className="customer_btn_box">
-                <div
-                  className="customer_btn"
-                  onClick={() =>
-                    navigation("/reserv", { state: { status: "" } })
-                  }
-                >
-                  예약 시작
-                </div>
+            </div>
+            <div className="table_box list">
+              <TableDefault
+                rows={rows}
+                columns={columns}
+                viewModalOpen={viewModalOpen}
+              />
+            </div>
+            <div className="customer_btn_box">
+              <div
+                className="customer_btn"
+                onClick={() =>
+                  navigation("/reserv", { state: { status: "" } })
+                }
+              >
+                예약 시작
               </div>
             </div>
           </div>
