@@ -192,9 +192,8 @@ const MemberList = () => {
               </div>
             )}
             <div
-              className={`table_box ${
-                grade !== "영업사원" ? "tab_list" : "list"
-              }`}
+              className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"
+                }`}
             >
               <TableDefault
                 rows={rows}

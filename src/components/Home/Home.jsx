@@ -101,7 +101,7 @@ const Home = () => {
                 <TableDefault
                   rows={rows}
                   columns={columns}
-                  // viewModalOpen={viewModalOpen}
+                // viewModalOpen={viewModalOpen}
                 />
               </div>
               <div className="customer_btn_box">

@@ -45,7 +45,7 @@ const ProductSelect = (props, ref) => {
   return (
     <div className="list_select_area">
       <div className="search_select">
-        <div className="search_input_container">
+        <div className="search_input_container product">
           <select
             className="list_select"
             value={searchOption}

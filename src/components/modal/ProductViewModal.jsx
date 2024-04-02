@@ -166,7 +166,7 @@ const ProductViewModal = (props) => {
                     className="table_select"
                     value={selectedProduct}
                     onChange={(e) => setSelectedProduct(e.target.value)}
-                    // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
+                  // disabled={!selectedCategory} // 상품 카테고리를 선택하지 않은 경우 비활성화
                   >
                     <option value="">선택</option>
                     {products.length > 0 &&
