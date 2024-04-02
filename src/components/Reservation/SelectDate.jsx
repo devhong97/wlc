@@ -51,12 +51,12 @@ const SelectDate = () => {
             <div className='reserv_back'>
                 <div className='reserv_top_box'>
                     <div className='reserv_title'>
-                        희망하시는 <p className='point_text'>검진일</p>을 선택하세요.
+                        희망하시는 <br /><p className='point_text'>검진일</p>을 선택하세요.
                     </div>
                 </div>
                 <div className='reserv_bottom_box'>
-                    <div className='reserv_input_box'>
-                        <input className='reserv_input' placeholder='희망검진일1' value={dateText1} readOnly onClick={() => openCalendar(1)}></input>
+                    <div className='reserv_input_box calendar'>
+                        <input className='reserv_input calendar' placeholder='희망검진일1' value={dateText1} readOnly onClick={() => openCalendar(1)}></input>
                         {openStatus === 1 && (
                             <Calendar className="reserv_calendar"
                                 onChange={(e) => setFormatDate(e, 1)}
@@ -68,8 +68,8 @@ const SelectDate = () => {
                         )}
 
                     </div>
-                    <div className='reserv_input_box'>
-                        <input className='reserv_input' placeholder='희망검진일2' value={dateText2} readOnly onClick={() => openCalendar(2)}></input>
+                    <div className='reserv_input_box calendar'>
+                        <input className='reserv_input calendar' placeholder='희망검진일2' value={dateText2} readOnly onClick={() => openCalendar(2)}></input>
                         {openStatus === 2 && (
                             <Calendar className="reserv_calendar"
                                 minDate={moment().toDate()}

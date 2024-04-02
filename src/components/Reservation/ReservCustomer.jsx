@@ -11,11 +11,12 @@ const ReservCustomer = () => {
   const [customerName, setCustomerName] = useState(customerData.customerName || "");
   const [customerNumber, setCustomerNumber] = useState(customerData.customerNumber || "");
   const [phone, setPhone] = useState(customerData.phone || "");
+  const [c_phone, setCPhone] = useState(customerData.cPhone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const navigation = useNavigate();
   const moveSecondStep = () => {
-    if (name === "" || customerName === "" || phone === "") {
+    if (name === "" || customerName === "" || phone === "" || c_phone === "" || customerNumber === "") {
       alert("정보를 모두 입력해주세요.");
       return;
     }
@@ -42,6 +43,7 @@ const ReservCustomer = () => {
       customerName: customerName,
       customerNumber: customerNumber,
       phone: phone,
+      cPhone: c_phone,
       m_terms: mTerms,
     };
     setCustomerData(newData);
@@ -55,7 +57,7 @@ const ReservCustomer = () => {
         <div className="reserv_back">
           <div className="reserv_top_box">
             <div className="reserv_title">
-              고객님의 <p className="point_text">정보</p>를 입력하세요.
+              고객님의 <br /><p className="point_text">정보</p>를 입력하세요.
             </div>
           </div>
           <div className="reserv_bottom_box">
@@ -86,9 +88,17 @@ const ReservCustomer = () => {
             <div className="reserv_input_box">
               <input
                 className="reserv_input"
-                placeholder="연락처"
+                placeholder="계약자 연락처"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+              ></input>
+            </div>
+            <div className="reserv_input_box">
+              <input
+                className="reserv_input"
+                placeholder="검진자 대표 연락처"
+                value={c_phone}
+                onChange={(e) => setCPhone(e.target.value)}
               ></input>
             </div>
           </div>
@@ -109,7 +119,7 @@ const ReservCustomer = () => {
           <div className="reserv_bottom_box">
             <div className="terms_box">
               <div className="terms_title">개인정보 동의 약관</div>
-              <div className="terms_text">약관 내용~~</div>
+              <div className="terms_text"></div>
             </div>
             <div className="terms_checkbox">
               <input
@@ -127,8 +137,8 @@ const ReservCustomer = () => {
           </div>
           <div className="reserv_bottom_box">
             <div className="terms_box">
-              <div className="terms_title">개인정보 동의 약관</div>
-              <div className="terms_text">약관 내용~~</div>
+              <div className="terms_title">마켓팅 동의 약관</div>
+              <div className="terms_text"></div>
             </div>
             <div className="terms_checkbox">
               <input
@@ -152,19 +162,10 @@ const ReservCustomer = () => {
       )}
       {step === 3 && (
         <div className="reserv_back sign">
-          <div className="reserv_top_box">
-            <div className="reserv_title">
-              <p className="point_text">서명</p>해주세요.
-            </div>
-          </div>
           <div className="reserv_bottom_box sign">
             <SignComponent checkSign={checkSign}></SignComponent>
+
           </div>
-          {/* <div className="reserv_btn_box">
-            <div className="reserv_btn" onClick={() => checkSign()}>
-              다음
-            </div>
-          </div> */}
         </div>
       )}
     </div>

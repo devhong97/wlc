@@ -17,7 +17,7 @@ const ProductSelect = (props, ref) => {
   const getProductType = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/product_list"
+        "http://192.168.45.226:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductList(allData);

@@ -17,7 +17,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_list",
+        "http://192.168.45.226:3001/api/get/home_list",
         {
           params: {
             uid: decodeS1(),
@@ -101,7 +101,7 @@ const Home = () => {
                 <TableDefault
                   rows={rows}
                   columns={columns}
-                  // viewModalOpen={viewModalOpen}
+                // viewModalOpen={viewModalOpen}
                 />
               </div>
               <div className="customer_btn_box">
