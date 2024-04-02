@@ -78,12 +78,20 @@
       }
 
       .chk_input {
+        display: inline-block;
         width: 50px;
         outline: none;
         border: 1px solid #ececec;
-        height: 25px;
+        height: 20px;
         border-radius: 5px;
-        margin-top: 8px;
+        margin-top: 2px;
+        vertical-align: middle;
+      }
+
+      .sla {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: -8px; /* 체크박스와 레이블 사이의 간격 조정 */
       }
 
       .table_input {

@@ -66,7 +66,7 @@ const SalesViewModal = (props) => {
     //detailNum 사용하여 상세 api 호출
   };
 
-  const handleSubmit = () => { };
+  const handleSubmit = () => {};
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -145,7 +145,9 @@ const SalesViewModal = (props) => {
                     checked={isChecked}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="contractCheckbox">유</label>
+                  <label className="sla" htmlFor="contractCheckbox">
+                    유
+                  </label>
                   <input
                     className="chk_input checkx"
                     type="checkbox"
@@ -153,7 +155,9 @@ const SalesViewModal = (props) => {
                     checked={!isChecked}
                     onChange={handleCheckboxChange}
                   />
-                  <label htmlFor="noContractCheckbox">무</label>
+                  <label className="sla" htmlFor="noContractCheckbox">
+                    무
+                  </label>
                 </div>
               </div>
             </div>
@@ -170,7 +174,6 @@ const SalesViewModal = (props) => {
                     value={memo}
                     onChange={(e) => setMemo(e.target.value)}
                   ></textarea>
-                  &nbsp;&nbsp;
                   <div className="update_button" onClick={handleMemoUpdate}>
                     수정
                   </div>
