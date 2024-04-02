@@ -33,22 +33,28 @@ const Home = () => {
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "name", headerName: "성명" },
+    { field: "name", headerName: "계약자" },
+    { field: "customerName", headerName: "검진자" },
     { field: "phone", headerName: "연락처" },
     { field: "product", headerName: "상품" },
     { field: "hospital", headerName: "검진병원" },
-    { field: "date", headerName: "검진일" },
+    { field: "date", headerName: "등록일" },
   ];
 
   const rows = homeData.map((data, index) => ({
     id: index + 1,
     idx: data.idx,
-    name: data.name,
+    name: data.contractor_name,
+    customerName: data.name,
     phone: data.phone,
-    product: data.product,
-    hospital: data.hospital,
-    date: moment(data.date).format("YYYY.MM.DD"),
+    product: data.productName,
+    hospital: data.hospitalName,
+    date: moment(data.date).format("YY.MM.DD"),
   }));
+
+  const viewModalOpen = () => {
+
+  }
 
   console.log(rows);
   let decodeResult;
@@ -101,7 +107,7 @@ const Home = () => {
                 <TableDefault
                   rows={rows}
                   columns={columns}
-                // viewModalOpen={viewModalOpen}
+                  viewModalOpen={viewModalOpen}
                 />
               </div>
               <div className="customer_btn_box">
