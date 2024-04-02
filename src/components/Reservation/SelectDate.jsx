@@ -55,17 +55,28 @@ const SelectDate = () => {
                     </div>
                 </div>
                 <div className='reserv_bottom_box'>
-                    <div className='reserv_input_box' onClick={() => openCalendar(1)}>
-                        <input className='reserv_input' placeholder='희망검진일1' value={dateText1} readOnly></input>
+                    <div className='reserv_input_box'>
+                        <input className='reserv_input' placeholder='희망검진일1' value={dateText1} readOnly onClick={() => openCalendar(1)}></input>
                         {openStatus === 1 && (
-                            <Calendar className="reserv_calendar" onChange={(e) => setFormatDate(e, 1)} value={date1} formatDay={(locale, date) => moment(date).format("DD")} />
+                            <Calendar className="reserv_calendar"
+                                onChange={(e) => setFormatDate(e, 1)}
+                                value={date1}
+                                formatDay={(locale, date) => moment(date).format("DD")}
+                                minDate={moment().toDate()}
+                                calendarType="gregory"
+                            />
                         )}
 
                     </div>
-                    <div className='reserv_input_box' onClick={() => openCalendar(2)}>
-                        <input className='reserv_input' placeholder='희망검진일2' value={dateText2} readOnly></input>
+                    <div className='reserv_input_box'>
+                        <input className='reserv_input' placeholder='희망검진일2' value={dateText2} readOnly onClick={() => openCalendar(2)}></input>
                         {openStatus === 2 && (
-                            <Calendar className="reserv_calendar" onChange={(e) => setFormatDate(e, 2)} value={date2} formatDay={(locale, date) => moment(date).format("DD")} />
+                            <Calendar className="reserv_calendar"
+                                minDate={moment().toDate()}
+                                onChange={(e) => setFormatDate(e, 2)}
+                                value={date2}
+                                formatDay={(locale, date) => moment(date).format("DD")}
+                                calendarType="gregory" />
                         )}
                     </div>
                 </div>
