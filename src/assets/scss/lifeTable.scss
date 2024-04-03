@@ -112,6 +112,10 @@
           width: calc((100% - 622px) / 3);
         }
 
+        &.my_num {
+          width: calc((100% - 50px)/3);
+        }
+
         &.half {
           width: calc((100% - 90px) / 2);
         }

@@ -480,7 +480,7 @@ const Aside = (props) => {
                 <div className="side_menu_box">
                   <div className={`menu_row`}>
                     <div
-                      className={`main_menu_box ${isOpen && path === "/notice" && "active"
+                      className={`main_menu_box ${mobileOpen && path === "/notice" && "active"
                         }`}
                       onClick={() => moveMobilePage("/notice")}
                     >
@@ -490,7 +490,7 @@ const Aside = (props) => {
                   </div>
                   <div className={`menu_row`}>
                     <div
-                      className={`main_menu_box ${isOpen && path === "/sales" && "active"
+                      className={`main_menu_box ${mobileOpen && path === "/sales" && "active"
                         }`}
                       onClick={() => moveMobilePage("/sales")}
                     >
@@ -500,7 +500,7 @@ const Aside = (props) => {
                   </div>
                   <div className={`menu_row`}>
                     <div
-                      className={`main_menu_box ${isOpen && path === "/mypage" && "active"
+                      className={`main_menu_box ${mobileOpen && path === "/mypage" && "active"
                         }`}
                       onClick={() => moveMobilePage("/mypage")}
                     >
@@ -510,7 +510,7 @@ const Aside = (props) => {
                   </div>
                   <div className={`menu_row`}>
                     <div
-                      className={`main_menu_box ${isOpen && path === "/link" && "active"
+                      className={`main_menu_box ${mobileOpen && path === "/link" && "active"
                         }`}
                       onClick={() => moveMobilePage("/link")}
                     >
