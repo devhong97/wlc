@@ -142,7 +142,6 @@ const HospitalProductModal = (props) => {
             </div>
           </div>
           {/* 선택한 name_1 데이터를 화면에 출력 */}
-          {JSON.stringify(deleteSelect)}
           {mode !== "write" &&
 
             choiceData.map((item, index) => (
