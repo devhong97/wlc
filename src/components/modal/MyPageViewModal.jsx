@@ -172,7 +172,7 @@ const MyPageViewModal = (props) => {
                     onChange={(e) => handlePhone(e, "tel1")}
                     id="tel"
                     maxlength="3"
-                    className="table_input num"
+                    className="table_input my_num"
                   />
                   &nbsp;-&nbsp;
                   <input
@@ -181,7 +181,7 @@ const MyPageViewModal = (props) => {
                     onChange={(e) => handlePhone(e, "tel2")}
                     id="tel2"
                     maxlength="4"
-                    className="table_input num"
+                    className="table_input my_num"
                   />
                   &nbsp;-&nbsp;
                   <input
@@ -190,7 +190,7 @@ const MyPageViewModal = (props) => {
                     onChange={(e) => handlePhone(e, "tel3")}
                     id="tel3"
                     maxlength="4"
-                    className="table_input num"
+                    className="table_input my_num"
                   />
                 </div>
               </div>

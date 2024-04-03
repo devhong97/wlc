@@ -150,6 +150,38 @@
               .menu_text {
                 color: #fff;
               }
+
+              .menu_icon {
+                background-image: url("../img/aside_1_white.png");
+
+                &.second {
+                  background-image: url("../img/aside_2_white.png");
+                }
+
+                &.third {
+                  background-image: url("../img/aside_3_white.png");
+                }
+
+                &.fourth {
+                  background-image: url("../img/aside_4_white.png");
+                }
+
+                &.fifth {
+                  background-image: url("../img/aside_hospital_white.png");
+                }
+
+                &.sixth {
+                  background-image: url("../img/aside_product_white.png");
+                }
+
+                &.seventh {
+                  background-image: url("../img/aside_5_white.png");
+                }
+
+                &.last {
+                  background-image: url("../img/aside_link_white.png");
+                }
+              }
             }
 
             .menu_icon {
@@ -838,14 +870,18 @@
 .sales-info-container {
   display: flex;
   flex-wrap: wrap;
+  padding: 20px;
 }
 
 .sales-info-item {
-  width: calc(20% - 20px);
-  margin: 10px;
+  width: calc(20% - 10px);
+  margin: 5px;
   padding: 10px;
   border: 1px solid #999999;
   border-radius: 7px;
+  min-width: 140px;
+  background-color: #fff;
+  font-size: 14px;
 }
 
 .sales-info-title {
