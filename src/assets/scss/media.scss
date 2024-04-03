@@ -107,15 +107,20 @@
         }
     }
 
-    .side_wrap {
-        .side_back {
-            display: none;
+    .menu_area {
+        box-shadow: none;
 
-            &.mobile {
-                display: block !important;
+        .side_wrap {
+            .side_back {
+                display: none;
+
+                &.mobile {
+                    display: block !important;
+                }
             }
         }
     }
+
 
     .main_area {
         padding-left: 0 !important;
