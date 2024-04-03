@@ -75,7 +75,7 @@ const SalesList = () => {
   //검진완료
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "name", headerName: "성명", flex: 0.5 },
+    { field: "name", headerName: "검진자성명", flex: 0.5 },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
     { field: "product", headerName: "선택상품" },
@@ -98,6 +98,7 @@ const SalesList = () => {
     hope_status: data.hope_status,
     contract: data.contract,
     memo: data.memo,
+    contractor_name: data.contractor_name,
     idx: data.idx,
   }));
 

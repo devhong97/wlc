@@ -73,7 +73,7 @@ const MemberListModal = (props) => {
     clearModal();
   };
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
 
   return (
     <div className="modal_wrap">

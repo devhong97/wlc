@@ -22,7 +22,9 @@ const NoticeViewModal = (props) => {
   const [file, setFile] = useState(null);
   const editorRef = useRef(null);
   const { decodeS4 } = useAuth();
-  const [userContents, setUserContents] = useState(props.detailData.content || "")
+  const [userContents, setUserContents] = useState(
+    props.detailData.content || ""
+  );
 
   // LIST에서 가져온 상세보기 데이터
   useEffect(() => {
@@ -142,8 +144,6 @@ const NoticeViewModal = (props) => {
     props.closeModal();
   };
 
-
-
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -200,15 +200,16 @@ const NoticeViewModal = (props) => {
                         },
                       }}
                       id="content"
-                    // readOnly={decodeS4() !== "슈퍼관리자"}
-
+                      // readOnly={decodeS4() !== "슈퍼관리자"}
                     />
                   </div>
                 </div>
               ) : (
                 <div className="table_section">
                   <div className="board_contents_box">
-                    <div dangerouslySetInnerHTML={{ __html: userContents }}></div>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: userContents }}
+                    ></div>
                   </div>
                 </div>
               )}

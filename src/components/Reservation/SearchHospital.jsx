@@ -81,7 +81,7 @@ const SearchHospital = () => {
     city: data.city,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);
