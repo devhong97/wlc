@@ -10,7 +10,8 @@ const SalesList = () => {
   const [detailIdx, setDetailIdx] = useState("");
   const [salesData, setSalesData] = useState([]);
   const [arrayData, setArrayData] = useState([]);
-
+  const [contractCount, setContractCount] = useState(0);
+  const [hopeCount, setHopeCount] = useState(0);
   const { decodeS1 } = useAuth();
 
   useEffect(() => {
@@ -25,23 +26,6 @@ const SalesList = () => {
   const closeModal = () => {
     setViewModal(false);
     getSalesData();
-  }
-
-  const getSalesTop = async () => {
-    try {
-      const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_top",
-        {
-          params: {
-            uid: decodeS1(), // uid를 params에 전달
-          },
-        }
-      );
-      const allData = response.data.data[0];
-      setSalesData(allData);
-    } catch (error) {
-      console.error("Error fetching list:", error);
-    }
   };
 
   const getSalesData = async () => {
@@ -57,6 +41,32 @@ const SalesList = () => {
       const arrayData = response.data.data;
       console.log(arrayData);
       setArrayData(arrayData);
+      // 데이터를 받아온 후에 getSalesTop 호출하여 contractCount 설정
+      getSalesTop(arrayData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
+
+  const getSalesTop = async (arrayData) => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/sales_top",
+        {
+          params: {
+            uid: decodeS1(), // uid를 params에 전달
+          },
+        }
+      );
+      const allData = response.data.data[0];
+      setSalesData(allData);
+      // arrayData가 설정된 후에 contractCount를 계산합니다.
+      const count = arrayData.filter((data) => data.contract === "Y").length;
+      const hopeCount = arrayData.filter(
+        (data) => data.hope_status === "Y"
+      ).length;
+      setContractCount(count);
+      setHopeCount(hopeCount);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -88,22 +98,8 @@ const SalesList = () => {
     hope_status: data.hope_status,
     contract: data.contract,
     memo: data.memo,
-    contractor_name: data.contractor_name,
     idx: data.idx,
   }));
-
-  const handleContractCheckbox = (idx) => {
-    // 해당 idx의 계약 상태를 토글
-    const newData = arrayData.map((data, index) =>
-      index === idx ? { ...data, contract: !data.contract } : data
-    );
-    setArrayData(newData);
-  };
-
-  const handleMemoClick = (idx) => {
-    setViewModal(true); // 모달 열기
-    setDetailIdx(idx); // 선택한 항목의 idx 설정
-  };
 
   return (
     <div className="main_wrap">
@@ -128,10 +124,14 @@ const SalesList = () => {
                 </div>
               </div>
               <div className="sales-info-item">
-                <div className="sales-info-title">상담희망고객수: X</div>
+                <div className="sales-info-title">
+                  상담희망고객수: {hopeCount}
+                </div>
               </div>
               <div className="sales-info-item">
-                <div className="sales-info-title">계약고객수: X</div>
+                <div className="sales-info-title">
+                  계약고객수: {contractCount}
+                </div>
               </div>
             </div>
           </div>

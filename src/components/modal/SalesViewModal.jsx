@@ -67,7 +67,6 @@ const SalesViewModal = (props) => {
     //detailNum 사용하여 상세 api 호출
   };
 
-  const handleSubmit = () => { };
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -81,9 +80,7 @@ const SalesViewModal = (props) => {
           <div className="table_box">
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">
-                  계약자성명
-                </div>
+                <div className="table_title">계약자성명</div>
                 <div className="table_contents w100">
                   {detailNum.contractor_name}
                 </div>
@@ -95,9 +92,7 @@ const SalesViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">
-                  계약자 연락처
-                </div>
+                <div className="table_title">계약자 연락처</div>
                 <div className="table_contents w100">{detailNum.phone}</div>
               </div>
               <div className="table_section half">
@@ -144,7 +139,7 @@ const SalesViewModal = (props) => {
                       <input
                         type="radio"
                         name="contractCheckbox"
-                        value="1"
+                        value="Y"
                         checked={isChecked}
                         onChange={handleCheckboxChange}
                       />
@@ -156,14 +151,13 @@ const SalesViewModal = (props) => {
                       <input
                         type="radio"
                         name="contractCheckbox"
-                        value="2"
+                        value="N"
                         checked={!isChecked}
                         onChange={handleCheckboxChange}
                       />
                       무
                     </label>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -180,7 +174,6 @@ const SalesViewModal = (props) => {
                     value={memo}
                     onChange={(e) => setMemo(e.target.value)}
                   ></textarea>
-
                 </div>
               </div>
             </div>

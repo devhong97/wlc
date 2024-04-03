@@ -52,11 +52,8 @@ const Home = () => {
     date: moment(data.date).format("YY.MM.DD"),
   }));
 
-  const viewModalOpen = () => {
+  const viewModalOpen = () => {};
 
-  }
-
-  console.log(rows);
   let decodeResult;
 
   switch (decodeS4()) {
@@ -100,9 +97,7 @@ const Home = () => {
       decodeResult = (
         <div className="main_wrap">
           <div className="main_back">
-            <div className="main_title_box">
-              7일이내 검진예약 고객명단
-            </div>
+            <div className="main_title_box">7일이내 검진예약 고객명단</div>
             <div className="table_box list">
               <TableDefault
                 rows={rows}
@@ -113,9 +108,7 @@ const Home = () => {
             <div className="customer_btn_box">
               <div
                 className="customer_btn"
-                onClick={() =>
-                  navigation("/reserv", { state: { status: "" } })
-                }
+                onClick={() => navigation("/reserv", { state: { status: "" } })}
               >
                 예약 시작
               </div>
