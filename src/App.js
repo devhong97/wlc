@@ -24,9 +24,8 @@ function App() {
     <Fragment>
       {loginAccess ? (
         <div className="screen">
-          <div className={`menu_area `}>
-            <Aside />
-          </div>
+
+          <Aside />
           <div className={`main_area`}>
             <Header />
             <Router />
