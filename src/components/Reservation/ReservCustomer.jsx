@@ -72,7 +72,6 @@ const ReservCustomer = () => {
 
       );
       const allData = response.data.terms_info;
-      console.log(allData);
       setAgreeTermsData(allData);
 
 
