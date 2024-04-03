@@ -8,11 +8,25 @@ import moment from "moment";
 const Home = () => {
   const { decodeS1, decodeS4 } = useAuth();
   const [homeData, setHomeData] = useState([]); // 병원 리스트
+  const [totalData, setTotalData] = useState([]); // 슈퍼관리자 토탈데이터
   const navigation = useNavigate();
 
   useEffect(() => {
+    getTotalData();
     fetchData();
   }, [decodeS1()]);
+
+  const getTotalData = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/home_total"
+      );
+      const allData = response.data;
+      setTotalData(allData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -61,16 +75,16 @@ const Home = () => {
       decodeResult = (
         <div className="main_wrap">
           <div className="main_back">
-            <div>총매출액</div>
-            <div>총커미션합계</div>
-            <div>지급예정커미션</div>
-            <div>고객수</div>
-            <div>상담희망고객수</div>
-            <div>총지점수</div>
-            <div>총영업자수</div>
-            <div>계약고객수(청약고객수)</div>
-
-            <div>{decodeS4()}</div>
+            <div className="super_wrap">
+              <div>총매출액: </div>
+              <div>총커미션합계: </div>
+              <div>지급예정커미션: </div>
+              <div>고객수: </div>
+              <div>상담희망고객수: </div>
+              <div>총지점수: </div>
+              <div>총영업자수: </div>
+              <div>계약고객수(청약고객수): </div>
+            </div>
           </div>
         </div>
       );

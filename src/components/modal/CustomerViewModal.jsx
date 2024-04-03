@@ -23,7 +23,7 @@ const CustomerViewModal = (props) => {
   const [customerName, setCustomerName] = useState(""); //검진자 이름
   const [customerNumber, setCustomerNumber] = useState(""); //검진 인원
   const [phone, setPhone] = useState(""); // 연락처
-  const [cPhone, setCPhone] = useState("");//검진자 연락처
+  const [cPhone, setCPhone] = useState(""); //검진자 연락처
   // const [date, setDate] = useState("");//가입일
   const [hope_date_1, setHopeDate1] = useState(""); //희망일1
   const [hope_date_2, setHopeDate2] = useState(""); //희망일2

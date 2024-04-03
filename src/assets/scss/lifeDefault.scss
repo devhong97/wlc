@@ -820,7 +820,7 @@
 
 .list_area {
   width: 100%;
-  padding: 20px;
+  //padding: 20px;
   box-sizing: border-box;
 }
 
@@ -858,4 +858,22 @@
 
 .update_button:hover {
   background-color: #0056b3;
+}
+
+.super_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 150px;
+  justify-content: center;
+}
+
+.super_wrap > div {
+  width: calc(50% - 200px);
+  margin-bottom: 20px;
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 50px;
 }
