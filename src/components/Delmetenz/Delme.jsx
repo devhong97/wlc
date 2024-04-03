@@ -20,14 +20,12 @@ const Delme = () => {
   const [content, setContent] = useState(""); // 게시글
   const [content2, setContent2] = useState(""); // 게시글
   const [detailPKey, setDetailPKey] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null); //파일첨부
-  const [fileUrl, setFileUrl] = useState(""); //파일 URL
   const editorRef1 = useRef(null);
   const editorRef2 = useRef(null);
 
   useEffect(() => {
-    // DB에서 데이터를 가져와 content 변수에 설정
     fetchTermsData();
+    fetchMarketingData();
   }, []);
 
   const fetchTermsData = async () => {
@@ -36,11 +34,22 @@ const Delme = () => {
         "http://localhost:3001/api/get/terms_data"
       );
       const termsData = response.data.terms_info; // 서버에서 받은 데이터
-      const mTermsData = response.data.marketing;
       console.log(termsData);
       setContent(termsData); // content를 가져와서 setContent에 전달
-      setContent2(mTermsData)
       editorRef1.current.getInstance().setHTML(termsData);
+    } catch (error) {
+      console.error("데이터 가져오기 중 오류 발생", error);
+    }
+  };
+
+  const fetchMarketingData = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/marketing_data"
+      );
+      const mTermsData = response.data.marketing; // 서버에서 받은 데이터
+      console.log(mTermsData);
+      setContent2(mTermsData);
       editorRef2.current.getInstance().setHTML(mTermsData);
     } catch (error) {
       console.error("데이터 가져오기 중 오류 발생", error);
@@ -84,13 +93,6 @@ const Delme = () => {
     const editorInstance = editorRef2.current.getInstance();
     const htmlContent = editorInstance.getHTML();
     setContent2(htmlContent);
-  };
-
-  //파일 선택 핸들러
-  const handleFileSelect = (e) => {
-    setSelectedFile(e.target.files[0]);
-    const fileURL = URL.createObjectURL(e.target.files[0]);
-    setFileUrl(fileURL);
   };
 
   // 델미텐츠 지점등록
@@ -152,7 +154,7 @@ const Delme = () => {
   // 개인정보약관동의 내용
   const termsInsert = async () => {
     try {
-      const confirmResult = window.confirm("수정완료 하시겠습니까");
+      const confirmResult = window.confirm("수정완료 하시겠습니까?");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/terms_text", {
           content: content, // content 변수명 수정
@@ -167,7 +169,7 @@ const Delme = () => {
   // 마케팅약관동의 내용
   const marketingInsert = async () => {
     try {
-      const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
+      const confirmResult = window.confirm("수정완료 등록하시겠습니까?");
       if (confirmResult) {
         await Axios.post("http://localhost:3001/api/post/marketing_text", {
           content2: content2, // content2 변수명 수정
