@@ -107,7 +107,7 @@ export const ReservProvider = ({ children }) => {
         }
       );
       const allData = response.data.data;
-      const keys = allData.map((item) => parseInt(item.p_key));
+      const keys = allData.map((item) => item.p_key);
       console.log(keys);
       setHospitalKey(keys);
       // hospitalKey가 설정된 후에 콜백 함수 호출

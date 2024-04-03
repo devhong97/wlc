@@ -44,6 +44,9 @@ const HospitalList = () => {
               member_num: data.member_num,
               date: moment(data.date).format("YYYY.MM.DD"),
               idx: data.idx,
+              p_key: data.p_key,
+              c_key: data.c_key,
+              productArray: data.productArray
             }))
           );
         } else {
