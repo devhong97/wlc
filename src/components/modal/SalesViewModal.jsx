@@ -143,7 +143,7 @@ const SalesViewModal = (props) => {
                         checked={isChecked}
                         onChange={handleCheckboxChange}
                       />
-                      유
+                      &nbsp;유
                     </label>
                   </div>
                   <div className="table_radio">
@@ -155,7 +155,7 @@ const SalesViewModal = (props) => {
                         checked={!isChecked}
                         onChange={handleCheckboxChange}
                       />
-                      무
+                      &nbsp;무
                     </label>
                   </div>
                 </div>

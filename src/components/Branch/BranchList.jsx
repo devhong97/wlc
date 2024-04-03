@@ -14,10 +14,52 @@ const BranchList = () => {
   const [branchList, setBranchList] = useState([]); // 지점 리스트
   const [branchIdx, setBranchIdx] = useState("");
   const [searchData, setSearchData] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망 총합
+  const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객 총합
 
   useEffect(() => {
     fetchBranchList();
+    brnachTotal();
   }, [searchData]);
+
+  const brnachTotal = () => {
+    Axios.get("http://localhost:3001/api/get/branch_total")
+      .then((res) => {
+        const { success, branchDetails } = res.data;
+        if (success) {
+          // 서버로부터 받아온 데이터를 형식에 맞게 가공하여 상태로 설정합니다.
+          const formattedData = branchDetails.map((data, index) => ({
+            id: index + 1,
+            branch_idx: data.branch_idx,
+            hopeCount: data.hopeCount,
+            contractCount: data.contractCount,
+          }));
+          setTotal(formattedData);
+
+          const hopesCount = formattedData.reduce(
+            (acc, cur) => acc + cur.hopeCount,
+            0
+          );
+          const contractsCount = formattedData.reduce(
+            (acc, cur) => acc + cur.contractCount,
+            0
+          );
+
+          setTotalHopeCount(hopesCount);
+          setTotalContractCount(contractsCount);
+          // 각각의 객체 형태로 출력합니다.
+          branchDetails.forEach((branch) => {
+            console.log(branch);
+          });
+        } else {
+          console.log("에러");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const fetchBranchList = () => {
     const resultParams = {};
@@ -72,8 +114,30 @@ const BranchList = () => {
     { field: "employee_num", headerName: "사원수", maxWidth: 100 },
     { field: "location", headerName: "지역" },
     { field: "registered_num", headerName: "가입회원수", maxWidth: 100 },
-    { field: "consulting_num", headerName: "상담희망수", maxWidth: 100 },
-    { field: "contract_num", headerName: "계약고객수", maxWidth: 100 },
+    {
+      field: "hopeCount",
+      headerName: "상담희망수",
+      maxWidth: 100,
+      valueGetter: (params) => {
+        const branchIdx = params.row.branch_idx;
+        const nameCountData = total.find(
+          (data) => data.branch_idx === branchIdx
+        );
+        return nameCountData ? nameCountData.hopeCount : "0";
+      },
+    },
+    {
+      field: "contract_num",
+      headerName: "계약고객수",
+      maxWidth: 100,
+      valueGetter: (params) => {
+        const branchIdx = params.row.branch_idx;
+        const nameCountData = total.find(
+          (data) => data.branch_idx === branchIdx
+        );
+        return nameCountData ? nameCountData.contractCount : "0";
+      },
+    },
     { field: "date", headerName: "생성일" },
   ];
 
@@ -102,9 +166,9 @@ const BranchList = () => {
         <div className="main_title_box">
           지점 관리
           <div className="total_data_box">
-            <div className="total_box">가입회원 : 10000</div>
-            <div className="total_box">상담희망: 10000</div>
-            <div className="total_box">계약고객: 10000</div>
+            <div className="total_box">가입회원수 : 10000명</div>
+            <div className="total_box">상담희망수 : {totalHopeCount}명</div>
+            <div className="total_box">계약고객수 : {totalContractCount}명</div>
           </div>
         </div>
         <div className="board_list_wrap">

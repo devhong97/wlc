@@ -5,20 +5,31 @@ import { useNavigate } from "react-router-dom";
 import SignComponent from "./SignComponent";
 
 const ReservCustomer = () => {
-  const { signData1, signData2, setCustomerData, customerData, uploadFiles } = useReservContext();
+  const { signData1, signData2, setCustomerData, customerData, uploadFiles } =
+    useReservContext();
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
-  const [customerName, setCustomerName] = useState(customerData.customerName || "");
-  const [customerNumber, setCustomerNumber] = useState(customerData.customerNumber || "");
+  const [customerName, setCustomerName] = useState(
+    customerData.customerName || ""
+  );
+  const [customerNumber, setCustomerNumber] = useState(
+    customerData.customerNumber || ""
+  );
   const [phone, setPhone] = useState(customerData.phone || "");
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
-  const [agreeTermsData, setAgreeTermsData] = useState("")
+  const [agreeTermsData, setAgreeTermsData] = useState("");
   const navigation = useNavigate();
   const moveSecondStep = () => {
-    if (name === "" || customerName === "" || phone === "" || c_phone === "" || customerNumber === "") {
+    if (
+      name === "" ||
+      customerName === "" ||
+      phone === "" ||
+      c_phone === "" ||
+      customerNumber === ""
+    ) {
       alert("정보를 모두 입력해주세요.");
       return;
     }
@@ -28,8 +39,8 @@ const ReservCustomer = () => {
     setAgreeTerms(e.target.checked);
   };
   const handleMterms = (e) => {
-    setMTerms(e.target.checked)
-  }
+    setMTerms(e.target.checked);
+  };
   const moveThirdStep = () => {
     if (!agreeTerms) {
       alert("필수 약관에 동의해주세요.");
@@ -55,30 +66,27 @@ const ReservCustomer = () => {
 
   const openTerms = (num) => {
     if (termsStatus === 0 || termsStatus !== num) {
-      setTermsStatus(num)
+      setTermsStatus(num);
     } else if (termsStatus === num) {
-      setTermsStatus(0)
+      setTermsStatus(0);
     }
-  }
+  };
 
   useEffect(() => {
     getTerms();
-  }, [])
+  }, []);
 
   const getTerms = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/terms_data",
-
+        "http://localhost:3001/api/get/terms_data"
       );
       const allData = response.data.terms_info;
       setAgreeTermsData(allData);
-
-
     } catch (error) {
       console.error("Error fetching list:", error);
     }
-  }
+  };
 
   return (
     <div className="reserv_wrap">
@@ -86,7 +94,8 @@ const ReservCustomer = () => {
         <div className="reserv_back">
           <div className="reserv_top_box">
             <div className="reserv_title">
-              고객님의 <br /><p className="point_text">정보</p>를 입력하세요.
+              고객님의 <br />
+              <p className="point_text">정보</p>를 입력하세요.
             </div>
           </div>
           <div className="reserv_bottom_box">
@@ -151,8 +160,15 @@ const ReservCustomer = () => {
               <div className="terms_contents_btn" onClick={() => openTerms(1)}>
                 [자세히 보기]
               </div>
-              <div className={`terms_contents_box ${termsStatus === 1 && "active"}`}>
-                <div className="terms_contents" dangerouslySetInnerHTML={{ __html: agreeTermsData }}></div>
+              <div
+                className={`terms_contents_box ${
+                  termsStatus === 1 && "active"
+                }`}
+              >
+                <div
+                  className="terms_contents"
+                  dangerouslySetInnerHTML={{ __html: agreeTermsData }}
+                ></div>
               </div>
             </div>
             <div className="terms_checkbox">
@@ -167,7 +183,6 @@ const ReservCustomer = () => {
                 [필수] 약관에 동의합니다.
               </label>
             </div>
-
           </div>
           <div className="reserv_bottom_box">
             <div className="terms_box">
@@ -175,7 +190,11 @@ const ReservCustomer = () => {
               <div className="terms_contents_btn" onClick={() => openTerms(2)}>
                 [자세히 보기]
               </div>
-              <div className={`terms_contents_box ${termsStatus === 2 && "active"}`}>
+              <div
+                className={`terms_contents_box ${
+                  termsStatus === 2 && "active"
+                }`}
+              >
                 <div className="terms_contents">여기에 넣기!</div>
               </div>
             </div>
@@ -203,7 +222,6 @@ const ReservCustomer = () => {
         <div className="reserv_back sign">
           <div className="reserv_bottom_box sign">
             <SignComponent checkSign={checkSign}></SignComponent>
-
           </div>
         </div>
       )}
