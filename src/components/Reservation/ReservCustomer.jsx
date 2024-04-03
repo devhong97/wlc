@@ -82,7 +82,6 @@ const ReservCustomer = () => {
         "http://localhost:3001/api/get/terms_data"
       );
       const allData = response.data.terms_info;
-      console.log(allData);
       setAgreeTermsData(allData);
     } catch (error) {
       console.error("Error fetching list:", error);

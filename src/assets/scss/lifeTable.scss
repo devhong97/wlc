@@ -146,6 +146,11 @@
         padding-right: 20px;
         vertical-align: middle;
         font-size: 15px;
+
+        .inner_join_text {
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
 
       .table_more_btn {
