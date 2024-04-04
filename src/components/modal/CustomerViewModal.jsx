@@ -39,8 +39,10 @@ const CustomerViewModal = (props) => {
   useEffect(() => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
-      setDetailNum(props.detailIdx);
+      setDetailNum(props.detailIdx.idx);
       getDetail();
+    } else {
+      props.closeModal()
     }
   }, [props.detailIdx]);
 
@@ -57,7 +59,7 @@ const CustomerViewModal = (props) => {
         "http://localhost:3001/api/get/customer_detail",
         {
           params: {
-            idx: props.detailIdx,
+            idx: props.detailIdx.idx,
           },
         }
       );
