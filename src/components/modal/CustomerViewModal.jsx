@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import moment from "moment";
 import { useReservContext } from "../Context/ReservContext";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -30,6 +32,8 @@ const CustomerViewModal = (props) => {
   const [product, setProduct] = useState(""); //상품명
   const [hospital, setHospital] = useState(0); //병원명
   const [result_date, setResultDate] = useState(""); //검진확정일
+  const [resultCalendar, setResultCalendar] = useState("");//검진확정일 달력데이터
+  const [openCalendar, setOpenCalendar] = useState(false); //달력오픈
   const [memo, setMemo] = useState(""); //비고
   const [manager, setManager] = useState(""); //영업자 이름
   const [branch, setBranch] = useState(""); //지점 이름
@@ -175,6 +179,19 @@ const CustomerViewModal = (props) => {
     link.click();
     document.body.removeChild(link);
   };
+
+  const calendarStatus = () => {
+    setOpenCalendar(!openCalendar)
+  }
+
+
+  const setFormatDate = (date) => {
+    const momentDate = moment(date).format("YYYY.MM.DD");
+    setResultDate(momentDate)
+    setResultCalendar(date)
+    setOpenCalendar(false)
+
+  }
 
   return (
     <div className="modal_wrap">
@@ -357,19 +374,29 @@ const CustomerViewModal = (props) => {
                 </div>
               </div>
             </div>
-            <div className="table_row">
-              <div className="table_section half">
+            <div className="table_row calendar">
+              <div className="table_section half calendar">
                 <div className="table_title">검진확정일</div>
-                <div className="table_contents w100">
+                <div className="table_contents w100 calendar">
                   <input
                     className="table_input w100"
                     type="text"
                     id="title"
                     placeholder="확정일 입력해주세요."
                     value={result_date}
-                    onChange={(e) => setResultDate(e.target.value)}
+                    onClick={() => calendarStatus()}
                     disabled={inspectionStatus === "2"}
+                    readOnly
                   ></input>
+                  {openCalendar && (
+                    <Calendar className="modal_calendar"
+                      onChange={(e) => setFormatDate(e)}
+                      value={resultCalendar}
+                      formatDay={(locale, date) => moment(date).format("DD")}
+                      minDate={moment().toDate()}
+                      calendarType="gregory"
+                    />
+                  )}
                 </div>
               </div>
               <div className="table_section half">
