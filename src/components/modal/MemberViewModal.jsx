@@ -35,6 +35,8 @@ const MemberViewModal = (props) => {
     if (props.detailIdx) {
       console.log(props.detailIdx);
       getDetail();
+    } else {
+      props.closeModal()
     }
   }, [props.detailIdx]);
 
@@ -77,7 +79,7 @@ const MemberViewModal = (props) => {
         "http://localhost:3001/api/get/member_detail",
         {
           params: {
-            idx: props.detailIdx,
+            idx: props.detailIdx.idx,
           },
         }
       );
@@ -127,7 +129,7 @@ const MemberViewModal = (props) => {
       company_name: company,
       branch: branchName,
       branch_idx: branchIdx,
-      idx: props.detailIdx,
+      idx: props.detailIdx.idx,
     };
 
     // 비밀번호 수정 시에 params에 추가
@@ -152,7 +154,7 @@ const MemberViewModal = (props) => {
       const response = await Axios.post(
         "http://localhost:3001/api/post/member_delete",
         {
-          idx: props.detailIdx,
+          idx: props.detailIdx.idx,
         }
       );
       alert("삭제되었습니다.");
@@ -180,7 +182,7 @@ const MemberViewModal = (props) => {
         "http://localhost:3001/api/post/member_status",
         {
           status: num,
-          idx: props.detailIdx,
+          idx: props.detailIdx.idx,
         }
       );
 

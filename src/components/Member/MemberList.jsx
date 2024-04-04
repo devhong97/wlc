@@ -14,7 +14,7 @@ const MemberList = () => {
   const { decodeS3, decodeS1 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
-  const [detailIdx, setDetailIdx] = useState("");
+  const [detailIdx, setDetailIdx] = useState([]);
   const [memberData, setMemberData] = useState([]);
   const [tab, setTab] = useState(1);
   const location = useLocation();
@@ -131,9 +131,7 @@ const MemberList = () => {
   };
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
-    const idx = data.idx;
-    console.log(idx);
-    setDetailIdx(idx);
+    setDetailIdx(data);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -146,6 +144,8 @@ const MemberList = () => {
 
   const changeTab = (num) => {
     setTab(num);
+    setViewModal(false);
+    setDetailIdx([])
     selectRef.current.clearSearch();
   };
 
@@ -192,9 +192,8 @@ const MemberList = () => {
               </div>
             )}
             <div
-              className={`table_box ${
-                grade !== "영업사원" ? "tab_list" : "list"
-              }`}
+              className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"
+                }`}
             >
               <TableDefault
                 rows={rows}
@@ -215,7 +214,7 @@ const MemberList = () => {
       {writeModal && (
         <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>
       )}
-      {viewModal && (
+      {(viewModal && detailIdx) && (
         <MemberViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
