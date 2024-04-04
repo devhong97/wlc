@@ -16,9 +16,11 @@ const HospitalList = () => {
   const [searchData, setSearchData] = useState([]);
   const [numberData, setNumberData] = useState("");
   const [detailData, setDetailData] = useState([]);
+  const [hospitalUserCounts, setHospitalUserCounts] = useState([]);
 
   useEffect(() => {
     fetchHospitalList();
+    fetchHospitalUserCount();
   }, [searchData]);
 
   const fetchHospitalList = () => {
@@ -41,7 +43,6 @@ const HospitalList = () => {
               province: data.province,
               city: data.city,
               product: data.product,
-              member_num: data.member_num,
               date: moment(data.date).format("YYYY.MM.DD"),
               idx: data.idx,
               p_key: data.p_key,
@@ -62,6 +63,21 @@ const HospitalList = () => {
       });
   };
 
+  const fetchHospitalUserCount = () => {
+    Axios.get("http://localhost:3001/api/get/hospital_user_count")
+      .then((res) => {
+        if (res.data.success) {
+          setHospitalUserCounts(res.data.data);
+          console.log(res.data.data);
+        } else {
+          console.error("병원 사용자 수 조회 실패");
+        }
+      })
+      .catch((err) => {
+        console.error("병원 사용자 수 조회 실패:", err);
+      });
+  };
+
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
     { field: "name", headerName: "병원명" },
@@ -69,7 +85,7 @@ const HospitalList = () => {
     { field: "province", headerName: "지역(도)" },
     { field: "city", headerName: "지역(시)" },
     { field: "product", headerName: "검진가능상품" },
-    { field: "member_num", headerName: "검진회원수" },
+    { field: "user_count", headerName: "검진회원수" },
     { field: "date", headerName: "병원등록일" },
   ];
 
