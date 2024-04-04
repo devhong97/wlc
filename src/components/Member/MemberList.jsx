@@ -133,8 +133,12 @@ const MemberList = () => {
     setViewModal(!viewModal);
     setDetailIdx(data);
   };
+
   const viewModalClose = (status) => {
     setViewModal(false);
+    console.log("detailIdx before reset", detailIdx);
+    setDetailIdx(""); // detailIdx 초기화
+    console.log("detailIdx after reset", detailIdx);
     if (status === "reload") {
       window.location.reload();
     } else {

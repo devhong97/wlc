@@ -17,7 +17,7 @@ const BranchList = () => {
   const [total, setTotal] = useState([]);
   const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망 총합
   const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객 총합
-
+  const [totalCustomerCount, setTotalCustomerCount] = useState(0); //총 고객수
   useEffect(() => {
     fetchBranchList();
     brnachTotal();
@@ -32,10 +32,17 @@ const BranchList = () => {
           const formattedData = branchDetails.map((data, index) => ({
             id: index + 1,
             branch_idx: data.branch_idx,
+            employeeCount: data.employeeCount,
             hopeCount: data.hopeCount,
             contractCount: data.contractCount,
+            totalCustomerCount: data.totalCustomerCount,
           }));
           setTotal(formattedData);
+
+          const totalsCustomerCount = formattedData.reduce(
+            (acc, cur) => acc + cur.totalCustomerCount,
+            0
+          );
 
           const hopesCount = formattedData.reduce(
             (acc, cur) => acc + cur.hopeCount,
@@ -46,6 +53,7 @@ const BranchList = () => {
             0
           );
 
+          setTotalCustomerCount(totalsCustomerCount);
           setTotalHopeCount(hopesCount);
           setTotalContractCount(contractsCount);
           // 각각의 객체 형태로 출력합니다.
@@ -111,9 +119,31 @@ const BranchList = () => {
     { field: "company_name", headerName: "회사명" },
     { field: "branch_name", headerName: "지점명" },
     { field: "owner_name", headerName: "지점장명" },
-    { field: "employee_num", headerName: "사원수", maxWidth: 100 },
+    {
+      field: "employee_num",
+      headerName: "사원수",
+      maxWidth: 100,
+      valueGetter: (params) => {
+        const branchIdx = params.row.branch_idx;
+        const nameCountData = total.find(
+          (data) => data.branch_idx === branchIdx
+        );
+        return nameCountData ? nameCountData.employeeCount : "0";
+      },
+    },
     { field: "location", headerName: "지역" },
-    { field: "registered_num", headerName: "가입회원수", maxWidth: 100 },
+    {
+      field: "registered_num",
+      headerName: "총 고객수",
+      maxWidth: 100,
+      valueGetter: (params) => {
+        const branchIdx = params.row.branch_idx;
+        const nameCountData = total.find(
+          (data) => data.branch_idx === branchIdx
+        );
+        return nameCountData ? nameCountData.totalCustomerCount : "0";
+      },
+    },
     {
       field: "hopeCount",
       headerName: "상담희망수",
@@ -166,7 +196,7 @@ const BranchList = () => {
         <div className="main_title_box">
           지점 관리
           <div className="total_data_box">
-            <div className="total_box">가입회원수 : 10000명</div>
+            <div className="total_box">총 고객수 : {totalCustomerCount}명</div>
             <div className="total_box">상담희망수 : {totalHopeCount}명</div>
             <div className="total_box">계약고객수 : {totalContractCount}명</div>
           </div>
