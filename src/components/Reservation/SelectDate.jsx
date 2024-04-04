@@ -37,7 +37,7 @@ const SelectDate = () => {
     }
 
     const setFormatDate = (date, num) => {
-        const momentDate = moment(date).format("YY.MM.DD");
+        const momentDate = moment(date).format("YYYY.MM.DD");
         if (num === 1) {
             setDateText1(momentDate)
             setDate1(date)
@@ -45,6 +45,7 @@ const SelectDate = () => {
             setDateText2(momentDate)
             setDate2(date)
         }
+        setOpenStatus(0)
     }
     return (
         <div className='reserv_wrap'>
