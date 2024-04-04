@@ -17,7 +17,7 @@ const BranchList = () => {
   const [total, setTotal] = useState([]);
   const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망 총합
   const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객 총합
-  const [totalCustomerCount, setTotalCustomerCount] = useState(0); //총 고객수
+  const [totalCustomerDataCount, setTotalCustomerCount] = useState(0); //총 고객수
   useEffect(() => {
     fetchBranchList();
     brnachTotal();
@@ -26,7 +26,7 @@ const BranchList = () => {
   const brnachTotal = () => {
     Axios.get("http://localhost:3001/api/get/branch_total")
       .then((res) => {
-        const { success, branchDetails } = res.data;
+        const { success, branchDetails, allCustomerCount } = res.data;
         if (success) {
           // 서버로부터 받아온 데이터를 형식에 맞게 가공하여 상태로 설정합니다.
           const formattedData = branchDetails.map((data, index) => ({
@@ -36,14 +36,10 @@ const BranchList = () => {
             hopeCount: data.hopeCount,
             contractCount: data.contractCount,
             totalCustomerCount: data.totalCustomerCount,
+            allCustomerCount: data.allCustomerCount,
           }));
           setTotal(formattedData);
-
-          const totalsCustomerCount = formattedData.reduce(
-            (acc, cur) => acc + cur.totalCustomerCount,
-            0
-          );
-
+          const allCustomersCount = allCustomerCount;
           const hopesCount = formattedData.reduce(
             (acc, cur) => acc + cur.hopeCount,
             0
@@ -53,7 +49,7 @@ const BranchList = () => {
             0
           );
 
-          setTotalCustomerCount(totalsCustomerCount);
+          setTotalCustomerCount(allCustomersCount);
           setTotalHopeCount(hopesCount);
           setTotalContractCount(contractsCount);
           // 각각의 객체 형태로 출력합니다.
@@ -196,7 +192,9 @@ const BranchList = () => {
         <div className="main_title_box">
           지점 관리
           <div className="total_data_box">
-            <div className="total_box">총 고객수 : {totalCustomerCount}명</div>
+            <div className="total_box">
+              총 고객수 : {totalCustomerDataCount}명
+            </div>
             <div className="total_box">상담희망수 : {totalHopeCount}명</div>
             <div className="total_box">계약고객수 : {totalContractCount}명</div>
           </div>
