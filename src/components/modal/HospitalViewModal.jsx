@@ -129,7 +129,7 @@ const HospitalViewModal = (props) => {
   // 지점삭제버튼
   const deleteBranch = async () => {
     const confirmDelete = window.confirm(
-      `[${branchDetailData.branch_name}] 지점을 삭제하시겠습니까?`
+      `[${branchDetailData.branch_name}] 병원 삭제하시겠습니까?`
     );
     if (!confirmDelete) {
       return;
@@ -137,12 +137,12 @@ const HospitalViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_delete",
+        "http://localhost:3001/api/post/hospital_delete",
         {
           idx: props.detailIdx,
         }
       );
-      alert("지점이 삭제되었습니다.");
+      alert("병원이 삭제되었습니다.");
       props.closeModal("reload");
     } catch (error) {
       console.error("Error fetching list:", error);
