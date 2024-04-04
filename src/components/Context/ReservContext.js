@@ -131,6 +131,7 @@ export const ReservProvider = ({ children }) => {
     setProductName("");
     setSignData1("");
     setSignData2("");
+    setHospitalOriginKey("")
   };
 
   const keepReservData = () => {
@@ -141,6 +142,7 @@ export const ReservProvider = ({ children }) => {
     setProductName("");
     setSignData1("");
     setSignData2("");
+    setHospitalOriginKey("");
   };
 
   useEffect(() => {
