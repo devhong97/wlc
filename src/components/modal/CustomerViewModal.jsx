@@ -317,7 +317,7 @@ const CustomerViewModal = (props) => {
                       <option value="">선택</option>
                       {hospitalList.map((data, index) => {
                         return (
-                          <option key={data.idx} value={data.idx}>
+                          <option key={data.idx} value={data.h_key}>
                             {data.name}
                           </option>
                         );
