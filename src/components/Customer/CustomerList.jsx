@@ -13,7 +13,7 @@ const CustomerList = () => {
   const { grade } = location.state || {};
   const { defaultSelect } = location.state || {};
   const [viewModal, setViewModal] = useState(false);
-  const [detailIdx, setDetailIdx] = useState("");
+  const [detailIdx, setDetailIdx] = useState([]);
   const [customerData, setCustomerData] = useState([]);
   const [tab, setTab] = useState(3);
   const [searchData, setSearchData] = useState([]);
@@ -154,9 +154,7 @@ const CustomerList = () => {
 
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
-    const idx = data.idx;
-    console.log(idx);
-    setDetailIdx(idx);
+    setDetailIdx(data);
   };
   const viewModalClose = (status) => {
     setViewModal(false);
@@ -204,6 +202,8 @@ const CustomerList = () => {
 
   const changeTab = (num) => {
     setTab(num);
+    setViewModal(false)
+    setDetailIdx([])
   };
   return (
     <div className="main_wrap">
@@ -271,7 +271,7 @@ const CustomerList = () => {
           </div>
         </div>
       </div>
-      {viewModal && (
+      {(viewModal && detailIdx) && (
         <CustomerViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
