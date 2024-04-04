@@ -126,21 +126,25 @@ const HospitalViewModal = (props) => {
     console.log(updateProduct);
   }, [updateProduct]);
 
-  // 지점삭제버튼
-  const deleteBranch = async () => {
+  // 
+  const handleDelete = async () => {
     const confirmDelete = window.confirm(
-      `[${branchDetailData.branch_name}] 병원 삭제하시겠습니까?`
+      `[${branchDetailData.name}] 병원 삭제하시겠습니까?`
     );
     if (!confirmDelete) {
       return;
     }
 
+    const data = {
+      name: name,
+      city: district,
+      province: city
+    };
+
     try {
       const response = await Axios.post(
         "http://localhost:3001/api/post/hospital_delete",
-        {
-          idx: props.detailIdx,
-        }
+        data
       );
       alert("병원이 삭제되었습니다.");
       props.closeModal("reload");
@@ -301,7 +305,7 @@ const HospitalViewModal = (props) => {
             <div className="modal_btn" onClick={handleSubmit}>
               수정
             </div>
-            <div className="modal_btn close" onClick={() => deleteBranch()}>
+            <div className="modal_btn close" onClick={() => handleDelete()}>
               삭제
             </div>
           </div>
