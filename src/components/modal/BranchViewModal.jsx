@@ -3,6 +3,7 @@ import MemberListModal from "./MemberListModal";
 import Axios from "axios";
 import { useBranchContext } from "../Context/BranchContext";
 import BranchProductModal from "./BranchProductModal";
+import moment from "moment";
 
 const BranchViewModal = (props) => {
   const { typeGroup, companyGroup, setContextType, setContextCompany } =
@@ -198,6 +199,10 @@ const BranchViewModal = (props) => {
     setBranchIdx(branchIdx);
   };
 
+  const formatDate = (dateString) => {
+    return moment(dateString).format("YYYY-MM-DD");
+  };
+
   // 모달창닫기
   const clearModal = () => {
     props.closeModal();
@@ -354,7 +359,7 @@ const BranchViewModal = (props) => {
                 <div className="table_title">생성일</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
-                    {branchDetailData.date}
+                    {formatDate(branchDetailData.date)}
                   </div>
                 </div>
               </div>
@@ -375,13 +380,13 @@ const BranchViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">영업사원수</div>
+                <div className="table_title">사원수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">-</div>
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">가입회원수</div>
+                <div className="table_title">총 고객수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">-</div>
                 </div>

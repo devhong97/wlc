@@ -42,7 +42,7 @@ const CustomerViewModal = (props) => {
       setDetailNum(props.detailIdx.idx);
       getDetail();
     } else {
-      props.closeModal()
+      props.closeModal();
     }
   }, [props.detailIdx]);
 
@@ -476,10 +476,10 @@ const CustomerViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">입금금액</div>
+                <div className="table_title">계약유무</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
-                    {memberData.price * memberData.number} 원
+                    {memberData.contract === "Y" ? "유" : "무"}
                   </div>
                 </div>
               </div>
@@ -509,6 +509,16 @@ const CustomerViewModal = (props) => {
                       />
                       No
                     </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">입금금액</div>
+                <div className="table_contents w100">
+                  <div className="table_inner_text">
+                    {memberData.price * memberData.number} 원
                   </div>
                 </div>
               </div>

@@ -18,8 +18,12 @@ const HospitalViewModal = (props) => {
   const [district, setDistrict] = useState(props.detailData.city); // 현재 지역(시) 데이터 분리
   const [cities, setCities] = useState([]); //선택 지역(시)
   const [districts, setDistricts] = useState([]); //선택 지역(도)
-  const [selectedProduct, setSelectedProduct] = useState(props.detailData.product || "");
-  const [defaultProduct, setDefaultProduct] = useState(props.detailData.productArray);
+  const [selectedProduct, setSelectedProduct] = useState(
+    props.detailData.product || ""
+  );
+  const [defaultProduct, setDefaultProduct] = useState(
+    props.detailData.productArray
+  );
   const [updateProduct, setUpdateProduct] = useState([]);
   const [deleteProduct, setDeleteProduct] = useState([]);
   const [productModal, setProductModal] = useState(false); // 검진가능상품
@@ -51,8 +55,6 @@ const HospitalViewModal = (props) => {
     }
   }, [props.detailIdx]);
 
-
-
   // // 지역(시) 데이터 호출
   useEffect(() => {
     getCity();
@@ -69,7 +71,7 @@ const HospitalViewModal = (props) => {
       .catch((err) => {
         console.error("(시)호출 실패:", err);
       });
-  }
+  };
   const getDistrict = () => {
     Axios.get(`http://localhost:3001/api/get/districts/${city}`)
       .then((response) => {
@@ -78,23 +80,19 @@ const HospitalViewModal = (props) => {
       .catch((err) => {
         console.error(`(도)호출 실패 ${city}:`, err);
       });
-  }
+  };
 
   // 지역(시) 선택 시 일치하는 지역(도) 데이터 호출
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
     setCity(selectedCity);
-    setDistrict("")
+    setDistrict("");
     // 지역(시) 선택값 없거나 초기값이면 리셋
     if (selectedCity === "") {
       setDistricts([]);
       return;
     }
   };
-
-
-
-
 
   // 수정완료버튼
   const handleSubmit = async () => {
@@ -126,7 +124,7 @@ const HospitalViewModal = (props) => {
   };
   useEffect(() => {
     console.log(updateProduct);
-  }, [updateProduct])
+  }, [updateProduct]);
 
   // 지점삭제버튼
   const deleteBranch = async () => {
@@ -154,9 +152,7 @@ const HospitalViewModal = (props) => {
   // 모달창닫기
   const clearModal = (status) => {
     props.closeModal(status);
-
   };
-
 
   // 검진상품 선택 모달창 OPEN 버튼
   const productModalOpen = () => {
@@ -248,9 +244,7 @@ const HospitalViewModal = (props) => {
                   <select
                     name="district"
                     value={district}
-                    onChange={(event) =>
-                      setDistrict(event.target.value)
-                    }
+                    onChange={(event) => setDistrict(event.target.value)}
                     className="table_select"
                   >
                     <option value="">선택</option>
@@ -280,7 +274,8 @@ const HospitalViewModal = (props) => {
                   <div className="table_inner_text">
                     {defaultProduct.map((data, index) => (
                       <p className="inner_join_text" key={index}>
-                        {index > 0 && ","}{data.product1}
+                        {index > 0 && ","}
+                        {data.product1}
                       </p>
                     ))}
                     <div

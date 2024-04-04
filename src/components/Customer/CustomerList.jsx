@@ -202,8 +202,8 @@ const CustomerList = () => {
 
   const changeTab = (num) => {
     setTab(num);
-    setViewModal(false)
-    setDetailIdx([])
+    setViewModal(false);
+    setDetailIdx([]);
   };
   return (
     <div className="main_wrap">
@@ -271,7 +271,7 @@ const CustomerList = () => {
           </div>
         </div>
       </div>
-      {(viewModal && detailIdx) && (
+      {viewModal && detailIdx && (
         <CustomerViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}

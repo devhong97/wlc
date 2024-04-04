@@ -36,7 +36,7 @@ const MemberViewModal = (props) => {
       console.log(props.detailIdx);
       getDetail();
     } else {
-      props.closeModal()
+      props.closeModal();
     }
   }, [props.detailIdx]);
 

@@ -19,7 +19,7 @@ export const ReservProvider = ({ children }) => {
   const [signData1, setSignData1] = useState("");
   const [signData2, setSignData2] = useState("");
   const [customerData, setCustomerData] = useState({});
-  const [hospitalOriginKey, setHospitalOriginKey] = useState("")
+  const [hospitalOriginKey, setHospitalOriginKey] = useState("");
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -214,7 +214,7 @@ export const ReservProvider = ({ children }) => {
         keepReservData,
         uploadFiles,
         setHospitalOriginKey,
-        hospitalOriginKey
+        hospitalOriginKey,
       }}
     >
       {children}

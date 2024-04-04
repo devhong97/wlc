@@ -64,30 +64,38 @@ const MyPageViewModal = (props) => {
 
   // 수정완료버튼
   const handleSubmit = async () => {
-    if (password === "") {
-      alert("비밀번호를 입력해주세요.");
-      const passwordInput = document.getElementById("user_password");
-      if (passwordInput) {
-        passwordInput.focus();
-      }
-      return;
-    } else if (password !== passwordChk) {
-      alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-      const passwordChkInput = document.getElementById("user_password_chk");
-      if (passwordChkInput) {
-        passwordChkInput.focus();
-      }
-      return;
-    }
+    let postData = {
+      email: email,
+      phone: `${tel1}-${tel2}-${tel3}`,
+      bank: bank,
+      deposit: deposit,
+      idx: props.detailData.idx,
+    };
 
-    // 비밀번호 유효성검사 실패 시 리턴
-    if (!regexMessage) {
-      alert("비밀번호를 다시 입력해주세요.");
-      const userPwCheck = document.getElementById("user_password");
-      if (userPwCheck) {
-        userPwCheck.focus();
+    // 비밀번호를 입력한 경우에만 추가
+    if (password !== "") {
+      // 비밀번호 체크
+      if (password !== passwordChk) {
+        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        const passwordChkInput = document.getElementById("user_password_chk");
+        if (passwordChkInput) {
+          passwordChkInput.focus();
+        }
+        return;
       }
-      return;
+
+      // 비밀번호 유효성검사 실패 시 리턴
+      if (!regexMessage) {
+        alert("비밀번호를 다시 입력해주세요.");
+        const userPwCheck = document.getElementById("user_password");
+        if (userPwCheck) {
+          userPwCheck.focus();
+        }
+        return;
+      }
+
+      // 비밀번호 유효성검사 통과 및 일치 시에만 postData에 추가
+      postData.password = password;
     }
 
     const confirmModify = window.confirm(`수정을 완료하시겠습니까?`);
@@ -95,19 +103,9 @@ const MyPageViewModal = (props) => {
       return;
     }
     try {
-      // 연락처
-      const number = `${tel1}-${tel2}-${tel3}`;
-
       const response = await Axios.post(
         "http://localhost:3001/api/post/mypage_modify",
-        {
-          email: email,
-          phone: number,
-          bank: bank,
-          deposit: deposit,
-          password: password,
-          idx: props.detailData.idx,
-        }
+        postData
       );
       alert("수정이 완료되었습니다.");
       props.closeModal();

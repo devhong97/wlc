@@ -46,13 +46,13 @@ const HospitalList = () => {
               idx: data.idx,
               p_key: data.p_key,
               c_key: data.c_key,
-              productArray: data.productArray
+              productArray: data.productArray,
             }))
           );
         } else {
           console.error("지점 관리 데이터호출 실패");
           if (searchData) {
-            alert("검색조건에 맞는 데이터가 없습니다.");
+            //alert("검색조건에 맞는 데이터가 없습니다.");
             selectRef.current.clearSearch();
           }
         }
@@ -97,7 +97,7 @@ const HospitalList = () => {
         <div className="main_title_box">
           병원 관리
           <div className="total_data_box">
-            <div className="total_box">병원수 : {numberData}</div>
+            <div className="total_box">총 병원수 : {numberData}</div>
           </div>
         </div>
         <div className="board_list_wrap">
