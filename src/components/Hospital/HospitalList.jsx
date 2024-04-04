@@ -46,7 +46,7 @@ const HospitalList = () => {
               idx: data.idx,
               p_key: data.p_key,
               c_key: data.c_key,
-              productArray: data.productArray
+              productArray: data.productArray,
             }))
           );
         } else {
@@ -97,7 +97,7 @@ const HospitalList = () => {
         <div className="main_title_box">
           병원 관리
           <div className="total_data_box">
-            <div className="total_box">병원수 : {numberData}</div>
+            <div className="total_box">총 병원수 : {numberData}</div>
           </div>
         </div>
         <div className="board_list_wrap">
