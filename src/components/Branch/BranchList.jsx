@@ -15,9 +15,11 @@ const BranchList = () => {
   const [branchIdx, setBranchIdx] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [total, setTotal] = useState([]);
-  const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망 총합
-  const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객 총합
+  const [totalEmployeeCount, setTotalEmployeeCount] = useState(0); //총 사원수
+  const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망수
+  const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객수
   const [totalCustomerDataCount, setTotalCustomerCount] = useState(0); //총 고객수
+
   useEffect(() => {
     fetchBranchList();
     brnachTotal();
@@ -32,26 +34,39 @@ const BranchList = () => {
           const formattedData = branchDetails.map((data, index) => ({
             id: index + 1,
             branch_idx: data.branch_idx,
-            employeeCount: data.employeeCount,
-            hopeCount: data.hopeCount,
-            contractCount: data.contractCount,
-            totalCustomerCount: data.totalCustomerCount,
-            allCustomerCount: data.allCustomerCount,
+            employeeCount: data.employeeCount, //총 사원수
+            hopeCount: data.hopeCount, // 상담희망수
+            contractCount: data.contractCount, //계약고객수
+            totalCustomerCount: data.totalCustomerCount, // 총 고객수
+            allCustomerCount: data.allCustomerCount, // customer 전체 수
           }));
           setTotal(formattedData);
-          const allCustomersCount = allCustomerCount;
+
+          // 총 사원수
+          let employeesCount = 0;
+          for (const data of formattedData) {
+            if (data.branch_idx === branchIdx) {
+              employeesCount += data.employeeCount;
+            }
+          }
+          setTotalEmployeeCount(employeesCount);
+          // 상담희망수
           const hopesCount = formattedData.reduce(
             (acc, cur) => acc + cur.hopeCount,
             0
           );
+          // 계약고객수
           const contractsCount = formattedData.reduce(
             (acc, cur) => acc + cur.contractCount,
             0
           );
+          // 총 고객수
+          const allCustomersCount = allCustomerCount;
 
-          setTotalCustomerCount(allCustomersCount);
           setTotalHopeCount(hopesCount);
           setTotalContractCount(contractsCount);
+          setTotalCustomerCount(allCustomersCount);
+
           // 각각의 객체 형태로 출력합니다.
           branchDetails.forEach((branch) => {
             console.log(branch);
@@ -110,7 +125,7 @@ const BranchList = () => {
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
     { field: "branch_grade", headerName: "지점등급" },
-    { field: "branch_idx", headerName: "지점코드" },
+    // { field: "branch_idx", headerName: "지점코드" },
     { field: "branch_type", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
     { field: "branch_name", headerName: "지점명" },
@@ -232,6 +247,10 @@ const BranchList = () => {
           closeModal={viewModalClose}
           detailIdx={detailIdx}
           branchIdx={branchIdx}
+          employeeCount={totalEmployeeCount}
+          hopeCount={totalHopeCount}
+          contractCount={totalContractCount}
+          totalCustomerCount={totalCustomerDataCount}
         ></BranchViewModal>
       )}
     </div>

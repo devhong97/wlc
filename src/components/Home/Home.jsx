@@ -52,7 +52,7 @@ const Home = () => {
     { field: "phone", headerName: "연락처" },
     { field: "product", headerName: "상품" },
     { field: "hospital", headerName: "검진병원" },
-    { field: "date", headerName: "등록일" },
+    { field: "result_date", headerName: "검진일" },
   ];
 
   const rows = homeData.map((data, index) => ({
@@ -63,7 +63,7 @@ const Home = () => {
     phone: data.phone,
     product: data.productName,
     hospital: data.hospitalName,
-    date: moment(data.date).format("YY.MM.DD"),
+    date: data.result_date,
   }));
 
   const viewModalOpen = () => {};

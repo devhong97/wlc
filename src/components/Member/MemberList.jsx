@@ -149,7 +149,7 @@ const MemberList = () => {
   const changeTab = (num) => {
     setTab(num);
     setViewModal(false);
-    setDetailIdx([])
+    setDetailIdx([]);
     selectRef.current.clearSearch();
   };
 
@@ -159,8 +159,8 @@ const MemberList = () => {
         <div className="main_title_box">
           영업사원관리
           <div className="total_data_box">
-            <div className="total_box">커미션합계 : 10000</div>
-            <div className="total_box">지급예정커미션: 10000</div>
+            <div className="total_box">커미션합계 : -</div>
+            <div className="total_box">지급예정커미션: -</div>
             <div className="total_box">영업사원수: {memberData.length}</div>
           </div>
         </div>
@@ -196,8 +196,9 @@ const MemberList = () => {
               </div>
             )}
             <div
-              className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"
-                }`}
+              className={`table_box ${
+                grade !== "영업사원" ? "tab_list" : "list"
+              }`}
             >
               <TableDefault
                 rows={rows}
@@ -218,7 +219,7 @@ const MemberList = () => {
       {writeModal && (
         <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>
       )}
-      {(viewModal && detailIdx) && (
+      {viewModal && detailIdx && (
         <MemberViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}

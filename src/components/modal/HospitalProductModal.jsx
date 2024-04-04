@@ -7,7 +7,7 @@ const HospitalProductModal = (props) => {
   const [newProductName, setNewProductName] = useState(""); // 새로운 상품명1을 위한 state
   const [choiceData, setChoiceData] = useState(props.selectedProduct || []);
   const [updateSelect, setUpdateSelect] = useState([]);
-  const [deleteSelect, setDeleteSelect] = useState([])
+  const [deleteSelect, setDeleteSelect] = useState([]);
   const [mode, setMode] = useState(props.setMode);
 
   //const choiceItems = choiceData ? choiceData.split(",") : [];
@@ -23,7 +23,6 @@ const HospitalProductModal = (props) => {
     try {
       const response = await Axios.get(
         "http://localhost:3001/api/get/hospital_product"
-
       );
       const allData = response.data;
       setProductData(allData);
@@ -68,7 +67,11 @@ const HospitalProductModal = (props) => {
     // product, c_key 찾아서 전달
     const newSelectedProduct = [
       ...selectedProduct,
-      { product1: newProductName, p_key: newProductInfo.p_key, c_key: newProductInfo.c_key },
+      {
+        product1: newProductName,
+        p_key: newProductInfo.p_key,
+        c_key: newProductInfo.c_key,
+      },
     ];
     console.log(newSelectedProduct);
     setSelectedProduct(newSelectedProduct);
@@ -78,11 +81,19 @@ const HospitalProductModal = (props) => {
       // choiceData에 새로운 상품명1 추가
       const updatedChoiceData = [
         ...choiceData,
-        { product1: newProductName, p_key: newProductInfo.p_key, c_key: newProductInfo.c_key },
+        {
+          product1: newProductName,
+          p_key: newProductInfo.p_key,
+          c_key: newProductInfo.c_key,
+        },
       ];
-      setUpdateSelect(prev => [
+      setUpdateSelect((prev) => [
         ...prev,
-        { product1: newProductName, p_key: newProductInfo.p_key, c_key: newProductInfo.c_key }
+        {
+          product1: newProductName,
+          p_key: newProductInfo.p_key,
+          c_key: newProductInfo.c_key,
+        },
       ]);
       setChoiceData(updatedChoiceData);
     }
@@ -98,7 +109,7 @@ const HospitalProductModal = (props) => {
     const deletedItem = choiceData[index];
     const newData = choiceData.filter((item, idx) => idx !== index);
     setChoiceData(newData);
-    setDeleteSelect(prev => [...prev, deletedItem]);
+    setDeleteSelect((prev) => [...prev, deletedItem]);
   };
 
   return (
@@ -143,7 +154,6 @@ const HospitalProductModal = (props) => {
           </div>
           {/* 선택한 name_1 데이터를 화면에 출력 */}
           {mode !== "write" &&
-
             choiceData.map((item, index) => (
               <div key={index}>
                 <div style={{ paddingTop: "10px" }}>
