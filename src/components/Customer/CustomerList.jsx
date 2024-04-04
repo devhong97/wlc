@@ -219,7 +219,6 @@ const CustomerList = () => {
               검진대기고객: {numberData.statusNum3}
             </div>
             <div className="total_box">상담희망고객: {numberData.hopeNum}</div>
-            <div className="total_box">계약고객: </div>
           </div>
         </div>
         <div className="board_list_wrap">
