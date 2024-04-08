@@ -53,7 +53,7 @@ const CustomerList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_list",
+        "http://49.50.174.248:3001/api/get/customer_list",
         {
           params: resultParams,
         }
@@ -150,6 +150,7 @@ const CustomerList = () => {
     branch: `${data.company} ${data.branch}`,
     uid: data.uid,
     h_location: data.location,
+    phone_2: data.phone_2,
   }));
 
   const viewModalOpen = (data) => {
@@ -172,17 +173,19 @@ const CustomerList = () => {
       product,
       hospital,
       phone,
+      phone_2,
       hope_date_1,
       hope_date_2,
       h_location,
     } = data;
     // 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/send_message", {
+    Axios.post("http://49.50.174.248:3001/api/post/send_message", {
       uid,
       name,
       product,
       hospital,
-      phone,
+      phone, // 계약자번호
+      phone_2, //검진자번호
       hope_date_1,
       hope_date_2,
       h_location,

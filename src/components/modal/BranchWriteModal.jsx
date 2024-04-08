@@ -23,7 +23,7 @@ const BranchWriteModal = (props) => {
 
   useEffect(() => {
     // 지역(시) 데이터 호출
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://49.50.174.248:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -43,7 +43,7 @@ const BranchWriteModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`http://49.50.174.248:3001/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -86,7 +86,7 @@ const BranchWriteModal = (props) => {
     const location = `${selectedCity} ${selectedDistrict}`;
 
     // 지점등록
-    Axios.post("http://localhost:3001/api/post/branch_account", {
+    Axios.post("http://49.50.174.248:3001/api/post/branch_account", {
       branchType: type,
       companyName: company,
       branchName,

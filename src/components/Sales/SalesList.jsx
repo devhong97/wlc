@@ -31,7 +31,7 @@ const SalesList = () => {
   const getSalesData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_list",
+        "http://49.50.174.248:3001/api/get/sales_list",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
@@ -51,7 +51,7 @@ const SalesList = () => {
   const getSalesTop = async (arrayData) => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_top",
+        "http://49.50.174.248:3001/api/get/sales_top",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
