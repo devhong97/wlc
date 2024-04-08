@@ -61,7 +61,7 @@ const CustomerList = () => {
       const allData = response.data;
       setCustomerData(allData.data);
       setNumberData(allData.numbers);
-      if (searchData && allData.data.length === 0) {
+      if (Object.keys(searchData).length !== 0 && allData.data.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
         // selectRef.current.clearSearch();
       }
@@ -207,6 +207,7 @@ const CustomerList = () => {
     setTab(num);
     setViewModal(false);
     setDetailIdx([]);
+    selectRef.current.clearSearch();
   };
   return (
     <div className="main_wrap">

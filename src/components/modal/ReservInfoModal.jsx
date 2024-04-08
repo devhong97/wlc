@@ -54,10 +54,8 @@ const ReservInfoModal = (props) => {
     <div className="modal_wrap">
       <div className="modal_back">
         <div className="modal_box">
-          <div className="modal_title_box"></div>
-          <div>
-            검사로 발견할 수 있는 질병 검사로 발견할 수 없는 질병 나이대별 발견
-            할 수 있는 질병
+          <div style={{ textAlign: "center", padding: 20 }}>
+            등록을 완료하시겠습니까?
           </div>
           <div className="modal_footer_box">
             <div className="modal_btn" onClick={() => submitHandle()}>

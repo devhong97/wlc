@@ -193,7 +193,10 @@ const BranchViewModal = (props) => {
   };
 
   // 지점판매상품 선택 모달창 OPEN 버튼
-  const productModalOpen = () => {
+  const productModalOpen = (status) => {
+    if (status === "update") {
+      getDetail();
+    }
     setProductModal(!productModal);
     setDetailIdx(props.detailIdx);
     setBranchIdx(branchIdx);
