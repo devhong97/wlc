@@ -27,7 +27,7 @@ const ProductList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://49.50.174.248:3001/api/get/product_list", {
+    Axios.get("http://localhost:3001/api/get/product_list", {
       params: resultParams,
     })
       .then((res) => {

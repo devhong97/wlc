@@ -34,7 +34,7 @@ const MemberListModal = (props) => {
   const getMember = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/branch_manager_list",
+        "http://localhost:3001/api/get/branch_manager_list",
         {
           params: {
             branch_idx: branchIdx, // branchIdx를 파라미터로 전달
