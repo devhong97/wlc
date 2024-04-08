@@ -54,7 +54,7 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_list",
+        "http://49.50.174.248:3001/api/get/member_list",
         {
           params: resultParams,
         }

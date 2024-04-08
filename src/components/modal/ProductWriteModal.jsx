@@ -17,7 +17,7 @@ const ProductWriteModal = (props) => {
   console.log(selectedCategory);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/categories")
+    Axios.get("http://49.50.174.248:3001/api/get/categories")
       .then((response) => {
         setCategories(response.data);
       })
@@ -33,7 +33,9 @@ const ProductWriteModal = (props) => {
 
   useEffect(() => {
     if (selectedCategory !== "") {
-      Axios.get(`http://localhost:3001/api/get/products/${selectedCategory}`)
+      Axios.get(
+        `http://49.50.174.248:3001/api/get/products/${selectedCategory}`
+      )
         .then((response) => {
           setProducts(response.data);
 
@@ -96,7 +98,7 @@ const ProductWriteModal = (props) => {
     }
 
     // 상품등록
-    Axios.post("http://localhost:3001/api/post/product_write", {
+    Axios.post("http://49.50.174.248:3001/api/post/product_write", {
       type: selectedCategory,
       name1: selectedProduct,
       name2: name2,

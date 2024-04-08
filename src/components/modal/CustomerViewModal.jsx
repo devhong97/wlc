@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import moment from "moment";
 import { useReservContext } from "../Context/ReservContext";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -32,7 +32,7 @@ const CustomerViewModal = (props) => {
   const [product, setProduct] = useState(""); //상품명
   const [hospital, setHospital] = useState(0); //병원명
   const [result_date, setResultDate] = useState(""); //검진확정일
-  const [resultCalendar, setResultCalendar] = useState("");//검진확정일 달력데이터
+  const [resultCalendar, setResultCalendar] = useState(""); //검진확정일 달력데이터
   const [openCalendar, setOpenCalendar] = useState(false); //달력오픈
   const [memo, setMemo] = useState(""); //비고
   const [manager, setManager] = useState(""); //영업자 이름
@@ -60,7 +60,7 @@ const CustomerViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_detail",
+        "http://49.50.174.248:3001/api/get/customer_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -136,7 +136,7 @@ const CustomerViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/customer_edit",
+        "http://49.50.174.248:3001/api/post/customer_edit",
         paramsArray
       );
 
@@ -173,7 +173,7 @@ const CustomerViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://49.50.174.248:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -181,17 +181,15 @@ const CustomerViewModal = (props) => {
   };
 
   const calendarStatus = () => {
-    setOpenCalendar(!openCalendar)
-  }
-
+    setOpenCalendar(!openCalendar);
+  };
 
   const setFormatDate = (date) => {
     const momentDate = moment(date).format("YYYY.MM.DD");
-    setResultDate(momentDate)
-    setResultCalendar(date)
-    setOpenCalendar(false)
-
-  }
+    setResultDate(momentDate);
+    setResultCalendar(date);
+    setOpenCalendar(false);
+  };
 
   return (
     <div className="modal_wrap">
@@ -389,7 +387,8 @@ const CustomerViewModal = (props) => {
                     readOnly
                   ></input>
                   {openCalendar && (
-                    <Calendar className="modal_calendar"
+                    <Calendar
+                      className="modal_calendar"
                       onChange={(e) => setFormatDate(e)}
                       value={resultCalendar}
                       formatDay={(locale, date) => moment(date).format("DD")}

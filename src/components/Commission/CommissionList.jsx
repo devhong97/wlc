@@ -43,7 +43,7 @@ const CommissionList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/notice_list",
+        "http://49.50.174.248:3001/api/get/notice_list",
         {
           params: resultParams,
         }
@@ -55,7 +55,8 @@ const CommissionList = () => {
     }
   };
 
-  const columns = [
+  //지급완료
+  const columns1 = [
     { field: "id", headerName: "No", flex: 0.5 },
     { field: "category", headerName: "지점종류" },
     { field: "company_name", headerName: "회사명" },
@@ -67,7 +68,19 @@ const CommissionList = () => {
     { field: "date", headerName: "생성일" },
     { field: "member_num", headerName: "영업사원수", maxWidth: 100 },
   ];
-
+  //미지급
+  const columns2 = [
+    { field: "id", headerName: "No", flex: 0.5 },
+    { field: "category", headerName: "지점종류" },
+    { field: "company_name", headerName: "회사명" },
+    { field: "name", headerName: "지점명" },
+    { field: "pay", headerName: "지급커미션합계" },
+    { field: "pay", headerName: "지급예정커미션" },
+    { field: "pay", headerName: "미지급커미션" },
+    { field: "address", headerName: "지역" },
+    { field: "date", headerName: "생성일" },
+    { field: "member_num", headerName: "영업사원수", maxWidth: 100 },
+  ];
   const rows = [
     {
       id: 1,
@@ -84,6 +97,13 @@ const CommissionList = () => {
   const moveDetailPage = (id) => {
     navigate(`/commission/${id}`);
   };
+
+  const changeTab = (num) => {
+    setTab(num);
+    setViewModal(false);
+    setDetailIdx([]);
+  };
+
   return (
     <div className="main_wrap">
       <div className="main_back">
@@ -115,9 +135,15 @@ const CommissionList = () => {
                 <div className="tab_back">
                   <div
                     className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => setTab(1)}
+                    onClick={() => changeTab(1)}
                   >
-                    공지사항
+                    지급완료
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
+                  >
+                    미지급
                   </div>
                 </div>
               </div>
@@ -125,9 +151,9 @@ const CommissionList = () => {
             <div className="table_box list">
               <TableDefault
                 rows={rows}
-                columns={columns}
+                columns={tab === 1 ? columns1 : columns2}
                 viewModalOpen={moveDetailPage}
-              ></TableDefault>
+              />
             </div>
           </div>
         </div>

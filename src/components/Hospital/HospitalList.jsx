@@ -19,41 +19,43 @@ const HospitalList = () => {
   const [hospitalUserCounts, setHospitalUserCounts] = useState([]);
 
   useEffect(() => {
-    fetchHospitalList();
     fetchHospitalUserCount();
+    fetchHospitalList();
   }, [searchData]);
+
+  useEffect(() => {
+    updateHospitalUserCounts();
+  }, [hospitalUserCounts]);
 
   const fetchHospitalList = () => {
     const resultParams = {};
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://localhost:3001/api/get/hospital_list", {
+    Axios.get("http://49.50.174.248:3001/api/get/hospital_list", {
       params: resultParams,
     })
       .then((res) => {
         if (res.data.success) {
-          // 서버로부터 받아온 데이터를 rows로 설정합니다.
+          const updatedHospitalList = res.data.data.map((data, index) => ({
+            id: index + 1,
+            name: data.name,
+            number: data.number,
+            province: data.province,
+            city: data.city,
+            product: data.product,
+            date: moment(data.date).format("YYYY.MM.DD"),
+            idx: data.idx,
+            p_key: data.p_key,
+            c_key: data.c_key,
+            productArray: data.productArray,
+            user_count: getUserCount(data.name), // 해당 병원의 검진회원수 가져오기
+          }));
           setNumberData(res.data.total);
-          setHospitalList(
-            res.data.data.map((data, index) => ({
-              id: index + 1,
-              name: data.name,
-              number: data.number,
-              province: data.province,
-              city: data.city,
-              product: data.product,
-              date: moment(data.date).format("YYYY.MM.DD"),
-              idx: data.idx,
-              p_key: data.p_key,
-              c_key: data.c_key,
-              productArray: data.productArray,
-            }))
-          );
+          setHospitalList(updatedHospitalList);
         } else {
           console.error("지점 관리 데이터호출 실패");
           if (searchData) {
-            //alert("검색조건에 맞는 데이터가 없습니다.");
             selectRef.current.clearSearch();
           }
         }
@@ -63,12 +65,33 @@ const HospitalList = () => {
       });
   };
 
+  const getUserCount = (hospitalName) => {
+    const matchingHospital = hospitalUserCounts.find(
+      (hospitalUser) => hospitalUser.hospital_name === hospitalName
+    );
+    return matchingHospital ? matchingHospital.user_count : 0;
+  };
+
+  const updateHospitalUserCounts = () => {
+    const updatedUserCounts = hospitalList.map((hospital) => ({
+      ...hospital,
+      user_count: getUserCount(hospital.name),
+    }));
+    setHospitalList(updatedUserCounts);
+  };
+
   const fetchHospitalUserCount = () => {
-    Axios.get("http://localhost:3001/api/get/hospital_user_count")
+    Axios.get("http://49.50.174.248:3001/api/get/hospital_user_count")
       .then((res) => {
         if (res.data.success) {
-          setHospitalUserCounts(res.data.data);
-          console.log(res.data.data);
+          const updatedHospitalUserCounts = res.data.data.map(
+            (data, index) => ({
+              hospital_name: data.hospital_name,
+              user_count: data.user_count,
+            })
+          );
+          console.log("updatedHospitalUserCounts", updatedHospitalUserCounts);
+          setHospitalUserCounts(updatedHospitalUserCounts);
         } else {
           console.error("병원 사용자 수 조회 실패");
         }
@@ -149,6 +172,7 @@ const HospitalList = () => {
           closeModal={viewModalClose}
           detailIdx={detailIdx}
           detailData={detailData}
+          hospitalList={hospitalList}
         ></HospitalViewModal>
       )}
     </div>

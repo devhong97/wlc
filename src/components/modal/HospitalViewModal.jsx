@@ -6,6 +6,9 @@ const HospitalViewModal = (props) => {
   const number = props.detailData.number;
   const parts = number.split("-");
 
+  const detailIdx = props.detailIdx;
+  const hospitalList = props.hospitalList;
+
   const [detailNum, setDetailNum] = useState(""); // 상세페이지 Idx
   const [branchDetailData, setBranchDetailData] = useState([]); //병원상세 모달 데이터
   const [type, setType] = useState(""); // 지점종류
@@ -28,6 +31,14 @@ const HospitalViewModal = (props) => {
   const [deleteProduct, setDeleteProduct] = useState([]);
   const [productModal, setProductModal] = useState(false); // 검진가능상품
   const [choiceData, setChoiceData] = useState("");
+
+  // 선택된 병원의 정보 찾기
+  const selectedHospital = hospitalList.find(
+    (hospital) => hospital.idx === detailIdx
+  );
+
+  // 검진회원수 가져오기
+  const userCount = selectedHospital ? selectedHospital.user_count : 0;
 
   //연락처 체크
   const handlePhone = (e, target) => {
@@ -64,7 +75,7 @@ const HospitalViewModal = (props) => {
   }, [city]);
 
   const getCity = () => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://49.50.174.248:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -73,7 +84,7 @@ const HospitalViewModal = (props) => {
       });
   };
   const getDistrict = () => {
-    Axios.get(`http://localhost:3001/api/get/districts/${city}`)
+    Axios.get(`http://49.50.174.248:3001/api/get/districts/${city}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -105,7 +116,7 @@ const HospitalViewModal = (props) => {
       const number = `${tel1}-${tel2}-${tel3}`;
       console.log(name);
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_modify",
+        "http://49.50.174.248:3001/api/post/hospital_modify",
         {
           name: name,
           number: number,
@@ -126,7 +137,7 @@ const HospitalViewModal = (props) => {
     console.log(updateProduct);
   }, [updateProduct]);
 
-  // 
+  //
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
       `[${branchDetailData.name}] 병원 삭제하시겠습니까?`
@@ -138,12 +149,12 @@ const HospitalViewModal = (props) => {
     const data = {
       name: name,
       city: district,
-      province: city
+      province: city,
     };
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_delete",
+        "http://49.50.174.248:3001/api/post/hospital_delete",
         data
       );
       alert("병원이 삭제되었습니다.");
@@ -295,7 +306,7 @@ const HospitalViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진회원수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">{userCount}</div>
                 </div>
               </div>
             </div>
