@@ -35,7 +35,7 @@ const IdSearch = () => {
     setBranchIdx(num);
     const selectedBranch = branchGroup.find((data) => data.idx === Number(num));
     if (selectedBranch) {
-      console.log("선택된 지점:", selectedBranch);
+      //console.log("선택된 지점:", selectedBranch);
       setBranchName(selectedBranch.branch_name);
     }
   };
@@ -108,13 +108,13 @@ const IdSearch = () => {
       phone: totalPhone,
     })
       .then((res) => {
-        console.log("서버로 전송된 데이터:", {
-          name: name,
-          branchType: type,
-          companyName: company,
-          branchName: branchName,
-          phone: totalPhone,
-        });
+        // console.log("서버로 전송된 데이터:", {
+        //   name: name,
+        //   branchType: type,
+        //   companyName: company,
+        //   branchName: branchName,
+        //   phone: totalPhone,
+        // });
 
         if (res.data.success === true) {
           const userId = res.data.data[0].id;

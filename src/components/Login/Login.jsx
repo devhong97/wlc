@@ -59,7 +59,7 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("로그인실패:", error);
     }
   };
 

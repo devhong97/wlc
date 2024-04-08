@@ -11,7 +11,7 @@ const PwChangeModal = (props) => {
 
   useEffect(() => {
     if (props.userData) {
-      console.log(props.userData.idx);
+      //console.log(props.userData.idx);
       setUserIdx(props.userData.idx);
     }
   }, [props.userData]);
@@ -74,7 +74,7 @@ const PwChangeModal = (props) => {
       idx: userIdx,
     })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         alert(`비밀번호 변경이 완료되었습니다.`);
         navigate("/");
       })
