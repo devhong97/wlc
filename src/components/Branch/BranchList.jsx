@@ -69,7 +69,7 @@ const BranchList = () => {
 
           // 각각의 객체 형태로 출력합니다.
           branchDetails.forEach((branch) => {
-            console.log(branch);
+            //console.log(branch);
           });
         } else {
           console.log("에러");
