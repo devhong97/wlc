@@ -69,7 +69,7 @@ const PwChangeModal = (props) => {
       return;
     }
 
-    Axios.post("http://49.50.174.248:3001/api/post/edit_password", {
+    Axios.post("http://localhost:3001/api/post/edit_password", {
       password: password,
       idx: userIdx,
     })
