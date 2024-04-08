@@ -16,6 +16,7 @@ const HospitalViewModal = (props) => {
   const [tel1, setTel1] = useState(parts[0]); // 연락처1
   const [tel2, setTel2] = useState(parts[1]); // 연락처2
   const [tel3, setTel3] = useState(parts[2]); // 연락처3
+  const [location, setLocation] = useState(props.detailData.location);//주소
 
   const [city, setCity] = useState(props.detailData.province); // 현재 지역(도) 데이터 분리
   const [district, setDistrict] = useState(props.detailData.city); // 현재 지역(시) 데이터 분리
@@ -122,6 +123,7 @@ const HospitalViewModal = (props) => {
           number: number,
           province: city,
           city: district,
+          location: location,
           idx: props.detailIdx,
           updateProduct: updateProduct,
           deleteProduct: deleteProduct,
@@ -140,7 +142,7 @@ const HospitalViewModal = (props) => {
   //
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
-      `[${branchDetailData.name}] 병원 삭제하시겠습니까?`
+      `[${props.detailData.name}] 병원 삭제하시겠습니까?`
     );
     if (!confirmDelete) {
       return;
@@ -269,6 +271,23 @@ const HospitalViewModal = (props) => {
                       </option>
                     ))}
                   </select>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">
+                  주소<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="location"
+                    placeholder="주소를 입력해주세요."
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  ></input>
                 </div>
               </div>
             </div>

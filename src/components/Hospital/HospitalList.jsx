@@ -48,6 +48,7 @@ const HospitalList = () => {
             idx: data.idx,
             p_key: data.p_key,
             c_key: data.c_key,
+            location: data.location,
             productArray: data.productArray,
             user_count: getUserCount(data.name), // 해당 병원의 검진회원수 가져오기
           }));

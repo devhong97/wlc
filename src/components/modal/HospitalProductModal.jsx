@@ -155,19 +155,23 @@ const HospitalProductModal = (props) => {
           {/* 선택한 name_1 데이터를 화면에 출력 */}
           {mode !== "write" &&
             choiceData.map((item, index) => (
-              <div key={index}>
-                <div style={{ paddingTop: "10px" }}>
-                  {item.product1}
-                  <button onClick={() => handleDelete(index)}>삭제</button>
+              <div key={index} className="hash_row">
+                <div className="hash_box">
+                  <div className="hash_text">
+                    {item.product1}
+                  </div>
+                  <div className="hash_btn" onClick={() => handleDelete(index)}>X</div>
                 </div>
               </div>
             ))}
           {mode === "write" &&
             selectedProduct.map((product, index) => (
-              <div key={index}>
-                <div style={{ paddingTop: "10px" }}>
-                  {product.product1}
-                  <button onClick={() => handleDelete(index)}>삭제</button>
+              <div key={index} className="hash_row">
+                <div className="hash_box">
+                  <div className="hash_text">
+                    {product.product1}
+                  </div>
+                  <div className="hash_btn" onClick={() => handleDelete(index)}>X</div>
                 </div>
               </div>
             ))}
