@@ -221,11 +221,14 @@ const BranchProductModal = (props) => {
               </div>
             </div>
           </div>
-          <br />
           {typeof normalData === "string" &&
             normalData.split(",").map((productName, index) => (
-              <div key={index}>
-                <input
+              <div key={index} className="hash_row">
+                <div className="hash_box">
+                  <div className="hash_text">
+                    {productName}
+                  </div>
+                  {/* <input
                   type="text"
                   value={productName}
                   onChange={(e) =>
@@ -234,28 +237,27 @@ const BranchProductModal = (props) => {
                       index + selectedProduct.length
                     )
                   }
-                />
-                <button onClick={() => plusDataDelete(productName)}>
-                  삭제
-                </button>
+                /> */}
+                  <div className="hash_btn" onClick={() => plusDataDelete(productName)}>
+                    X
+                  </div>
+                </div>
               </div>
             ))}
           {selectedProduct.map((product, index) => (
-            <div key={index}>
-              <div style={{ paddingTop: "10px" }}>
-                <input
+            <div key={index} className="hash_row">
+              <div className="hash_box">
+                <div className="hash_text">
+                  {product.product2}
+                </div>
+                {/* <input
                   type="text"
                   value={product.product2}
                   onChange={(e) => handleProductChange(e.target.value, index)}
-                />
-                <button
-                  onClick={() => {
-                    console.log("Deleting selected product:", product);
-                    handleDelete(product.id);
-                  }}
-                >
-                  삭제
-                </button>
+                /> */}
+                <div className="hash_btn" onClick={() => handleDelete(product.id)}>
+                  X
+                </div>
               </div>
             </div>
           ))}

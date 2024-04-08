@@ -15,6 +15,7 @@ const HospitalWriteModal = (props) => {
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
+  const [location, setLocation] = useState("");//주소
 
   //연락처 체크
   const handlePhone = (e, target) => {
@@ -106,6 +107,12 @@ const HospitalWriteModal = (props) => {
         cityInput.focus();
       }
       return;
+    } else if (location === "") {
+      alert("주소를 입력해주세요.");
+      const locationInput = document.getElementById("location");
+      if (locationInput) {
+        locationInput.focus();
+      }
     }
 
     // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
@@ -117,6 +124,7 @@ const HospitalWriteModal = (props) => {
       number: number,
       province: selectedCity,
       city: selectedDistrict,
+      location: location,
       yProduct: selectedProduct,
     })
       .then((res) => {
@@ -231,6 +239,25 @@ const HospitalWriteModal = (props) => {
                         </option>
                       ))}
                     </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="table_box">
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">
+                    주소<p className="title_point">*</p>
+                  </div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input modal"
+                      type="text"
+                      id="location"
+                      placeholder="주소를 입력해주세요."
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    ></input>
                   </div>
                 </div>
               </div>
