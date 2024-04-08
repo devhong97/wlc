@@ -61,8 +61,7 @@ const MemberList = () => {
       );
       const allData = response.data;
       setMemberData(allData);
-      console.log(searchData.length);
-      if (searchData.length > 0 && allData.length === 0) {
+      if (Object.keys(searchData).length !== 0 && allData.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
         // selectRef.current.clearSearch();
       }
@@ -196,9 +195,8 @@ const MemberList = () => {
               </div>
             )}
             <div
-              className={`table_box ${
-                grade !== "영업사원" ? "tab_list" : "list"
-              }`}
+              className={`table_box ${grade !== "영업사원" ? "tab_list" : "list"
+                }`}
             >
               <TableDefault
                 rows={rows}
