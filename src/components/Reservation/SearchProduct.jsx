@@ -70,7 +70,7 @@ const SearchProduct = () => {
                     <div className="product_info_text">
                       {data.product_1} 등급의 검진 패키지 상품입니다.
                     </div>
-                    {data.product_1 === "PREMIUM 1+1" ? (
+                    {data.p_key === "2" ? (
                       <div className="product_text">
                         {data.price_txt * 2} 원 (2인)
                       </div>
