@@ -68,7 +68,7 @@ const BranchProductModal = (props) => {
       //   selectedProduct: selectedProduct,
       // };
       // props.mergedData(mergedData);
-      props.closeModal();
+      props.closeModal("update");
       // console.log("mergedData", mergedData);
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -95,6 +95,7 @@ const BranchProductModal = (props) => {
       product1: product1,
       product2: trimmedProduct2,
     };
+    console.log(trimmedProduct2);
     setSelectedProduct([...selectedProduct, newSelectedProduct]);
     // select box 값 초기화
     setType("");
