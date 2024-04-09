@@ -39,10 +39,22 @@ const SalesList = () => {
         }
       );
       const arrayData = response.data.data;
-      console.log(arrayData);
-      setArrayData(arrayData);
+
+      // 중복된 uid가 있는 경우 중복을 제거하고, name 필드는 모두 가져와서 합침
+      const uniqueArrayData = Array.from(
+        new Set(arrayData.map((item) => item.uid))
+      ).map((uid) => ({
+        ...arrayData.find((item) => item.uid === uid),
+        name: arrayData
+          .filter((item) => item.uid === uid)
+          .map((item) => item.name)
+          .join(", "),
+      }));
+
+      console.log(uniqueArrayData);
+      setArrayData(uniqueArrayData);
       // 데이터를 받아온 후에 getSalesTop 호출하여 contractCount 설정
-      getSalesTop(arrayData);
+      getSalesTop(uniqueArrayData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -148,6 +160,7 @@ const SalesList = () => {
           <SalesViewModal
             closeModal={closeModal}
             detailIdx={detailIdx}
+            arrayData={arrayData}
           ></SalesViewModal>
         )}
       </div>

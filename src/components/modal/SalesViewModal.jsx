@@ -5,12 +5,21 @@ const SalesViewModal = (props) => {
   const [detailNum, setDetailNum] = useState("");
   const [isChecked, setIsChecked] = useState(false); // 계약유무체크
   const [memo, setMemo] = useState(""); //비고
+  const [uid, setUid] = useState("");
 
   useEffect(() => {
     if (props.detailIdx) {
       setDetailNum(props.detailIdx);
       setIsChecked(props.detailIdx.contract === "Y");
       setMemo(props.detailIdx.memo);
+
+      // 선택된 게시글의 인덱스를 찾음
+      const selectedIndex = props.arrayData.findIndex(
+        (data) => data.idx === props.detailIdx.idx
+      );
+
+      const uidArray = props.arrayData.map((data) => data.uid);
+      setUid(uidArray[selectedIndex]);
       getDetail();
     }
   }, [props.detailIdx, detailNum]);
@@ -35,6 +44,7 @@ const SalesViewModal = (props) => {
       detailIdx: detailNum.idx,
       status: status === "유" ? "Y" : "N",
       memo: memo,
+      uid: uid,
     })
       .then((response) => {
         console.log(response);
@@ -48,6 +58,7 @@ const SalesViewModal = (props) => {
     Axios.post("http://localhost:3001/api/post/updateMemo", {
       detailIdx: detailNum.idx,
       memo: memo,
+      uid: uid,
     })
       .then((res) => {
         console.log(res);
