@@ -244,7 +244,7 @@ const HospitalWriteModal = (props) => {
                       className="table_input modal"
                       type="text"
                       id="location"
-                      placeholder="오시는길을 입력해주세요."
+                      placeholder="오시는 길을 입력해주세요."
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     ></input>

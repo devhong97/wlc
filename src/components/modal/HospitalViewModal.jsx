@@ -274,14 +274,14 @@ const HospitalViewModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  주소<p className="title_point">*</p>
+                  오시는 길<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
                     id="location"
-                    placeholder="주소를 입력해주세요."
+                    placeholder="오시는 길을 입력해주세요."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                   ></input>
