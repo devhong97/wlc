@@ -18,7 +18,7 @@ export const ReservProvider = ({ children }) => {
   const [hopeDate2, setHopeDate2] = useState("");
   const [signData1, setSignData1] = useState("");
   const [signData2, setSignData2] = useState("");
-  const [customerData, setCustomerData] = useState({});
+  const [customerData, setCustomerData] = useState([]);
   const [hospitalOriginKey, setHospitalOriginKey] = useState("");
   const navigation = useNavigate();
 
@@ -143,7 +143,7 @@ export const ReservProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    //console.log(customerData);
+    console.log(customerData);
   }, [customerData]);
 
   const uploadFiles = async (uid) => {
