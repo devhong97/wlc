@@ -87,14 +87,14 @@ const SalesList = () => {
   //검진완료
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "name", headerName: "검진자성명", flex: 0.5 },
+    { field: "name", headerName: "검진자성명" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
     { field: "product", headerName: "선택상품" },
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
-    { field: "hope_status", headerName: "상담희망" },
-    { field: "contract", headerName: "계약" },
+    { field: "hope_status", headerName: "상담희망", flex: 0.5 },
+    { field: "contract", headerName: "계약", flex: 0.5 },
     { field: "memo", headerName: "비고" },
   ];
 
