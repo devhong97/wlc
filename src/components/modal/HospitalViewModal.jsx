@@ -16,7 +16,7 @@ const HospitalViewModal = (props) => {
   const [tel1, setTel1] = useState(parts[0]); // 연락처1
   const [tel2, setTel2] = useState(parts[1]); // 연락처2
   const [tel3, setTel3] = useState(parts[2]); // 연락처3
-  const [location, setLocation] = useState(props.detailData.location);//주소
+  const [location, setLocation] = useState(props.detailData.location); //주소
 
   const [city, setCity] = useState(props.detailData.province); // 현재 지역(도) 데이터 분리
   const [district, setDistrict] = useState(props.detailData.city); // 현재 지역(시) 데이터 분리
@@ -215,7 +215,6 @@ const HospitalViewModal = (props) => {
                     value={tel1}
                     onChange={(e) => handlePhone(e, "tel1")}
                     id="tel"
-                    maxLength="3"
                     className="table_input num"
                   />
                   &nbsp;-&nbsp;
@@ -224,7 +223,6 @@ const HospitalViewModal = (props) => {
                     value={tel2}
                     onChange={(e) => handlePhone(e, "tel2")}
                     id="tel2"
-                    maxLength="4"
                     className="table_input num"
                   />
                   &nbsp;-&nbsp;
@@ -233,7 +231,6 @@ const HospitalViewModal = (props) => {
                     value={tel3}
                     onChange={(e) => handlePhone(e, "tel3")}
                     id="tel3"
-                    maxLength="4"
                     className="table_input num"
                   />
                 </div>

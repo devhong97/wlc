@@ -8,12 +8,17 @@ import moment from "moment";
 const Home = () => {
   const { decodeS1, decodeS4 } = useAuth();
   const [homeData, setHomeData] = useState([]); // 병원 리스트
-  const [totalData, setTotalData] = useState([]); // 슈퍼관리자 토탈데이터
+  const [totalData, setTotalData] = useState([]); // 총지점수
+  const [managerData, setManagerData] = useState([]); // 총영업자수
+  const [contractData, setContractData] = useState([]); // 총계약자수
+  const [hopeData, setHopeData] = useState([]); // 상담고객수
+  const [customerData, setCustomerData] = useState([]); // 총고객수
   const navigation = useNavigate();
 
   useEffect(() => {
     getTotalData();
     fetchData();
+    console.log("totalData", totalData);
   }, [decodeS1()]);
 
   const getTotalData = async () => {
@@ -21,8 +26,16 @@ const Home = () => {
       const response = await Axios.get(
         "http://localhost:3001/api/get/home_total"
       );
-      const allData = response.data;
+      const allData = response.data.branchCount;
+      const managerData = response.data.userCount;
+      const contractData = response.data.contractCount;
+      const hopeData = response.data.hopeCount;
+      const customerData = response.data.customerCount;
       setTotalData(allData);
+      setManagerData(managerData);
+      setContractData(contractData);
+      setHopeData(hopeData);
+      setCustomerData(customerData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -79,11 +92,11 @@ const Home = () => {
               <div>총매출액: </div>
               <div>총커미션합계: </div>
               <div>지급예정커미션: </div>
-              <div>고객수: </div>
-              <div>상담희망고객수: </div>
-              <div>총지점수: </div>
-              <div>총영업자수: </div>
-              <div>계약고객수(청약고객수): </div>
+              <div>고객수: {customerData}</div>
+              <div>상담희망고객수: {hopeData}</div>
+              <div>총지점수: {totalData}</div>
+              <div>총영업자수: {managerData}</div>
+              <div>계약고객수(청약고객수): {contractData} </div>
             </div>
           </div>
         </div>

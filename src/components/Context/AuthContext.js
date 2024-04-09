@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [branch, setBranch] = useState(""); // 지점
   const [name, setName] = useState(""); // 매니저 이름
   const [grade, setGrade] = useState(""); // 등급
+  const [branchIdx, setBranchIdx] = useState(""); //지점별
   const [id, setId] = useState(""); // 로그인 시 ID
   const [remainingSessionTime, setRemainingSessionTime] = useState(null); // 남은세션시간
   const navigate = useNavigate();
@@ -20,12 +21,14 @@ export const AuthProvider = ({ children }) => {
     const storedAccess = Cookies.get("Access");
     if (storedAccess === "true") {
       setLoginAccess(true);
+      const storedS0 = Cookies.get("S0");
       const storedS1 = Cookies.get("S1");
       const storedS2 = Cookies.get("S2");
       const storedS3 = Cookies.get("S3");
       const storedS4 = Cookies.get("S4");
       const storedS5 = Cookies.get("S5");
 
+      if (storedS0) setBranchIdx(storedS0);
       if (storedS1) setUid(storedS1);
       if (storedS2) setName(storedS2);
       if (storedS3) setBranch(storedS3);
@@ -58,14 +61,23 @@ export const AuthProvider = ({ children }) => {
   }, [loginAccess]);
 
   //로그인
-  const login = (uidToken, nameToken, branchToken, gradeToken, idToken) => {
+  const login = (
+    branchIdxToken,
+    uidToken,
+    nameToken,
+    branchToken,
+    gradeToken,
+    idToken
+  ) => {
     setLoginAccess(true);
+    setBranchIdx(branchIdxToken);
     setUid(uidToken);
     setName(nameToken);
     setBranch(branchToken);
     setGrade(gradeToken);
     setId(idToken);
     Cookies.set("Access", true);
+    Cookies.set("S0", branchToken);
     Cookies.set("S1", uidToken);
     Cookies.set("S2", nameToken);
     Cookies.set("S3", branchToken);
@@ -76,12 +88,14 @@ export const AuthProvider = ({ children }) => {
   //로그아웃
   const logout = () => {
     setLoginAccess(false);
+    setBranchIdx("");
     setUid("");
     setName("");
     setBranch("");
     setGrade("");
     setId("");
     Cookies.remove("Access");
+    Cookies.remove("S0");
     Cookies.remove("S1");
     Cookies.remove("S2");
     Cookies.remove("S3");
@@ -91,6 +105,18 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
+  // Branch_idx 토큰 디코딩
+  const decodeS0 = () => {
+    try {
+      if (branchIdx) {
+        return jwtDecode(branchIdx).branch_idx;
+      }
+      return null;
+    } catch (error) {
+      console.error("S1 디코딩 에러:", error);
+      return null;
+    }
+  };
   // JWT 토큰 디코딩
   const decodeS1 = () => {
     try {
@@ -173,6 +199,7 @@ export const AuthProvider = ({ children }) => {
         id, //로그인 시 아이디
         remainingSessionTime, // 세션 만료까지 남은 시간
 
+        decodeS0,
         decodeS1,
         decodeS2,
         decodeS3,

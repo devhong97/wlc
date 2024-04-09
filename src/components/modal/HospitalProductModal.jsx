@@ -157,10 +157,10 @@ const HospitalProductModal = (props) => {
             choiceData.map((item, index) => (
               <div key={index} className="hash_row">
                 <div className="hash_box">
-                  <div className="hash_text">
-                    {item.product1}
+                  <div className="hash_text">{item.product1}</div>
+                  <div className="hash_btn" onClick={() => handleDelete(index)}>
+                    X
                   </div>
-                  <div className="hash_btn" onClick={() => handleDelete(index)}>X</div>
                 </div>
               </div>
             ))}
@@ -168,10 +168,10 @@ const HospitalProductModal = (props) => {
             selectedProduct.map((product, index) => (
               <div key={index} className="hash_row">
                 <div className="hash_box">
-                  <div className="hash_text">
-                    {product.product1}
+                  <div className="hash_text">{product.product1}</div>
+                  <div className="hash_btn" onClick={() => handleDelete(index)}>
+                    X
                   </div>
-                  <div className="hash_btn" onClick={() => handleDelete(index)}>X</div>
                 </div>
               </div>
             ))}

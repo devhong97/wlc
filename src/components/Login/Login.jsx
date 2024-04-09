@@ -44,8 +44,8 @@ const Login = () => {
       });
       if (res.data.success) {
         // S1 ~ S5 - 서버에서 생성된 토큰값
-        const { S1, S2, S3, S4, S5 } = res.data;
-        login(S1, S2, S3, S4, S5); //서버에서 생성된 S1 ~ S5 토큰값 context에 저장
+        const { S0, S1, S2, S3, S4, S5 } = res.data;
+        login(S0, S1, S2, S3, S4, S5); //서버에서 생성된 S1 ~ S5 토큰값 context에 저장
         alert(`[ ${id} ]님 환영합니다.`);
       } else {
         //로그인실패 시 false일 때 조건(서버에존재)에 따라 메세지출력
