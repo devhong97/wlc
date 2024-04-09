@@ -91,7 +91,7 @@ const HospitalSelect = (props, ref) => {
           })}
         </select>
       </div>
-      <div className="search_input">
+      <div className="search_input hospital">
         <div className="list_search" onClick={() => handleSearch()}>
           검색
         </div>

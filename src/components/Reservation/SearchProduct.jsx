@@ -60,6 +60,7 @@ const SearchProduct = () => {
   const closeModal = () => {
     setModal(false);
   };
+
   return (
     <div className="reserv_wrap">
       <div className="reserv_back product">
@@ -75,13 +76,14 @@ const SearchProduct = () => {
                     <div className="product_info_text">
                       {data.product_1} 등급의 검진 패키지 상품입니다.
                     </div>
+                    <div className="product_text og_price">{Number(data.og_price).toLocaleString()}원</div>
                     {data.p_key === "2" ? (
                       <div className="product_text">
-                        {data.price_txt * 2} 원 (2인)
+                        {Number(data.price_txt * 2).toLocaleString()} 원 (2인)
                       </div>
                     ) : (
                       <div className="product_text">
-                        {data.price_txt} 원 (1인)
+                        {Number(data.price_txt).toLocaleString()} 원 (1인)
                       </div>
                     )}
                   </div>

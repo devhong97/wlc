@@ -559,12 +559,13 @@
       padding: 10px 15px;
       border: 1px solid #c9c9c9;
       border-radius: 10px;
-      margin-left: 13px;
+      margin-right: 13px;
       outline: 0 none;
       color: #707070;
       font-size: 17px;
+      vertical-align: middle;
 
-      &:first-child {
+      &:last-child {
         margin-left: 0;
       }
 
@@ -886,6 +887,11 @@
           background-image: url("../img/product_detail_1.jpg");
 
           &.img_2 {
+            height: 322vw;
+            background-image: url("../img/product_detail_2.jpg");
+          }
+
+          &.img_5 {
             height: 322vw;
             background-image: url("../img/product_detail_2.jpg");
           }

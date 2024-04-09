@@ -170,9 +170,40 @@
             }
         }
     }
+
+    .search_box {
+        padding: 10px !important;
+
+        .list_search {
+            font-size: 13px !important;
+        }
+
+        .search_select {
+            .list_select {
+                font-size: 13px !important;
+            }
+        }
+
+        .search_input {
+
+            .list_input {
+                font-size: 13px !important;
+            }
+
+        }
+    }
 }
 
 @media (max-width: 500px) {
+    .search_box {
+        .search_input {
+            &.hospital {
+                display: block;
+                padding-top: 10px;
+            }
+        }
+    }
+
     .login_wrap {
         .login_back {
             width: 90%;

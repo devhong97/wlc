@@ -183,7 +183,7 @@ const CustomerSelect = (props, ref) => {
             );
           })}
         </select>
-        <div className="search_input_container">
+        <div className="search_input_container ">
           <select
             className="list_select"
             value={searchOption}

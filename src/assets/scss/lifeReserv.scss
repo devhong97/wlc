@@ -400,6 +400,12 @@
                             font-size: 20px;
                             font-family: "Pretendard_bb";
                             color: $sub-color-2;
+
+                            &.og_price {
+                                color: #000;
+                                text-decoration: line-through;
+                                text-decoration-color: red;
+                            }
                         }
                     }
 
