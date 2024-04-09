@@ -14,10 +14,10 @@ const CustomerList = () => {
   const { defaultSelect } = location.state || {};
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState([]);
-  const [customerData, setCustomerData] = useState([]);
   const [tab, setTab] = useState(3);
   const [searchData, setSearchData] = useState([]);
   const [numberData, setNumberData] = useState([]);
+  const [arrayData, setArrayData] = useState([]);
 
   useEffect(() => {
     if (defaultSelect) {
@@ -58,9 +58,25 @@ const CustomerList = () => {
           params: resultParams,
         }
       );
+
       const allData = response.data;
-      setCustomerData(allData.data);
+      const arrayData = response.data.data;
       setNumberData(allData.numbers);
+      console.log(arrayData);
+
+      // 중복된 uid가 있는 경우 중복을 제거하고, name 필드는 모두 가져와서 합침
+      const uniqueArrayData = Array.from(
+        new Set(arrayData.map((item) => item.uid))
+      ).map((uid) => ({
+        ...arrayData.find((item) => item.uid === uid),
+        name: arrayData
+          .filter((item) => item.uid === uid)
+          .map((item) => item.name)
+          .join(", "),
+      }));
+
+      setArrayData(uniqueArrayData);
+
       if (Object.keys(searchData).length !== 0 && allData.data.length === 0) {
         alert("검색조건에 맞는 데이터가 없습니다.");
         // selectRef.current.clearSearch();
@@ -130,28 +146,36 @@ const CustomerList = () => {
     { field: "branch", headerName: "지점명", flex: 0.5 },
   ];
 
-  const rows = customerData.map((data, index) => ({
-    id: index + 1,
-    idx: data.idx,
-    contractor_name: data.contractor_name,
-    name: data.name,
-    phone: data.phone,
-    date: moment(data.date).format("YYYY.MM.DD"),
-    product: data.product,
-    hospital: data.hospital,
-    hope_date_1: data.hope_date_1,
-    hope_date_2: data.hope_date_2,
-    result_date: data.result_date,
-    status: data.status,
-    pay_status: data.pay_status,
-    hope_status: data.hope_status,
-    refund_status: data.refund_status,
-    sms_status: data.sms_status,
-    branch: `${data.company} ${data.branch}`,
-    uid: data.uid,
-    h_location: data.location,
-    phone_2: data.phone_2,
-  }));
+  const rows = arrayData
+    .map((data, index) => {
+      const filteredData = arrayData.filter((item) => item.uid === data.uid);
+      const names = filteredData.map((item) => item.name).join(", ");
+      return {
+        id: index + 1,
+        idx: data.idx,
+        contractor_name: data.contractor_name,
+        name: names,
+        phone: data.phone,
+        date: moment(data.date).format("YYYY.MM.DD"),
+        product: data.product,
+        hospital: data.hospital,
+        hope_date_1: data.hope_date_1,
+        hope_date_2: data.hope_date_2,
+        result_date: data.result_date,
+        status: data.status,
+        pay_status: data.pay_status,
+        hope_status: data.hope_status,
+        refund_status: data.refund_status,
+        sms_status: data.sms_status,
+        branch: `${data.company} ${data.branch}`,
+        uid: data.uid,
+        h_location: data.location,
+        phone_2: data.phone_2,
+      };
+    })
+    .filter((value, index, self) => {
+      return self.findIndex((item) => item.uid === value.uid) === index;
+    });
 
   const viewModalOpen = (data) => {
     setViewModal(!viewModal);
