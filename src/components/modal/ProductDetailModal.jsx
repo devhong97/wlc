@@ -15,7 +15,7 @@ const ProductDetailModal = (props) => {
                         <div className='modal_text title'>
                             {data.product_1}
                         </div>
-                        {data.product_1 === "PREMIUM 1+1" ? (
+                        {data.p_key === "2" ? (
                             <div className="modal_text">{data.price_txt * 2} 원 (2인)</div>
                         ) : (
                             <div className="modal_text">{data.price_txt} 원 (1인)</div>
