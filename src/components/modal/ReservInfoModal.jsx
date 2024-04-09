@@ -26,7 +26,7 @@ const ReservInfoModal = (props) => {
 
     let sendParams = {
       contractor_name: customerData.name,
-      name: customerData.customerName,
+      customerArray: customerData.customerArray,
       number: customerData.customerNumber,
       phone: customerData.phone,
       c_phone: customerData.cPhone,

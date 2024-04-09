@@ -32,7 +32,15 @@ const ReservCheck = () => {
                         <div className="reserv_text_box">
                             <div className="reserv_text_box">
                                 <div className='reserv_title'>검진대상자명</div>
-                                <div className='reserv_text'>{customerData.customerName}</div>
+                                <div className='reserv_text'>
+                                    {(customerData.customerArray).map((data, index) => {
+                                        return (
+                                            <span>
+                                                {data.name}{index !== customerData.customerNumber - 1 && (", ")}
+                                            </span>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                         <div className="reserv_text_box">

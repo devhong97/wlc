@@ -9,31 +9,34 @@ const ReservCustomer = () => {
     useReservContext();
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
-  const [customerName, setCustomerName] = useState(
-    customerData.customerName || ""
-  );
-  const [customerNumber, setCustomerNumber] = useState(
-    customerData.customerNumber || ""
-  );
+  // const [customerName, setCustomerName] = useState(
+  //   customerData.customerName || ""
+  // );
+  // const [customerNumber, setCustomerNumber] = useState(
+  //   customerData.customerNumber || ""
+  // );
   const [phone, setPhone] = useState(customerData.phone || "");
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
   const [agreeTermsData, setAgreeTermsData] = useState("");
+  const [inputArray, setInputArray] = useState(customerData.customerArray || [{
+    name: ""
+  }])
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
       name === "" ||
-      customerName === "" ||
+      inputArray[0].name === "" ||
       phone === "" ||
-      c_phone === "" ||
-      customerNumber === ""
+      c_phone === ""
     ) {
       alert("정보를 모두 입력해주세요.");
       return;
     }
     setStep(2);
+    console.log("여기", inputArray.length);
   };
   const handleAgreeTerms = (e) => {
     setAgreeTerms(e.target.checked);
@@ -50,11 +53,10 @@ const ReservCustomer = () => {
   };
 
   const checkSign = () => {
-    console.log("여기");
     const newData = {
       name: name,
-      customerName: customerName,
-      customerNumber: customerNumber,
+      customerArray: inputArray,
+      customerNumber: inputArray.length,
       phone: phone,
       cPhone: c_phone,
       m_terms: mTerms,
@@ -88,6 +90,25 @@ const ReservCustomer = () => {
     }
   };
 
+  const addInputArray = () => {
+    setInputArray((prev) => [...prev, { name: "" }]);
+  }
+  const deleteInputArray = (index) => {
+    setInputArray(prev => {
+      const newArray = [...prev];
+      newArray.splice(index, 1);
+      return newArray;
+    });
+  };
+
+  const handleInputArray = (value, index) => {
+    setInputArray(prev => {
+      const newArray = [...prev];
+      newArray[index] = { name: value };
+      return newArray;
+    });
+  };
+
   return (
     <div className="reserv_wrap">
       {step === 1 && (
@@ -108,21 +129,38 @@ const ReservCustomer = () => {
               ></input>
             </div>
             <div className="reserv_input_box">
-              <input
+              {/* <input
                 className="reserv_input"
                 placeholder="검진자 성명"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-              ></input>
+              ></input> */}
+              {inputArray.map((input, index) => {
+                return (
+                  <div className="input_array_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="검진자 성명"
+                      value={input.name}
+                      onChange={(e) => handleInputArray(e.target.value, index)}
+                    >
+                    </input>
+                    {index !== 0 && (
+                      <div className="delete_input" onClick={() => deleteInputArray(index)}>X</div>
+                    )}
+                  </div>
+                );
+              })}
+              <div className="reserv_add_btn" onClick={() => addInputArray()}>검진자 추가</div>
             </div>
-            <div className="reserv_input_box">
+            {/* <div className="reserv_input_box">
               <input
                 className="reserv_input"
                 placeholder="인원수"
                 value={customerNumber}
                 onChange={(e) => setCustomerNumber(e.target.value)}
               ></input>
-            </div>
+            </div> */}
             <div className="reserv_input_box">
               <input
                 className="reserv_input"
@@ -161,9 +199,8 @@ const ReservCustomer = () => {
                 [자세히 보기]
               </div>
               <div
-                className={`terms_contents_box ${
-                  termsStatus === 1 && "active"
-                }`}
+                className={`terms_contents_box ${termsStatus === 1 && "active"
+                  }`}
               >
                 <div
                   className="terms_contents"
@@ -191,9 +228,8 @@ const ReservCustomer = () => {
                 [자세히 보기]
               </div>
               <div
-                className={`terms_contents_box ${
-                  termsStatus === 2 && "active"
-                }`}
+                className={`terms_contents_box ${termsStatus === 2 && "active"
+                  }`}
               >
                 <div className="terms_contents">여기에 넣기!</div>
               </div>
