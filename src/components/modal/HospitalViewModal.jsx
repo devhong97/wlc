@@ -76,7 +76,7 @@ const HospitalViewModal = (props) => {
   }, [city]);
 
   const getCity = () => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://49.50.174.248:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -85,7 +85,7 @@ const HospitalViewModal = (props) => {
       });
   };
   const getDistrict = () => {
-    Axios.get(`http://localhost:3001/api/get/districts/${city}`)
+    Axios.get(`http://49.50.174.248:3001/api/get/districts/${city}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -117,7 +117,7 @@ const HospitalViewModal = (props) => {
       const number = `${tel1}-${tel2}-${tel3}`;
       console.log(name);
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_modify",
+        "http://49.50.174.248:3001/api/post/hospital_modify",
         {
           name: name,
           number: number,
@@ -156,7 +156,7 @@ const HospitalViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_delete",
+        "http://49.50.174.248:3001/api/post/hospital_delete",
         data
       );
       alert("병원이 삭제되었습니다.");
@@ -274,14 +274,14 @@ const HospitalViewModal = (props) => {
             <div className="table_row">
               <div className="table_section">
                 <div className="table_title">
-                  주소<p className="title_point">*</p>
+                  오시는 길<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
                     id="location"
-                    placeholder="주소를 입력해주세요."
+                    placeholder="오시는 길을 입력해주세요."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                   ></input>
