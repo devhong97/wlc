@@ -187,9 +187,9 @@ const BranchViewModal = (props) => {
     }
   };
 
-  // 지점장 선택 모달창 OPEN 버튼
-  const listModalOpen = () => {
+  const listModalOpen = (uid) => {
     setListModal(!listModal);
+    console.log("uid", uid);
   };
 
   // 지점판매상품 선택 모달창 OPEN 버튼
@@ -374,7 +374,7 @@ const BranchViewModal = (props) => {
                   <div className="table_inner_text">[ {selectName} ]</div>
                   <div
                     className="table_inner_btn"
-                    onClick={() => listModalOpen()}
+                    onClick={() => listModalOpen(branchDetailData.uid)}
                   >
                     선택
                   </div>

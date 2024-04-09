@@ -33,7 +33,6 @@ export const ReservProvider = ({ children }) => {
   useEffect(() => {
     if (productKey !== "") {
       getHospitalList();
-      console.log("여기");
     } else {
       getHospitalAllList();
       getProductList("reset");
@@ -47,7 +46,6 @@ export const ReservProvider = ({ children }) => {
   }, [hospitalName]);
 
   const getProductList = async (status, keys) => {
-    console.log(keys);
     let setParams = {
       key: hospitalKey,
     };
@@ -109,7 +107,6 @@ export const ReservProvider = ({ children }) => {
       );
       const allData = response.data.data;
       const keys = allData.map((item) => item.p_key);
-      console.log(keys);
       setHospitalKey(keys);
       // hospitalKey가 설정된 후에 콜백 함수 호출
       if (typeof callback === "function") {
@@ -146,11 +143,11 @@ export const ReservProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(customerData);
+    //console.log(customerData);
   }, [customerData]);
 
   const uploadFiles = async (uid) => {
-    console.log(signData1);
+    //console.log(signData1);
     if (signData1 && signData2) {
       [...Array(parseInt(2))].map((_, index) => {
         const file = index === 0 ? signData1 : signData2;
@@ -161,7 +158,7 @@ export const ReservProvider = ({ children }) => {
           formData.append("file", resultFile);
           formData.append("uid", uid);
           formData.append("columnName", columnName);
-          console.log(formData);
+          //console.log(formData);
 
           Axios.post(
             "http://localhost:3001/api/post/customer_upload",
@@ -173,7 +170,7 @@ export const ReservProvider = ({ children }) => {
             }
           )
             .then((res) => {
-              console.log(res.data);
+              //console.log(res.data);
             })
             .catch((err) => {
               console.error(err);

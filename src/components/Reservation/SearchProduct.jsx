@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useReservContext } from "../Context/ReservContext";
 import ProductDetailModal from "../modal/ProductDetailModal";
+import { useAuth } from "../Context/AuthContext";
 
 const SearchProduct = () => {
   const { hospitalKey, setProduct, setProductName } = useReservContext();
@@ -10,6 +11,9 @@ const SearchProduct = () => {
   const navigation = useNavigate();
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState([]);
+  const { decodeS0 } = useAuth();
+
+  console.log("branchIdx", decodeS0());
 
   useEffect(() => {
     getProductList();
@@ -26,6 +30,7 @@ const SearchProduct = () => {
         {
           params: {
             key: resultKey,
+            branchIdx: decodeS0(),
           },
         }
       );

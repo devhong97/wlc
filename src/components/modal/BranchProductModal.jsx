@@ -225,9 +225,7 @@ const BranchProductModal = (props) => {
             normalData.split(",").map((productName, index) => (
               <div key={index} className="hash_row">
                 <div className="hash_box">
-                  <div className="hash_text">
-                    {productName}
-                  </div>
+                  <div className="hash_text">{productName}</div>
                   {/* <input
                   type="text"
                   value={productName}
@@ -238,7 +236,10 @@ const BranchProductModal = (props) => {
                     )
                   }
                 /> */}
-                  <div className="hash_btn" onClick={() => plusDataDelete(productName)}>
+                  <div
+                    className="hash_btn"
+                    onClick={() => plusDataDelete(productName)}
+                  >
                     X
                   </div>
                 </div>
@@ -247,15 +248,16 @@ const BranchProductModal = (props) => {
           {selectedProduct.map((product, index) => (
             <div key={index} className="hash_row">
               <div className="hash_box">
-                <div className="hash_text">
-                  {product.product2}
-                </div>
+                <div className="hash_text">{product.product2}</div>
                 {/* <input
                   type="text"
                   value={product.product2}
                   onChange={(e) => handleProductChange(e.target.value, index)}
                 /> */}
-                <div className="hash_btn" onClick={() => handleDelete(product.id)}>
+                <div
+                  className="hash_btn"
+                  onClick={() => handleDelete(product.id)}
+                >
                   X
                 </div>
               </div>

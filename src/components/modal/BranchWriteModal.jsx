@@ -184,9 +184,7 @@ const BranchWriteModal = (props) => {
             <div className="table_box">
               <div className="table_row">
                 <div className="table_section">
-                  <div className="table_title">
-                    지역(시, 도)<p className="title_point">*</p>
-                  </div>
+                  <div className="table_title">지역(시, 도)</div>
                   <div className="table_contents w100">
                     <select
                       name="city"

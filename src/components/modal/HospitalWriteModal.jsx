@@ -15,12 +15,12 @@ const HospitalWriteModal = (props) => {
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
-  const [location, setLocation] = useState("");//주소
+  const [location, setLocation] = useState(""); //주소
 
   //연락처 체크
   const handlePhone = (e, target) => {
     const value = e.target.value;
-    if (target === "tel1" && value.length === 3) {
+    if (target === "tel1" && value.length === 4) {
       document.getElementById("tel2").focus();
     } else if (target === "tel2" && value.length === 4) {
       document.getElementById("tel3").focus();
@@ -84,13 +84,6 @@ const HospitalWriteModal = (props) => {
       const nameInput = document.getElementById("user_name");
       if (nameInput) {
         nameInput.focus();
-      }
-      return;
-    } else if (tel1 === "" || tel2 === "" || tel3 === "") {
-      alert("연락처를 입력해주세요.");
-      const numberInput = document.getElementById("user_number");
-      if (numberInput) {
-        numberInput.focus();
       }
       return;
     } else if (selectedCity === "") {
@@ -178,7 +171,6 @@ const HospitalWriteModal = (props) => {
                     value={tel1}
                     onChange={(e) => handlePhone(e, "tel1")}
                     id="tel"
-                    maxlength="3"
                     className="table_input num"
                   />
                   &nbsp;-&nbsp;
@@ -187,7 +179,6 @@ const HospitalWriteModal = (props) => {
                     value={tel2}
                     onChange={(e) => handlePhone(e, "tel2")}
                     id="tel2"
-                    maxlength="4"
                     className="table_input num"
                   />
                   &nbsp;-&nbsp;
@@ -196,7 +187,6 @@ const HospitalWriteModal = (props) => {
                     value={tel3}
                     onChange={(e) => handlePhone(e, "tel3")}
                     id="tel3"
-                    maxlength="4"
                     className="table_input num"
                   />
                 </div>
@@ -247,14 +237,14 @@ const HospitalWriteModal = (props) => {
               <div className="table_row">
                 <div className="table_section">
                   <div className="table_title">
-                    주소<p className="title_point">*</p>
+                    오시는 길<p className="title_point">*</p>
                   </div>
                   <div className="table_contents w100">
                     <input
                       className="table_input modal"
                       type="text"
                       id="location"
-                      placeholder="주소를 입력해주세요."
+                      placeholder="오시는길을 입력해주세요."
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                     ></input>
