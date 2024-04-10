@@ -31,6 +31,7 @@ const Home = () => {
       const contractData = response.data.contractCount;
       const hopeData = response.data.hopeCount;
       const customerData = response.data.customerCount;
+      const resultData = response.data.result_date;
       setTotalData(allData);
       setManagerData(managerData);
       setContractData(contractData);
@@ -53,6 +54,7 @@ const Home = () => {
       );
       const allData = response.data;
       setHomeData(allData.data);
+      console.log(allData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -76,7 +78,7 @@ const Home = () => {
     phone: data.phone,
     product: data.productName,
     hospital: data.hospitalName,
-    date: data.result_date,
+    result_date: data.result_date,
   }));
 
   const viewModalOpen = () => {};
