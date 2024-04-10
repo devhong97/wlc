@@ -25,7 +25,6 @@ const Delme = () => {
 
   useEffect(() => {
     fetchTermsData();
-    fetchMarketingData();
   }, []);
 
   const fetchTermsData = async () => {
@@ -34,27 +33,16 @@ const Delme = () => {
         "http://localhost:3001/api/get/terms_data"
       );
       const termsData = response.data.terms_info; // 서버에서 받은 데이터
-      console.log(termsData);
+      const mTermsData = response.data.marketing;
       setContent(termsData); // content를 가져와서 setContent에 전달
-      editorRef1.current.getInstance().setHTML(termsData);
-    } catch (error) {
-      console.error("데이터 가져오기 중 오류 발생", error);
-    }
-  };
-
-  const fetchMarketingData = async () => {
-    try {
-      const response = await Axios.get(
-        "http://localhost:3001/api/get/marketing_data"
-      );
-      const mTermsData = response.data.marketing; // 서버에서 받은 데이터
-      console.log(mTermsData);
       setContent2(mTermsData);
+      editorRef1.current.getInstance().setHTML(termsData);
       editorRef2.current.getInstance().setHTML(mTermsData);
     } catch (error) {
       console.error("데이터 가져오기 중 오류 발생", error);
     }
   };
+
 
   //Editor 파일 업로드 관련 함수
   const onUploadImage = async (blob, callback) => {

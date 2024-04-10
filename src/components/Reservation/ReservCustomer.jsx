@@ -21,6 +21,7 @@ const ReservCustomer = () => {
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
   const [agreeTermsData, setAgreeTermsData] = useState("");
+  const [mTermsData, setMTermsData] = useState("");
   const [inputArray, setInputArray] = useState(customerData.customerArray || [{
     name: ""
   }])
@@ -83,8 +84,9 @@ const ReservCustomer = () => {
       const response = await Axios.get(
         "http://localhost:3001/api/get/terms_data"
       );
-      const allData = response.data.terms_info;
-      setAgreeTermsData(allData);
+      const allData = response.data;
+      setAgreeTermsData(allData.terms_info);
+      setMTermsData(allData.marketing);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -231,7 +233,7 @@ const ReservCustomer = () => {
                 className={`terms_contents_box ${termsStatus === 2 && "active"
                   }`}
               >
-                <div className="terms_contents">여기에 넣기!</div>
+                <div className="terms_contents" dangerouslySetInnerHTML={{ __html: mTermsData }}></div>
               </div>
             </div>
             <div className="terms_checkbox">
