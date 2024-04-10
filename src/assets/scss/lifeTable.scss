@@ -96,6 +96,12 @@
         cursor: pointer;
       }
 
+      .delete_input {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+      }
+
       .modal_calendar {
         position: absolute;
         z-index: 9;

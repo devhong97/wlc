@@ -4,6 +4,7 @@ import moment from "moment";
 import { useReservContext } from "../Context/ReservContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import AllCustomerModal from "./AllCustomerModal";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -16,6 +17,7 @@ const CustomerViewModal = (props) => {
   } = useReservContext();
 
   const [memberData, setMemberData] = useState([]);
+  const [subData, setSubData] = useState([]); //검진자목록데이터
   const [detailNum, setDetailNum] = useState("");
   const [inspectionStatus, setInspectionStatus] = useState("N");
   const [hopeStatus, setHopeStatus] = useState("N");
@@ -40,10 +42,11 @@ const CustomerViewModal = (props) => {
   const [company, setCompany] = useState(""); //회사 이름
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
   const [resultPrice, setResultPrice] = useState(""); //금액
+  const [allModal, setAllModal] = useState(false);
   useEffect(() => {
     if (props.detailIdx) {
-      console.log(props.detailIdx);
       setDetailNum(props.detailIdx.idx);
+      getCustomerAll();
       getDetail();
     } else {
       props.closeModal();
@@ -74,9 +77,27 @@ const CustomerViewModal = (props) => {
       console.error("Error fetching list:", error);
     }
   };
+  const getCustomerAll = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/customer_detail_all",
+        {
+          params: {
+            idx: props.detailIdx.idx,
+          }
+        }
+      );
+      const allData = response.data.data;
+      setSubData(allData);
+      const names = allData.map(data => data.name);
+      setCustomerName(names.join(', '));
+
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  }
 
   const setDetailValue = () => {
-    setCustomerName(memberData.name);
     setPhone(memberData.phone);
     setCPhone(memberData.phone_2);
     setHopeDate1(memberData.hope_date_1);
@@ -103,7 +124,6 @@ const CustomerViewModal = (props) => {
 
   const handleSubmit = async () => {
     if (
-      !customerName ||
       !phone ||
       !cPhone ||
       !product ||
@@ -114,8 +134,11 @@ const CustomerViewModal = (props) => {
       alert("필수 사항을 모두 입력해주세요");
       return;
     }
+    const confirmUpdate = window.confirm("변경된 정보를 저장하시겠습니까?");
+    if (!confirmUpdate) {
+      return;
+    }
     const paramsArray = {
-      name: customerName,
       number: customerNumber,
       phone: phone,
       phone_2: cPhone,
@@ -130,7 +153,7 @@ const CustomerViewModal = (props) => {
       refund_status: refundStatus,
       marketing_terms: m_terms,
       memo: memo,
-      idx: detailNum,
+      uid: memberData.uid
     };
     console.log(paramsArray);
 
@@ -191,6 +214,13 @@ const CustomerViewModal = (props) => {
     setOpenCalendar(false);
   };
 
+  const openAllCustomerModal = (status) => {
+    setAllModal(!allModal);
+    if (status === "update") {
+      getCustomerAll();
+    }
+  }
+
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -206,15 +236,12 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진자</div>
                 <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="customerName"
-                    placeholder="검진자를 입력해주세요."
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
+                  <div className="table_inner_text">
+                    {customerName}
+                  </div>
+                  {inspectionStatus !== "2" && (
+                    <div className="table_inner_btn" onClick={() => openAllCustomerModal()}>수정</div>
+                  )}
                 </div>
               </div>
               <div className="table_section half">
@@ -544,7 +571,7 @@ const CustomerViewModal = (props) => {
                 <div className="table_title">입금금액</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
-                    {memberData.price * memberData.number} 원
+                    {memberData.price * customerNumber} 원
                   </div>
                 </div>
               </div>
@@ -630,6 +657,13 @@ const CustomerViewModal = (props) => {
           </div>
         </div>
       </div>
+      {allModal && (
+        <AllCustomerModal
+          closeModal={openAllCustomerModal}
+          subData={subData}
+          setCustomerNumber={setCustomerNumber}
+        ></AllCustomerModal>
+      )}
     </div>
   );
 };
