@@ -5,6 +5,7 @@ import { useReservContext } from "../Context/ReservContext";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import AllCustomerModal from "./AllCustomerModal";
+import SignDownModal from "./SignDownModal";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -43,6 +44,7 @@ const CustomerViewModal = (props) => {
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
   const [resultPrice, setResultPrice] = useState(""); //금액
   const [allModal, setAllModal] = useState(false);
+  const [signModal, setSignModal] = useState(false);
   useEffect(() => {
     if (props.detailIdx) {
       setDetailNum(props.detailIdx.idx);
@@ -219,6 +221,10 @@ const CustomerViewModal = (props) => {
     if (status === "update") {
       getCustomerAll();
     }
+  }
+
+  const openSignModal = () => {
+    setSignModal(!signModal);
   }
 
   return (
@@ -622,26 +628,10 @@ const CustomerViewModal = (props) => {
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">성명자필</div>
+              <div className="table_section">
+                <div className="table_title">계약서</div>
                 <div className="table_contents w100">
-                  <div
-                    className="sign_text"
-                    onClick={() => handleDownload(memberData.sign_img_1)}
-                  >
-                    {memberData.sign_img_1}
-                  </div>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">서명</div>
-                <div className="table_contents w100">
-                  <div
-                    className="sign_text"
-                    onClick={() => handleDownload(memberData.sign_img_2)}
-                  >
-                    {memberData.sign_img_2}
-                  </div>
+                  <div className="table_inner_btn sign" onClick={() => openSignModal()}>확인하기</div>
                 </div>
               </div>
             </div>
@@ -663,6 +653,14 @@ const CustomerViewModal = (props) => {
           subData={subData}
           setCustomerNumber={setCustomerNumber}
         ></AllCustomerModal>
+      )}
+      {signModal && (
+        <SignDownModal
+          closeModal={openSignModal}
+          sign_img_1={memberData.sign_img_1}
+          sign_img_2={memberData.sign_img_2}
+          contractorName={memberData.contractor_name}
+        ></SignDownModal>
       )}
     </div>
   );
