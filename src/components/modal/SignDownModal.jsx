@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
-import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 const SignDownModal = (props) => {
     const [img1, setImg1] = useState("");
@@ -34,21 +33,11 @@ const SignDownModal = (props) => {
             const pageHeight = pdf.internal.pageSize.getHeight();
             pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
             pdf.save(`${name}_계약서류.pdf`);
+            props.closeModal();
         });
 
     }
-    // html-to-image
-    // const target = document.getElementById('down_back');
-    // if (!target) {
-    //     return;
-    // }
-    // toPng(target).then((canvas) => {
-    //     const link = window.document.createElement('a');
-    //     link.style = 'display:none;';
-    //     link.download = "result.png";
-    //     link.href = canvas;
-    //     link.click();
-    // })
+
 
 
 
