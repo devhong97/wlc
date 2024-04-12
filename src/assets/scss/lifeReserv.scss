@@ -1,40 +1,28 @@
 @import "lifeUtil.scss";
 
 .reserv_wrap {
-    background-color: $back-color_2;
+    background-color: $back-color;
     width: 100%;
     height: calc(100% - 40px);
 
     .reserv_back {
-        width: 50%;
+        width: 90%;
         margin: 0 auto;
-        padding: 100px 0;
-
-        &.product {
-            width: 80%;
-        }
+        padding: 80px 0;
 
         &.sign {
-            width: 80%;
             padding: 60px 0;
         }
 
         .reserv_top_box {
             .reserv_title {
-                font-size: 45px;
-                font-family: "Pretendard_bb";
-                color: #414141;
-                text-align: center;
-                line-height: 60px;
+                font-size: 30px;
+                font-family: "Pretendard_b";
 
-                .point_text {
-                    display: inline-block;
-                    color: $main-color;
-                    vertical-align: top;
-                    font-family: "Pretendard_bb";
-                }
-
-                .sub_text {
+                &.sub {
+                    padding-top: 17px;
+                    color: #414141;
+                    font-size: 20px;
                     font-family: "Pretendard_m";
                 }
             }
@@ -56,7 +44,7 @@
         }
 
         .reserv_bottom_box {
-            padding-top: 60px;
+            padding-top: 48px;
 
             &.product {
                 // text-align: center;
@@ -68,29 +56,30 @@
             }
 
             .reserv_menu_box {
-                display: inline-block;
-                width: calc((100% - 30px) / 2);
-                border-radius: 30px;
+                box-shadow: 0px 10px 20px #00000029;
+                border-radius: 10px;
                 background-color: #fff;
-                position: relative;
-                height: 400px;
                 cursor: pointer;
+                padding: 38px 40px;
+                margin-bottom: 25px;
+                position: relative;
 
-                &.right {
-                    margin-left: 30px;
+                &::after {
+                    position: absolute;
+                    content: "";
+                    @include background-set(40px, 30px, contain);
+                    background-image: url("../img/arrow_icon.png");
+                    top: 50%;
+                    right: 50px;
+                    transform: translate(0, -50%);
                 }
 
                 .menu_inner_box {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 50%;
-
-
                     .menu_icon {
-                        @include background_set(100%, 120px, contain);
+                        @include background_set(50px, 50px, contain);
                         background-image: url("../img/reserv_menu_1.png");
+                        display: inline-block;
+                        vertical-align: middle;
 
                         &.second {
                             background-image: url("../img/reserv_menu_2.png");
@@ -98,12 +87,12 @@
                     }
 
                     .menu_text {
-                        text-align: center;
-                        color: $main-color;
-                        font-size: 30px;
-                        font-family: "Pretendard_bb";
-                        padding-top: 30px;
-                        width: 100%;
+                        display: inline-block;
+                        vertical-align: middle;
+                        color: #676767;
+                        font-size: 35px;
+                        padding-left: 35px;
+                        font-family: "Pretendard_b";
                     }
                 }
             }
@@ -351,45 +340,93 @@
                 }
             }
 
+            .slide_wrap {
+                overflow: auto;
+                white-space: nowrap;
+                height: 550px;
+                padding-top: 5px;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
             .product_box {
                 display: inline-block;
-                width: calc((100% - 60px) / 3);
+                width: 350px;
                 min-width: 200px;
                 border-radius: 30px;
                 background-color: #fff;
                 position: relative;
-                height: 500px;
+                height: 520px;
                 cursor: pointer;
-                margin-right: 30px;
-                margin-bottom: 20px;
-                overflow: hidden;
+                margin-right: 40px;
+                box-shadow: 0px 10px 20px #00000026;
 
-                &:nth-child(3n) {
-                    margin-right: 0
+                &.color2,
+                &.color5 {
+                    background-color: #FFFBF4;
+                    border: 4px solid #FFC560;
+
+                    .inner_bottom_box {
+                        .product_btn_box {
+                            .product_btn {
+                                &:first-child {
+                                    background-color: #FFE9C4;
+                                    color: #777777;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                &.color4 {
+                    border: 4px solid #13F2C6;
+
+                    .inner_bottom_box {
+                        .product_btn_box {
+                            .product_btn {
+                                &:first-child {
+                                    background-color: #E9F4EE;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .product_img_box {
+                    width: 100%;
+                    height: 210px;
+                    position: relative;
                 }
 
                 .product_img {
-                    @include background_set(100%, 275px, cover);
-                    background-image: url("../img/product_img_1.png");
-                    position: relative;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    @include background_set(82px, 82px, contain);
+                    background-image: url("../img/p_icon_3.png");
 
-                    &::before {
-                        position: absolute;
-                        content: "";
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        backdrop-filter: blur(4px);
-                        -webkit-backdrop-filter: blur(4px);
+                    &.img_0 {
+                        background-image: url("../img/p_icon_1.png");
                     }
 
                     &.img_1 {
-                        background-image: url("../img/product_img_2.png");
+                        background-image: url("../img/p_icon_2.png");
                     }
 
                     &.img_2 {
-                        background-image: url("../img/product_img_3.png");
+                        background-image: url("../img/p_icon_3.png");
+                    }
+
+                    &.img_3 {
+                        background-image: url("../img/p_icon_4.png");
+                    }
+
+                    &.img_4 {
+                        background-image: url("../img/p_icon_2.png");
                     }
 
                     .img_title {
@@ -406,45 +443,55 @@
                 }
 
                 .inner_bottom_box {
-                    padding: 30px;
+                    padding: 0 25px;
+                    white-space: break-spaces;
 
                     .product_text_box {
                         text-align: center;
-                        padding-bottom: 25px;
+                        padding-bottom: 30px;
 
                         .product_info_text {
-                            color: #414141;
+                            color: #959595;
                             font-size: 18px;
-                            padding-bottom: 14px;
+
                         }
 
                         .product_text {
-                            font-size: 20px;
-                            font-family: "Pretendard_bb";
-                            color: $sub-color-2;
+                            font-size: 23px;
+                            font-family: "Pretendard_b";
+                            color: #4D4D4D;
+                            padding-bottom: 24px;
+
+                            &.title {
+                                font-size: 25px;
+                                color: #000000;
+                                padding-bottom: 10px;
+                            }
 
                             &.og_price {
-                                color: #000;
+                                color: #9B9B9B;
                                 text-decoration: line-through;
-                                text-decoration-color: red;
+                                text-decoration-color: #9B9B9B;
+                                font-size: 20px;
+                                font-family: "Pretendard_l";
+                                padding-bottom: 5px;
                             }
                         }
                     }
 
                     .product_btn_box {
                         .product_btn {
-                            display: inline-block;
-                            width: calc((100% - 10px) / 2);
-                            background-color: #A8A8A8;
-                            padding: 15px 0;
-                            color: #fff;
+                            background-color: #F4F4F4;
+                            padding: 13px 0;
+                            color: #727272;
                             text-align: center;
                             border-radius: 15px;
                             font-size: 18px;
+                            margin-bottom: 5px;
 
                             &:last-child {
-                                margin-left: 10px;
-                                background-color: $main-color;
+                                background-color: inherit;
+                                color: #868686;
                             }
                         }
                     }

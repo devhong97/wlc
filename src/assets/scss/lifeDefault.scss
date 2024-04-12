@@ -288,15 +288,18 @@
 
 .header_wrap {
   width: 100%;
+  box-shadow: 0px 3px 6px #00000029;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
 
   .header_bottom_back {
     padding: 25px 50px;
-    border-bottom: 1px solid #c9c9c9;
 
     .header_info_box {
       .info_icon {
         @include background_set(60px, 60px, contain);
-        background-image: url("../img/header_user_icon.png");
+        background-image: url("../img/header_user_icon_2.png");
         display: inline-block;
         vertical-align: middle;
       }
@@ -318,7 +321,7 @@
 
   .header_top_back {
     padding: 10px 50px;
-    background-color: $sub-color_2;
+    background-color: #B7B7B7;
     color: #fff;
 
     .header_info_box {
@@ -332,7 +335,7 @@
         text-align: right;
 
         .info_text {
-          animation: blinker 3s step-start infinite;
+          // animation: blinker 3s step-start infinite;
         }
 
         @keyframes blinker {
@@ -367,7 +370,7 @@
         padding-right: 10px;
         vertical-align: middle;
         display: inline-block;
-        animation: blinker 3s step-start infinite;
+        // animation: blinker 3s step-start infinite;
 
         &:last-child {
           padding-right: 0;
@@ -380,13 +383,14 @@
 .info_id {
   padding-top: 3px;
   font-size: 15px;
+  color: #868686;
 }
 
 .footer_wrap {
   position: fixed;
   bottom: 0;
   width: calc(100% - 80px);
-  background-color: $sub-color_2;
+  background-color: #5F5F5F;
   color: #fff;
   padding: 10.5px 0;
   text-align: center;
@@ -413,19 +417,35 @@
     height: 100%;
     position: relative;
 
+    &.home {
+      padding-top: 70px;
+    }
+
     .customer_btn_box {
-      position: fixed;
-      bottom: 38px;
-      left: 0;
-      width: 100%;
+      padding: 30px 50px 200px;
 
       .customer_btn {
-        padding: 20px 0;
-        text-align: center;
-        background-color: $main-color;
-        color: #fff;
-        font-size: 20px;
+        box-shadow: 0px 10px 20px #00000029;
+        border-radius: 10px;
+        padding: 40px 50px;
         cursor: pointer;
+        color: #fff;
+        font-size: 40px;
+        font-family: "Pretendard_b";
+        background: linear-gradient(293deg, #26f7d7, #39ea7d);
+
+        .reserv_logo {
+          @include background-set(38px, 38px, contain);
+          background-image: url("../img/reserv_logo.png");
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .reserv_text {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 25px;
+        }
       }
     }
   }
@@ -438,6 +458,11 @@
   padding: 10px 50px;
   background-color: #fff;
 
+  &.blank {
+    background-color: inherit;
+    border: none;
+  }
+
   .total_data_box {
     display: inline-block;
     vertical-align: middle;
@@ -449,6 +474,12 @@
       padding-left: 30px;
     }
   }
+}
+
+.main_sub_title {
+  color: #414141;
+  font-size: 18px;
+  padding: 10px 50px;
 }
 
 //로그인
