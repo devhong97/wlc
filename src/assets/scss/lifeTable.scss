@@ -500,6 +500,57 @@
 .list_area {
   width: 100%;
   position: relative;
+
+  &.reserv {
+    padding-top: 30px;
+
+    .search_box {
+      padding: 10px;
+      border: none;
+      box-shadow: 0px 10px 20px #6F6F6F1D;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      position: relative;
+
+      .search_select {
+        margin-right: 0;
+
+        .list_select {
+          margin-right: 9px;
+        }
+      }
+
+      .search_input {
+
+        .list_search {
+          background-color: #F4F4F4;
+          color: #5F5F5F;
+          padding: 10px 50px 10px 30px;
+          margin-right: 9px;
+
+          &:first-child {
+            position: absolute;
+            right: 0;
+
+            &::after {
+              position: absolute;
+              content: "";
+              right: 25px;
+              top: 50%;
+              transform: translate(0, -50%);
+              @include background-set(18px, 20px, contain);
+              background-image: url("../img/search_icon.png");
+            }
+          }
+
+          &.reset_btn {
+            background-color: #F4F4F4 !important;
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .submit_btn {
@@ -657,6 +708,10 @@
     height: 750px;
     width: 100% !important;
     padding: 20px;
+  }
+
+  &.home {
+    padding: 30px 50px;
   }
 
   &.tab_list {
@@ -1519,23 +1574,27 @@
 }
 
 .table_header {
-  border-color: $main-color !important;
-  background-color: $sub-color !important;
-  font-size: 18px;
+  border-color: #ededed !important;
+  background-color: #fff;
+
 }
 
 .table_cell {
-  text-align: center;
-  border-color: $light-gray !important;
+  text-align: center !important;
+  border-color: #ededed !important;
+  background-color: #fff;
+
+}
+
+.MuiDataGrid-withBorderColor {
+  border-color: #ededed !important;
 }
 
 .css-az8st9-MuiDataGrid-root {
   align-items: center !important;
+  border-style: none !important;
 }
 
-.css-az8st9-MuiDataGrid-root {
-  padding: 30px 0 !important;
-}
 
 // .css-az8st9-MuiDataGrid-root .MuiDataGrid-cell--textLeft {
 //   justify-content: center !important;
@@ -1548,10 +1607,26 @@
 
 .css-204u17-MuiDataGrid-main {
   width: 100% !important;
+  box-shadow: 0px 10px 20px #0000001D !important;
+  border-radius: 10px !important;
 }
 
 .css-t89xny-MuiDataGrid-columnHeaderTitle {
   font-size: 15px !important;
+  color: #606060 !important;
+  font-family: "Pretendard_b" !important;
+}
+
+.css-az8st9-MuiDataGrid-root {
+  .MuiDataGrid-cellContent {
+    color: #606060 !important;
+    font-size: 15px !important;
+    font-family: "Pretendard_l";
+  }
+}
+
+.css-rtrcn9-MuiTablePagination-root {
+  color: #868686 !important;
 }
 
 .css-wop1k0-MuiDataGrid-footerContainer {
@@ -1621,6 +1696,25 @@
   letter-spacing: 5px;
   cursor: pointer;
   border-radius: 3px;
+
+  &.reserv {
+    letter-spacing: 0;
+    color: #727272;
+    background-color: #F4F4F4;
+    border-radius: 10px;
+    padding: 5px 35px 5px 25px;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: "";
+      right: 15px;
+      top: 50%;
+      transform: translate(0, -50%);
+      @include background-set(12px, 8px, contain);
+      background-image: url("../img/check_icon.png");
+    }
+  }
 }
 
 #chart {

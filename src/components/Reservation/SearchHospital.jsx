@@ -64,10 +64,10 @@ const SearchHospital = () => {
       type: "actions",
       renderCell: (params) => (
         <div
-          className="table_inner_btn"
+          className="table_inner_btn reserv"
           onClick={() => selectRowData(params.row)}
         >
-          선택
+          선택하기
         </div>
       ),
     },
@@ -83,7 +83,7 @@ const SearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => {};
+  const emptyFunc = () => { };
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);
@@ -97,27 +97,36 @@ const SearchHospital = () => {
     }
   };
   return (
-    <div className="main_wrap">
-      <div className="main_back">
-        <div className="main_title_box">병원 목록</div>
-        <div className="board_list_wrap">
-          <div className="list_area">
-            <div className="search_box">
-              <HospitalSelect
-                ref={selectRef}
-                setSearchData={setSearchData}
-              ></HospitalSelect>
-            </div>
-            <div className="table_box list">
-              {hospitalList.length === 0 ? (
-                <div>정보가 없습니다.</div>
-              ) : (
-                <TableDefault
-                  rows={rows}
-                  columns={columns}
-                  viewModalOpen={emptyFunc}
-                />
-              )}
+    <div className="reserv_wrap">
+      <div className="reserv_back main">
+        <div className="reserv_top_box">
+          <div className="reserv_title">
+            병원목록
+          </div>
+          <div className="reserv_title sub">검진 가능한 병원들을 확인합니다.</div>
+        </div>
+        <div className="main_wrap">
+          <div className="main_back">
+            <div className="board_list_wrap">
+              <div className="list_area reserv">
+                <div className="search_box">
+                  <HospitalSelect
+                    ref={selectRef}
+                    setSearchData={setSearchData}
+                  ></HospitalSelect>
+                </div>
+                <div className="table_box">
+                  {hospitalList.length === 0 ? (
+                    <div>정보가 없습니다.</div>
+                  ) : (
+                    <TableDefault
+                      rows={rows}
+                      columns={columns}
+                      viewModalOpen={emptyFunc}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>

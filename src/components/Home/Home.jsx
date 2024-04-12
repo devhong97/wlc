@@ -81,7 +81,7 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => {};
+  const viewModalOpen = () => { };
 
   let decodeResult;
 
@@ -125,23 +125,27 @@ const Home = () => {
     case "영업사원":
       decodeResult = (
         <div className="main_wrap">
-          <div className="main_back">
-            <div className="main_title_box">7일이내 검진예약 고객명단</div>
-            <div className="table_box list">
+          <div className="main_back home">
+            <div className="main_title_box blank">예약하기</div>
+            <div className="main_sub_title">건강검진 예약을 신청합니다.</div>
+            <div className="customer_btn_box">
+              <div
+                className="customer_btn"
+                onClick={() => navigation("/reserv", { state: { status: "" } })}
+              >
+                <div className="reserv_logo"></div>
+                <div className="reserv_text">예약 시작하기</div>
+              </div>
+            </div>
+            <div className="main_title_box blank">7일이내 검진예약 고객명단</div>
+            <div className="table_box home">
               <TableDefault
                 rows={rows}
                 columns={columns}
                 viewModalOpen={viewModalOpen}
               />
             </div>
-            <div className="customer_btn_box">
-              <div
-                className="customer_btn"
-                onClick={() => navigation("/reserv", { state: { status: "" } })}
-              >
-                예약 시작
-              </div>
-            </div>
+
           </div>
         </div>
       );

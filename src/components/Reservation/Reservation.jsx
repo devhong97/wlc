@@ -24,12 +24,12 @@ const Reservation = () => {
   }, [status]);
   return (
     <div className="reserv_wrap">
-      <div className="reserv_back">
+      <div className="reserv_back main">
         <div className="reserv_top_box">
           <div className="reserv_title">
-            회원님, 원하시는 <br />
-            <p className="point_text">메뉴</p>를 선택하세요.
+            예약 시작
           </div>
+          <div className="reserv_title sub">이용하기 원하시는 메뉴를 선택하세요.</div>
         </div>
         <div className="reserv_bottom_box">
           <div className="reserv_menu_box" onClick={() => movePage("/product")}>
@@ -39,7 +39,7 @@ const Reservation = () => {
             </div>
           </div>
           <div
-            className="reserv_menu_box right"
+            className="reserv_menu_box"
             onClick={() => movePage("/hospital")}
           >
             <div className="menu_inner_box">

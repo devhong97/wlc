@@ -18,7 +18,7 @@ const Clock = () => {
   const minute = String(time.getMinutes()).padStart(2, "0");
   const second = String(time.getSeconds()).padStart(2, "0");
 
-  const dateString = `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분 ${second}초`;
+  const dateString = `${year}년 ${month}월 ${day}일`;
 
   return (
     <div className="info_text">
