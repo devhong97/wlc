@@ -6,7 +6,7 @@ import TableDefault from "../Table/TableDefault";
 import moment from "moment";
 import ApexCharts from "apexcharts";
 
-const SalesList = () => {
+const SalesHospital = () => {
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState("");
   const [salesData, setSalesData] = useState([]);
@@ -202,7 +202,7 @@ const SalesList = () => {
     jsxToRender = (
       <div className="main_wrap">
         <div className="main_back">
-          <div className="main_title_box">매출 관리</div>
+          <div className="main_title_box">병원별 검진고객 현황</div>
           <div className="board_list_wrap">
             <div className="list_area">
               <div className="search_box">
@@ -217,21 +217,7 @@ const SalesList = () => {
                     </select>
                   </div>
                 </div>
-                <div className="list_select_area right">
-                  <div className="search_select">
-                    <select className="list_select">
-                      <option>회사명</option>
-                    </select>
-                    &nbsp;
-                    <select className="list_select">
-                      <option>지점종류</option>
-                    </select>
-                    &nbsp;
-                    <select className="list_select">
-                      <option>지점명</option>
-                    </select>
-                  </div>
-                </div>
+                <div className="title_btn">지점등록</div>
               </div>
               <div id="chart"></div>
             </div>
@@ -303,4 +289,4 @@ const SalesList = () => {
   return jsxToRender;
 };
 
-export default SalesList;
+export default SalesHospital;

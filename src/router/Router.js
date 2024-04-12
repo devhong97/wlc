@@ -18,6 +18,9 @@ import ProductList from "../components/Product/ProductList";
 import ReservCheck from "../components/Reservation/ReservCheck";
 import Delme from "./../components/Delmetenz/Delme";
 import Mypage from "./../components/Mypage/Mypage";
+import SalesCustomer from "./../components/Sales/SalesCustomer";
+import SalesManager from "./../components/Sales/salesManager";
+import SalesHospital from "./../components/Sales/SalesHospital";
 
 const Router = () => {
   return (
@@ -27,6 +30,10 @@ const Router = () => {
       <Route path="/member" element={<MemberList />} />
       <Route path="/customer" element={<CustomerList />} />
       <Route path="/sales" element={<SalesList />} />
+      <Route path="/salescustomer" element={<SalesCustomer />} />
+      <Route path="/salesmanager" element={<SalesManager />} />
+      <Route path="/saleshospital" element={<SalesHospital />} />
+
       <Route path="/hospital" element={<Hospital />} />
       <Route path="/product" element={<ProductList />} />
       <Route path="/commission" element={<CommissionList />} />

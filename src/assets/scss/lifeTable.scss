@@ -105,7 +105,6 @@
       .modal_calendar {
         position: absolute;
         z-index: 9;
-
       }
 
       .chk_input {
@@ -139,7 +138,7 @@
         }
 
         &.my_num {
-          width: calc((100% - 50px)/3);
+          width: calc((100% - 50px) / 3);
         }
 
         &.half {
@@ -516,6 +515,19 @@
 
 .list_select_area {
   display: inline-block;
+
+  &.right {
+    float: right;
+  }
+}
+
+.search_right {
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: $main-color;
+  cursor: pointer;
+  float: right;
 }
 
 .search_box {
@@ -909,7 +921,6 @@
 
             &:last-child {
               margin-left: 190px;
-
             }
 
             .sign_img {
@@ -1610,4 +1621,8 @@
   letter-spacing: 5px;
   cursor: pointer;
   border-radius: 3px;
+}
+
+#chart {
+  padding-top: 50px;
 }
