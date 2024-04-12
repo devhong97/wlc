@@ -884,6 +884,42 @@
   transition: opacity 0.3s ease-in-out;
   z-index: 5;
 
+  &.reserv {
+    .modal_back {
+      box-shadow: 0px 10px 20px #00000029;
+      border-radius: 30px;
+      width: 40%;
+      min-width: 500px;
+
+      .modal_box {
+        padding-top: 80px;
+
+        .modal_text {
+          color: #414141;
+          font-size: 30px;
+          text-align: center;
+          padding-bottom: 60px;
+        }
+
+        .modal_footer_box {
+          .modal_btn {
+            color: #6F7070;
+            background-color: #F4F4F4;
+            border-radius: 10px;
+            padding: 10px 37px;
+            font-size: 20px;
+
+            &.close {
+              background-color: #fff;
+              border: 1px solid #EAEAEA;
+            }
+
+          }
+        }
+      }
+    }
+  }
+
   .modal_back {
     width: 60%;
     max-height: 90%;

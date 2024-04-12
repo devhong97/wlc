@@ -87,55 +87,58 @@ const SignComponent = (props) => {
         <div>
             <div className="reserv_top_box">
                 <div className="reserv_title">
-                    개인정보제공동의를 위한 <p className="point_text">서명</p>을 해주세요.
-                    <br /><p className='sub_text'>({step}/2)</p>
+                    개인정보제공동의
                 </div>
+                <div className="reserv_title sub">개인정보제공동의를 위한 서명을 해주세요. ({step}/2)</div>
             </div>
-            <div className="reserv_bottom_box sign"></div>
-            <div className='sign_container'>
+            <div className="reserv_bottom_box">
+                <div className="reserv_contents_box sign">
+                    <div className='sign_container'>
 
-                <div className='sign_box'>
-                    <div className='sign_title'>{step === 1 ? "성명자필" : "서명"}</div>
-                    <div className='sign_contents' id="canvasSign">
+                        <div className='sign_box'>
+                            <div className='sign_title'>{step === 1 ? "성명자필" : "서명"}</div>
+                            <div className='sign_contents' id="canvasSign">
+                                {step === 1 ? (
+                                    <div className='sign'>
+                                        <CanvasDraw
+                                            ref={canvasRef}
+                                            brushColor="#000000"
+                                            className='sign_canvas'
+                                            brushRadius={3}
+                                            hideGrid={true}
+                                            passive={false}
+
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className='sign'>
+                                        <CanvasDraw
+                                            ref={canvasRef2}
+                                            brushColor="#000000"
+                                            className='sign_canvas'
+                                            brushRadius={3}
+                                            hideGrid="true"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+
+                        </div>
                         {step === 1 ? (
-                            <div className='sign'>
-                                <CanvasDraw
-                                    ref={canvasRef}
-                                    brushColor="#000000"
-                                    className='sign_canvas'
-                                    brushRadius={3}
-                                    hideGrid={true}
-                                    passive={false}
-
-                                />
+                            <div className='sign_btn_box'>
+                                <div className='sign_btn' onClick={() => handleClear(1)}></div>
+                                <div className='sign_btn blue' onClick={() => handleCavasChange(1)}></div>
                             </div>
                         ) : (
-                            <div className='sign'>
-                                <CanvasDraw
-                                    ref={canvasRef2}
-                                    brushColor="#000000"
-                                    className='sign_canvas'
-                                    brushRadius={3}
-                                    hideGrid="true"
-                                />
+                            <div className='sign_btn_box'>
+                                <div className='sign_btn' onClick={() => handleClear(2)}></div>
+                                <div className='sign_btn blue' onClick={() => handleCavasChange(2)}></div>
                             </div>
                         )}
+
                     </div>
-
-
                 </div>
-                {step === 1 ? (
-                    <div className='sign_btn_box'>
-                        <div className='sign_btn' onClick={() => handleClear(1)}></div>
-                        <div className='sign_btn blue' onClick={() => handleCavasChange(1)}></div>
-                    </div>
-                ) : (
-                    <div className='sign_btn_box'>
-                        <div className='sign_btn' onClick={() => handleClear(2)}></div>
-                        <div className='sign_btn blue' onClick={() => handleCavasChange(2)}></div>
-                    </div>
-                )}
-
             </div>
         </div>
     );

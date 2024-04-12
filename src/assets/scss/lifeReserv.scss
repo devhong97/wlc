@@ -29,22 +29,49 @@
         }
 
         .reserv_btn_box {
-            padding-top: 45px;
-            width: 100%;
-            text-align: center;
+            padding-top: 40px;
+            border-radius: 10px;
+
+            &.last_btn {
+                text-align: center;
+
+                .reserv_btn {
+                    color: #6F7070;
+                    padding: 10px 37px;
+
+                    &::after {
+                        display: none;
+
+                    }
+                }
+            }
 
             .reserv_btn {
-                background-color: $main-color;
-                color: #fff;
-                font-size: 30px;
-                padding: 30px 0;
-                border-radius: 30px;
+                background-color: #F4F4F4;
+                color: #5F5F5F;
+                font-size: 20px;
+                padding: 15px 60px 15px 35px;
+                border-radius: 10px;
                 cursor: pointer;
+                font-family: "Pretendard_b";
+                display: inline-block;
+                position: relative;
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    top: 50%;
+                    right: 30px;
+                    transform: translate(0, -50%);
+                    @include background-set(15px, 12px, contain);
+                    background-image: url("../img/arrow_icon_2.png");
+                }
             }
         }
 
         .reserv_bottom_box {
             padding-top: 48px;
+            overflow: visible;
 
             &.product {
                 // text-align: center;
@@ -52,7 +79,7 @@
             }
 
             &.sign {
-                padding-top: 0;
+                padding-top: 35px;
             }
 
             .reserv_menu_box {
@@ -97,13 +124,25 @@
                 }
             }
 
+            .reserv_contents_box {
+                box-shadow: 0px 10px 20px #0000001D;
+                border-radius: 10px;
+                background-color: #fff;
+                padding: 40px 30px;
+
+                &.sign {
+                    padding: 20px;
+                    border-radius: 30px;
+                }
+            }
+
             .reserv_input_box {
                 width: 100%;
-                padding-bottom: 20px;
+                padding-bottom: 13px;
 
                 .input_array_box {
                     position: relative;
-                    margin-bottom: 20px;
+                    margin-bottom: 13px;
 
                     .delete_input {
                         position: absolute;
@@ -115,12 +154,11 @@
                 }
 
                 .reserv_add_btn {
-                    width: 100%;
-                    text-align: center;
-                    background-color: $main-color;
-                    padding: 10px 0;
-                    border-radius: 5px;
-                    color: #fff;
+                    color: #707070;
+                    text-decoration: underline;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding-bottom: 12px;
                 }
 
                 .reserv_calendar {
@@ -137,35 +175,59 @@
                         top: 35px;
                         right: 25px;
                         transform: translate(0, -50%);
-                        @include background_set(25px, 25px, cover);
+                        @include background_set(24px, 28px, contain);
                         background-image: url("../img/cal_icon.png");
                     }
                 }
 
                 .reserv_input {
                     width: 100%;
-                    border-radius: 10px;
                     background-color: #fff;
                     outline: none;
                     color: #707070;
                     font-size: 20px;
                     padding: 25px 30px;
-                    border: none;
+                    border: 1px solid #C3C3C3;
+                    border-radius: 10px;
 
 
                 }
             }
 
             .reserv_check_box {
-                border-radius: 30px;
+                box-shadow: 0px 10px 20px #00000029;
+                border-radius: 20px;
                 background-color: #fff;
-                padding: 30px 40px;
+                padding: 50px 50px 20px;
+                width: 60%;
+                min-width: 300px;
+                margin: 0 auto;
+
+                .check_title_box {
+                    padding-bottom: 50px;
+
+                    .check_title {
+                        font-size: 23px;
+                        font-family: "Pretendard_b";
+                        padding-bottom: 5px;
+                    }
+
+                    .check_sub {
+                        color: #868686;
+                        font-size: 20px;
+                    }
+                }
 
                 .reserv_text_box {
-                    padding: 10px 0;
+                    padding: 15px 0;
+                    border-bottom: 1px solid #EDEDED;
+
+                    &.non_border {
+                        border-bottom: none;
+                    }
 
                     .reserv_title {
-                        font-size: 20px;
+                        font-size: 18px;
                         width: 150px;
                         padding-right: 10px;
                         display: inline-block;
@@ -176,9 +238,13 @@
                     .reserv_text {
                         display: inline-block;
                         vertical-align: middle;
-                        font-size: 20px;
+                        font-size: 18px;
                         color: #414141;
-                        font-family: "Pretendard_bb";
+                        font-family: "Pretendard_b";
+
+                        span {
+                            font-family: "Pretendard_b";
+                        }
 
                     }
                 }
@@ -191,6 +257,7 @@
                 border-radius: 10px;
                 padding: 20px;
                 max-height: 500px;
+                border: 1px solid #C3C3C3;
 
                 &::-webkit-scrollbar {
                     display: none;
@@ -223,15 +290,12 @@
             }
 
             .sign_container {
-                padding-top: 50px;
 
                 .sign_box {
                     display: inline-block;
                     width: 100%;
                     background-color: #fff;
-                    padding: 30px;
                     vertical-align: top;
-                    border-radius: 30px;
 
 
 
@@ -243,8 +307,9 @@
                     }
 
                     .sign_contents {
-                        background-color: #707070;
-                        height: 200px;
+                        border: 1px solid #C9C9C9;
+                        border-radius: 30px;
+                        height: 250px;
                         width: 100%;
                         position: relative;
 
@@ -265,18 +330,18 @@
                 }
 
                 .sign_btn_box {
-                    padding-top: 40px;
+                    padding-top: 25px;
 
                     .sign_btn {
                         display: inline-block;
-                        width: calc((100% - 10px) / 2);
                         text-align: center;
-                        background-color: $main-color;
+                        padding: 25px 85px;
+                        background-color: #F4F4F4;
                         color: #fff;
                         border-radius: 30px;
                         position: relative;
-                        height: 100px;
                         cursor: pointer;
+                        height: 82px;
 
                         &::after {
                             position: absolute;
