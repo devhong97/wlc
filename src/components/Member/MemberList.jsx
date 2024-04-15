@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import MemberWriteModal from "../modal/MemberWriteModal";
 import MemberViewModal from "../modal/MemberViewModal";
 import { DataGrid } from "@mui/x-data-grid";
@@ -11,7 +11,7 @@ import MemberSelect from "./MemberSelect";
 
 const MemberList = () => {
   const selectRef = useRef(null);
-  const { decodeS3, decodeS1 } = useAuth();
+  const { decodeS1, decodeS3, decodeS4 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState([]);
@@ -98,6 +98,37 @@ const MemberList = () => {
     { field: "date", headerName: "등록일" },
     { field: "bank_num", headerName: "입금계좌" },
   ];
+
+  const columns2 = [
+    {
+      field: "id",
+      headerName: "No.",
+      flex: 0.5,
+    },
+    { field: "name", headerName: "사원이름" },
+    { field: "grade", headerName: "직급" },
+    { field: "branch", headerName: "지점명" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "등록일" },
+    { field: "pay", headerName: "완료커미션" },
+    { field: "customer_num", headerName: "고객수" },
+    { field: "hope_num", headerName: "상담희망수" },
+    { field: "bank_num", headerName: "입금계좌" },
+  ];
+  const subColumns2 = [
+    {
+      field: "id",
+      headerName: "No.",
+      flex: 0.5,
+    },
+    { field: "name", headerName: "사원이름" },
+    { field: "grade", headerName: "직급" },
+    { field: "branch", headerName: "지점명" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "등록일" },
+    { field: "bank_num", headerName: "입금계좌" },
+  ];
+
   const checkGrade = (data) => {
     switch (data) {
       case 1:
@@ -152,80 +183,157 @@ const MemberList = () => {
     selectRef.current.clearSearch();
   };
 
-  return (
-    <div className="main_wrap">
-      <div className="main_back">
-        <div className="main_title_box">
-          영업사원관리
-          <div className="total_data_box">
-            <div className="total_box">커미션합계 : -</div>
-            <div className="total_box">지급예정커미션: -</div>
-            <div className="total_box">영업사원수: {memberData.length}</div>
-          </div>
-        </div>
-        <div className="board_list_wrap">
-          <div className="list_area">
-            <div className="search_box">
-              <MemberSelect
-                ref={selectRef}
-                setSearchData={setSearchData}
-              ></MemberSelect>
-              {grade !== "영업사원" && (
-                <div className="title_btn" onClick={() => writeModalOpen()}>
-                  등록
-                </div>
-              )}
+  let decodeResult;
+
+  switch (decodeS4()) {
+    case "슈퍼관리자":
+      decodeResult = (
+        <div className="main_wrap">
+          <div className="main_back">
+            <div className="main_title_box">
+              영업사원관리
+              <div className="total_data_box">
+                <div className="total_box">커미션합계 : -</div>
+                <div className="total_box">지급예정커미션: -</div>
+                <div className="total_box">영업사원수: {memberData.length}</div>
+              </div>
             </div>
-            {grade !== "영업사원" && (
-              <div className="tab_area">
-                <div className="tab_back">
-                  <div
-                    className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => changeTab(1)}
-                  >
-                    승인회원
+            <div className="board_list_wrap">
+              <div className="list_area">
+                <div className="search_box">
+                  <MemberSelect
+                    ref={selectRef}
+                    setSearchData={setSearchData}
+                  ></MemberSelect>
+                  {grade !== "영업사원" && (
+                    <div className="title_btn" onClick={() => writeModalOpen()}>
+                      등록
+                    </div>
+                  )}
+                </div>
+                {grade !== "영업사원" && (
+                  <div className="tab_area">
+                    <div className="tab_back">
+                      <div
+                        className={`tab_menu ${tab === 1 && "active"}`}
+                        onClick={() => changeTab(1)}
+                      >
+                        승인회원
+                      </div>
+                      <div
+                        className={`tab_menu ${tab === 3 && "active"}`}
+                        onClick={() => changeTab(3)}
+                      >
+                        대기회원
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    className={`tab_menu ${tab === 3 && "active"}`}
-                    onClick={() => changeTab(3)}
-                  >
-                    대기회원
-                  </div>
+                )}
+                <div
+                  className={`table_box ${
+                    grade !== "영업사원" ? "tab_list" : "list"
+                  }`}
+                >
+                  <TableDefault
+                    rows={rows}
+                    columns={tab === 1 ? columns : subColumns}
+                    viewModalOpen={viewModalOpen}
+                  ></TableDefault>
                 </div>
               </div>
-            )}
-            <div
-              className={`table_box ${
-                grade !== "영업사원" ? "tab_list" : "list"
-              }`}
-            >
-              <TableDefault
-                rows={rows}
-                columns={tab === 1 ? columns : subColumns}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+              {/* <div className="pagination_box">
+                          <button>{`<<`}</button>
+                          <button>{`<`}</button>
+                          <button>1</button>
+                          <button>{`>`}</button>
+                          <button>{`>>`}</button>
+                      </div> */}
             </div>
           </div>
-          {/* <div className="pagination_box">
-                        <button>{`<<`}</button>
-                        <button>{`<`}</button>
-                        <button>1</button>
-                        <button>{`>`}</button>
-                        <button>{`>>`}</button>
-                    </div> */}
+          {writeModal && (
+            <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>
+          )}
+          {viewModal && detailIdx && (
+            <MemberViewModal
+              closeModal={viewModalClose}
+              detailIdx={detailIdx}
+            ></MemberViewModal>
+          )}
         </div>
-      </div>
-      {writeModal && (
-        <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>
-      )}
-      {viewModal && detailIdx && (
-        <MemberViewModal
-          closeModal={viewModalClose}
-          detailIdx={detailIdx}
-        ></MemberViewModal>
-      )}
-    </div>
-  );
+      );
+      break;
+    case "지점관리자":
+      decodeResult = (
+        <div className="main_wrap">
+          <div className="main_back">
+            <div className="main_title_box">
+              영업사원관리
+              <div className="total_data_box">
+                <div className="total_box">커미션합계 : -</div>
+                <div className="total_box">지급예정커미션: -</div>
+                <div className="total_box">영업사원수: {memberData.length}</div>
+              </div>
+            </div>
+            <div className="board_list_wrap">
+              <div className="list_area">
+                <div className="search_box">
+                  <MemberSelect
+                    ref={selectRef}
+                    setSearchData={setSearchData}
+                  ></MemberSelect>
+                  {grade !== "영업사원" && (
+                    <div className="title_btn" onClick={() => writeModalOpen()}>
+                      등록
+                    </div>
+                  )}
+                </div>
+                {grade !== "영업사원" && (
+                  <div className="tab_area">
+                    <div className="tab_back">
+                      <div
+                        className={`tab_menu ${tab === 1 && "active"}`}
+                        onClick={() => changeTab(1)}
+                      >
+                        승인회원
+                      </div>
+                      <div
+                        className={`tab_menu ${tab === 3 && "active"}`}
+                        onClick={() => changeTab(3)}
+                      >
+                        미등록회원
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div
+                  className={`table_box ${
+                    grade !== "영업사원" ? "tab_list" : "list"
+                  }`}
+                >
+                  <TableDefault
+                    rows={rows}
+                    columns={tab === 1 ? columns2 : subColumns2}
+                    viewModalOpen={viewModalOpen}
+                  ></TableDefault>
+                </div>
+              </div>
+            </div>
+          </div>
+          {writeModal && (
+            <MemberWriteModal closeModal={writeModalOpen}></MemberWriteModal>
+          )}
+          {viewModal && detailIdx && (
+            <MemberViewModal
+              closeModal={viewModalClose}
+              detailIdx={detailIdx}
+            ></MemberViewModal>
+          )}
+        </div>
+      );
+      break;
+  }
+
+  return <Fragment>{decodeResult}</Fragment>;
 };
 
 export default MemberList;

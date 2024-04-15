@@ -83,7 +83,7 @@ const SearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);
@@ -100,10 +100,10 @@ const SearchHospital = () => {
     <div className="reserv_wrap">
       <div className="reserv_back main">
         <div className="reserv_top_box">
-          <div className="reserv_title">
-            병원목록
+          <div className="reserv_title">병원목록</div>
+          <div className="reserv_title sub">
+            검진 가능한 병원들을 확인합니다.
           </div>
-          <div className="reserv_title sub">검진 가능한 병원들을 확인합니다.</div>
         </div>
         <div className="main_wrap">
           <div className="main_back">
