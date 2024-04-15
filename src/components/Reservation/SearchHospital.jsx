@@ -42,7 +42,7 @@ const SearchHospital = () => {
           setHospitalList(res.data.data);
         } else {
           console.error("지점 관리 데이터호출 실패");
-          if (searchData) {
+          if (Object.keys(searchData).length !== 0 && res.data.data.length === 0) {
             alert("검색조건에 맞는 데이터가 없습니다.");
             selectRef.current.clearSearch();
           }
