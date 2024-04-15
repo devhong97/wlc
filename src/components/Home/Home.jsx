@@ -156,6 +156,7 @@ const Home = () => {
                   <div>지점명: {grade2Data[0].branch_name}</div>
                   <div>지급완료커미션:</div>
                   <div>지점장: {grade2Data[0].owner_name}</div>
+                  <div>계약고객현황: 작업중</div>
                   <div>가입고객현황: {grade2Data3[0].totalCount}명</div>
                 </Fragment>
               ) : (
