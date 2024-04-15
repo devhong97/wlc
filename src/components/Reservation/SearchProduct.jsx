@@ -61,7 +61,7 @@ const SearchProduct = () => {
   const closeModal = () => {
     setModal(false);
   };
-  // 슬라이드 
+  // 슬라이드
   const mouseWheelHandler = (e, containerRef) => {
     const delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
     containerRef.current.scrollLeft += delta * 100; // 휠 방향 반대로 수정
@@ -92,10 +92,10 @@ const SearchProduct = () => {
     <div className="reserv_wrap">
       <div className="reserv_back product">
         <div className="reserv_top_box">
-          <div className="reserv_title">
-            상품 찾기
+          <div className="reserv_title">상품 찾기</div>
+          <div className="reserv_title sub">
+            원하시는 상품을 확인하고 선택합니다.
           </div>
-          <div className="reserv_title sub">원하시는 상품을 확인하고 선택합니다.</div>
         </div>
         <div className="reserv_bottom_box">
           <div className="slide_wrap" ref={containerRef}>
@@ -103,13 +103,14 @@ const SearchProduct = () => {
               return (
                 <div className={`product_box color${data.p_key}`} key={index}>
                   <div className="product_img_box">
-                    <div className={`product_img img_${index}`}>
-                    </div>
+                    <div className={`product_img img_${index}`}></div>
                   </div>
                   <div className="inner_bottom_box">
                     <div className="product_text_box">
                       <div className="product_text title">{data.product_1}</div>
-                      <div className="product_text og_price">{Number(data.og_price).toLocaleString()}원</div>
+                      <div className="product_text og_price">
+                        {Number(data.og_price).toLocaleString()}원
+                      </div>
                       {data.p_key === "2" ? (
                         <div className="product_text">
                           {Number(data.price_txt * 2).toLocaleString()} 원 (2인)
@@ -137,7 +138,6 @@ const SearchProduct = () => {
                       >
                         상세보기
                       </div>
-
                     </div>
                   </div>
                 </div>

@@ -22,9 +22,13 @@ const ReservCustomer = () => {
   const [termsStatus, setTermsStatus] = useState(0);
   const [agreeTermsData, setAgreeTermsData] = useState("");
   const [mTermsData, setMTermsData] = useState("");
-  const [inputArray, setInputArray] = useState(customerData.customerArray || [{
-    name: ""
-  }])
+  const [inputArray, setInputArray] = useState(
+    customerData.customerArray || [
+      {
+        name: "",
+      },
+    ]
+  );
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
@@ -94,9 +98,9 @@ const ReservCustomer = () => {
 
   const addInputArray = () => {
     setInputArray((prev) => [...prev, { name: "" }]);
-  }
+  };
   const deleteInputArray = (index) => {
-    setInputArray(prev => {
+    setInputArray((prev) => {
       const newArray = [...prev];
       newArray.splice(index, 1);
       return newArray;
@@ -104,7 +108,7 @@ const ReservCustomer = () => {
   };
 
   const handleInputArray = (value, index) => {
-    setInputArray(prev => {
+    setInputArray((prev) => {
       const newArray = [...prev];
       newArray[index] = { name: value };
       return newArray;

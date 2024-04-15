@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     setGrade(gradeToken);
     setId(idToken);
     Cookies.set("Access", true);
-    Cookies.set("S0", branchToken);
+    Cookies.set("S0", branchIdxToken);
     Cookies.set("S1", uidToken);
     Cookies.set("S2", nameToken);
     Cookies.set("S3", branchToken);
@@ -113,10 +113,11 @@ export const AuthProvider = ({ children }) => {
       }
       return null;
     } catch (error) {
-      console.error("S1 디코딩 에러:", error);
+      console.error("S0 디코딩 에러:", error);
       return null;
     }
   };
+
   // JWT 토큰 디코딩
   const decodeS1 = () => {
     try {
