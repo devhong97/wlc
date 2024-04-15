@@ -86,18 +86,17 @@ const CustomerViewModal = (props) => {
         {
           params: {
             idx: props.detailIdx.idx,
-          }
+          },
         }
       );
       const allData = response.data.data;
       setSubData(allData);
-      const names = allData.map(data => data.name);
-      setCustomerName(names.join(', '));
-
+      const names = allData.map((data) => data.name);
+      setCustomerName(names.join(", "));
     } catch (error) {
       console.error("Error fetching list:", error);
     }
-  }
+  };
 
   const setDetailValue = () => {
     setPhone(memberData.phone);
@@ -155,7 +154,7 @@ const CustomerViewModal = (props) => {
       refund_status: refundStatus,
       marketing_terms: m_terms,
       memo: memo,
-      uid: memberData.uid
+      uid: memberData.uid,
     };
     console.log(paramsArray);
 
@@ -221,11 +220,11 @@ const CustomerViewModal = (props) => {
     if (status === "update") {
       getCustomerAll();
     }
-  }
+  };
 
   const openSignModal = () => {
     setSignModal(!signModal);
-  }
+  };
 
   return (
     <div className="modal_wrap">
@@ -242,11 +241,14 @@ const CustomerViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">검진자</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {customerName}
-                  </div>
+                  <div className="table_inner_text">{customerName}</div>
                   {inspectionStatus !== "2" && (
-                    <div className="table_inner_btn" onClick={() => openAllCustomerModal()}>수정</div>
+                    <div
+                      className="table_inner_btn"
+                      onClick={() => openAllCustomerModal()}
+                    >
+                      수정
+                    </div>
                   )}
                 </div>
               </div>
@@ -631,7 +633,12 @@ const CustomerViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">계약서</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_btn sign" onClick={() => openSignModal()}>확인하기</div>
+                  <div
+                    className="table_inner_btn sign"
+                    onClick={() => openSignModal()}
+                  >
+                    확인하기
+                  </div>
                 </div>
               </div>
             </div>

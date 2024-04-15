@@ -22,9 +22,13 @@ const ReservCustomer = () => {
   const [termsStatus, setTermsStatus] = useState(0);
   const [agreeTermsData, setAgreeTermsData] = useState("");
   const [mTermsData, setMTermsData] = useState("");
-  const [inputArray, setInputArray] = useState(customerData.customerArray || [{
-    name: ""
-  }])
+  const [inputArray, setInputArray] = useState(
+    customerData.customerArray || [
+      {
+        name: "",
+      },
+    ]
+  );
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
@@ -94,9 +98,9 @@ const ReservCustomer = () => {
 
   const addInputArray = () => {
     setInputArray((prev) => [...prev, { name: "" }]);
-  }
+  };
   const deleteInputArray = (index) => {
-    setInputArray(prev => {
+    setInputArray((prev) => {
       const newArray = [...prev];
       newArray.splice(index, 1);
       return newArray;
@@ -104,7 +108,7 @@ const ReservCustomer = () => {
   };
 
   const handleInputArray = (value, index) => {
-    setInputArray(prev => {
+    setInputArray((prev) => {
       const newArray = [...prev];
       newArray[index] = { name: value };
       return newArray;
@@ -145,15 +149,21 @@ const ReservCustomer = () => {
                       placeholder="검진자 성명"
                       value={input.name}
                       onChange={(e) => handleInputArray(e.target.value, index)}
-                    >
-                    </input>
+                    ></input>
                     {index !== 0 && (
-                      <div className="delete_input" onClick={() => deleteInputArray(index)}>X</div>
+                      <div
+                        className="delete_input"
+                        onClick={() => deleteInputArray(index)}
+                      >
+                        X
+                      </div>
                     )}
                   </div>
                 );
               })}
-              <div className="reserv_add_btn" onClick={() => addInputArray()}>검진자 추가</div>
+              <div className="reserv_add_btn" onClick={() => addInputArray()}>
+                검진자 추가
+              </div>
             </div>
             {/* <div className="reserv_input_box">
               <input
@@ -201,8 +211,9 @@ const ReservCustomer = () => {
                 [자세히 보기]
               </div>
               <div
-                className={`terms_contents_box ${termsStatus === 1 && "active"
-                  }`}
+                className={`terms_contents_box ${
+                  termsStatus === 1 && "active"
+                }`}
               >
                 <div
                   className="terms_contents"
@@ -230,10 +241,14 @@ const ReservCustomer = () => {
                 [자세히 보기]
               </div>
               <div
-                className={`terms_contents_box ${termsStatus === 2 && "active"
-                  }`}
+                className={`terms_contents_box ${
+                  termsStatus === 2 && "active"
+                }`}
               >
-                <div className="terms_contents" dangerouslySetInnerHTML={{ __html: mTermsData }}></div>
+                <div
+                  className="terms_contents"
+                  dangerouslySetInnerHTML={{ __html: mTermsData }}
+                ></div>
               </div>
             </div>
             <div className="terms_checkbox">

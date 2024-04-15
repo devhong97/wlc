@@ -43,7 +43,6 @@ const Delme = () => {
     }
   };
 
-
   //Editor 파일 업로드 관련 함수
   const onUploadImage = async (blob, callback) => {
     try {
