@@ -121,51 +121,46 @@ const ReservCustomer = () => {
         <div className="reserv_back">
           <div className="reserv_top_box">
             <div className="reserv_title">
-              고객님의 <br />
-              <p className="point_text">정보</p>를 입력하세요.
+              고객 정보
             </div>
+            <div className="reserv_title sub">고객님의 정보를 입력하세요.</div>
           </div>
           <div className="reserv_bottom_box">
-            <div className="reserv_input_box">
-              <input
-                className="reserv_input"
-                placeholder="계약자 성명"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div className="reserv_input_box">
-              {/* <input
+            <div className="reserv_contents_box">
+              <div className="reserv_input_box">
+                <input
+                  className="reserv_input"
+                  placeholder="계약자 성명"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_input_box">
+                {/* <input
                 className="reserv_input"
                 placeholder="검진자 성명"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
               ></input> */}
-              {inputArray.map((input, index) => {
-                return (
-                  <div className="input_array_box">
-                    <input
-                      className="reserv_input"
-                      placeholder="검진자 성명"
-                      value={input.name}
-                      onChange={(e) => handleInputArray(e.target.value, index)}
-                    ></input>
-                    {index !== 0 && (
-                      <div
-                        className="delete_input"
-                        onClick={() => deleteInputArray(index)}
+                {inputArray.map((input, index) => {
+                  return (
+                    <div className="input_array_box">
+                      <input
+                        className="reserv_input"
+                        placeholder="검진자 성명"
+                        value={input.name}
+                        onChange={(e) => handleInputArray(e.target.value, index)}
                       >
-                        X
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-              <div className="reserv_add_btn" onClick={() => addInputArray()}>
-                검진자 추가
+                      </input>
+                      {index !== 0 && (
+                        <div className="delete_input" onClick={() => deleteInputArray(index)}>X</div>
+                      )}
+                    </div>
+                  );
+                })}
+                <div className="reserv_add_btn" onClick={() => addInputArray()}>검진자 추가</div>
               </div>
-            </div>
-            {/* <div className="reserv_input_box">
+              {/* <div className="reserv_input_box">
               <input
                 className="reserv_input"
                 placeholder="인원수"
@@ -173,112 +168,117 @@ const ReservCustomer = () => {
                 onChange={(e) => setCustomerNumber(e.target.value)}
               ></input>
             </div> */}
-            <div className="reserv_input_box">
-              <input
-                className="reserv_input"
-                placeholder="계약자 연락처"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              ></input>
-            </div>
-            <div className="reserv_input_box">
-              <input
-                className="reserv_input"
-                placeholder="검진자 대표 연락처"
-                value={c_phone}
-                onChange={(e) => setCPhone(e.target.value)}
-              ></input>
-            </div>
-          </div>
-          <div className="reserv_btn_box">
-            <div className="reserv_btn" onClick={() => moveSecondStep()}>
-              다음
+              <div className="reserv_input_box">
+                <input
+                  className="reserv_input"
+                  placeholder="계약자 연락처"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_input_box">
+                <input
+                  className="reserv_input"
+                  placeholder="검진자 대표 연락처"
+                  value={c_phone}
+                  onChange={(e) => setCPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_btn_box">
+                <div className="reserv_btn" onClick={() => moveSecondStep()}>
+                  다음
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      )}
-      {step === 2 && (
-        <div className="reserv_back">
-          <div className="reserv_top_box">
-            <div className="reserv_title">
-              약관에 <p className="point_text">동의</p>해주세요.
-            </div>
-          </div>
-          <div className="reserv_bottom_box">
-            <div className="terms_box">
-              <div className="terms_title">개인정보 동의 약관</div>
-              <div className="terms_contents_btn" onClick={() => openTerms(1)}>
-                [자세히 보기]
+      )
+      }
+      {
+        step === 2 && (
+          <div className="reserv_back">
+            <div className="reserv_top_box">
+              <div className="reserv_title">
+                약관 동의
               </div>
-              <div
-                className={`terms_contents_box ${
-                  termsStatus === 1 && "active"
-                }`}
-              >
-                <div
-                  className="terms_contents"
-                  dangerouslySetInnerHTML={{ __html: agreeTermsData }}
-                ></div>
+              <div className="reserv_title sub">약관에 동의해주세요.</div>
+            </div>
+            <div className="reserv_bottom_box">
+              <div className="reserv_contents_box">
+                <div className="terms_box">
+                  <div className="terms_title">개인정보 동의 약관</div>
+                  <div className="terms_contents_btn" onClick={() => openTerms(1)}>
+                    [자세히 보기]
+                  </div>
+                  <div
+                    className={`terms_contents_box ${termsStatus === 1 && "active"
+                      }`}
+                  >
+                    <div
+                      className="terms_contents"
+                      dangerouslySetInnerHTML={{ __html: agreeTermsData }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="terms_checkbox">
+                  <input
+                    type="checkbox"
+                    checked={agreeTerms}
+                    onChange={handleAgreeTerms}
+                    id="user_agreeTerms"
+                    className="terms_checkbox"
+                  />
+                  <label className="terms_label" htmlFor="user_agreeTerms">
+                    [필수] 약관에 동의합니다.
+                  </label>
+                </div>
+
+                <div className="reserv_bottom_box">
+                  <div className="terms_box">
+                    <div className="terms_title">마켓팅 동의 약관</div>
+                    <div className="terms_contents_btn" onClick={() => openTerms(2)}>
+                      [자세히 보기]
+                    </div>
+                    <div
+                      className={`terms_contents_box ${termsStatus === 2 && "active"
+                        }`}
+                    >
+                      <div className="terms_contents" dangerouslySetInnerHTML={{ __html: mTermsData }}></div>
+                    </div>
+                  </div>
+                  <div className="terms_checkbox">
+                    <input
+                      type="checkbox"
+                      checked={mTerms}
+                      onChange={handleMterms}
+                      id="user_mTerms"
+                      className="terms_checkbox"
+                    />
+                    <label className="terms_label" htmlFor="user_mTerms">
+                      [선택] 약관에 동의합니다.
+                    </label>
+                  </div>
+                  <div className="reserv_btn_box">
+                    <div className="reserv_btn" onClick={() => moveThirdStep()}>
+                      다음
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="terms_checkbox">
-              <input
-                type="checkbox"
-                checked={agreeTerms}
-                onChange={handleAgreeTerms}
-                id="user_agreeTerms"
-                className="terms_checkbox"
-              />
-              <label className="terms_label" htmlFor="user_agreeTerms">
-                [필수] 약관에 동의합니다.
-              </label>
+          </div>
+        )
+      }
+      {
+        step === 3 && (
+          <div className="reserv_back sign">
+            <div className="reserv_bottom_box sign">
+              <SignComponent checkSign={checkSign}></SignComponent>
             </div>
           </div>
-          <div className="reserv_bottom_box">
-            <div className="terms_box">
-              <div className="terms_title">마켓팅 동의 약관</div>
-              <div className="terms_contents_btn" onClick={() => openTerms(2)}>
-                [자세히 보기]
-              </div>
-              <div
-                className={`terms_contents_box ${
-                  termsStatus === 2 && "active"
-                }`}
-              >
-                <div
-                  className="terms_contents"
-                  dangerouslySetInnerHTML={{ __html: mTermsData }}
-                ></div>
-              </div>
-            </div>
-            <div className="terms_checkbox">
-              <input
-                type="checkbox"
-                checked={mTerms}
-                onChange={handleMterms}
-                id="user_mTerms"
-                className="terms_checkbox"
-              />
-              <label className="terms_label" htmlFor="user_mTerms">
-                [선택] 약관에 동의합니다.
-              </label>
-            </div>
-          </div>
-          <div className="reserv_btn_box">
-            <div className="reserv_btn" onClick={() => moveThirdStep()}>
-              다음
-            </div>
-          </div>
-        </div>
-      )}
-      {step === 3 && (
-        <div className="reserv_back sign">
-          <div className="reserv_bottom_box sign">
-            <SignComponent checkSign={checkSign}></SignComponent>
-          </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 };
 

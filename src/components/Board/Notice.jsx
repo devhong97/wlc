@@ -139,8 +139,8 @@ const Notice = () => {
         <div className="main_title_box">
           {decodeS4() === "슈퍼관리자" ? "게시판관리" : "게시판"}
         </div>
-        <div className="board_list_wrap">
-          <div className="list_area">
+        <div className="board_list_wrap notice">
+          <div className="list_area reserv">
             <div className="search_box">
               <div className="search_select">
                 <select
@@ -160,6 +160,9 @@ const Notice = () => {
                   value={searchKeyword}
                   onChange={handleSearchKeywordChange}
                 ></input>
+
+              </div>
+              <div className="search_input">
                 <div className="list_search" onClick={handleSearch}>
                   검색
                 </div>
@@ -186,7 +189,7 @@ const Notice = () => {
                 </div>
               </div>
             </div>
-            <div className="table_box list">
+            <div className="table_box">
               <TableDefault
                 rows={rows}
                 columns={columns}
