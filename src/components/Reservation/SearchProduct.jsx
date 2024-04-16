@@ -145,6 +145,7 @@ const SearchProduct = () => {
             })}
           </div>
         </div>
+        <div className="back_btn" onClick={() => navigation(-1)}></div>
       </div>
       {modal && (
         <ProductDetailModal

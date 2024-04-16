@@ -114,6 +114,9 @@ const ReservCustomer = () => {
       return newArray;
     });
   };
+  const moveBack = (num) => {
+    setStep(num);
+  }
 
   return (
     <div className="reserv_wrap">
@@ -197,6 +200,7 @@ const ReservCustomer = () => {
               </div>
             </div>
           </div>
+          <div className="back_btn" onClick={() => navigation(-1)}></div>
         </div>
       )}
       {step === 2 && (
@@ -216,9 +220,8 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -249,9 +252,8 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"
@@ -279,6 +281,7 @@ const ReservCustomer = () => {
               </div>
             </div>
           </div>
+          <div className="back_btn" onClick={() => moveBack(1)}></div>
         </div>
       )}
       {step === 3 && (
@@ -286,6 +289,7 @@ const ReservCustomer = () => {
           <div className="reserv_bottom_box sign">
             <SignComponent checkSign={checkSign}></SignComponent>
           </div>
+          <div className="back_btn" onClick={() => moveBack(2)}></div>
         </div>
       )}
     </div>
