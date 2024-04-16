@@ -1081,3 +1081,102 @@
     }
   }
 }
+
+.mypage_area {
+  padding: 50px 50px 100px;
+  height: 100%;
+}
+
+.mypage_container {
+  box-shadow: 0px 10px 20px #00000021;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 30px;
+
+  &.top {
+    margin-bottom: 35px;
+  }
+
+  .profile_box {
+    .profile_img_box {
+      display: inline-block;
+      vertical-align: middle;
+      width: calc(100% - 110px);
+
+      .profile_img {
+        @include background-set(102px, 102px, contain);
+        background-image: url("../img/header_user_icon_2.png");
+      }
+    }
+
+    .profile_btn_box {
+      display: inline-block;
+      vertical-align: middle;
+
+      .profile_btn {
+        border: 1px solid #C3C3C3;
+        border-radius: 10px;
+        padding: 10px 37px;
+        color: #6F7070;
+        font-size: 20px;
+        cursor: pointer;
+
+        &.edit {
+          border: none;
+          background-color: #F4F4F4;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .mypage_title_box {
+    padding-bottom: 30px;
+
+    .mypage_title {
+      font-size: 25px;
+      color: #414141;
+      padding-bottom: 7px;
+
+      &.sub {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .mypage_contents_box {
+    .my_row {
+      padding: 30px 5px;
+      border-bottom: 1px solid #E3E4E3;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .my_text {
+        font-size: 20px;
+        color: #414141;
+        font-family: "Pretendard_b";
+        display: inline-block;
+        vertical-align: middle;
+        width: calc(100% - 267px);
+
+        &.title {
+          font-family: "Pretendard_m";
+          width: 150px;
+        }
+      }
+
+      .my_btn {
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #C3C3C3;
+        border-radius: 10px;
+        padding: 10px 23px;
+        color: #6F7070;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
