@@ -5,6 +5,7 @@ import Axios from "axios";
 import TableDefault from "../Table/TableDefault";
 import moment from "moment";
 import ApexCharts from "apexcharts";
+import SalesCustomer from "./SalesCustomer";
 
 const SalesList = () => {
   const [viewModal, setViewModal] = useState(false);
@@ -23,6 +24,9 @@ const SalesList = () => {
 
   useEffect(() => {
     if (decodeS4() === "슈퍼관리자") {
+      renderApexChart();
+    }
+    if (decodeS4() === "지점관리자") {
       renderApexChart();
     }
   }, []);
@@ -196,7 +200,12 @@ const SalesList = () => {
     chart.render();
   };
 
-  
+  const changeTab = (num) => {
+    setTab(num);
+    setViewModal(false);
+    setDetailIdx([]);
+  };
+
   let jsxToRender;
 
   // 슈퍼관리자일 때
@@ -278,7 +287,23 @@ const SalesList = () => {
                   </div>
                 </div>
               </div>
-              <div id="chart"></div>
+              <div className="tab_area">
+                <div className="tab_back">
+                  <div
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
+                  >
+                    커미션현황
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => changeTab(1)}
+                  >
+                    영업사원현황
+                  </div>
+                </div>
+              </div>
+              <SalesCustomer />
             </div>
           </div>
         </div>
