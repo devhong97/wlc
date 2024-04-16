@@ -16,9 +16,9 @@ const ProductDetailModal = (props) => {
                             {data.product_1}
                         </div>
                         {data.p_key === "2" ? (
-                            <div className="modal_text">{data.price_txt * 2} 원 (2인)</div>
+                            <div className="modal_text"> {Number(data.price_txt * 2).toLocaleString()}원 (2인)</div>
                         ) : (
-                            <div className="modal_text">{data.price_txt} 원 (1인)</div>
+                            <div className="modal_text">{Number(data.price_txt).toLocaleString()}원 (1인)</div>
                         )}
                         <div className='modal_text sub'>
                             {data.product_1} 등급의 검진 패키지 상품입니다.

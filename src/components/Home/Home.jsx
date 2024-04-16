@@ -2,8 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import TableDefault from "../Table/TableDefault";
-import Axios from "axios";
+import Axios, { all } from "axios";
 import moment from "moment";
+import ProductDetailModal from "../modal/ProductDetailModal";
 
 const Home = () => {
   const { decodeS0, decodeS1, decodeS2, decodeS3, decodeS4, decodeS5 } =
@@ -19,6 +20,9 @@ const Home = () => {
   const [grade2Data2, setGrade2Data2] = useState([]);
   const [grade2Data3, setGrade2Data3] = useState([]);
   const [grade2Data4, setGrade2Data4] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [productModal, setProductModal] = useState(false);
+  const [selectProduct, setSelectProduct] = useState([]);
 
   const navigation = useNavigate();
 
@@ -26,6 +30,7 @@ const Home = () => {
     getTotalData();
     grade2TotalData();
     fetchData();
+    getProductData();
   }, [decodeS1()]);
 
   // 슈퍼관리자 페이지
@@ -49,6 +54,18 @@ const Home = () => {
       console.error("Error fetching list:", error);
     }
   };
+
+  const getProductData = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/reserv/product_list"
+      );
+      const allData = response.data.data;
+      setProductData(allData)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //지점장 페이지
   const grade2TotalData = async () => {
@@ -119,7 +136,12 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => {};
+  const viewModalOpen = () => { };
+
+  const productDetailOpen = (data) => {
+    setProductModal(!productModal);
+    setSelectProduct(data)
+  }
 
   let decodeResult;
 
@@ -182,6 +204,34 @@ const Home = () => {
                 <div className="reserv_text">예약 시작하기</div>
               </div>
             </div>
+            <div className="main_title_box blank">상품 알아보기</div>
+            <div className="main_product_area">
+              <div className="main_product_box">
+                {productData.map((data, index) => {
+                  return (
+                    <div className="main_product_row">
+                      <div className="product_icon_box">
+                        <div className={`product_icon icon${data.p_key}`}></div>
+                      </div>
+                      <div className="product_text title">{data.product_1}</div>
+                      <div className="product_text info">{data.product_1} 등급의 검진 패키지 상품입니다.</div>
+                      <div className="product_text og_price">{Number(data.og_price).toLocaleString()}원</div>
+                      {data.p_key === "2" ? (
+                        <div className="product_text price">
+                          {Number(data.price_txt * 2).toLocaleString()}원 (2인)
+                        </div>
+                      ) : (
+                        <div className="product_text price">
+                          {Number(data.price_txt).toLocaleString()}원 (1인)
+                        </div>
+                      )}
+                      <div className="product_more_btn" onClick={() => productDetailOpen(data)}>상세보기</div>
+                    </div>
+                  );
+                })}
+
+              </div>
+            </div>
             <div className="main_title_box blank">
               7일이내 검진예약 고객명단
             </div>
@@ -193,6 +243,11 @@ const Home = () => {
               />
             </div>
           </div>
+          {productModal && (
+            <ProductDetailModal
+              closeModal={productDetailOpen}
+              modalData={selectProduct}></ProductDetailModal>
+          )}
         </div>
       );
       break;

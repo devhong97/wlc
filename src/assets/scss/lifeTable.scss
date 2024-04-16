@@ -890,6 +890,10 @@
   transition: opacity 0.3s ease-in-out;
   z-index: 5;
 
+  &.product {
+    z-index: 25;
+  }
+
   &.reserv {
     .modal_back {
       box-shadow: 0px 10px 20px #00000029;

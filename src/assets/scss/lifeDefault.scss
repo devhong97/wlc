@@ -423,7 +423,7 @@
     }
 
     .customer_btn_box {
-      padding: 30px 50px 100px;
+      padding: 30px 50px 55px;
 
       .customer_btn {
         box-shadow: 0px 10px 20px #00000029;
@@ -449,6 +449,105 @@
         }
       }
     }
+
+    .main_product_area {
+      padding: 20px 50px 70px;
+
+      .main_product_box {
+        box-shadow: 0px 10px 20px #0000001A;
+        border-radius: 10px;
+        background-color: #fff;
+
+        .main_product_row {
+          border-bottom: 1px solid #F0F0F0;
+          padding: 5px 13px;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .product_icon_box {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            width: 60px;
+          }
+
+          .product_icon {
+            display: inline-block;
+            @include background-set(26px, 26px, contain);
+            background-image: url("../img/main_icon_2.png");
+
+            &.icon1 {
+              background-image: url("../img/main_icon_1.png");
+            }
+
+            &.icon3 {
+              background-image: url("../img/main_icon_3.png");
+            }
+
+            &.icon4 {
+              background-image: url("../img/main_icon_4.png");
+            }
+          }
+
+          .product_text {
+            display: inline-block;
+            vertical-align: middle;
+            color: #3E3E3E;
+            font-size: 19px;
+            text-align: center;
+
+            &.title {
+              font-family: "Pretendard_b";
+              width: 210px;
+            }
+
+            &.info {
+              width: calc(100% - 736px);
+              text-align: left;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+
+            &.og_price {
+              color: #A7A7A7;
+              text-decoration: line-through;
+              width: 150px;
+            }
+
+            &.price {
+              font-family: "Pretendard_b";
+              width: 170px;
+            }
+          }
+
+          .product_more_btn {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: #F4F4F4;
+            border-radius: 10px;
+            padding: 13px 60px 13px 30px;
+            color: #727272;
+            position: relative;
+            font-family: "Pretendard_b";
+            cursor: pointer;
+
+            &::after {
+              position: absolute;
+              content: "";
+              top: 50%;
+              right: 30px;
+              transform: translate(0, -50%);
+              @include background-set(16px, 16px, contain);
+              background-image: url("../img/main_more_icon.png");
+            }
+          }
+        }
+      }
+    }
+
   }
 }
 
