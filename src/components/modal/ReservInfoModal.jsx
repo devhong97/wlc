@@ -60,7 +60,7 @@ const ReservInfoModal = (props) => {
               확인
             </div>
             <div className="modal_btn close" onClick={props.closeModal}>
-              취소
+              다시선택하기
             </div>
           </div>
         </div>

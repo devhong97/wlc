@@ -76,9 +76,11 @@ const ReservCheck = () => {
               <div className="reserv_btn" onClick={() => openModal()}>
                 확인
               </div>
+
             </div>
           </div>
         </div>
+        <div className="back_btn" onClick={() => navigation(-1)}></div>
       </div>
       {infoModal && <ReservInfoModal closeModal={closeModal}></ReservInfoModal>}
     </div>

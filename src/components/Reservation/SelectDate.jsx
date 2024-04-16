@@ -67,6 +67,7 @@ const SelectDate = () => {
                                     formatDay={(locale, date) => moment(date).format("DD")}
                                     minDate={moment().toDate()}
                                     calendarType="gregory"
+
                                 />
                             )}
 
@@ -88,6 +89,7 @@ const SelectDate = () => {
                         </div>
                     </div>
                 </div>
+                <div className="back_btn" onClick={() => navigation(-1)}></div>
             </div>
         </div>
     );
