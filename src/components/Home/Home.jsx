@@ -11,7 +11,7 @@ const Home = () => {
   const [homeData, setHomeData] = useState([]); // 병원 리스트
   const [totalData, setTotalData] = useState([]); // 총지점수
   const [managerData, setManagerData] = useState([]); // 총영업자수
-  const [contractData, setContractData] = useState([]); // 총계약자수
+  const [contractData, setContractData] = useState([]); // 총예약자수
   const [hopeData, setHopeData] = useState([]); // 상담고객수
   const [customerData, setCustomerData] = useState([]); // 총고객수
 
@@ -100,7 +100,7 @@ const Home = () => {
 
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "name", headerName: "계약자" },
+    { field: "name", headerName: "예약자" },
     { field: "customerName", headerName: "검진자" },
     { field: "phone", headerName: "연락처" },
     { field: "product", headerName: "상품" },

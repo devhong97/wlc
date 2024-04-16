@@ -54,9 +54,7 @@ const ReservInfoModal = (props) => {
     <div className="modal_wrap reserv">
       <div className="modal_back">
         <div className="modal_box">
-          <div className="modal_text">
-            등록을 완료하시겠습니까?
-          </div>
+          <div className="modal_text">등록을 완료하시겠습니까?</div>
           <div className="modal_footer_box">
             <div className="modal_btn" onClick={() => submitHandle()}>
               확인

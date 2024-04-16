@@ -11,19 +11,62 @@ import MemberSelect from "./MemberSelect";
 
 const MemberList = () => {
   const selectRef = useRef(null);
-  const { decodeS1, decodeS3, decodeS4 } = useAuth();
+  const { decodeS0, decodeS1, decodeS3, decodeS4 } = useAuth();
   const [writeModal, setWriteModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [detailIdx, setDetailIdx] = useState([]);
   const [memberData, setMemberData] = useState([]);
   const [tab, setTab] = useState(1);
+  const [searchType, setSearchType] = useState("name"); //기본 검색타입
+  const [searchKeyword, setSearchKeyword] = useState(""); //검색어
   const location = useLocation();
   const { grade } = location.state || {};
   const [searchData, setSearchData] = useState([]);
+  const [grade2Data, setGrade2Data] = useState([]); //지점장 페이지데이터
+  const [grade2Data2, setGrade2Data2] = useState([]);
+  const [grade2Data3, setGrade2Data3] = useState([]);
+  const [grade2Data4, setGrade2Data4] = useState([]);
+  const [grade2Data5, setGrade2Data5] = useState([]);
 
   useEffect(() => {
     getMember();
-  }, [tab, searchData]);
+    grade2TotalData();
+  }, [tab, searchData]); // tab, searchData 변경 시마다 호출
+
+  useEffect(() => {
+    grade2TotalData();
+  }, []); // 컴포넌트가 처음 마운트될 때 한 번 호출
+
+  //지점장 페이지
+  const grade2TotalData = async () => {
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/home_manager",
+        {
+          params: {
+            branchIdx: decodeS0(),
+          },
+        }
+      );
+      const gradeData = response.data.data;
+
+      const branchAccount = gradeData.branchAccount;
+      const userAccount = gradeData.userAccount;
+      const hTotal = gradeData.hTotal;
+      const hope = gradeData.hope;
+      const contract = gradeData.contract;
+
+      setGrade2Data(branchAccount);
+      setGrade2Data2(userAccount);
+      setGrade2Data3(hTotal);
+      setGrade2Data4(hope);
+      setGrade2Data5(contract);
+
+      console.log(gradeData);
+    } catch (error) {
+      console.error("Error fetching list:", error);
+    }
+  };
 
   const getMember = async () => {
     console.log(searchData);
@@ -105,15 +148,12 @@ const MemberList = () => {
       headerName: "No.",
       flex: 0.5,
     },
-    { field: "name", headerName: "사원이름" },
-    { field: "grade", headerName: "직급" },
-    { field: "branch", headerName: "지점명" },
+    { field: "name", headerName: "영업자성명" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "등록일" },
-    { field: "pay", headerName: "완료커미션" },
-    { field: "customer_num", headerName: "고객수" },
-    { field: "hope_num", headerName: "상담희망수" },
-    { field: "bank_num", headerName: "입금계좌" },
+    { field: "customer_num", headerName: "가입회원현황" },
+    { field: "hope_num", headerName: "상담희망회원" },
+    { field: "contract_num", headerName: "계약고객수" },
   ];
   const subColumns2 = [
     {
@@ -121,12 +161,12 @@ const MemberList = () => {
       headerName: "No.",
       flex: 0.5,
     },
-    { field: "name", headerName: "사원이름" },
-    { field: "grade", headerName: "직급" },
-    { field: "branch", headerName: "지점명" },
+    { field: "name", headerName: "영업자성명" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "등록일" },
-    { field: "bank_num", headerName: "입금계좌" },
+    { field: "customer_num", headerName: "가입회원현황" },
+    { field: "hope_num", headerName: "상담희망회원" },
+    { field: "contract_num", headerName: "계약고객수" },
   ];
 
   const checkGrade = (data) => {
@@ -152,6 +192,7 @@ const MemberList = () => {
     pay: data.pay,
     customer_num: data.customer_list ? data.customer_list.length : 0,
     hope_num: data.hope_list ? data.hope_list.length : 0,
+    contract_num: data.contract_list ? data.contract_list.length : 0,
     bank_num: data.bank + data.deposit_account,
   }));
 
@@ -180,7 +221,40 @@ const MemberList = () => {
     setTab(num);
     setViewModal(false);
     setDetailIdx([]);
-    selectRef.current.clearSearch();
+    if (selectRef.current) {
+      selectRef.current.clearSearch(); // selectRef가 null이 아닌 경우에만 호출
+    }
+  };
+
+  const searchBoard = async () => {
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/search_mem",
+        {
+          searchType,
+          searchKeyword,
+          branch: decodeS3(),
+        }
+      );
+      const searchData = response.data;
+      setMemberData(searchData);
+    } catch (error) {
+      console.error("Error searching data:", error);
+    }
+  };
+
+  const handleSearch = () => {
+    searchBoard();
+  };
+
+  const handleSearchKeywordChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const handleResetSearch = () => {
+    setSearchKeyword("");
+    setSearchType("");
+    getMember();
   };
 
   let decodeResult;
@@ -269,23 +343,54 @@ const MemberList = () => {
             <div className="main_title_box">
               영업사원관리
               <div className="total_data_box">
-                <div className="total_box">커미션합계 : -</div>
-                <div className="total_box">지급예정커미션: -</div>
-                <div className="total_box">영업사원수: {memberData.length}</div>
+                <div className="total_box">
+                  소속영업사원수: {memberData.length}
+                </div>
+                <div className="total_box">
+                  가입고객현황:{" "}
+                  {grade2Data3.length > 0 ? grade2Data3[0].totalCount : 0}
+                </div>
+                <div className="total_box">
+                  상담희망고객수:{" "}
+                  {grade2Data4.length > 0 ? grade2Data4[0].hopeCount : 0}
+                </div>
+                <div className="total_box">
+                  계약고객수:{" "}
+                  {grade2Data5.length > 0 ? grade2Data5[0].contractCount : 0}
+                </div>
               </div>
             </div>
             <div className="board_list_wrap">
               <div className="list_area">
                 <div className="search_box">
-                  <MemberSelect
-                    ref={selectRef}
-                    setSearchData={setSearchData}
-                  ></MemberSelect>
-                  {grade !== "영업사원" && (
-                    <div className="title_btn" onClick={() => writeModalOpen()}>
-                      등록
+                  <div className="search_select">
+                    <select
+                      className="list_select"
+                      value={searchType}
+                      onChange={(e) => setSearchType(e.target.value)}
+                    >
+                      <option value="name">사원명</option>
+                    </select>
+                  </div>
+                  <div className="search_input">
+                    <input
+                      className="list_input"
+                      placeholder="검색어를 입력하세요"
+                      value={searchKeyword}
+                      onChange={handleSearchKeywordChange}
+                    ></input>
+                  </div>
+                  <div className="search_input">
+                    <div className="list_search" onClick={handleSearch}>
+                      검색
                     </div>
-                  )}
+                    <div
+                      className="list_search reset_btn"
+                      onClick={handleResetSearch}
+                    >
+                      초기화
+                    </div>
+                  </div>
                 </div>
                 {grade !== "영업사원" && (
                   <div className="tab_area">
@@ -300,7 +405,7 @@ const MemberList = () => {
                         className={`tab_menu ${tab === 3 && "active"}`}
                         onClick={() => changeTab(3)}
                       >
-                        미등록회원
+                        대기회원
                       </div>
                     </div>
                   </div>

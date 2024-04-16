@@ -190,7 +190,7 @@ const CommisionSelect = (props, ref) => {
             onChange={(e) => setSearchOption(e.target.value)}
           >
             <option value="manager">영업자명</option>
-            <option value="contractor_name">계약자명</option>
+            <option value="contractor_name">예약자명</option>
             <option value="name">검진자명</option>
           </select>
           <div className="search_input">

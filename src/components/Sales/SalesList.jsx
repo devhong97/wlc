@@ -14,6 +14,7 @@ const SalesList = () => {
   const [contractCount, setContractCount] = useState(0);
   const [hopeCount, setHopeCount] = useState(0);
   const { decodeS1, decodeS4 } = useAuth();
+  const [tab, setTab] = useState(2);
 
   useEffect(() => {
     getSalesTop();
@@ -195,6 +196,7 @@ const SalesList = () => {
     chart.render();
   };
 
+  
   let jsxToRender;
 
   // 슈퍼관리자일 때
@@ -241,8 +243,47 @@ const SalesList = () => {
     );
   }
   // 지점장일 때
-  else if (decodeS4() === "지점장") {
-    jsxToRender = <Fragment>{/* 지점장 JSX */}</Fragment>;
+  else if (decodeS4() === "지점관리자") {
+    jsxToRender = (
+      <div className="main_wrap">
+        <div className="main_back">
+          <div className="main_title_box">매출 관리</div>
+          <div className="board_list_wrap">
+            <div className="list_area">
+              <div className="search_box">
+                <div className="list_select_area">
+                  <div className="search_select">
+                    <select className="list_select">
+                      <option>언제부터</option>
+                    </select>
+                    ~&nbsp;&nbsp;&nbsp;
+                    <select className="list_select">
+                      <option>언제까지</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="list_select_area right">
+                  <div className="search_select">
+                    <select className="list_select">
+                      <option>회사명</option>
+                    </select>
+                    &nbsp;
+                    <select className="list_select">
+                      <option>지점종류</option>
+                    </select>
+                    &nbsp;
+                    <select className="list_select">
+                      <option>지점명</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div id="chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
   // 영업사원일 때
   else if (decodeS4() === "영업사원") {

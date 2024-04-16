@@ -8,7 +8,7 @@ import moment from "moment";
 import CustomerSelect from "./CustomerSelect";
 const CustomerList = () => {
   const selectRef = useRef(null);
-  const { decodeS3, decodeS1 } = useAuth();
+  const { decodeS1, decodeS4 } = useAuth();
   const location = useLocation();
   const { grade } = location.state || {};
   const { defaultSelect } = location.state || {};
@@ -89,7 +89,7 @@ const CustomerList = () => {
   //검진대기
   const columns3 = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "contractor_name", headerName: "예약자", flex: 0.5 },
     { field: "name", headerName: "검진자", flex: 0.5 },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
@@ -117,7 +117,7 @@ const CustomerList = () => {
   //검진완료
   const columns1 = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "contractor_name", headerName: "예약자", flex: 0.5 },
     { field: "name", headerName: "검진자", flex: 0.5 },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
@@ -131,7 +131,7 @@ const CustomerList = () => {
   //검진취소
   const columns2 = [
     { field: "id", headerName: "No", flex: 0.5 },
-    { field: "contractor_name", headerName: "계약자", flex: 0.5 },
+    { field: "contractor_name", headerName: "예약자", flex: 0.5 },
     { field: "name", headerName: "검진자", flex: 0.5 },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
@@ -144,6 +144,52 @@ const CustomerList = () => {
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
     { field: "refund_status", headerName: "환불여부", flex: 0.5 },
     { field: "branch", headerName: "지점명", flex: 0.5 },
+  ];
+
+  //(지점장) 가입고객
+  const columnsA = [
+    { field: "id", headerName: "No" },
+    { field: "contractor_name", headerName: "영업자성명" },
+    { field: "name", headerName: "검진자" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "가입일" },
+    { field: "product", headerName: "상품명" },
+    { field: "hospital", headerName: "검진병원" },
+    { field: "result_date", headerName: "검진일" },
+    { field: "pay_status", headerName: "상담희망" },
+    { field: "hope_status", headerName: "영업사원" },
+    { field: "branch", headerName: "계약유무" },
+    { field: "a", headerName: "비고" },
+  ];
+  //(지점장) 상담희망고객
+  const columnsB = [
+    { field: "id", headerName: "No" },
+    { field: "contractor_name", headerName: "영업자성명" },
+    { field: "name", headerName: "검진자" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "가입일" },
+    { field: "product", headerName: "상품명" },
+    { field: "hospital", headerName: "검진병원" },
+    { field: "result_date", headerName: "검진일" },
+    { field: "pay_status", headerName: "상담희망" },
+    { field: "hope_status", headerName: "영업사원" },
+    { field: "branch", headerName: "계약유무" },
+    { field: "a", headerName: "비고" },
+  ];
+  //(지점장) 계약고객
+  const columnsC = [
+    { field: "id", headerName: "No" },
+    { field: "contractor_name", headerName: "영업자성명" },
+    { field: "name", headerName: "검진자" },
+    { field: "phone", headerName: "연락처" },
+    { field: "date", headerName: "가입일" },
+    { field: "product", headerName: "상품명" },
+    { field: "hospital", headerName: "검진병원" },
+    { field: "result_date", headerName: "검진일" },
+    { field: "pay_status", headerName: "상담희망" },
+    { field: "hope_status", headerName: "영업사원" },
+    { field: "branch", headerName: "계약유무" },
+    { field: "a", headerName: "비고" },
   ];
 
   const rows = arrayData
@@ -208,7 +254,7 @@ const CustomerList = () => {
       name,
       product,
       hospital,
-      phone, // 계약자번호
+      phone, // 예약자번호
       phone_2, //검진자번호
       hope_date_1,
       hope_date_2,
@@ -233,80 +279,163 @@ const CustomerList = () => {
     setDetailIdx([]);
     selectRef.current.clearSearch();
   };
-  return (
-    <div className="main_wrap">
-      <div className="main_back">
-        <div className="main_title_box">
-          고객 관리
-          <div className="total_data_box">
-            <div className="total_box">총 고객 : {numberData.allNum}</div>
-            <div className="total_box">
-              검진완료고객: {numberData.statusNum1}
-            </div>
-            <div className="total_box">
-              검진대기고객: {numberData.statusNum3}
-            </div>
-            <div className="total_box">상담희망고객: {numberData.hopeNum}</div>
-            <div className="total_box">계약고객: {numberData.contractNum}</div>
-          </div>
-        </div>
-        <div className="board_list_wrap">
-          <div className="list_area">
-            <div className="search_box">
-              <CustomerSelect
-                ref={selectRef}
-                setSearchData={setSearchData}
-                defaultSelect={defaultSelect}
-              ></CustomerSelect>
-              {/* <div className="title_btn">등록</div> */}
-            </div>
-            <div className="tab_area">
-              <div className="tab_back">
-                <div
-                  className={`tab_menu ${tab === 3 && "active"}`}
-                  onClick={() => changeTab(3)}
-                >
-                  검진대기
-                </div>
-                <div
-                  className={`tab_menu ${tab === 1 && "active"}`}
-                  onClick={() => changeTab(1)}
-                >
-                  검진완료
-                </div>
-                <div
-                  className={`tab_menu ${tab === 2 && "active"}`}
-                  onClick={() => changeTab(2)}
-                >
-                  검진취소
-                </div>
+
+  let jsxToRender;
+
+  if (decodeS4() === "슈퍼관리자") {
+    jsxToRender = (
+      <div className="main_wrap">
+        <div className="main_back">
+          <div className="main_title_box">
+            고객 관리
+            <div className="total_data_box">
+              <div className="total_box">총 고객 : {numberData.allNum}</div>
+              <div className="total_box">
+                검진완료고객: {numberData.statusNum1}
+              </div>
+              <div className="total_box">
+                검진대기고객: {numberData.statusNum3}
+              </div>
+              <div className="total_box">
+                상담희망고객: {numberData.hopeNum}
+              </div>
+              <div className="total_box">
+                계약고객: {numberData.contractNum}
               </div>
             </div>
-            <div className="table_box tab_list">
-              <TableDefault
-                rows={rows}
-                columns={tab === 1 ? columns1 : tab === 2 ? columns2 : columns3}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+          </div>
+          <div className="board_list_wrap">
+            <div className="list_area">
+              <div className="search_box">
+                <CustomerSelect
+                  ref={selectRef}
+                  setSearchData={setSearchData}
+                  defaultSelect={defaultSelect}
+                ></CustomerSelect>
+                {/* <div className="title_btn">등록</div> */}
+              </div>
+              <div className="tab_area">
+                <div className="tab_back">
+                  <div
+                    className={`tab_menu ${tab === 3 && "active"}`}
+                    onClick={() => changeTab(3)}
+                  >
+                    검진대기
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => changeTab(1)}
+                  >
+                    검진완료
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
+                  >
+                    검진취소
+                  </div>
+                </div>
+              </div>
+              <div className="table_box tab_list">
+                <TableDefault
+                  rows={rows}
+                  columns={
+                    tab === 1 ? columns1 : tab === 2 ? columns2 : columns3
+                  }
+                  viewModalOpen={viewModalOpen}
+                ></TableDefault>
+              </div>
+            </div>
+            <div className="pagination_box">
+              <button>{`<<`}</button>
+              <button>{`<`}</button>
+              <button>1</button>
+              <button>{`>`}</button>
+              <button>{`>>`}</button>
             </div>
           </div>
-          <div className="pagination_box">
-            <button>{`<<`}</button>
-            <button>{`<`}</button>
-            <button>1</button>
-            <button>{`>`}</button>
-            <button>{`>>`}</button>
+        </div>
+        {viewModal && detailIdx && (
+          <CustomerViewModal
+            closeModal={viewModalClose}
+            detailIdx={detailIdx}
+          ></CustomerViewModal>
+        )}
+      </div>
+    );
+  } else if (decodeS4() === "지점관리자") {
+    jsxToRender = (
+      <div className="main_wrap">
+        <div className="main_back">
+          <div className="main_title_box">
+            고객 관리
+            <div className="total_data_box">
+              <div className="total_box">가입고객현황 : 1</div>
+              <div className="total_box">상담희망고객수: 1</div>
+              <div className="total_box">계약고객수: 1</div>
+            </div>
+          </div>
+          <div className="board_list_wrap">
+            <div className="list_area">
+              <div className="search_box">
+                <CustomerSelect
+                  ref={selectRef}
+                  setSearchData={setSearchData}
+                  defaultSelect={defaultSelect}
+                ></CustomerSelect>
+                {/* <div className="title_btn">등록</div> */}
+              </div>
+              <div className="tab_area">
+                <div className="tab_back">
+                  <div
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => changeTab(1)}
+                  >
+                    가입고객
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
+                  >
+                    상담희망고객
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 3 && "active"}`}
+                    onClick={() => changeTab(3)}
+                  >
+                    계약고객
+                  </div>
+                </div>
+              </div>
+              <div className="table_box tab_list">
+                <TableDefault
+                  rows={rows}
+                  columns={
+                    tab === 1 ? columnsA : tab === 2 ? columnsB : columnsC
+                  }
+                  viewModalOpen={viewModalOpen}
+                ></TableDefault>
+              </div>
+            </div>
+            <div className="pagination_box">
+              <button>{`<<`}</button>
+              <button>{`<`}</button>
+              <button>1</button>
+              <button>{`>`}</button>
+              <button>{`>>`}</button>
+            </div>
           </div>
         </div>
+        {viewModal && detailIdx && (
+          <CustomerViewModal
+            closeModal={viewModalClose}
+            detailIdx={detailIdx}
+          ></CustomerViewModal>
+        )}
       </div>
-      {viewModal && detailIdx && (
-        <CustomerViewModal
-          closeModal={viewModalClose}
-          detailIdx={detailIdx}
-        ></CustomerViewModal>
-      )}
-    </div>
-  );
+    );
+  }
+  return jsxToRender;
 };
 
 export default CustomerList;

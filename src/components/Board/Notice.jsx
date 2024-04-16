@@ -160,7 +160,6 @@ const Notice = () => {
                   value={searchKeyword}
                   onChange={handleSearchKeywordChange}
                 ></input>
-
               </div>
               <div className="search_input">
                 <div className="list_search" onClick={handleSearch}>

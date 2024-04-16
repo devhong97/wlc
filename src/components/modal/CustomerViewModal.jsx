@@ -24,7 +24,7 @@ const CustomerViewModal = (props) => {
   const [hopeStatus, setHopeStatus] = useState("N");
   const [payStatus, setPayStatus] = useState("N");
   const [refundStatus, setRefundStatus] = useState("N");
-  // const [c_name, setCName] = useState(""); //계약자 이름
+  // const [c_name, setCName] = useState(""); //예약자 이름
   const [customerName, setCustomerName] = useState(""); //검진자 이름
   const [customerNumber, setCustomerNumber] = useState(""); //검진 인원
   const [phone, setPhone] = useState(""); // 연락처
@@ -253,7 +253,7 @@ const CustomerViewModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">계약자</div>
+                <div className="table_title">예약자</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
                     {memberData.contractor_name}
@@ -301,7 +301,7 @@ const CustomerViewModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">계약자 연락처</div>
+                <div className="table_title">예약자 연락처</div>
                 <div className="table_contents w100">
                   <input
                     className="table_input w100"
