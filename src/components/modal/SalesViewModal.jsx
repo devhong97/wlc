@@ -91,7 +91,7 @@ const SalesViewModal = (props) => {
           <div className="table_box">
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">계약자성명</div>
+                <div className="table_title">예약자성명</div>
                 <div className="table_contents w100">
                   {detailNum.contractor_name}
                 </div>
@@ -103,7 +103,7 @@ const SalesViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section half">
-                <div className="table_title">계약자 연락처</div>
+                <div className="table_title">예약자 연락처</div>
                 <div className="table_contents w100">{detailNum.phone}</div>
               </div>
               <div className="table_section half">
