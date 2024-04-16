@@ -185,36 +185,36 @@
 
             .menu_icon {
               @include background_set(30px, 30px, contain);
-              background-image: url("../img/aside_1.png");
+              background-image: url("../img/aside_1_gray.png");
               display: inline-block;
               vertical-align: middle;
 
               &.second {
-                background-image: url("../img/aside_2.png");
+                background-image: url("../img/aside_2_gray.png");
               }
 
               &.third {
-                background-image: url("../img/aside_3.png");
+                background-image: url("../img/aside_3_gray.png");
               }
 
               &.fourth {
-                background-image: url("../img/aside_4.png");
+                background-image: url("../img/aside_4_gray.png");
               }
 
               &.fifth {
-                background-image: url("../img/aside_hospital.png");
+                background-image: url("../img/aside_hospital_gray.png");
               }
 
               &.sixth {
-                background-image: url("../img/aside_product.png");
+                background-image: url("../img/aside_product_gray.png");
               }
 
               &.seventh {
-                background-image: url("../img/aside_5.png");
+                background-image: url("../img/aside_5_gray.png");
               }
 
               &.last {
-                background-image: url("../img/aside_link.png");
+                background-image: url("../img/aside_link_gray.png");
               }
             }
 
@@ -235,14 +235,14 @@
 
             .home_icon {
               @include background_set(40px, 30px, contain);
-              background-image: url("../img/aside_home.png");
+              background-image: url("../img/aside_home_gray.png");
               display: inline-block;
               vertical-align: middle;
             }
 
             .logout_icon {
               @include background_set(40px, 30px, contain);
-              background-image: url("../img/logout_icon.png");
+              background-image: url("../img/aside_logout_gray.png");
               display: inline-block;
               vertical-align: middle;
             }
