@@ -61,7 +61,9 @@ const CustomerList = () => {
 
       const allData = response.data;
       const arrayData = response.data.data;
-      setNumberData(allData.numbers);
+      if (Object.keys(allData.numbers).length > 0) {
+        setNumberData(allData.numbers);
+      }
       console.log(arrayData);
 
       // 중복된 uid가 있는 경우 중복을 제거하고, name 필드는 모두 가져와서 합침
@@ -146,51 +148,22 @@ const CustomerList = () => {
     { field: "branch", headerName: "지점명", flex: 0.5 },
   ];
 
-  //(지점장) 가입고객
-  const columnsA = [
+  //지점장
+  const columnsManager = [
     { field: "id", headerName: "No" },
-    { field: "contractor_name", headerName: "영업자성명" },
+    { field: "contractor_name", headerName: "계약자" },
     { field: "name", headerName: "검진자" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
     { field: "product", headerName: "상품명" },
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
-    { field: "pay_status", headerName: "상담희망" },
-    { field: "hope_status", headerName: "영업사원" },
-    { field: "branch", headerName: "계약유무" },
-    { field: "a", headerName: "비고" },
+    { field: "manager", headerName: "영업사원" },
+    { field: "hope_status", headerName: "상담희망" },
+    { field: "contract", headerName: "계약유무" },
+    { field: "memo", headerName: "비고" },
   ];
-  //(지점장) 상담희망고객
-  const columnsB = [
-    { field: "id", headerName: "No" },
-    { field: "contractor_name", headerName: "영업자성명" },
-    { field: "name", headerName: "검진자" },
-    { field: "phone", headerName: "연락처" },
-    { field: "date", headerName: "가입일" },
-    { field: "product", headerName: "상품명" },
-    { field: "hospital", headerName: "검진병원" },
-    { field: "result_date", headerName: "검진일" },
-    { field: "pay_status", headerName: "상담희망" },
-    { field: "hope_status", headerName: "영업사원" },
-    { field: "branch", headerName: "계약유무" },
-    { field: "a", headerName: "비고" },
-  ];
-  //(지점장) 계약고객
-  const columnsC = [
-    { field: "id", headerName: "No" },
-    { field: "contractor_name", headerName: "영업자성명" },
-    { field: "name", headerName: "검진자" },
-    { field: "phone", headerName: "연락처" },
-    { field: "date", headerName: "가입일" },
-    { field: "product", headerName: "상품명" },
-    { field: "hospital", headerName: "검진병원" },
-    { field: "result_date", headerName: "검진일" },
-    { field: "pay_status", headerName: "상담희망" },
-    { field: "hope_status", headerName: "영업사원" },
-    { field: "branch", headerName: "계약유무" },
-    { field: "a", headerName: "비고" },
-  ];
+
 
   const rows = arrayData
     .map((data, index) => {
@@ -217,6 +190,9 @@ const CustomerList = () => {
         uid: data.uid,
         h_location: data.location,
         phone_2: data.phone_2,
+        memo: data.memo,
+        contract: data.contract,
+        manager: data.manager
       };
     })
     .filter((value, index, self) => {
@@ -370,9 +346,9 @@ const CustomerList = () => {
           <div className="main_title_box">
             고객 관리
             <div className="total_data_box">
-              <div className="total_box">가입고객현황 : 1</div>
-              <div className="total_box">상담희망고객수: 1</div>
-              <div className="total_box">계약고객수: 1</div>
+              <div className="total_box">가입고객현황 : {numberData.allNum}</div>
+              <div className="total_box">상담희망고객수: {numberData.hopeNum}</div>
+              <div className="total_box">계약고객수: {numberData.contractNum}</div>
             </div>
           </div>
           <div className="board_list_wrap">
@@ -382,26 +358,27 @@ const CustomerList = () => {
                   ref={selectRef}
                   setSearchData={setSearchData}
                   defaultSelect={defaultSelect}
+                  level={decodeS4()}
                 ></CustomerSelect>
                 {/* <div className="title_btn">등록</div> */}
               </div>
               <div className="tab_area">
                 <div className="tab_back">
                   <div
-                    className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => changeTab(1)}
+                    className={`tab_menu ${tab === 3 && "active"}`}
+                    onClick={() => changeTab(3)}
                   >
                     가입고객
                   </div>
                   <div
-                    className={`tab_menu ${tab === 2 && "active"}`}
-                    onClick={() => changeTab(2)}
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => changeTab(1)}
                   >
                     상담희망고객
                   </div>
                   <div
-                    className={`tab_menu ${tab === 3 && "active"}`}
-                    onClick={() => changeTab(3)}
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
                   >
                     계약고객
                   </div>
@@ -411,7 +388,7 @@ const CustomerList = () => {
                 <TableDefault
                   rows={rows}
                   columns={
-                    tab === 1 ? columnsA : tab === 2 ? columnsB : columnsC
+                    columnsManager
                   }
                   viewModalOpen={viewModalOpen}
                 ></TableDefault>

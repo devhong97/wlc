@@ -20,6 +20,7 @@ const CustomerSelect = (props, ref) => {
   const [hospitalList, setHospitalList] = useState([]);
   const [searchOption, setSearchOption] = useState("manager");
   const [searchInput, setSearchInput] = useState("");
+  const [level, setLevel] = useState("")
 
   useImperativeHandle(ref, () => ({
     clearSearch,
@@ -33,6 +34,11 @@ const CustomerSelect = (props, ref) => {
   useEffect(() => {
     setContextType(type);
   }, [type]);
+  useEffect(() => {
+    if (props.level) {
+      setLevel(props.level)
+    }
+  }, [props.level]);
 
   useEffect(() => {
     setContextCompany(company);
@@ -113,76 +119,80 @@ const CustomerSelect = (props, ref) => {
   return (
     <div className="list_select_area">
       <div className="search_select">
-        <select
-          className="list_select"
-          value={type}
-          onChange={(e) => selectType(e.target.value)}
-        >
-          <option value="">지점종류</option>
-          {typeGroup.map((type, index) => {
-            return (
-              <option key={index} value={type}>
-                {type}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          className="list_select"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-        >
-          <option value="">회사명</option>
-          {companyGroup.map((data, index) => {
-            return (
-              <option key={index} value={data}>
-                {data}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          className="list_select"
-          value={branchIdx}
-          onChange={(e) => selectBranch(e.target.value)}
-        >
-          <option value="">지점명</option>
-          {branchGroup.map((data, index) => {
-            return (
-              <option key={index} value={data.branch_idx}>
-                {data.branch_name}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          className="list_select"
-          value={product}
-          onChange={(e) => setProduct(e.target.value)}
-        >
-          <option value="">상품명</option>
-          {productList.map((data, index) => {
-            return (
-              <option key={index} value={data.product_1}>
-                {data.product_1}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          className="list_select"
-          value={hospital}
-          onChange={(e) => setHospital(e.target.value)}
-        >
-          <option value="">병원</option>
-          {hospitalList.map((data, index) => {
-            return (
-              <option key={index} value={data.name}>
-                {data.name}
-              </option>
-            );
-          })}
-        </select>
+        {level !== "지점관리자" && (
+          <div>
+            <select
+              className="list_select"
+              value={type}
+              onChange={(e) => selectType(e.target.value)}
+            >
+              <option value="">지점종류</option>
+              {typeGroup.map((type, index) => {
+                return (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="list_select"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            >
+              <option value="">회사명</option>
+              {companyGroup.map((data, index) => {
+                return (
+                  <option key={index} value={data}>
+                    {data}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="list_select"
+              value={branchIdx}
+              onChange={(e) => selectBranch(e.target.value)}
+            >
+              <option value="">지점명</option>
+              {branchGroup.map((data, index) => {
+                return (
+                  <option key={index} value={data.branch_idx}>
+                    {data.branch_name}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="list_select"
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+            >
+              <option value="">상품명</option>
+              {productList.map((data, index) => {
+                return (
+                  <option key={index} value={data.product_1}>
+                    {data.product_1}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="list_select"
+              value={hospital}
+              onChange={(e) => setHospital(e.target.value)}
+            >
+              <option value="">병원</option>
+              {hospitalList.map((data, index) => {
+                return (
+                  <option key={index} value={data.name}>
+                    {data.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
         <div className="search_input_container ">
           <select
             className="list_select"
@@ -190,7 +200,9 @@ const CustomerSelect = (props, ref) => {
             onChange={(e) => setSearchOption(e.target.value)}
           >
             <option value="manager">영업자명</option>
-            <option value="contractor_name">예약자명</option>
+            {level !== "지점관리자" && (
+              <option value="contractor_name">예약자명</option>
+            )}
             <option value="name">검진자명</option>
           </select>
           <div className="search_input">
