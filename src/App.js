@@ -9,6 +9,12 @@ import { useAuth } from "./components/Context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
 import Footer from "./components/Footer/Footer";
+import SelfReservation from "./components/Self/SelfReservation";
+import SelfSearchProduct from "./components/Self/SelfSearchProduct";
+import SelfSearchHospital from "./components/Self/SelfSearchHospital";
+import SelfSelectDate from "./components/Self/SelfSelectDate";
+import SelfReservCustomer from "./components/Self/SelfReservCustomer";
+import SelfReservCheck from "./components/Self/SelfReservCheck";
 
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
@@ -39,6 +45,13 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<Search />} />
+            {/* 링크라우터 */}
+            <Route path="/self/:uid" element={<SelfReservation />}></Route>
+            <Route path="/self/:uid/product" element={<SelfSearchProduct />} />
+            <Route path="/self/:uid/hospital" element={<SelfSearchHospital />} />
+            <Route path="/self/:uid/date" element={<SelfSelectDate />} />
+            <Route path="/self/:uid/customer" element={<SelfReservCustomer />} />
+            <Route path="/self/:uid/check" element={<SelfReservCheck />} />
           </Routes>
         </div>
       )}
