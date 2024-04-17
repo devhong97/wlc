@@ -38,8 +38,11 @@ const SalesList = () => {
     tab1DateTotal();
   }, []); // 빈 배열 전달하여 한 번만 실행되도록 함
 
+  // 기홍님! 방법1 이거는 임시방편!
   useEffect(() => {
-    //console.log("searchedData", searchedData);
+    if (decodeS4() === "지점관리자") {
+      renderApexChart(tab);
+    }
   }, [searchedData]);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const SalesList = () => {
       renderApexChart();
     }
     if (decodeS4() === "지점관리자") {
-      renderApexChart();
+      renderApexChart(tab);
     }
   }, []);
 
@@ -194,7 +197,7 @@ const SalesList = () => {
       const allData = response.data;
       if (allData) {
         setSearchedData(response.data);
-        renderApexChart(tab);
+        // renderApexChart(tab); 기홍님!방법2 예외처리 필요
       } else {
         alert("검색 결과가 없습니다.")
       }
@@ -395,7 +398,7 @@ const SalesList = () => {
         },
       };
     } else if (decodeS4() === "지점관리자") {
-      if (num !== 1) {
+      if (num === 2) {
         // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
         const today = moment();
         const month = today.format("YYYY-MM");
