@@ -230,6 +230,7 @@ const SalesList = () => {
     let options;
 
     if (decodeS4() === "슈퍼관리자") {
+      // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
       const today = moment();
       const month = today.format("YYYY-MM");
       const daysInMonth = moment(month, "YYYY-MM").daysInMonth();
@@ -240,6 +241,7 @@ const SalesList = () => {
         { type: "totalDT3", data: totalDataDT3 },
       ];
 
+      // 검색된 데이터가 있는지 확인
       if (searchedData.length > 0) {
         // 날짜 배열 생성
         const daysInMonth = moment().daysInMonth();
@@ -251,6 +253,7 @@ const SalesList = () => {
           dateArray.push(date);
         }
       } else {
+        // 7일치 데이터 표시
         for (let i = -3; i <= 3; i++) {
           const date = today.clone().add(i, "days").format("YYYY-MM-DD");
           dateArray.push(date);
@@ -274,6 +277,7 @@ const SalesList = () => {
         }
       });
 
+      // 각 날짜별로 데이터 수집
       totalDataArrays.forEach((totalData, index) => {
         dateArray.forEach((date) => {
           totalData.data.forEach((data) => {
@@ -383,7 +387,6 @@ const SalesList = () => {
           categories: dateArray,
         },
       };
-      /////////////////// 작업중
     } else if (decodeS4() === "지점관리자") {
       if (num === 1) {
         // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
@@ -636,8 +639,8 @@ const SalesList = () => {
       <div className="main_wrap">
         <div className="main_back">
           <div className="main_title_box">매출 관리</div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="search_box">
                 <div className="list_select_area">
                   <div className="search_select">
@@ -694,56 +697,62 @@ const SalesList = () => {
               </div>
             )}
           </div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="search_box">
                 <div className="list_select_area">
                   {tab === 1 && (
                     <div className="search_select">
-                      <input
-                        className="table_input w100"
-                        type="text"
-                        id="title"
-                        placeholder="확정일 입력해주세요."
-                        value={result_date}
-                        onClick={() => calendarStatus()}
-                        disabled={inspectionStatus === "2"}
-                        readOnly
-                      ></input>
-                      {openCalendar && (
-                        <Calendar
-                          className="modal_calendar"
-                          onChange={(date) => setFormatDate(date)}
-                          value={resultCalendar}
-                          minDate={null} // 모든 년도 선택 가능하도록 null로 설정
-                          defaultView="year"
-                          maxDetail="year"
-                          calendarType="gregory"
-                        />
-                      )}
+                      <div className="search_input">
+                        <input
+                          className="list_input chart"
+                          type="text"
+                          id="title"
+                          placeholder="확정일 입력해주세요."
+                          value={result_date}
+                          onClick={() => calendarStatus()}
+                          disabled={inspectionStatus === "2"}
+                          readOnly
+                        ></input>
+
+                        {openCalendar && (
+                          <Calendar
+                            className="chart_calendar"
+                            onChange={(date) => setFormatDate(date)}
+                            value={resultCalendar}
+                            minDate={null} // 모든 년도 선택 가능하도록 null로 설정
+                            defaultView="year"
+                            maxDetail="year"
+                            calendarType="gregory"
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
                   {tab === 2 && (
                     <div className="search_select">
-                      <input
-                        className="table_input w100"
-                        type="text"
-                        id="title"
-                        placeholder="확정일 입력해주세요."
-                        value={result_date}
-                        onClick={() => calendarStatus()}
-                        disabled={inspectionStatus === "2"}
-                        readOnly
-                      ></input>
-                      {openCalendar && (
-                        <Calendar
-                          className="modal_calendar"
-                          onChange={(e) => setFormatDate(e)}
-                          value={resultCalendar}
-                          minDate={null} // 모든 년도 선택 가능하도록 null로 설정
-                          calendarType="gregory"
-                        />
-                      )}
+                      <div className="search_input">
+                        <input
+                          className="list_input chart"
+                          type="text"
+                          id="title"
+                          placeholder="확정일 입력해주세요."
+                          value={result_date}
+                          onClick={() => calendarStatus()}
+                          disabled={inspectionStatus === "2"}
+                          readOnly
+                        ></input>
+
+                        {openCalendar && (
+                          <Calendar
+                            className="chart_calendar"
+                            onChange={(e) => setFormatDate(e)}
+                            value={resultCalendar}
+                            minDate={null} // 모든 년도 선택 가능하도록 null로 설정
+                            calendarType="gregory"
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
                   <div className="search_input">
@@ -803,8 +812,8 @@ const SalesList = () => {
       <div className="main_wrap">
         <div className="main_back">
           <div className="main_title_box">실적 관리</div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="sales-info-container">
                 <div className="sales-info-item">
                   <div className="sales-info-title">
