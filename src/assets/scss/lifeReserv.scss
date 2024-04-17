@@ -9,6 +9,16 @@
         width: 90%;
         margin: 0 auto;
         padding: 80px 0;
+        position: relative;
+
+        .back_btn {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            @include background-set(50px, 50px, contain);
+            background-image: url("../img/arrow_icon.png");
+            transform: rotate(180deg);
+        }
 
         &.sign {
             padding: 60px 0;
@@ -419,7 +429,6 @@
             .product_box {
                 display: inline-block;
                 width: 350px;
-                min-width: 200px;
                 border-radius: 30px;
                 background-color: #fff;
                 position: relative;

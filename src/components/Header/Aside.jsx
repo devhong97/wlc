@@ -216,20 +216,26 @@ const Aside = (props) => {
                       ></div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => moveMobilePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => moveMobilePage("/")}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -375,20 +381,26 @@ const Aside = (props) => {
                       ></div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => movePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => movePage("/")}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -482,20 +494,26 @@ const Aside = (props) => {
                       ></div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => moveMobilePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => moveMobilePage("/")}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -539,20 +557,26 @@ const Aside = (props) => {
                       <div className="menu_text">실적관리</div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => movePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => movePage("/")}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -618,20 +642,26 @@ const Aside = (props) => {
                       <div className="menu_text">링크복사</div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => moveMobilePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => moveMobilePage("/")}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {mobileOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -684,20 +714,27 @@ const Aside = (props) => {
                       <div className="menu_text">링크복사</div>
                     </div>
                   </div>
-                  <div className="menu_row home">
+                  <div className="menu_row home" onClick={() => movePage("/")}>
                     <div className="main_menu_box">
                       <div
                         className="home_icon"
-                        onClick={() => movePage("/")}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">홈</div>
+                      )}
+
                     </div>
                   </div>
-                  <div className="menu_row logout">
+                  <div className="menu_row logout" onClick={() => logout()}>
                     <div className="main_menu_box">
                       <div
                         className="logout_icon"
-                        onClick={() => logout()}
+
                       ></div>
+                      {isOpen && (
+                        <div className="menu_text">로그아웃</div>
+                      )}
                     </div>
                   </div>
                 </div>

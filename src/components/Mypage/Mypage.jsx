@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import TableDefault from "../Table/TableDefault";
 import { useAuth } from "../Context/AuthContext";
 import moment from "moment";
 import Axios from "axios";
-import MyPageViewModal from "../modal/MyPageViewModal";
 
 const Mypage = () => {
   const { decodeS1 } = useAuth();
-  const [detailIdx, setDetailIdx] = useState("");
-  const [viewModal, setViewModal] = useState(false);
   const [myData, setMyData] = useState([]);
-  const [detailData, setDetailData] = useState([]);
 
   useEffect(() => {
     getMyData();
@@ -24,68 +19,83 @@ const Mypage = () => {
         },
       });
       const allData = response.data.data;
-      //console.log(allData);
-      setMyData(allData);
+      console.log(allData);
+      setMyData(allData[0]);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
   };
 
-  const columns = [
-    { field: "id", headerName: "아이디" },
-    { field: "email", headerName: "이메일" },
-    { field: "phone", headerName: "연락처" },
-    { field: "branch", headerName: "소속지점" },
-    { field: "bank", headerName: "은행" },
-    { field: "depositAccount", headerName: "계좌번호" },
-    { field: "date", headerName: "가입일" },
-  ];
 
-  const rows = myData.map((data, index) => ({
-    id: data.id,
-    email: data.email,
-    phone: data.phone,
-    branch: data.branch,
-    bank: data.bank,
-    depositAccount: data.deposit_account,
-    date: moment(data.date).format("YYYY.MM.DD"),
-    idx: data.idx,
-  }));
-
-  const viewModalOpen = (data) => {
-    setViewModal(!viewModal);
-    setDetailData(data);
-  };
-
-  const closeModal = () => {
-    setViewModal(false);
-  };
 
   return (
     <div className="main_wrap">
-      <div className="main_back">
-        <div className="main_title_box">MyPage</div>
-        <div className="board_list_wrap">
-          <div className="list_area">
-            {/* <div className="search_box">
-              <div className="title_btn" onClick={() => dataViewModal()}>
-                수정
+      <div className="main_back home">
+        <div className="main_title_box blank">마이페이지</div>
+        <div className="main_sub_title">연락처 및 개인 정보를 수정할 수 있습니다.</div>
+        <div className="mypage_area">
+          {/* <div className="mypage_container top">
+            <div className="mypage_title_box">
+              <div className="mypage_title">프로필 사진</div>
+              <div className="mypage_title sub">프로필 사진을 등록하여 계정을 맞춤설정합니다.</div>
+            </div>
+            <div className="profile_box">
+              <div className="profile_img_box">
+                <div className="profile_img"></div>
               </div>
-            </div> */}
-            <TableDefault
-              rows={rows}
-              columns={columns}
-              viewModalOpen={viewModalOpen}
-            />
+              <div className="profile_btn_box">
+                <div className="profile_btn edit">수정</div>
+                <div className="profile_btn">삭제</div>
+              </div>
+            </div>
+          </div> */}
+          <div className="mypage_container">
+            <div className="mypage_title_box">
+              <div className="mypage_title">내 정보</div>
+              <div className="mypage_title sub">유저의 개인 정보를 수정할 수 있습니다.</div>
+            </div>
+            <div className="mypage_contents_box">
+              <div className="my_row">
+                <div className="my_text title">가입일</div>
+                <div className="my_text">{myData.date}</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">아이디</div>
+                <div className="my_text">{myData.id}</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">비밀번호</div>
+                <div className="my_text">****</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">이메일</div>
+                <div className="my_text">{myData.email}</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">연락처</div>
+                <div className="my_text">{myData.phone}</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">소속지점</div>
+                <div className="my_text">{myData.branch_type} {myData.company_name} {myData.branch}</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">은행</div>
+                <div className="my_text">{myData.bank}</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+              <div className="my_row">
+                <div className="my_text title">계좌번호</div>
+                <div className="my_text">{myData.deposit_account}</div>
+                <div className="my_btn">수정하기</div>
+              </div>
+            </div>
           </div>
         </div>
-        {viewModal && (
-          <MyPageViewModal
-            closeModal={closeModal}
-            detailIdx={detailIdx}
-            detailData={detailData}
-          ></MyPageViewModal>
-        )}
       </div>
     </div>
   );
