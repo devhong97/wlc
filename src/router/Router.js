@@ -21,6 +21,7 @@ import Mypage from "./../components/Mypage/Mypage";
 import SalesCustomer from "./../components/Sales/SalesCustomer";
 import SalesManager from "./../components/Sales/salesManager";
 import SalesHospital from "./../components/Sales/SalesHospital";
+import Link from "../components/Self/Link";
 
 const Router = () => {
   return (
@@ -48,6 +49,7 @@ const Router = () => {
       <Route path="/reserv/customer" element={<ReservCustomer />} />
       <Route path="/reserv/check" element={<ReservCheck />} />
       <Route path="/delme" element={<Delme />} />
+      <Route path="/link" element={<Link />} />
     </Routes>
   );
 };
