@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 const Link = () => {
     const { decodeS1 } = useAuth();
     const uid = decodeS1();
@@ -20,6 +21,9 @@ const Link = () => {
                 console.error('텍스트 복사 실패:', err);
             });
     }
+    const handleCopy = () => {
+        alert('링크가 복사되었습니다.');
+    }
     return (
         <div className="main_wrap">
             <div className="main_back home">
@@ -33,7 +37,9 @@ const Link = () => {
                             <div className="my_row">
                                 <div className="my_text title">링크</div>
                                 <div className="my_text" onClick={() => movePage()}>http://localhost:3000/self/{uid}</div>
-                                <div className="my_btn" onClick={() => copyText()}>복사하기</div>
+                                <CopyToClipboard text={`http://localhost:3000/self/${uid}`} onCopy={handleCopy}>
+                                    <div className="my_btn">복사하기</div>
+                                </CopyToClipboard>
                             </div>
 
                         </div>
