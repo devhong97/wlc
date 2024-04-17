@@ -221,6 +221,26 @@
 
         }
     }
+
+    .table_inner_btn {
+        &.reserv {
+            padding: 5px 20px !important;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    .reserv_wrap {
+        .reserv_back {
+            .reserv_bottom_box {
+                .reserv_check_box {
+                    width: 90% !important;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 500px) {
@@ -309,9 +329,39 @@
         }
     }
 
+    .modal_wrap {
+        &.reserv {
+            .modal_back {
+                width: 90% !important;
+                min-width: 0 !important;
+
+                .modal_box {
+                    .modal_text {
+                        font-size: 18px !important;
+                    }
+
+                    .modal_footer_box {
+                        .modal_btn {
+                            padding: 10px 20px !important;
+                            font-size: 13px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .reserv_wrap {
         .reserv_back {
             padding: 30px 0 !important;
+
+            .reserv_btn_box {
+                padding-top: 20px !important;
+
+                .reserv_btn {
+                    font-size: 15px !important;
+                }
+            }
 
             .reserv_top_box {
                 .reserv_title {
@@ -325,6 +375,123 @@
 
             .reserv_bottom_box {
                 padding-top: 30px !important;
+
+                &.sign {
+                    padding-top: 0 !important;
+                }
+
+                .reserv_check_box {
+                    padding: 20px !important;
+                    min-width: 0 !important;
+
+                    .check_title_box {
+                        padding-bottom: 30px !important;
+
+                        .check_title {
+                            font-size: 20px !important;
+                        }
+
+                        .check_sub {
+                            font-size: 15px !important;
+                        }
+                    }
+                }
+
+                .reserv_text_box {
+                    .reserv_title {
+                        font-size: 13px !important;
+                        width: 81px !important;
+                    }
+
+                    .reserv_text {
+                        font-size: 13px !important;
+                    }
+                }
+
+                .terms_box {
+                    padding: 20px 10px !important;
+
+                    .terms_title {
+                        font-size: 15px !important;
+                        width: calc(100% - 69px) !important;
+                    }
+
+                    .terms_contents_btn {
+                        font-size: 13px !important;
+                        width: 69px !important;
+                    }
+
+                    .terms_contents_box {
+                        padding: 20px 0 !important;
+                    }
+                }
+
+                .terms_checkbox {
+                    padding-top: 15px !important;
+
+                    .terms_label {
+                        padding-left: 30px !important;
+                        font-size: 15px !important;
+                        line-height: 25px !important;
+
+                        &::before {
+                            width: 20px !important;
+                            height: 20px !important;
+                        }
+                    }
+                }
+
+                .reserv_contents_box {
+                    padding: 20px !important;
+
+                    &.sign {
+                        border-radius: 10px !important;
+                        padding: 10px !important;
+                    }
+
+                    .sign_container {
+                        .sign_box {
+                            .sign_title {
+                                font-size: 13px !important;
+                                padding-bottom: 5px !important;
+                            }
+
+                            .sign_contents {
+                                border-radius: 10px !important;
+
+                            }
+                        }
+                    }
+
+                    .sign_btn_box {
+                        padding-top: 10px !important;
+
+                        .sign_btn {
+                            padding: 20px 0 !important;
+                            height: auto !important;
+                            width: calc((100% - 10px) / 2) !important;
+                        }
+                    }
+
+                    .reserv_input_box {
+                        &.calendar {
+                            &::after {
+                                width: 15px !important;
+                                height: 15px !important;
+                                top: 20px !important;
+                            }
+                        }
+
+                        .reserv_input {
+                            padding: 10px 20px;
+                            font-size: 15px !important;
+                        }
+
+                        .reserv_add_btn {
+                            font-size: 15px !important;
+                        }
+                    }
+                }
 
                 .reserv_menu_box {
                     display: block !important;
@@ -340,6 +507,51 @@
                         .menu_text {
                             font-size: 20px !important;
                             padding-left: 20px !important;
+                        }
+                    }
+                }
+
+                .product_box {
+                    width: 200px !important;
+                    margin-right: 20px !important;
+                    height: auto !important;
+
+                    .product_img_box {
+                        height: 150px !important;
+
+                        .product_img {
+                            width: 50px !important;
+                            height: 50px !important;
+                        }
+                    }
+
+                    .inner_bottom_box {
+                        padding: 0 10px !important;
+
+                        .product_text_box {
+                            padding-bottom: 15px !important;
+
+                            .product_info_text {
+                                display: none;
+                            }
+
+                            .product_text {
+                                font-size: 18px !important;
+
+                                &.title {
+                                    font-size: 20px !important;
+                                }
+
+                                &.og_price {
+                                    font-size: 15px !important;
+                                }
+                            }
+                        }
+
+                        .product_btn_box {
+                            .product_btn {
+                                font-size: 15px !important;
+                            }
                         }
                     }
                 }
