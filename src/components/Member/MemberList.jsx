@@ -308,11 +308,26 @@ const MemberList = () => {
                     grade !== "영업사원" ? "tab_list" : "list"
                   }`}
                 >
-                  <TableDefault
-                    rows={rows}
-                    columns={tab === 1 ? columns : subColumns}
-                    viewModalOpen={viewModalOpen}
-                  ></TableDefault>
+                  {rows.length === 0 ? (
+                    <div
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                        border: "1px solid #ccc",
+                        padding: "100px",
+                        fontSize: "18px",
+                        background: "white",
+                      }}
+                    >
+                      데이터가 존재하지 않습니다.
+                    </div>
+                  ) : (
+                    <TableDefault
+                      rows={rows}
+                      columns={tab === 1 ? columns : subColumns}
+                      viewModalOpen={viewModalOpen}
+                    ></TableDefault>
+                  )}
                 </div>
               </div>
               {/* <div className="pagination_box">
@@ -343,21 +358,27 @@ const MemberList = () => {
             <div className="main_title_box">
               영업사원관리
               <div className="total_data_box">
-                <div className="total_box">
-                  소속영업사원수: {memberData.length}
-                </div>
-                <div className="total_box">
-                  가입고객현황:{" "}
-                  {grade2Data3.length > 0 ? grade2Data3[0].totalCount : 0}
-                </div>
-                <div className="total_box">
-                  상담희망고객수:{" "}
-                  {grade2Data4.length > 0 ? grade2Data4[0].hopeCount : 0}
-                </div>
-                <div className="total_box">
-                  예약고객수:{" "}
-                  {grade2Data5.length > 0 ? grade2Data5[0].contractCount : 0}
-                </div>
+                {grade === "지점관리자" && (
+                  <div className="total_box">
+                    {tab === 1 ? "소속영업사원수" : "대기사원수"}:{" "}
+                    {memberData.length}
+                  </div>
+                )}
+                {grade2Data3 && grade2Data3.length > 0 && (
+                  <div className="total_box">
+                    가입고객현황: {grade2Data3[0].totalCount}
+                  </div>
+                )}
+                {grade2Data4 && grade2Data4.length > 0 && (
+                  <div className="total_box">
+                    상담희망고객수: {grade2Data4[0].hopeCount}
+                  </div>
+                )}
+                {grade2Data5 && grade2Data5.length > 0 && (
+                  <div className="total_box">
+                    예약고객수: {grade2Data5[0].contractCount}
+                  </div>
+                )}
               </div>
             </div>
             <div className="board_list_wrap">
@@ -415,11 +436,26 @@ const MemberList = () => {
                     grade !== "영업사원" ? "tab_list" : "list"
                   }`}
                 >
-                  <TableDefault
-                    rows={rows}
-                    columns={tab === 1 ? columns2 : subColumns2}
-                    viewModalOpen={viewModalOpen}
-                  ></TableDefault>
+                  {rows.length === 0 ? (
+                    <div
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                        border: "1px solid #ccc",
+                        padding: "100px",
+                        fontSize: "18px",
+                        background: "white",
+                      }}
+                    >
+                      데이터가 존재하지 않습니다.
+                    </div>
+                  ) : (
+                    <TableDefault
+                      rows={rows}
+                      columns={tab === 1 ? columns2 : subColumns2}
+                      viewModalOpen={viewModalOpen}
+                    ></TableDefault>
+                  )}
                 </div>
               </div>
             </div>

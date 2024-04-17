@@ -26,13 +26,13 @@ const Mypage = () => {
     }
   };
 
-
-
   return (
     <div className="main_wrap">
       <div className="main_back home">
         <div className="main_title_box blank">마이페이지</div>
-        <div className="main_sub_title">연락처 및 개인 정보를 수정할 수 있습니다.</div>
+        <div className="main_sub_title">
+          연락처 및 개인 정보를 수정할 수 있습니다.
+        </div>
         <div className="mypage_area">
           {/* <div className="mypage_container top">
             <div className="mypage_title_box">
@@ -52,7 +52,9 @@ const Mypage = () => {
           <div className="mypage_container">
             <div className="mypage_title_box">
               <div className="mypage_title">내 정보</div>
-              <div className="mypage_title sub">유저의 개인 정보를 수정할 수 있습니다.</div>
+              <div className="mypage_title sub">
+                유저의 개인 정보를 수정할 수 있습니다.
+              </div>
             </div>
             <div className="mypage_contents_box">
               <div className="my_row">
@@ -80,7 +82,9 @@ const Mypage = () => {
               </div>
               <div className="my_row">
                 <div className="my_text title">소속지점</div>
-                <div className="my_text">{myData.branch_type} {myData.company_name} {myData.branch}</div>
+                <div className="my_text">
+                  {myData.branch_type} {myData.company_name} {myData.branch}
+                </div>
                 <div className="my_btn">수정하기</div>
               </div>
               <div className="my_row">
