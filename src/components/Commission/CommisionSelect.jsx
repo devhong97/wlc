@@ -45,7 +45,7 @@ const CommisionSelect = (props, ref) => {
   const getProduct = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/reserv/product_list"
+        "http://localhost:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductList(allData);
@@ -57,7 +57,7 @@ const CommisionSelect = (props, ref) => {
   const getHospital = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/reserv/hospital_list"
+        "http://localhost:3001/api/get/reserv/hospital_list"
       );
       const allData = response.data.data;
       setHospitalList(allData);

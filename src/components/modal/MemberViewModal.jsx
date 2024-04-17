@@ -76,7 +76,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/member_detail",
+        "http://localhost:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -142,7 +142,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://49.50.174.248:3001/api/post/member_edit",
+        "http://localhost:3001/api/post/member_edit",
         paramsArray
       );
 
@@ -156,7 +156,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "http://49.50.174.248:3001/api/post/member_delete",
+        "http://localhost:3001/api/post/member_delete",
         {
           idx: props.detailIdx.idx,
         }
@@ -184,7 +184,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "http://49.50.174.248:3001/api/post/member_status",
+        "http://localhost:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx.idx,
