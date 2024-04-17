@@ -222,7 +222,7 @@ const Aside = (props) => {
                         className="home_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">홈</div>
                       )}
                     </div>
@@ -233,7 +233,7 @@ const Aside = (props) => {
                         className="logout_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">로그아웃</div>
                       )}
                     </div>
@@ -500,7 +500,7 @@ const Aside = (props) => {
                         className="home_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">홈</div>
                       )}
                     </div>
@@ -511,7 +511,7 @@ const Aside = (props) => {
                         className="logout_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">로그아웃</div>
                       )}
                     </div>
@@ -648,7 +648,7 @@ const Aside = (props) => {
                         className="home_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">홈</div>
                       )}
                     </div>
@@ -659,7 +659,7 @@ const Aside = (props) => {
                         className="logout_icon"
 
                       ></div>
-                      {isOpen && (
+                      {mobileOpen && (
                         <div className="menu_text">로그아웃</div>
                       )}
                     </div>
