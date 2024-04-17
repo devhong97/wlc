@@ -9,20 +9,51 @@
         height: 100%;
     }
 
+    .back_btn_box {
+        position: absolute;
+        top: 35px;
+        left: 0;
+        width: 100%;
+        padding: 7px 20px;
+        background-color: #fff;
+        box-shadow: 0px 3px 6px #00000029;
+        z-index: 2;
+        text-align: right;
+
+        &.self {
+            top: 0;
+        }
+
+
+        .back_btn {
+            background-color: #F4F4F4;
+            color: #6C6C6C;
+            font-size: 18px;
+            position: relative;
+            padding: 9px 25px 9px 44px;
+            display: inline-block;
+            border-radius: 10px;
+            cursor: pointer;
+
+            &::after {
+                position: absolute;
+                content: "";
+                top: 50%;
+                left: 20px;
+                transform: translate(0, -50%);
+                @include background-set(7px, 7px, contain);
+                background-image: url("../img/back_arrow.png");
+            }
+        }
+    }
+
     .reserv_back {
         width: 90%;
         margin: 0 auto;
         padding: 80px 0;
         position: relative;
 
-        .back_btn {
-            position: fixed;
-            top: 50px;
-            right: 20px;
-            @include background-set(50px, 50px, contain);
-            background-image: url("../img/arrow_icon.png");
-            transform: rotate(180deg);
-        }
+
 
         &.sign {
             padding: 60px 0;

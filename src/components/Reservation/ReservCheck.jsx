@@ -18,6 +18,9 @@ const ReservCheck = () => {
   };
   return (
     <div className="reserv_wrap">
+      <div className="back_btn_box">
+        <div className="back_btn" onClick={() => navigation(-1)}>뒤로 이동</div>
+      </div>
       <div className="reserv_back">
         <div className="reserv_bottom_box">
           <div className="reserv_check_box">
@@ -80,7 +83,6 @@ const ReservCheck = () => {
             </div>
           </div>
         </div>
-        <div className="back_btn" onClick={() => navigation(-1)}></div>
       </div>
       {infoModal && <ReservInfoModal closeModal={closeModal}></ReservInfoModal>}
     </div>
