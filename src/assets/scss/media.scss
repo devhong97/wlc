@@ -143,15 +143,7 @@
         }
     }
 
-    .reserv_wrap {
-        .reserv_back {
-            width: 80% !important;
 
-            &.product {
-                width: 90% !important;
-            }
-        }
-    }
 }
 
 @media(max-width : 1300px) {
@@ -319,29 +311,35 @@
 
     .reserv_wrap {
         .reserv_back {
+            padding: 30px 0 !important;
+
             .reserv_top_box {
                 .reserv_title {
-                    font-size: 25px !important;
-                    line-height: 30px !important;
+                    font-size: 20px !important;
+
+                    &.sub {
+                        font-size: 15px !important;
+                    }
                 }
             }
 
             .reserv_bottom_box {
+                padding-top: 30px !important;
+
                 .reserv_menu_box {
                     display: block !important;
                     width: 100% !important;
-                    height: 200px !important;
+                    padding: 20px !important;
 
-                    &.right {
-                        margin-left: 0px !important;
-                        margin-top: 20px !important;
+                    &::after {
+                        right: 20px !important;
                     }
 
                     .menu_inner_box {
-                        width: 80% !important;
 
                         .menu_text {
                             font-size: 20px !important;
+                            padding-left: 20px !important;
                         }
                     }
                 }
