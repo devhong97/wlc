@@ -29,7 +29,7 @@ const SalesList = () => {
   const [totalDataDT2, setTotalDataDT2] = useState([]); //영업사원현황 실적관리 날짜데이터
   const [totalDataDT3, setTotalDataDT3] = useState([]); //영업사원현황 실적관리 날짜데이터
   const [searchedData, setSearchedData] = useState([]); //영업사원현황 년,월 검색
-  const [dateArray, setDateArray] = useState([]); // 월 데이터 배열
+  const [calDate, setCalDate] = useState("");
 
   useEffect(() => {
     getSalesTop();
@@ -39,7 +39,7 @@ const SalesList = () => {
   }, []); // 빈 배열 전달하여 한 번만 실행되도록 함
 
   useEffect(() => {
-    console.log("searchedData", searchedData);
+    //console.log("searchedData", searchedData);
   }, [searchedData]);
 
   useEffect(() => {
@@ -169,6 +169,28 @@ const SalesList = () => {
     }
   };
 
+  //검색값 전송
+  const handleSearch = async () => {
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/get/avg_data",
+        {
+          choiceDate: result_date,
+          tab: tab,
+          uid: decodeS1(),
+          branch_idx: decodeS0(),
+        }
+      );
+      console.log("검색데이터:", response.data);
+      setSearchedData(response.data);
+      const rd = result_date.replace(".", "-");
+      setCalDate(rd);
+      console.log("caldate", rd);
+    } catch (error) {
+      console.error("Error searching:", error);
+    }
+  };
+
   //검진완료
   const columns = [
     { field: "id", headerName: "No", flex: 0.5 },
@@ -207,25 +229,29 @@ const SalesList = () => {
     } else if (decodeS4() === "지점관리자") {
       if (num === 1) {
         // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
-        const today = moment(); // 오늘 날짜
+        const today = moment();
+        const month = today.format("YYYY-MM");
+        const daysInMonth = moment(month, "YYYY-MM").daysInMonth();
         const dateArray = [];
         const totalDataArrays = [
           { type: "totalDT1", data: totalDataDT1 },
           { type: "totalDT2", data: totalDataDT2 },
           { type: "totalDT3", data: totalDataDT3 },
         ];
-        // searchedData가 있는 경우 해당 월의 데이터만 추출
+
+        // 검색된 데이터가 있는지 확인
         if (searchedData.length > 0) {
-          console.log("searchedData:", searchedData);
-          searchedData.forEach((item) => {
-            const month = moment(item.cal_date, "YYYY-MM").format("YYYY-MM");
-            if (!dateArray.includes(month)) {
-              dateArray.push(month);
-            }
-          });
-          console.log("dateArray:", dateArray);
+          // 날짜 배열 생성
+          const daysInMonth = moment().daysInMonth();
+          const month = moment().format("YYYY-MM");
+          for (let i = 1; i <= daysInMonth; i++) {
+            const date = moment(month + "-" + i, "YYYY-MM-DD").format(
+              "YYYY-MM-DD"
+            );
+            dateArray.push(date);
+          }
         } else {
-          // searchedData가 없는 경우 7일치 데이터 표시
+          // 7일치 데이터 표시
           for (let i = -3; i <= 3; i++) {
             const date = today.clone().add(i, "days").format("YYYY-MM-DD");
             dateArray.push(date);
@@ -439,45 +465,8 @@ const SalesList = () => {
     setOpenCalendar(false);
   };
 
-  //검색값 전송
-  const handleSearch = async () => {
-    try {
-      const response = await Axios.post(
-        "http://localhost:3001/api/get/avg_data",
-        {
-          choiceDate: result_date,
-          tab: tab,
-          uid: decodeS1(),
-          branch_idx: decodeS0(),
-        }
-      );
-
-      // 서버에서 받은 데이터의 cal_date 필드에서 월 추출
-      const monthArray = response.data.map((item) =>
-        moment(item.cal_date, "YYYY-MM").format("YYYY-MM")
-      );
-
-      // 중복된 월을 제거하고 dateArray에 추가
-      const uniqueMonths = Array.from(new Set(monthArray));
-      setDateArray(uniqueMonths);
-
-      // 검색 결과에 따라 차트를 렌더링
-      if (decodeS4() === "지점관리자") {
-        // 검색 결과에 따라 지점관리자 전용 차트를 렌더링
-        renderApexChart(1);
-      } else if (decodeS4() === "슈퍼관리자") {
-        // 검색 결과에 따라 슈퍼관리자 전용 차트를 렌더링
-        renderApexChart(2);
-      }
-
-      setSearchedData(response.data);
-    } catch (error) {
-      console.error("Error searching:", error);
-    }
-  };
-
   const handleResetSearch = () => {
-    // setSearchKeyword("");
+    setResultDate("");
     // setSearchType("");
   };
 

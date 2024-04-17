@@ -199,7 +199,7 @@ const CustomerSelect = (props, ref) => {
             value={searchOption}
             onChange={(e) => setSearchOption(e.target.value)}
           >
-            <option value="manager">영업자명</option>
+            <option value="manager">영업사원명</option>
             {level !== "지점관리자" && (
               <option value="contractor_name">예약자명</option>
             )}

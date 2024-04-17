@@ -19,6 +19,7 @@ const Home = () => {
   const [grade2Data2, setGrade2Data2] = useState([]);
   const [grade2Data3, setGrade2Data3] = useState([]);
   const [grade2Data4, setGrade2Data4] = useState([]);
+  const [grade2Data5, setGrade2Data5] = useState([]);
 
   const navigation = useNavigate();
 
@@ -67,11 +68,13 @@ const Home = () => {
       const userAccount = gradeData.userAccount;
       const hTotal = gradeData.hTotal;
       const hope = gradeData.hope;
+      const contract = gradeData.contract;
 
       setGrade2Data(branchAccount);
       setGrade2Data2(userAccount);
       setGrade2Data3(hTotal);
       setGrade2Data4(hope);
+      setGrade2Data5(contract);
 
       // console.log(gradeData);
     } catch (error) {
@@ -136,7 +139,7 @@ const Home = () => {
               <div>상담희망고객수: {hopeData}</div>
               <div>총지점수: {totalData}</div>
               <div>총영업자수: {managerData}</div>
-              <div>계약고객수(청약고객수): {contractData} </div>
+              <div>예약고객수(청약고객수): {contractData} </div>
             </div>
           </div>
         </div>
@@ -156,7 +159,7 @@ const Home = () => {
                   <div>지점명: {grade2Data[0].branch_name}</div>
                   <div>지급완료커미션:</div>
                   <div>지점장: {grade2Data[0].owner_name}</div>
-                  <div>계약고객현황: 작업중</div>
+                  <div>예약고객현황: {grade2Data5[0].contractCount}</div>
                   <div>가입고객현황: {grade2Data3[0].totalCount}명</div>
                 </Fragment>
               ) : (
