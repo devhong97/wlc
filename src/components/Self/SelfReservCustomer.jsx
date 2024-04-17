@@ -114,12 +114,22 @@ const SelfReservCustomer = () => {
       return newArray;
     });
   };
-  const moveBack = (num) => {
-    setStep(num);
+
+  const handleBack = () => {
+    if (step === 1) {
+      navigation(-1)
+    } else if (step === 2) {
+      setStep(1)
+    } else {
+      setStep(2)
+    }
   }
 
   return (
     <div className="reserv_wrap self">
+      <div className="back_btn_box self">
+        <div className="back_btn" onClick={() => handleBack()}>뒤로 이동</div>
+      </div>
       {step === 1 && (
         <div className="reserv_back">
           <div className="reserv_top_box">
@@ -200,7 +210,6 @@ const SelfReservCustomer = () => {
               </div>
             </div>
           </div>
-          <div className="back_btn" onClick={() => navigation(-1)}></div>
         </div>
       )}
       {step === 2 && (
@@ -281,7 +290,6 @@ const SelfReservCustomer = () => {
               </div>
             </div>
           </div>
-          <div className="back_btn" onClick={() => moveBack(1)}></div>
         </div>
       )}
       {step === 3 && (
@@ -289,7 +297,6 @@ const SelfReservCustomer = () => {
           <div className="reserv_bottom_box sign">
             <SelfSignComponent checkSign={checkSign}></SelfSignComponent>
           </div>
-          <div className="back_btn" onClick={() => moveBack(2)}></div>
         </div>
       )}
     </div>

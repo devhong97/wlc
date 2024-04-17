@@ -90,6 +90,9 @@ const SearchProduct = () => {
   }, []);
   return (
     <div className="reserv_wrap">
+      <div className="back_btn_box">
+        <div className="back_btn" onClick={() => navigation(-1)}>뒤로 이동</div>
+      </div>
       <div className="reserv_back product">
         <div className="reserv_top_box">
           <div className="reserv_title">상품 찾기</div>
@@ -145,7 +148,7 @@ const SearchProduct = () => {
             })}
           </div>
         </div>
-        <div className="back_btn" onClick={() => navigation(-1)}></div>
+
       </div>
       {modal && (
         <ProductDetailModal
