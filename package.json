@@ -28,6 +28,7 @@
     "react-apexcharts": "^1.4.1",
     "react-calendar": "^4.8.0",
     "react-canvas-draw": "^1.2.1",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.19.0",
     "react-scripts": "5.0.1",

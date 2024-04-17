@@ -127,9 +127,9 @@ const SelfReservCustomer = () => {
 
   return (
     <div className="reserv_wrap self">
-      <div className="back_btn_box self">
+      {/* <div className="back_btn_box self">
         <div className="back_btn" onClick={() => handleBack()}>뒤로 이동</div>
-      </div>
+      </div> */}
       {step === 1 && (
         <div className="reserv_back">
           <div className="reserv_top_box">
