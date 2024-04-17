@@ -6,6 +6,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import AllCustomerModal from "./AllCustomerModal";
 import SignDownModal from "./SignDownModal";
+import { useAuth } from "../Context/AuthContext";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -45,6 +46,8 @@ const CustomerViewModal = (props) => {
   const [resultPrice, setResultPrice] = useState(""); //금액
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
+  const { decodeS4 } = useAuth();
+
   useEffect(() => {
     if (props.detailIdx) {
       setDetailNum(props.detailIdx.idx);
@@ -226,377 +229,270 @@ const CustomerViewModal = (props) => {
     setSignModal(!signModal);
   };
 
-  return (
-    <div className="modal_wrap">
-      <div className="modal_back">
-        <div className="modal_box">
-          <div className="modal_title_box">
-            <div className="modal_title">고객 상세</div>
-            <div className="modal_close_btn" onClick={() => clearModal()}>
-              X
+  let jsxToRender;
+
+  if (decodeS4() === "슈퍼관리자") {
+    jsxToRender = (
+      <div className="modal_wrap">
+        <div className="modal_back">
+          <div className="modal_box">
+            <div className="modal_title_box">
+              <div className="modal_title">고객 상세</div>
+              <div className="modal_close_btn" onClick={() => clearModal()}>
+                X
+              </div>
             </div>
-          </div>
-          <div className="table_box">
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">검진자</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">{customerName}</div>
-                  {inspectionStatus !== "2" && (
-                    <div
-                      className="table_inner_btn"
-                      onClick={() => openAllCustomerModal()}
-                    >
-                      수정
+            <div className="table_box">
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{customerName}</div>
+                    {inspectionStatus !== "2" && (
+                      <div
+                        className="table_inner_btn"
+                        onClick={() => openAllCustomerModal()}
+                      >
+                        수정
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">예약자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.contractor_name}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진인원</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="customerNumber"
+                      placeholder="검진자를 입력해주세요."
+                      value={customerNumber}
+                      onChange={(e) => setCustomerNumber(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">가입일</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {moment(memberData.date).format("YYYY-MM-DD")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진자 연락처</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="cPhone"
+                      placeholder="연락처를 입력해주세요."
+                      value={cPhone}
+                      onChange={(e) => setCPhone(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">예약자 연락처</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="phone"
+                      placeholder="연락처를 입력해주세요."
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">영업자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{memberData.manager}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">지점명</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.company} {memberData.branch}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">상품명</div>
+                  {productList && (
+                    <div className="table_contents w100">
+                      <select
+                        value={product}
+                        onChange={(e) => handleProduct(e.target.value)}
+                        className="table_select"
+                        disabled={inspectionStatus === "2"}
+                      >
+                        <option value="">선택</option>
+                        {productList.map((data, index) => {
+                          return (
+                            <option key={data.idx} value={data.p_key}>
+                              {data.product_1}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  )}
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">병원</div>
+                  {hospitalList && (
+                    <div className="table_contents w100">
+                      <select
+                        value={hospital}
+                        onChange={(e) => handleHospital(e.target.value)}
+                        className="table_select"
+                        disabled={inspectionStatus === "2"}
+                      >
+                        <option value="">선택</option>
+                        {hospitalList.map((data, index) => {
+                          return (
+                            <option key={data.idx} value={data.h_key}>
+                              {data.name}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                   )}
                 </div>
               </div>
-              <div className="table_section half">
-                <div className="table_title">예약자</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {memberData.contractor_name}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">검진인원</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="customerNumber"
-                    placeholder="검진자를 입력해주세요."
-                    value={customerNumber}
-                    onChange={(e) => setCustomerNumber(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">가입일</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {moment(memberData.date).format("YYYY-MM-DD")}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">검진자 연락처</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="cPhone"
-                    placeholder="연락처를 입력해주세요."
-                    value={cPhone}
-                    onChange={(e) => setCPhone(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">예약자 연락처</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="phone"
-                    placeholder="연락처를 입력해주세요."
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">영업자</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">{memberData.manager}</div>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">지점명</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {memberData.company} {memberData.branch}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">상품명</div>
-                {productList && (
-                  <div className="table_contents w100">
-                    <select
-                      value={product}
-                      onChange={(e) => handleProduct(e.target.value)}
-                      className="table_select"
-                      disabled={inspectionStatus === "2"}
-                    >
-                      <option value="">선택</option>
-                      {productList.map((data, index) => {
-                        return (
-                          <option key={data.idx} value={data.p_key}>
-                            {data.product_1}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                )}
-              </div>
-              <div className="table_section half">
-                <div className="table_title">병원</div>
-                {hospitalList && (
-                  <div className="table_contents w100">
-                    <select
-                      value={hospital}
-                      onChange={(e) => handleHospital(e.target.value)}
-                      className="table_select"
-                      disabled={inspectionStatus === "2"}
-                    >
-                      <option value="">선택</option>
-                      {hospitalList.map((data, index) => {
-                        return (
-                          <option key={data.idx} value={data.h_key}>
-                            {data.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">희망일1</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="title"
-                    placeholder="희망일을 입력해주세요."
-                    value={hope_date_1}
-                    onChange={(e) => setHopeDate1(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">희망일2</div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="title"
-                    placeholder="희망일을 입력해주세요."
-                    value={hope_date_2}
-                    onChange={(e) => setHopeDate2(e.target.value)}
-                    disabled={inspectionStatus === "2"}
-                  ></input>
-                </div>
-              </div>
-            </div>
-            <div className="table_row calendar">
-              <div className="table_section half calendar">
-                <div className="table_title">검진확정일</div>
-                <div className="table_contents w100 calendar">
-                  <input
-                    className="table_input w100"
-                    type="text"
-                    id="title"
-                    placeholder="확정일 입력해주세요."
-                    value={result_date}
-                    onClick={() => calendarStatus()}
-                    disabled={inspectionStatus === "2"}
-                    readOnly
-                  ></input>
-                  {openCalendar && (
-                    <Calendar
-                      className="modal_calendar"
-                      onChange={(e) => setFormatDate(e)}
-                      value={resultCalendar}
-                      formatDay={(locale, date) => moment(date).format("DD")}
-                      minDate={moment().toDate()}
-                      calendarType="gregory"
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">검진유무</div>
-                <div className="table_contents w100">
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="inspectionStatus"
-                        value="1"
-                        checked={inspectionStatus === "1"}
-                        onChange={(e) => setInspectionStatus(e.target.value)}
-                      />
-                      검진완료
-                    </label>
-                  </div>
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="inspectionStatus"
-                        value="2"
-                        checked={inspectionStatus === "2"}
-                        onChange={(e) => setInspectionStatus(e.target.value)}
-                      />
-                      검진취소
-                    </label>
-                  </div>
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="inspectionStatus"
-                        value="3"
-                        checked={inspectionStatus === "3"}
-                        onChange={(e) => setInspectionStatus(e.target.value)}
-                      />
-                      검진대기
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">상담희망</div>
-                <div className="table_contents w100">
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="hopeStatus"
-                        value="Y"
-                        checked={hopeStatus === "Y"}
-                        onChange={(e) => setHopeStatus(e.target.value)}
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="hopeStatus"
-                        value="N"
-                        checked={hopeStatus === "N"}
-                        onChange={(e) => setHopeStatus(e.target.value)}
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">마케팅동의여부</div>
-                <div className="table_contents w100">
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="mterms"
-                        value="Y"
-                        checked={m_terms === "Y"}
-                        onChange={(e) => setMTerms(e.target.value)}
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="mterms"
-                        value="N"
-                        checked={m_terms === "N"}
-                        onChange={(e) => setMTerms(e.target.value)}
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">계약유무</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {memberData.contract === "Y" ? "유" : "무"}
-                  </div>
-                </div>
-              </div>
-              <div className="table_section half">
-                <div className="table_title">입금유무</div>
-                <div className="table_contents w100">
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="payStatus"
-                        value="Y"
-                        checked={payStatus === "Y"}
-                        onChange={(e) => setPayStatus(e.target.value)}
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div className="table_radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="payStatus"
-                        value="N"
-                        checked={payStatus === "N"}
-                        onChange={(e) => setPayStatus(e.target.value)}
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">입금금액</div>
-                <div className="table_contents w100">
-                  <div className="table_inner_text">
-                    {memberData.price * customerNumber} 원
-                  </div>
-                </div>
-              </div>
-            </div>
-            {inspectionStatus === "2" && (
               <div className="table_row">
                 <div className="table_section half">
-                  <div className="table_title">환불여부</div>
+                  <div className="table_title">희망일1</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="title"
+                      placeholder="희망일을 입력해주세요."
+                      value={hope_date_1}
+                      onChange={(e) => setHopeDate1(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">희망일2</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="title"
+                      placeholder="희망일을 입력해주세요."
+                      value={hope_date_2}
+                      onChange={(e) => setHopeDate2(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row calendar">
+                <div className="table_section half calendar">
+                  <div className="table_title">검진확정일</div>
+                  <div className="table_contents w100 calendar">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="title"
+                      placeholder="확정일 입력해주세요."
+                      value={result_date}
+                      onClick={() => calendarStatus()}
+                      disabled={inspectionStatus === "2"}
+                      readOnly
+                    ></input>
+                    {openCalendar && (
+                      <Calendar
+                        className="modal_calendar"
+                        onChange={(e) => setFormatDate(e)}
+                        value={resultCalendar}
+                        formatDay={(locale, date) => moment(date).format("DD")}
+                        minDate={moment().toDate()}
+                        calendarType="gregory"
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">검진유무</div>
                   <div className="table_contents w100">
                     <div className="table_radio">
                       <label>
                         <input
                           type="radio"
-                          name="refundStatus"
+                          name="inspectionStatus"
+                          value="1"
+                          checked={inspectionStatus === "1"}
+                          onChange={(e) => setInspectionStatus(e.target.value)}
+                        />
+                        검진완료
+                      </label>
+                    </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="inspectionStatus"
+                          value="2"
+                          checked={inspectionStatus === "2"}
+                          onChange={(e) => setInspectionStatus(e.target.value)}
+                        />
+                        검진취소
+                      </label>
+                    </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="inspectionStatus"
+                          value="3"
+                          checked={inspectionStatus === "3"}
+                          onChange={(e) => setInspectionStatus(e.target.value)}
+                        />
+                        검진대기
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">상담희망</div>
+                  <div className="table_contents w100">
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="hopeStatus"
                           value="Y"
-                          checked={refundStatus === "Y"}
-                          onChange={(e) => setRefundStatus(e.target.value)}
+                          checked={hopeStatus === "Y"}
+                          onChange={(e) => setHopeStatus(e.target.value)}
                         />
                         Yes
                       </label>
@@ -605,10 +501,39 @@ const CustomerViewModal = (props) => {
                       <label>
                         <input
                           type="radio"
-                          name="refundStatus"
+                          name="hopeStatus"
                           value="N"
-                          checked={refundStatus === "N"}
-                          onChange={(e) => setRefundStatus(e.target.value)}
+                          checked={hopeStatus === "N"}
+                          onChange={(e) => setHopeStatus(e.target.value)}
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">마케팅동의여부</div>
+                  <div className="table_contents w100">
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="mterms"
+                          value="Y"
+                          checked={m_terms === "Y"}
+                          onChange={(e) => setMTerms(e.target.value)}
+                        />
+                        Yes
+                      </label>
+                    </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="mterms"
+                          value="N"
+                          checked={m_terms === "N"}
+                          onChange={(e) => setMTerms(e.target.value)}
                         />
                         No
                       </label>
@@ -616,61 +541,196 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
               </div>
-            )}
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title image">비고</div>
-                <div className="table_contents w100">
-                  <textarea
-                    className="table_textarea"
-                    value={memo}
-                    onChange={(e) => setMemo(e.target.value)}
-                  ></textarea>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">예약유무</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.contract === "Y" ? "유" : "무"}
+                    </div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">입금유무</div>
+                  <div className="table_contents w100">
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="payStatus"
+                          value="Y"
+                          checked={payStatus === "Y"}
+                          onChange={(e) => setPayStatus(e.target.value)}
+                        />
+                        Yes
+                      </label>
+                    </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="payStatus"
+                          value="N"
+                          checked={payStatus === "N"}
+                          onChange={(e) => setPayStatus(e.target.value)}
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="table_row">
-              <div className="table_section">
-                <div className="table_title">계약서</div>
-                <div className="table_contents w100">
-                  <div
-                    className="table_inner_btn sign"
-                    onClick={() => openSignModal()}
-                  >
-                    확인하기
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">입금금액</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.price * customerNumber} 원
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {inspectionStatus === "2" && (
+                <div className="table_row">
+                  <div className="table_section half">
+                    <div className="table_title">환불여부</div>
+                    <div className="table_contents w100">
+                      <div className="table_radio">
+                        <label>
+                          <input
+                            type="radio"
+                            name="refundStatus"
+                            value="Y"
+                            checked={refundStatus === "Y"}
+                            onChange={(e) => setRefundStatus(e.target.value)}
+                          />
+                          Yes
+                        </label>
+                      </div>
+                      <div className="table_radio">
+                        <label>
+                          <input
+                            type="radio"
+                            name="refundStatus"
+                            value="N"
+                            checked={refundStatus === "N"}
+                            onChange={(e) => setRefundStatus(e.target.value)}
+                          />
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title image">비고</div>
+                  <div className="table_contents w100">
+                    <textarea
+                      className="table_textarea"
+                      value={memo}
+                      onChange={(e) => setMemo(e.target.value)}
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">계약서</div>
+                  <div className="table_contents w100">
+                    <div
+                      className="table_inner_btn sign"
+                      onClick={() => openSignModal()}
+                    >
+                      확인하기
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="modal_footer_box">
-            <div className="modal_btn" onClick={() => handleSubmit()}>
-              수정
-            </div>
-            <div className="modal_btn close" onClick={clearModal}>
-              닫기
+            <div className="modal_footer_box">
+              <div className="modal_btn" onClick={() => handleSubmit()}>
+                수정
+              </div>
+              <div className="modal_btn close" onClick={clearModal}>
+                닫기
+              </div>
             </div>
           </div>
         </div>
+        {allModal && (
+          <AllCustomerModal
+            closeModal={openAllCustomerModal}
+            subData={subData}
+            setCustomerNumber={setCustomerNumber}
+          ></AllCustomerModal>
+        )}
+        {signModal && (
+          <SignDownModal
+            closeModal={openSignModal}
+            sign_img_1={memberData.sign_img_1}
+            sign_img_2={memberData.sign_img_2}
+            contractorName={memberData.contractor_name}
+          ></SignDownModal>
+        )}
       </div>
-      {allModal && (
-        <AllCustomerModal
-          closeModal={openAllCustomerModal}
-          subData={subData}
-          setCustomerNumber={setCustomerNumber}
-        ></AllCustomerModal>
-      )}
-      {signModal && (
-        <SignDownModal
-          closeModal={openSignModal}
-          sign_img_1={memberData.sign_img_1}
-          sign_img_2={memberData.sign_img_2}
-          contractorName={memberData.contractor_name}
-        ></SignDownModal>
-      )}
-    </div>
-  );
+    );
+  } else if (decodeS4() === "지점관리자") {
+    jsxToRender = (
+      <div className="modal_wrap">
+        <div className="modal_back">
+          <div className="modal_box">
+            <div className="modal_title_box">
+              <div className="modal_title">고객상세 비고</div>
+              <div className="modal_close_btn" onClick={() => clearModal()}>
+                X
+              </div>
+            </div>
+            <div className="table_box">
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title image">비고</div>
+                  <div className="table_contents w100">
+                    <textarea
+                      className="table_textarea"
+                      value={memo}
+                      onChange={(e) => setMemo(e.target.value)}
+                      readOnly // readOnly 속성 추가
+                      style={{ backgroundColor: "#f2f2f2" }} // 연한 회색 배경색상 적용
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal_footer_box">
+              <div className="modal_btn close" onClick={clearModal}>
+                닫기
+              </div>
+            </div>
+          </div>
+        </div>
+        {allModal && (
+          <AllCustomerModal
+            closeModal={openAllCustomerModal}
+            subData={subData}
+            setCustomerNumber={setCustomerNumber}
+          ></AllCustomerModal>
+        )}
+        {signModal && (
+          <SignDownModal
+            closeModal={openSignModal}
+            sign_img_1={memberData.sign_img_1}
+            sign_img_2={memberData.sign_img_2}
+            contractorName={memberData.contractor_name}
+          ></SignDownModal>
+        )}
+      </div>
+    );
+  }
+  return jsxToRender;
 };
 
 export default CustomerViewModal;

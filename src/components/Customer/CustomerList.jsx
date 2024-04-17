@@ -151,7 +151,7 @@ const CustomerList = () => {
   //지점장
   const columnsManager = [
     { field: "id", headerName: "No" },
-    { field: "contractor_name", headerName: "계약자" },
+    { field: "contractor_name", headerName: "예약자" },
     { field: "name", headerName: "검진자" },
     { field: "phone", headerName: "연락처" },
     { field: "date", headerName: "가입일" },
@@ -160,7 +160,7 @@ const CustomerList = () => {
     { field: "result_date", headerName: "검진일" },
     { field: "manager", headerName: "영업사원" },
     { field: "hope_status", headerName: "상담희망" },
-    { field: "contract", headerName: "계약유무" },
+    { field: "contract", headerName: "예약유무" },
     { field: "memo", headerName: "비고" },
   ];
 
@@ -275,7 +275,7 @@ const CustomerList = () => {
                 상담희망고객: {numberData.hopeNum}
               </div>
               <div className="total_box">
-                계약고객: {numberData.contractNum}
+                예약고객: {numberData.contractNum}
               </div>
             </div>
           </div>
@@ -352,7 +352,7 @@ const CustomerList = () => {
                 상담희망고객수: {numberData.hopeNum}
               </div>
               <div className="total_box">
-                계약고객수: {numberData.contractNum}
+                예약고객수: {numberData.contractNum}
               </div>
             </div>
           </div>
@@ -385,7 +385,7 @@ const CustomerList = () => {
                     className={`tab_menu ${tab === 2 && "active"}`}
                     onClick={() => changeTab(2)}
                   >
-                    계약고객
+                    예약고객
                   </div>
                 </div>
               </div>
