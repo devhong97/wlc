@@ -30,10 +30,8 @@ const Link = () => {
                 <div className="main_title_box blank">링크</div>
                 <div className="main_sub_title">고객에서 예약링크를 전송할 수 있습니다.</div>
                 <div className="mypage_area">
-                    <div className="mypage_container">
-
+                    <div className="mypage_container link">
                         <div className="mypage_contents_box">
-
                             <div className="my_row">
                                 <div className="my_text title">링크</div>
                                 <div className="my_text" onClick={() => movePage()}>http://localhost:3000/self/{uid}</div>
