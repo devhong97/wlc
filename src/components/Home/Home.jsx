@@ -20,6 +20,7 @@ const Home = () => {
   const [grade2Data2, setGrade2Data2] = useState([]);
   const [grade2Data3, setGrade2Data3] = useState([]);
   const [grade2Data4, setGrade2Data4] = useState([]);
+  const [grade2Data5, setGrade2Data5] = useState([]);
   const [productData, setProductData] = useState([]);
   const [productModal, setProductModal] = useState(false);
   const [selectProduct, setSelectProduct] = useState([]);
@@ -61,11 +62,11 @@ const Home = () => {
         "http://localhost:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
-      setProductData(allData)
+      setProductData(allData);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //지점장 페이지
   const grade2TotalData = async () => {
@@ -84,11 +85,13 @@ const Home = () => {
       const userAccount = gradeData.userAccount;
       const hTotal = gradeData.hTotal;
       const hope = gradeData.hope;
+      const contract = gradeData.contract;
 
       setGrade2Data(branchAccount);
       setGrade2Data2(userAccount);
       setGrade2Data3(hTotal);
       setGrade2Data4(hope);
+      setGrade2Data5(contract);
 
       // console.log(gradeData);
     } catch (error) {
@@ -136,12 +139,12 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => { };
+  const viewModalOpen = () => {};
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
-    setSelectProduct(data)
-  }
+    setSelectProduct(data);
+  };
 
   let decodeResult;
 
@@ -169,17 +172,21 @@ const Home = () => {
         <div className="main_wrap">
           <div className="main_back">
             <div className="super_wrap">
-              {grade2Data.length > 0 && grade2Data2.length > 0 ? (
+              {grade2Data.length > 0 &&
+              grade2Data2.length > 0 &&
+              grade2Data3.length > 0 &&
+              grade2Data4.length > 0 &&
+              grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>
                   <div>회사명: {grade2Data[0].company_name}</div>
-                  <div>상담희망고객: {grade2Data4[0].hopeCount}명</div>
-                  <div>지점명: {grade2Data[0].branch_name}</div>
-                  <div>지급완료커미션:</div>
-                  <div>지점장: {grade2Data[0].owner_name}</div>
-                  <div>계약고객현황: 작업중</div>
                   <div>가입고객현황: {grade2Data3[0].totalCount}명</div>
+                  <div>지점명: {grade2Data[0].branch_name}</div>
+                  <div>상담희망고객: {grade2Data4[0].hopeCount}명</div>
+                  <div>지점장: {grade2Data[0].owner_name}</div>
+                  <div>계약고객현황: {grade2Data5[0].contractCount}명</div>
+                  <div>지급완료커미션: -</div>
                 </Fragment>
               ) : (
                 <div>데이터가 없습니다.</div>
@@ -214,8 +221,12 @@ const Home = () => {
                         <div className={`product_icon icon${data.p_key}`}></div>
                       </div>
                       <div className="product_text title">{data.product_1}</div>
-                      <div className="product_text info">{data.product_1} 등급의 검진 패키지 상품입니다.</div>
-                      <div className="product_text og_price">{Number(data.og_price).toLocaleString()}원</div>
+                      <div className="product_text info">
+                        {data.product_1} 등급의 검진 패키지 상품입니다.
+                      </div>
+                      <div className="product_text og_price">
+                        {Number(data.og_price).toLocaleString()}원
+                      </div>
                       {data.p_key === "2" ? (
                         <div className="product_text price">
                           {Number(data.price_txt * 2).toLocaleString()}원 (2인)
@@ -225,11 +236,15 @@ const Home = () => {
                           {Number(data.price_txt).toLocaleString()}원 (1인)
                         </div>
                       )}
-                      <div className="product_more_btn" onClick={() => productDetailOpen(data)}>상세보기</div>
+                      <div
+                        className="product_more_btn"
+                        onClick={() => productDetailOpen(data)}
+                      >
+                        상세보기
+                      </div>
                     </div>
                   );
                 })}
-
               </div>
             </div>
             <div className="main_title_box blank">
@@ -246,7 +261,8 @@ const Home = () => {
           {productModal && (
             <ProductDetailModal
               closeModal={productDetailOpen}
-              modalData={selectProduct}></ProductDetailModal>
+              modalData={selectProduct}
+            ></ProductDetailModal>
           )}
         </div>
       );

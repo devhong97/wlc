@@ -390,11 +390,26 @@ const CustomerList = () => {
                 </div>
               </div>
               <div className="table_box tab_list">
-                <TableDefault
-                  rows={rows}
-                  columns={columnsManager}
-                  viewModalOpen={viewModalOpen}
-                ></TableDefault>
+                {rows.length === 0 ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      textAlign: "center",
+                      border: "1px solid #ccc",
+                      padding: "100px",
+                      fontSize: "18px",
+                      background: "white",
+                    }}
+                  >
+                    데이터가 존재하지 않습니다.
+                  </div>
+                ) : (
+                  <TableDefault
+                    rows={rows}
+                    columns={columnsManager}
+                    viewModalOpen={viewModalOpen}
+                  ></TableDefault>
+                )}
               </div>
             </div>
             <div className="pagination_box">
