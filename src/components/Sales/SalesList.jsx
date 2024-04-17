@@ -18,7 +18,7 @@ const SalesList = () => {
   const [contractCount, setContractCount] = useState(0);
   const [hopeCount, setHopeCount] = useState(0);
   const { decodeS0, decodeS1, decodeS4 } = useAuth();
-  const [tab, setTab] = useState(2);
+  const [tab, setTab] = useState(1);
   const [result_date, setResultDate] = useState(""); //검진확정일
   const [resultCalendar, setResultCalendar] = useState(""); //검진확정일 달력데이터
   const [openCalendar, setOpenCalendar] = useState(false); //달력오픈
@@ -29,6 +29,7 @@ const SalesList = () => {
   const [totalDataDT2, setTotalDataDT2] = useState([]); //영업사원현황 실적관리 날짜데이터
   const [totalDataDT3, setTotalDataDT3] = useState([]); //영업사원현황 실적관리 날짜데이터
   const [searchedData, setSearchedData] = useState([]); //영업사원현황 년,월 검색
+  const [monthValue, setMonthValue] = useState("");
 
   useEffect(() => {
     getSalesTop();
@@ -190,7 +191,13 @@ const SalesList = () => {
         }
       );
       console.log("검색데이터:", response.data);
-      setSearchedData(response.data);
+      const allData = response.data;
+      if (allData) {
+        setSearchedData(response.data);
+        renderApexChart(tab);
+      } else {
+        alert("검색 결과가 없습니다.")
+      }
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -388,7 +395,7 @@ const SalesList = () => {
         },
       };
     } else if (decodeS4() === "지점관리자") {
-      if (num === 1) {
+      if (num !== 1) {
         // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
         const today = moment();
         const month = today.format("YYYY-MM");
@@ -403,14 +410,16 @@ const SalesList = () => {
         // 검색된 데이터가 있는지 확인
         if (searchedData.length > 0) {
           // 날짜 배열 생성
-          const daysInMonth = moment().daysInMonth();
-          const month = moment().format("YYYY-MM");
+          const daysInMonth = moment(monthValue, "MM").daysInMonth();
+          const month = moment().set("month", monthValue - 1).format("YYYY-MM");
           for (let i = 1; i <= daysInMonth; i++) {
             const date = moment(month + "-" + i, "YYYY-MM-DD").format(
               "YYYY-MM-DD"
             );
             dateArray.push(date);
           }
+          console.log(dateArray);
+          console.log(monthValue);
         } else {
           // 7일치 데이터 표시
           for (let i = -3; i <= 3; i++) {
@@ -418,7 +427,6 @@ const SalesList = () => {
             dateArray.push(date);
           }
         }
-
         const filteredData = {};
         dateArray.forEach((date) => {
           filteredData[date] = {
@@ -607,6 +615,8 @@ const SalesList = () => {
     setTab(num);
     setViewModal(false);
     setDetailIdx([]);
+    setSearchedData([]);
+    setResultDate("");
 
     if (decodeS4() === "지점관리자") {
       renderApexChart(num);
@@ -621,6 +631,8 @@ const SalesList = () => {
 
   const setFormatDate = (date) => {
     const momentDate = moment(date).format("YYYY.MM");
+    const monthValue = moment(date).format("MM");
+    setMonthValue(monthValue)
     setResultDate(momentDate);
     setResultCalendar(date);
     setOpenCalendar(false);
@@ -683,13 +695,13 @@ const SalesList = () => {
         <div className="main_back">
           <div className="main_title_box">
             매출 관리
-            {tab === 2 && (
+            {tab === 1 && (
               <div className="total_data_box">
                 <div className="total_box">커미션합계 : 1</div>
                 <div className="total_box">지급예정커미션 : 1</div>
               </div>
             )}
-            {tab === 1 && (
+            {tab === 2 && (
               <div className="total_data_box">
                 <div className="total_box">가입고객현황 : {totalData}</div>
                 <div className="total_box">상담희망고객현황 : {hopeData}</div>
@@ -718,11 +730,9 @@ const SalesList = () => {
                         {openCalendar && (
                           <Calendar
                             className="chart_calendar"
-                            onChange={(date) => setFormatDate(date)}
+                            onChange={(e) => setFormatDate(e)}
                             value={resultCalendar}
                             minDate={null} // 모든 년도 선택 가능하도록 null로 설정
-                            defaultView="year"
-                            maxDetail="year"
                             calendarType="gregory"
                           />
                         )}
@@ -746,9 +756,11 @@ const SalesList = () => {
                         {openCalendar && (
                           <Calendar
                             className="chart_calendar"
-                            onChange={(e) => setFormatDate(e)}
+                            onChange={(date) => setFormatDate(date)}
                             value={resultCalendar}
                             minDate={null} // 모든 년도 선택 가능하도록 null로 설정
+                            defaultView="year"
+                            maxDetail="year"
                             calendarType="gregory"
                           />
                         )}
@@ -787,14 +799,14 @@ const SalesList = () => {
               <div className="tab_area">
                 <div className="tab_back">
                   <div
-                    className={`tab_menu ${tab === 2 && "active"}`}
-                    onClick={() => changeTab(2)}
+                    className={`tab_menu ${tab === 1 && "active"}`}
+                    onClick={() => changeTab(1)}
                   >
                     커미션현황
                   </div>
                   <div
-                    className={`tab_menu ${tab === 1 && "active"}`}
-                    onClick={() => changeTab(1)}
+                    className={`tab_menu ${tab === 2 && "active"}`}
+                    onClick={() => changeTab(2)}
                   >
                     영업사원실적현황
                   </div>
