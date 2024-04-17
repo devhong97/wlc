@@ -33,7 +33,7 @@ const SearchHospital = () => {
       setParams.searchData = searchData;
     }
 
-    Axios.get(`http://49.50.174.248:3001/api/get/reserv/${resultApi}`, {
+    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {

@@ -13,14 +13,11 @@ const Mypage = () => {
 
   const getMyData = async () => {
     try {
-      const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/mydata",
-        {
-          params: {
-            uid: decodeS1(),
-          },
-        }
-      );
+      const response = await Axios.get("http://localhost:3001/api/get/mydata", {
+        params: {
+          uid: decodeS1(),
+        },
+      });
       const allData = response.data.data;
       console.log(allData);
       setMyData(allData[0]);
