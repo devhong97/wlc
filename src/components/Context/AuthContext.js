@@ -37,18 +37,16 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 쿠키 만료시간 및 알람메세지
   useEffect(() => {
     if (loginAccess) {
-      const timeout = 6000000; // 10분
+      const timeout = 900000; // 15분
       let remainingTime = timeout;
 
       const timer = setInterval(() => {
         remainingTime -= 1000;
         if (remainingTime <= 0) {
           clearInterval(timer);
-          logout();
-          alert("세션 시간이 만료되었습니다.");
+          logout2();
         } else {
           const minutes = Math.floor(remainingTime / 60000);
           const seconds = Math.floor((remainingTime % 60000) / 1000);
@@ -102,6 +100,26 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S4");
     Cookies.remove("S5");
     alert("로그아웃 되었습니다.");
+    navigate("/");
+  };
+
+  //세션만료 로그아웃
+  const logout2 = () => {
+    setLoginAccess(false);
+    setBranchIdx("");
+    setUid("");
+    setName("");
+    setBranch("");
+    setGrade("");
+    setId("");
+    Cookies.remove("Access");
+    Cookies.remove("S0");
+    Cookies.remove("S1");
+    Cookies.remove("S2");
+    Cookies.remove("S3");
+    Cookies.remove("S4");
+    Cookies.remove("S5");
+    alert("세션시간이 만료되었습니다.\n다시 로그인해주세요.");
     navigate("/");
   };
 
