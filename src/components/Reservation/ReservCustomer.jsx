@@ -114,12 +114,23 @@ const ReservCustomer = () => {
       return newArray;
     });
   };
-  const moveBack = (num) => {
-    setStep(num);
-  };
+
+
+  const handleBack = () => {
+    if (step === 1) {
+      navigation(-1)
+    } else if (step === 2) {
+      setStep(1)
+    } else {
+      setStep(2)
+    }
+  }
 
   return (
     <div className="reserv_wrap">
+      <div className="back_btn_box">
+        <div className="back_btn" onClick={() => handleBack()}>뒤로 이동</div>
+      </div>
       {step === 1 && (
         <div className="reserv_back">
           <div className="reserv_top_box">
@@ -200,7 +211,6 @@ const ReservCustomer = () => {
               </div>
             </div>
           </div>
-          <div className="back_btn" onClick={() => navigation(-1)}></div>
         </div>
       )}
       {step === 2 && (
@@ -220,9 +230,8 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -253,9 +262,8 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"
@@ -283,7 +291,6 @@ const ReservCustomer = () => {
               </div>
             </div>
           </div>
-          <div className="back_btn" onClick={() => moveBack(1)}></div>
         </div>
       )}
       {step === 3 && (
@@ -291,7 +298,6 @@ const ReservCustomer = () => {
           <div className="reserv_bottom_box sign">
             <SignComponent checkSign={checkSign}></SignComponent>
           </div>
-          <div className="back_btn" onClick={() => moveBack(2)}></div>
         </div>
       )}
     </div>

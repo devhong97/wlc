@@ -80,7 +80,6 @@ const SelfReservCheck = () => {
             </div>
           </div>
         </div>
-        <div className="back_btn" onClick={() => navigation(-1)}></div>
       </div>
       {infoModal && <ReservInfoModal closeModal={closeModal}></ReservInfoModal>}
     </div>
