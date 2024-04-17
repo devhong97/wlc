@@ -225,7 +225,163 @@ const SalesList = () => {
     let options;
 
     if (decodeS4() === "슈퍼관리자") {
-      //대기
+      // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
+      const today = moment();
+      const month = today.format("YYYY-MM");
+      const daysInMonth = moment(month, "YYYY-MM").daysInMonth();
+      const dateArray = [];
+      const totalDataArrays = [
+        { type: "totalDT1", data: totalDataDT1 },
+        { type: "totalDT2", data: totalDataDT2 },
+        { type: "totalDT3", data: totalDataDT3 },
+      ];
+
+      // 검색된 데이터가 있는지 확인
+      if (searchedData.length > 0) {
+        // 날짜 배열 생성
+        const daysInMonth = moment().daysInMonth();
+        const month = moment().format("YYYY-MM");
+        for (let i = 1; i <= daysInMonth; i++) {
+          const date = moment(month + "-" + i, "YYYY-MM-DD").format(
+            "YYYY-MM-DD"
+          );
+          dateArray.push(date);
+        }
+      } else {
+        // 7일치 데이터 표시
+        for (let i = -3; i <= 3; i++) {
+          const date = today.clone().add(i, "days").format("YYYY-MM-DD");
+          dateArray.push(date);
+        }
+      }
+
+      const filteredData = {};
+      dateArray.forEach((date) => {
+        filteredData[date] = {
+          totalDT1: 0,
+          totalDT2: 0,
+          totalDT3: 0,
+        };
+        const searchData = searchedData.find(
+          (item) => moment(item.date).format("YYYY-MM") === date
+        );
+        if (searchData) {
+          filteredData[date].totalDT1 = searchData.totalDT1;
+          filteredData[date].totalDT2 = searchData.totalDT2;
+          filteredData[date].totalDT3 = searchData.totalDT3;
+        }
+      });
+
+      // 각 날짜별로 데이터 수집
+      totalDataArrays.forEach((totalData, index) => {
+        dateArray.forEach((date) => {
+          totalData.data.forEach((data) => {
+            if (moment(data.date).format("YYYY-MM-DD") === date) {
+              filteredData[date][totalData.type]++;
+            }
+          });
+        });
+      });
+
+      options = {
+        series: [
+          {
+            name: "가입고객수",
+            type: "bar",
+            data: dateArray.map((date) => filteredData[date].totalDT1),
+          },
+          {
+            name: "상담희망고객수",
+            type: "bar",
+            data: dateArray.map((date) => filteredData[date].totalDT2),
+          },
+          {
+            name: "계약고객현황",
+            type: "bar",
+            data: dateArray.map((date) => filteredData[date].totalDT3),
+          },
+        ],
+        dataLabels: {
+          enabled: false,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+          },
+        },
+        legend: {
+          tooltipHoverFormatter: function (val, opts) {
+            return (
+              val +
+              " - <strong>" +
+              opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
+              "</strong>"
+            );
+          },
+        },
+        tooltip: {
+          y: [
+            {
+              title: {
+                formatter: function (val) {
+                  return val;
+                },
+              },
+            },
+            {
+              title: {
+                formatter: function (val) {
+                  return val;
+                },
+              },
+            },
+            {
+              title: {
+                formatter: function (val) {
+                  return val;
+                },
+              },
+            },
+          ],
+        },
+        chart: {
+          type: "bar",
+          height: 350,
+          stacked: true,
+          stackType: "100%",
+        },
+        title: {
+          text: "매출현황 - 작업중",
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: "bottom",
+                offsetX: -10,
+                offsetY: 0,
+              },
+            },
+          },
+        ],
+        fill: {
+          opacity: 1,
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return Math.round(val) + "%";
+          },
+          style: {
+            fontSize: "12px",
+            colors: ["#304758"],
+          },
+        },
+        xaxis: {
+          categories: dateArray,
+        },
+      };
     } else if (decodeS4() === "지점관리자") {
       if (num === 1) {
         // (영업사원현황)num이 1일 때 지점관리자 전용 차트(영업사원현황)
