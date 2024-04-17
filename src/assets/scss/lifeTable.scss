@@ -12,6 +12,10 @@
   &.notice {
     padding: 0 20px;
   }
+
+  &.chart {
+    height: 100%;
+  }
 }
 
 .table_row {
@@ -507,6 +511,10 @@
   width: 100%;
   position: relative;
 
+  &.chart {
+    height: 100%;
+  }
+
   &.reserv {
     padding-top: 30px;
 
@@ -658,6 +666,13 @@
     display: inline-block;
     vertical-align: middle;
 
+
+    .chart_calendar {
+      position: absolute;
+      top: 50px;
+      z-index: 3;
+    }
+
     .list_input {
       display: inline-block;
       padding: 10px 15px;
@@ -669,6 +684,10 @@
       font-size: 17px;
       margin-right: 10px;
       vertical-align: middle;
+
+      &.chart {
+        margin-left: 0;
+      }
     }
 
     .list_search {
@@ -1764,5 +1783,9 @@
 }
 
 #chart {
-  padding-top: 50px;
+  padding: 20px;
+  background-color: #fff;
+  margin: 0 20px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
 }
