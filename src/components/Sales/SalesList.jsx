@@ -634,8 +634,8 @@ const SalesList = () => {
       <div className="main_wrap">
         <div className="main_back">
           <div className="main_title_box">매출 관리</div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="search_box">
                 <div className="list_select_area">
                   <div className="search_select">
@@ -692,56 +692,62 @@ const SalesList = () => {
               </div>
             )}
           </div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="search_box">
                 <div className="list_select_area">
                   {tab === 1 && (
                     <div className="search_select">
-                      <input
-                        className="table_input w100"
-                        type="text"
-                        id="title"
-                        placeholder="확정일 입력해주세요."
-                        value={result_date}
-                        onClick={() => calendarStatus()}
-                        disabled={inspectionStatus === "2"}
-                        readOnly
-                      ></input>
-                      {openCalendar && (
-                        <Calendar
-                          className="modal_calendar"
-                          onChange={(date) => setFormatDate(date)}
-                          value={resultCalendar}
-                          minDate={null} // 모든 년도 선택 가능하도록 null로 설정
-                          defaultView="year"
-                          maxDetail="year"
-                          calendarType="gregory"
-                        />
-                      )}
+                      <div className="search_input">
+                        <input
+                          className="list_input chart"
+                          type="text"
+                          id="title"
+                          placeholder="확정일 입력해주세요."
+                          value={result_date}
+                          onClick={() => calendarStatus()}
+                          disabled={inspectionStatus === "2"}
+                          readOnly
+                        ></input>
+
+                        {openCalendar && (
+                          <Calendar
+                            className="chart_calendar"
+                            onChange={(date) => setFormatDate(date)}
+                            value={resultCalendar}
+                            minDate={null} // 모든 년도 선택 가능하도록 null로 설정
+                            defaultView="year"
+                            maxDetail="year"
+                            calendarType="gregory"
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
                   {tab === 2 && (
                     <div className="search_select">
-                      <input
-                        className="table_input w100"
-                        type="text"
-                        id="title"
-                        placeholder="확정일 입력해주세요."
-                        value={result_date}
-                        onClick={() => calendarStatus()}
-                        disabled={inspectionStatus === "2"}
-                        readOnly
-                      ></input>
-                      {openCalendar && (
-                        <Calendar
-                          className="modal_calendar"
-                          onChange={(e) => setFormatDate(e)}
-                          value={resultCalendar}
-                          minDate={null} // 모든 년도 선택 가능하도록 null로 설정
-                          calendarType="gregory"
-                        />
-                      )}
+                      <div className="search_input">
+                        <input
+                          className="list_input chart"
+                          type="text"
+                          id="title"
+                          placeholder="확정일 입력해주세요."
+                          value={result_date}
+                          onClick={() => calendarStatus()}
+                          disabled={inspectionStatus === "2"}
+                          readOnly
+                        ></input>
+
+                        {openCalendar && (
+                          <Calendar
+                            className="chart_calendar"
+                            onChange={(e) => setFormatDate(e)}
+                            value={resultCalendar}
+                            minDate={null} // 모든 년도 선택 가능하도록 null로 설정
+                            calendarType="gregory"
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
                   <div className="search_input">
@@ -801,8 +807,8 @@ const SalesList = () => {
       <div className="main_wrap">
         <div className="main_back">
           <div className="main_title_box">실적 관리</div>
-          <div className="board_list_wrap">
-            <div className="list_area">
+          <div className="board_list_wrap chart">
+            <div className="list_area chart">
               <div className="sales-info-container">
                 <div className="sales-info-item">
                   <div className="sales-info-title">
