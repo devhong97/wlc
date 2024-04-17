@@ -76,7 +76,7 @@ const HospitalViewModal = (props) => {
   }, [city]);
 
   const getCity = () => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("http://49.50.174.248:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -85,7 +85,7 @@ const HospitalViewModal = (props) => {
       });
   };
   const getDistrict = () => {
-    Axios.get(`http://localhost:3001/api/get/districts/${city}`)
+    Axios.get(`http://49.50.174.248:3001/api/get/districts/${city}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -117,7 +117,7 @@ const HospitalViewModal = (props) => {
       const number = `${tel1}-${tel2}-${tel3}`;
       console.log(name);
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_modify",
+        "http://49.50.174.248:3001/api/post/hospital_modify",
         {
           name: name,
           number: number,
@@ -156,7 +156,7 @@ const HospitalViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/hospital_delete",
+        "http://49.50.174.248:3001/api/post/hospital_delete",
         data
       );
       alert("병원이 삭제되었습니다.");
