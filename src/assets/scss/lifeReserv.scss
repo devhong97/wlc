@@ -5,6 +5,10 @@
     width: 100%;
     height: calc(100% - 40px);
 
+    &.self {
+        height: 100%;
+    }
+
     .reserv_back {
         width: 90%;
         margin: 0 auto;

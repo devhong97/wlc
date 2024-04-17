@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useReservContext } from "../Context/ReservContext";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 const ReservInfoModal = (props) => {
   const {
@@ -13,12 +13,24 @@ const ReservInfoModal = (props) => {
     hopeDate1,
     hopeDate2,
     uploadFiles,
+    selfUrl
   } = useReservContext();
   const { decodeS3, decodeS1 } = useAuth();
   const navigation = useNavigate();
+  const location = useLocation();
+  const path = location.pathname;
+  const parts = path.split('/');
+  const target = parts[1];
+
 
   const submitHandle = async () => {
-    let uid = decodeS1();
+    let uid = "";
+    if (target === "self") {
+      uid = parts[2];
+    } else {
+      uid = decodeS1();
+    }
+
     let termsStatus = "N";
     if (customerData.m_terms === true) {
       termsStatus = "Y";
