@@ -53,7 +53,7 @@ const CustomerList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_list",
+        "http://49.50.174.248:3001/api/get/customer_list",
         {
           params: resultParams,
         }
@@ -164,7 +164,6 @@ const CustomerList = () => {
     { field: "memo", headerName: "비고" },
   ];
 
-
   const rows = arrayData
     .map((data, index) => {
       const filteredData = arrayData.filter((item) => item.uid === data.uid);
@@ -192,7 +191,7 @@ const CustomerList = () => {
         phone_2: data.phone_2,
         memo: data.memo,
         contract: data.contract,
-        manager: data.manager
+        manager: data.manager,
       };
     })
     .filter((value, index, self) => {
@@ -225,7 +224,7 @@ const CustomerList = () => {
       h_location,
     } = data;
     // 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/send_message", {
+    Axios.post("http://49.50.174.248:3001/api/post/send_message", {
       uid,
       name,
       product,
@@ -346,9 +345,15 @@ const CustomerList = () => {
           <div className="main_title_box">
             고객 관리
             <div className="total_data_box">
-              <div className="total_box">가입고객현황 : {numberData.allNum}</div>
-              <div className="total_box">상담희망고객수: {numberData.hopeNum}</div>
-              <div className="total_box">계약고객수: {numberData.contractNum}</div>
+              <div className="total_box">
+                가입고객현황 : {numberData.allNum}
+              </div>
+              <div className="total_box">
+                상담희망고객수: {numberData.hopeNum}
+              </div>
+              <div className="total_box">
+                계약고객수: {numberData.contractNum}
+              </div>
             </div>
           </div>
           <div className="board_list_wrap">
@@ -387,9 +392,7 @@ const CustomerList = () => {
               <div className="table_box tab_list">
                 <TableDefault
                   rows={rows}
-                  columns={
-                    columnsManager
-                  }
+                  columns={columnsManager}
                   viewModalOpen={viewModalOpen}
                 ></TableDefault>
               </div>
