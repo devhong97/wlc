@@ -49,9 +49,9 @@ const SelfSelectDate = () => {
     }
     return (
         <div className='reserv_wrap self'>
-            <div className="back_btn_box self">
+            {/* <div className="back_btn_box self">
                 <div className="back_btn" onClick={() => navigation(-1)}>뒤로 이동</div>
-            </div>
+            </div> */}
             <div className='reserv_back'>
                 <div className="reserv_top_box">
                     <div className="reserv_title">
