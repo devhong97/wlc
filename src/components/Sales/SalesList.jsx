@@ -872,9 +872,7 @@ const SalesList = () => {
         </div>
       </div>
     );
-  }
-  // 영업사원일 때
-  else if (decodeS4() === "영업사원") {
+  } else if (decodeS4() === "영업사원") {
     jsxToRender = (
       <div className="main_wrap">
         <div className="main_back">
