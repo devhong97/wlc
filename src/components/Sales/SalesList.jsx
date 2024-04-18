@@ -38,13 +38,6 @@ const SalesList = () => {
     tab1DateTotal();
   }, []); // 빈 배열 전달하여 한 번만 실행되도록 함
 
-  // 기홍님! 방법1 이거는 임시방편!
-  useEffect(() => {
-    if (decodeS4() === "지점관리자") {
-      renderApexChart(tab);
-    }
-  }, [searchedData]);
-
   useEffect(() => {
     if (decodeS4() === "슈퍼관리자") {
       renderApexChart();
@@ -52,7 +45,7 @@ const SalesList = () => {
     if (decodeS4() === "지점관리자") {
       renderApexChart(tab);
     }
-  }, []);
+  }, [searchedData]);
 
   const viewModalOpen = (idx) => {
     setViewModal(!viewModal);
@@ -137,7 +130,7 @@ const SalesList = () => {
       const hopeData = response.data.hopeData;
       const contractData = response.data.contractData;
 
-      // 받은 데이터를 상태에 저장하거나 다른 곳에 사용할 수 있도록 처리
+      // 가입고객현황, 상담희망고객현황, 예약고객현황
       setTotalData(totalData.totalCount);
       setHopeData(hopeData.hopeCount);
       setContractData(contractData.contractCount);
@@ -146,7 +139,7 @@ const SalesList = () => {
     }
   };
 
-  //영업사원실적현황 날짜데이터
+  // 영업사원실적현황 날짜데이터
   const tab1DateTotal = async () => {
     try {
       const response = await Axios.get(
@@ -193,13 +186,29 @@ const SalesList = () => {
           branch_idx: decodeS0(),
         }
       );
-      console.log("검색데이터:", response.data);
       const allData = response.data;
-      if (allData) {
+
+      // hope_status가 "Y"인 데이터 개수 카운트
+      const hopeDataCount = allData.filter(
+        (data) => data.hope_status === "Y"
+      ).length;
+
+      // contract가 "Y"인 데이터 개수 카운트
+      const contractDataCount = allData.filter(
+        (data) => data.contract === "Y"
+      ).length;
+
+      // 전체 데이터 개수
+      const totalDataCount = allData.length;
+
+      if (totalDataCount > 0) {
         setSearchedData(response.data);
-        // renderApexChart(tab); 기홍님!방법2 예외처리 필요
+        // hopeDataCount, contractDataCount, totalDataCount를 state에 저장
+        setHopeData(hopeDataCount);
+        setContractData(contractDataCount);
+        setTotalData(totalDataCount);
       } else {
-        alert("검색 결과가 없습니다.")
+        alert("해당 월에 데이터가 존재하지 않습니다.");
       }
     } catch (error) {
       console.error("Error searching:", error);
@@ -414,7 +423,9 @@ const SalesList = () => {
         if (searchedData.length > 0) {
           // 날짜 배열 생성
           const daysInMonth = moment(monthValue, "MM").daysInMonth();
-          const month = moment().set("month", monthValue - 1).format("YYYY-MM");
+          const month = moment()
+            .set("month", monthValue - 1)
+            .format("YYYY-MM");
           for (let i = 1; i <= daysInMonth; i++) {
             const date = moment(month + "-" + i, "YYYY-MM-DD").format(
               "YYYY-MM-DD"
@@ -600,7 +611,7 @@ const SalesList = () => {
       }
     }
 
-    // 이전에 렌더링된 차트를 제거
+    // 이전에 렌더링된 차트 제거
     var existingChart = document.querySelector("#chart");
     if (existingChart) {
       existingChart.remove();
@@ -611,9 +622,11 @@ const SalesList = () => {
     document.querySelector(".list_area").appendChild(newChartContainer);
 
     var chart = new ApexCharts(newChartContainer, options);
+    // 차트 렌더링
     chart.render();
   };
 
+  // 커미션현황, 영업사원실적현황 탭 분리
   const changeTab = (num) => {
     setTab(num);
     setViewModal(false);
@@ -621,31 +634,70 @@ const SalesList = () => {
     setSearchedData([]);
     setResultDate("");
 
-    if (decodeS4() === "지점관리자") {
-      renderApexChart(num);
-    } else if (decodeS4() === "슈퍼관리자") {
+    if (decodeS4() === "지점관리자" || decodeS4() === "슈퍼관리자") {
       renderApexChart(num);
     }
   };
 
+  // 달력상태
   const calendarStatus = () => {
     setOpenCalendar(!openCalendar);
   };
 
+  // react-calendar 데이터형태
   const setFormatDate = (date) => {
     const momentDate = moment(date).format("YYYY.MM");
     const monthValue = moment(date).format("MM");
-    setMonthValue(monthValue)
+    setMonthValue(monthValue);
     setResultDate(momentDate);
     setResultCalendar(date);
     setOpenCalendar(false);
   };
 
-  const handleResetSearch = () => {
+  // 매출관리 영업사원실적현황 초기화버튼
+  // 매출관리 영업사원실적현황 초기화버튼
+  const handleResetSearch = async () => {
     setResultDate("");
-    // setSearchType("");
+    const today = moment();
+    const dateArray = [];
+
+    for (let i = -3; i <= 3; i++) {
+      const date = today.clone().add(i, "days").format("YYYY-MM-DD");
+      dateArray.push(date);
+    }
+    // 검색한 데이터 초기화
+    setSearchedData([]);
+
+    const managerTab = 2;
+    renderApexChart(managerTab);
+
+    try {
+      const response = await Axios.get(
+        "http://localhost:3001/api/get/tab1Total",
+        {
+          params: {
+            choiceDate: "", // choiceDate 초기화
+            tab: managerTab,
+            uid: decodeS1(),
+            branch_idx: decodeS0(),
+          },
+        }
+      );
+
+      const totalData = response.data.totalData;
+      const hopeData = response.data.hopeData;
+      const contractData = response.data.contractData;
+
+      // 초기값으로 상태 업데이트
+      setContractData(contractData.contractCount);
+      setHopeData(hopeData.hopeCount);
+      setTotalData(totalData.totalCount);
+    } catch (error) {
+      console.error("Error resetting:", error);
+    }
   };
 
+  // 등급별로 JSX소스 분리
   let jsxToRender;
 
   // 슈퍼관리자일 때
