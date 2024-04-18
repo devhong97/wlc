@@ -200,6 +200,37 @@
 
 @media (max-width: 900px) {
 
+    .mypage_area {
+        padding: 20px 20px 100px;
+
+        .mypage_container {
+            &.link {
+                padding: 10px !important;
+
+                .mypage_contents_box {
+                    .my_row {
+                        .my_btn {
+                            display: block !important;
+                            margin-top: 20px;
+                            text-align: center;
+                            padding: 10px 0;
+                            font-size: 15px !important;
+                        }
+
+                        .my_text {
+                            font-size: 15px !important;
+                            width: calc(100% - 50px) !important;
+
+                            &.title {
+                                width: 50px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     .search_box {
         padding: 10px !important;
 
