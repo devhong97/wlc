@@ -115,21 +115,22 @@ const ReservCustomer = () => {
     });
   };
 
-
   const handleBack = () => {
     if (step === 1) {
-      navigation(-1)
+      navigation(-1);
     } else if (step === 2) {
-      setStep(1)
+      setStep(1);
     } else {
-      setStep(2)
+      setStep(2);
     }
-  }
+  };
 
   return (
     <div className="reserv_wrap">
       <div className="back_btn_box">
-        <div className="back_btn" onClick={() => handleBack()}>뒤로 이동</div>
+        <div className="back_btn" onClick={() => handleBack()}>
+          뒤로 이동
+        </div>
       </div>
       {step === 1 && (
         <div className="reserv_back">
@@ -230,8 +231,9 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${termsStatus === 1 && "active"
-                    }`}
+                  className={`terms_contents_box ${
+                    termsStatus === 1 && "active"
+                  }`}
                 >
                   <div
                     className="terms_contents"
@@ -262,8 +264,9 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${termsStatus === 2 && "active"
-                      }`}
+                    className={`terms_contents_box ${
+                      termsStatus === 2 && "active"
+                    }`}
                   >
                     <div
                       className="terms_contents"

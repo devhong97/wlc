@@ -5,8 +5,14 @@ import { useNavigate } from "react-router-dom";
 import SelfSignComponent from "./SelfSignComponent";
 
 const SelfReservCustomer = () => {
-  const { signData1, signData2, setCustomerData, customerData, uploadFiles, selfUrl } =
-    useReservContext();
+  const {
+    signData1,
+    signData2,
+    setCustomerData,
+    customerData,
+    uploadFiles,
+    selfUrl,
+  } = useReservContext();
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
   // const [customerName, setCustomerName] = useState(
@@ -117,13 +123,13 @@ const SelfReservCustomer = () => {
 
   const handleBack = () => {
     if (step === 1) {
-      navigation(-1)
+      navigation(-1);
     } else if (step === 2) {
-      setStep(1)
+      setStep(1);
     } else {
-      setStep(2)
+      setStep(2);
     }
-  }
+  };
 
   return (
     <div className="reserv_wrap self">
@@ -229,8 +235,9 @@ const SelfReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${termsStatus === 1 && "active"
-                    }`}
+                  className={`terms_contents_box ${
+                    termsStatus === 1 && "active"
+                  }`}
                 >
                   <div
                     className="terms_contents"
@@ -261,8 +268,9 @@ const SelfReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${termsStatus === 2 && "active"
-                      }`}
+                    className={`terms_contents_box ${
+                      termsStatus === 2 && "active"
+                    }`}
                   >
                     <div
                       className="terms_contents"

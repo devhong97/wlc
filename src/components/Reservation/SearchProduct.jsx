@@ -91,7 +91,9 @@ const SearchProduct = () => {
   return (
     <div className="reserv_wrap">
       <div className="back_btn_box">
-        <div className="back_btn" onClick={() => navigation(-1)}>뒤로 이동</div>
+        <div className="back_btn" onClick={() => navigation(-1)}>
+          뒤로 이동
+        </div>
       </div>
       <div className="reserv_back product">
         <div className="reserv_top_box">
@@ -148,7 +150,6 @@ const SearchProduct = () => {
             })}
           </div>
         </div>
-
       </div>
       {modal && (
         <ProductDetailModal

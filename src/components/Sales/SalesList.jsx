@@ -165,7 +165,7 @@ const SalesList = () => {
     }
   };
 
-  //검색값 전송
+  // 검색값 전송
   const handleSearch = async () => {
     try {
       const selectedMonth = result_date;
@@ -188,25 +188,30 @@ const SalesList = () => {
       );
       const allData = response.data;
 
-      // hope_status가 "Y"인 데이터 개수 카운트
-      const hopeDataCount = allData.filter(
-        (data) => data.hope_status === "Y"
-      ).length;
+      // allData가 배열인지 확인
+      if (Array.isArray(allData)) {
+        // hope_status가 "Y"인 데이터 개수 카운트
+        const hopeDataCount = allData.filter(
+          (data) => data.hope_status === "Y"
+        ).length;
 
-      // contract가 "Y"인 데이터 개수 카운트
-      const contractDataCount = allData.filter(
-        (data) => data.contract === "Y"
-      ).length;
+        // contract가 "Y"인 데이터 개수 카운트
+        const contractDataCount = allData.filter(
+          (data) => data.contract === "Y"
+        ).length;
 
-      // 전체 데이터 개수
-      const totalDataCount = allData.length;
+        // 전체 데이터 개수
+        const totalDataCount = allData.length;
 
-      if (totalDataCount > 0) {
-        setSearchedData(response.data);
-        // hopeDataCount, contractDataCount, totalDataCount를 state에 저장
-        setHopeData(hopeDataCount);
-        setContractData(contractDataCount);
-        setTotalData(totalDataCount);
+        if (totalDataCount > 0) {
+          setSearchedData(response.data);
+          // hopeDataCount, contractDataCount, totalDataCount를 state에 저장
+          setHopeData(hopeDataCount);
+          setContractData(contractDataCount);
+          setTotalData(totalDataCount);
+        } else {
+          alert("해당 월에 데이터가 존재하지 않습니다.");
+        }
       } else {
         alert("해당 월에 데이터가 존재하지 않습니다.");
       }
@@ -775,7 +780,7 @@ const SalesList = () => {
                           className="list_input chart"
                           type="text"
                           id="title"
-                          placeholder="확정일 입력해주세요."
+                          placeholder="날짜선택"
                           value={result_date}
                           onClick={() => calendarStatus()}
                           disabled={inspectionStatus === "2"}
@@ -801,7 +806,7 @@ const SalesList = () => {
                           className="list_input chart"
                           type="text"
                           id="title"
-                          placeholder="확정일 입력해주세요."
+                          placeholder="날짜선택"
                           value={result_date}
                           onClick={() => calendarStatus()}
                           disabled={inspectionStatus === "2"}
@@ -878,7 +883,7 @@ const SalesList = () => {
         <div className="main_back">
           <div className="main_title_box">실적 관리</div>
           <div className="board_list_wrap chart">
-            <div className="list_area chart">
+            <div className="list_area">
               <div className="sales-info-container">
                 <div className="sales-info-item">
                   <div className="sales-info-title">
@@ -908,11 +913,26 @@ const SalesList = () => {
               </div>
             </div>
             <div className="table_box tab_list">
-              <TableDefault
-                rows={rows}
-                columns={columns}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+              {rows.length === 0 ? (
+                <div
+                  style={{
+                    width: "100%",
+                    textAlign: "center",
+                    border: "1px solid #ccc",
+                    padding: "100px",
+                    fontSize: "18px",
+                    background: "white",
+                  }}
+                >
+                  데이터가 존재하지 않습니다.
+                </div>
+              ) : (
+                <TableDefault
+                  rows={rows}
+                  columns={columns}
+                  viewModalOpen={viewModalOpen}
+                ></TableDefault>
+              )}
             </div>
           </div>
           {viewModal && (

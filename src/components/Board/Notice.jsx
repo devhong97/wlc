@@ -162,7 +162,11 @@ const Notice = () => {
                 ></input>
               </div>
               <div className="search_input">
-                <div className="list_search" onClick={handleSearch}>
+                <div
+                  className="list_search"
+                  style={{ marginRight: "90px" }}
+                  onClick={handleSearch}
+                >
                   검색
                 </div>
                 <div
