@@ -5,6 +5,10 @@
     width: 100%;
     height: calc(100% - 40px);
 
+    &.overflow {
+        overflow: hidden !important;
+    }
+
     &.self {
         height: 100%;
     }
