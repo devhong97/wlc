@@ -92,7 +92,7 @@ const SelfReservCustomer = () => {
   const getTerms = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/terms_data"
+        "http://49.50.174.248:3001/api/get/terms_data"
       );
       const allData = response.data;
       setAgreeTermsData(allData.terms_info);

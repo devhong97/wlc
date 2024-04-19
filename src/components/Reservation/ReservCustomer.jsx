@@ -86,7 +86,7 @@ const ReservCustomer = () => {
   const getTerms = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/terms_data"
+        "http://49.50.174.248:3001/api/get/terms_data"
       );
       const allData = response.data;
       setAgreeTermsData(allData.terms_info);
@@ -231,8 +231,9 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${termsStatus === 1 && "active"
-                    }`}
+                  className={`terms_contents_box ${
+                    termsStatus === 1 && "active"
+                  }`}
                 >
                   <div
                     className="terms_contents"
@@ -263,8 +264,9 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${termsStatus === 2 && "active"
-                      }`}
+                    className={`terms_contents_box ${
+                      termsStatus === 2 && "active"
+                    }`}
                   >
                     <div
                       className="terms_contents"

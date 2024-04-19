@@ -32,7 +32,7 @@ const HospitalList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://localhost:3001/api/get/hospital_list", {
+    Axios.get("http://49.50.174.248:3001/api/get/hospital_list", {
       params: resultParams,
     })
       .then((res) => {
@@ -82,7 +82,7 @@ const HospitalList = () => {
   };
 
   const fetchHospitalUserCount = () => {
-    Axios.get("http://localhost:3001/api/get/hospital_user_count")
+    Axios.get("http://49.50.174.248:3001/api/get/hospital_user_count")
       .then((res) => {
         if (res.data.success) {
           const updatedHospitalUserCounts = res.data.data.map(
