@@ -83,6 +83,20 @@ const SignComponent = (props) => {
         }
     }
 
+    useEffect(() => {
+        // 페이지 로드될 때 스크롤 이벤트 제거
+        window.removeEventListener('scroll', handleScroll);
+        return () => {
+            // 컴포넌트 언마운트 시 다시 스크롤 이벤트 추가
+            window.addEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const handleScroll = (e) => {
+        e.preventDefault();
+    };
+
+
     return (
         <div>
             <div className="reserv_top_box">
