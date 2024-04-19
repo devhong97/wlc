@@ -59,7 +59,7 @@ const SalesList = () => {
   const getSalesData = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/sales_list",
+        "http://localhost:3001/api/get/sales_list",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
@@ -91,7 +91,7 @@ const SalesList = () => {
   const getSalesTop = async (arrayData) => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/sales_top",
+        "http://localhost:3001/api/get/sales_top",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
@@ -116,7 +116,7 @@ const SalesList = () => {
   const tab1Total = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/tab1Total",
+        "http://localhost:3001/api/get/tab1Total",
         {
           params: {
             choiceDate: result_date,
@@ -143,7 +143,7 @@ const SalesList = () => {
   const tab1DateTotal = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/tab1dateTotal",
+        "http://localhost:3001/api/get/tab1dateTotal",
         {
           params: {
             choiceDate: result_date,
@@ -179,7 +179,7 @@ const SalesList = () => {
 
       console.log(startDate, endDate);
       const response = await Axios.post(
-        "http://49.50.174.248:3001/api/get/avg_data",
+        "http://localhost:3001/api/get/avg_data",
         {
           startDate: startDate,
           endDate: endDate,
@@ -678,7 +678,7 @@ const SalesList = () => {
 
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/tab1Total",
+        "http://localhost:3001/api/get/tab1Total",
         {
           params: {
             choiceDate: "", // choiceDate 초기화
