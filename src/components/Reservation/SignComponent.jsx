@@ -106,7 +106,7 @@ const SignComponent = (props) => {
                                             className='sign_canvas'
                                             brushRadius={3}
                                             hideGrid={true}
-                                            passive={true}
+                                            passive={false}
 
                                         />
                                     </div>
@@ -118,7 +118,7 @@ const SignComponent = (props) => {
                                             className='sign_canvas'
                                             brushRadius={3}
                                             hideGrid={true}
-                                            passive={true}
+                                            passive={false}
                                         />
                                     </div>
                                 )}
