@@ -12,10 +12,13 @@ const Delme = () => {
   const [branchType, setBranchType] = useState("");
   const [companyName, setCompanyName] = useState("");
 
+  //product_category
   const [pKey, setPKey] = useState("");
   const [cKey, setCKey] = useState("");
   const [type, setType] = useState("");
   const [product1, setProduct1] = useState("");
+  const [ogPrice, setOgPrice] = useState("");
+  const [priceTxt, setPriceTxt] = useState("");
 
   const [content, setContent] = useState(""); // 게시글
   const [content2, setContent2] = useState(""); // 게시글
@@ -87,7 +90,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("지점을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/type_total", {
+        await Axios.post("http://localhost:3001/api/post/d_type_total", {
           branchType: branchType,
           companyName: companyName,
         });
@@ -105,17 +108,21 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("카테고리를 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://localhost:3001/api/post/product_category", {
+        await Axios.post("http://localhost:3001/api/post/d_product_category", {
           p_key: pKey,
           c_key: cKey,
           type: type,
           product_1: product1,
+          og_price: ogPrice,
+          priceTxt: priceTxt,
         });
         alert("카테고리등록 완료.");
         setPKey("");
         setCKey("");
         setType("");
         setProduct1("");
+        setOgPrice("");
+        setPriceTxt("");
       }
     } catch (err) {
       console.log(err);
@@ -218,7 +225,7 @@ const Delme = () => {
             />
           </div>
           <div>
-            <span>카테고리: &nbsp;</span>
+            <span>타입: &nbsp;</span>
             <input
               type="text"
               value={type}
@@ -231,6 +238,22 @@ const Delme = () => {
               type="text"
               value={product1}
               onChange={(e) => setProduct1(e.target.value)}
+            />
+          </div>
+          <div>
+            <span>의료수가: &nbsp;</span>
+            <input
+              type="text"
+              value={ogPrice}
+              onChange={(e) => setOgPrice(e.target.value)}
+            />
+          </div>
+          <div>
+            <span>검진비용: &nbsp;</span>
+            <input
+              type="text"
+              value={priceTxt}
+              onChange={(e) => setPriceTxt(e.target.value)}
             />
           </div>
 

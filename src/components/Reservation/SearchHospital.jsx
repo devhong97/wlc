@@ -86,7 +86,7 @@ const SearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);
@@ -102,7 +102,9 @@ const SearchHospital = () => {
   return (
     <div className="reserv_wrap">
       <div className="back_btn_box">
-        <div className="back_btn" onClick={() => navigation(-1)}>뒤로 이동</div>
+        <div className="back_btn" onClick={() => navigation(-1)}>
+          뒤로 이동
+        </div>
       </div>
       <div className="reserv_back main">
         <div className="reserv_top_box">
