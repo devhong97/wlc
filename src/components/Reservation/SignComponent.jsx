@@ -107,7 +107,7 @@ const SignComponent = (props) => {
                                             brushRadius={3}
                                             hideGrid={true}
                                             passive={false}
-
+                                            hideInterface={true}
                                         />
                                     </div>
                                 ) : (
@@ -119,6 +119,7 @@ const SignComponent = (props) => {
                                             brushRadius={3}
                                             hideGrid={true}
                                             passive={false}
+                                            hideInterface={true}
                                         />
                                     </div>
                                 )}
