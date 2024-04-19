@@ -8,8 +8,13 @@ import HospitalSelect from "../Hospital/HospitalSelect";
 
 const SelfSearchHospital = () => {
   const selectRef = useRef(null);
-  const { setHospitalName, setHospitalIdx, product, setHospitalOriginKey, selfUrl } =
-    useReservContext();
+  const {
+    setHospitalName,
+    setHospitalIdx,
+    product,
+    setHospitalOriginKey,
+    selfUrl,
+  } = useReservContext();
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
   const [selectHospital, setSelectHospital] = useState([]);
   const [searchData, setSearchData] = useState([]);
@@ -86,7 +91,7 @@ const SelfSearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);

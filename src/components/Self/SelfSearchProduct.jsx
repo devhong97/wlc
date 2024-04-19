@@ -5,7 +5,8 @@ import { useReservContext } from "../Context/ReservContext";
 import ProductDetailModal from "../modal/ProductDetailModal";
 
 const SelfSearchProduct = () => {
-  const { hospitalKey, setProduct, setProductName, selfUrl } = useReservContext();
+  const { hospitalKey, setProduct, setProductName, selfUrl } =
+    useReservContext();
   const [productList, setProductList] = useState([]);
   const navigation = useNavigate();
   const location = useLocation();
@@ -13,7 +14,6 @@ const SelfSearchProduct = () => {
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState([]);
   const containerRef = useRef(null);
-
 
   useEffect(() => {
     getProductList();

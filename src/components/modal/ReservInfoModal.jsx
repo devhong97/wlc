@@ -13,15 +13,14 @@ const ReservInfoModal = (props) => {
     hopeDate1,
     hopeDate2,
     uploadFiles,
-    selfUrl
+    selfUrl,
   } = useReservContext();
   const { decodeS3, decodeS1 } = useAuth();
   const navigation = useNavigate();
   const location = useLocation();
   const path = location.pathname;
-  const parts = path.split('/');
+  const parts = path.split("/");
   const target = parts[1];
-
 
   const submitHandle = async () => {
     let uid = "";
