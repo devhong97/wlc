@@ -126,7 +126,7 @@ const ReservCustomer = () => {
   };
 
   return (
-    <div className="reserv_wrap">
+    <div className="reserv_wrap overflow">
       <div className="back_btn_box">
         <div className="back_btn" onClick={() => handleBack()}>
           뒤로 이동
@@ -231,9 +231,8 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -264,9 +263,8 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"
