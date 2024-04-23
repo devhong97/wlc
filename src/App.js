@@ -29,11 +29,17 @@ function App() {
     }
   }, []);
 
+  // // 로그인 상태에 따라 리다이렉션 수행
+  // useEffect(() => {
+  //   if (!loginAccess) {
+  //     Navigate("/", { replace: true }); // 기본 경로로 리다이렉트
+  //   }
+  // }, [loginAccess, Navigate]);
+
   return (
     <Fragment>
       {loginAccess ? (
         <div className="screen">
-
           <Aside />
           <div className={`main_area`}>
             <Header />
@@ -51,9 +57,15 @@ function App() {
             {/* 링크라우터 */}
             <Route path="/self/:uid" element={<SelfReservation />}></Route>
             <Route path="/self/:uid/product" element={<SelfSearchProduct />} />
-            <Route path="/self/:uid/hospital" element={<SelfSearchHospital />} />
+            <Route
+              path="/self/:uid/hospital"
+              element={<SelfSearchHospital />}
+            />
             <Route path="/self/:uid/date" element={<SelfSelectDate />} />
-            <Route path="/self/:uid/customer" element={<SelfReservCustomer />} />
+            <Route
+              path="/self/:uid/customer"
+              element={<SelfReservCustomer />}
+            />
             <Route path="/self/:uid/check" element={<SelfReservCheck />} />
           </Routes>
           {target === "self" && (

@@ -321,13 +321,14 @@ const CustomerList = () => {
                 ></TableDefault>
               </div>
             </div>
-            <div className="pagination_box">
+            {/* <div className="pagination_box">
               <button>{`<<`}</button>
               <button>{`<`}</button>
               <button>1</button>
               <button>{`>`}</button>
               <button>{`>>`}</button>
             </div>
+                */}
           </div>
         </div>
         {viewModal && detailIdx && (
@@ -412,13 +413,14 @@ const CustomerList = () => {
                 )}
               </div>
             </div>
-            <div className="pagination_box">
+            {/*  <div className="pagination_box">
               <button>{`<<`}</button>
               <button>{`<`}</button>
               <button>1</button>
               <button>{`>`}</button>
               <button>{`>>`}</button>
             </div>
+                */}
           </div>
         </div>
         {viewModal && detailIdx && (

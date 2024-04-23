@@ -17,7 +17,7 @@ const BranchList = () => {
   const [total, setTotal] = useState([]);
   const [totalEmployeeCount, setTotalEmployeeCount] = useState(0); //총 사원수
   const [totalHopeCount, setTotalHopeCount] = useState(0); // 상담희망수
-  const [totalContractCount, setTotalContractCount] = useState(0); // 계약고객수
+  const [totalContractCount, setTotalContractCount] = useState(0); // 예약고객수
   const [totalCustomerDataCount, setTotalCustomerCount] = useState(0); //총 고객수
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const BranchList = () => {
             branch_idx: data.branch_idx,
             employeeCount: data.employeeCount, //총 사원수
             hopeCount: data.hopeCount, // 상담희망수
-            contractCount: data.contractCount, //계약고객수
+            contractCount: data.contractCount, //예약고객수
             totalCustomerCount: data.totalCustomerCount, // 총 고객수
             allCustomerCount: data.allCustomerCount, // customer 전체 수
           }));
@@ -55,7 +55,7 @@ const BranchList = () => {
             (acc, cur) => acc + cur.hopeCount,
             0
           );
-          // 계약고객수
+          // 예약고객수
           const contractsCount = formattedData.reduce(
             (acc, cur) => acc + cur.contractCount,
             0
@@ -169,7 +169,7 @@ const BranchList = () => {
     },
     {
       field: "contract_num",
-      headerName: "계약고객수",
+      headerName: "예약고객수",
       maxWidth: 100,
       valueGetter: (params) => {
         const branchIdx = params.row.branch_idx;
@@ -211,7 +211,7 @@ const BranchList = () => {
               총 고객수 : {totalCustomerDataCount}명
             </div>
             <div className="total_box">상담희망수 : {totalHopeCount}명</div>
-            <div className="total_box">계약고객수 : {totalContractCount}명</div>
+            <div className="total_box">예약고객수 : {totalContractCount}명</div>
           </div>
         </div>
         <div className="board_list_wrap">

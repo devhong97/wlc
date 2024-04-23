@@ -242,8 +242,9 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${termsStatus === 1 && "active"
-                    }`}
+                  className={`terms_contents_box ${
+                    termsStatus === 1 && "active"
+                  }`}
                 >
                   <div
                     className="terms_contents"
@@ -274,8 +275,9 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${termsStatus === 2 && "active"
-                      }`}
+                    className={`terms_contents_box ${
+                      termsStatus === 2 && "active"
+                    }`}
                   >
                     <div
                       className="terms_contents"
