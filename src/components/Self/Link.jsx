@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import LinkPhoneModal from "../modal/LinkPhoneModal";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
 const Link = () => {
   const { decodeS1 } = useAuth();
   const uid = decodeS1();
   const navigation = useNavigate();
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(!modal);
+  }
 
   const movePage = () => {
     navigation(`/self/${uid}`);
   };
 
-  const copyText = () => {
-    const textToCopy = `http://www.wlcmanager.com/self/${uid}`;
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        alert("링크가 복사되었습니다.");
-      })
-      .catch((err) => {
-        console.error("텍스트 복사 실패:", err);
-      });
-  };
-  const handleCopy = () => {
-    alert("링크가 복사되었습니다.");
-  };
+  // const copyText = () => {
+  //   const textToCopy = `http://www.wlcmanager.com/self/${uid}`;
+  //   navigator.clipboard
+  //     .writeText(textToCopy)
+  //     .then(() => {
+  //       alert("링크가 복사되었습니다.");
+  //     })
+  //     .catch((err) => {
+  //       console.error("텍스트 복사 실패:", err);
+  //     });
+  // };
+  // const handleCopy = () => {
+  //   alert("링크가 복사되었습니다.");
+  // };
   return (
     <div className="main_wrap">
       <div className="main_back home">
@@ -40,17 +46,21 @@ const Link = () => {
                 <div className="my_text" onClick={() => movePage()}>
                   http://www.wlcmanager.com/self/{uid}
                 </div>
-                <CopyToClipboard
+                {/* <CopyToClipboard
                   text={`http://www.wlcmanager.com/self/${uid}`}
                   onCopy={handleCopy}
                 >
                   <div className="my_btn">복사하기</div>
-                </CopyToClipboard>
+                </CopyToClipboard> */}
+                <div className="my_btn" onClick={() => openModal()}>문자전송</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {modal && (
+        <LinkPhoneModal closeModal={openModal}></LinkPhoneModal>
+      )}
     </div>
   );
 };
