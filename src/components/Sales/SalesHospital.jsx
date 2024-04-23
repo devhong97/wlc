@@ -101,7 +101,7 @@ const SalesHospital = () => {
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: "contract", headerName: "계약", flex: 0.5 },
+    { field: "contract", headerName: "예약", flex: 0.5 },
     { field: "memo", headerName: "비고" },
   ];
 
@@ -261,7 +261,7 @@ const SalesHospital = () => {
                 </div>
                 <div className="sales-info-item">
                   <div className="sales-info-title">
-                    계약고객수: {contractCount}
+                    예약고객수: {contractCount}
                   </div>
                 </div>
               </div>

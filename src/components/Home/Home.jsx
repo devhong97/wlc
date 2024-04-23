@@ -161,7 +161,7 @@ const Home = () => {
               <div>상담희망고객수: {hopeData}</div>
               <div>총지점수: {totalData}</div>
               <div>총영업자수: {managerData}</div>
-              <div>계약고객수(청약고객수): {contractData} </div>
+              <div>예약고객수(청약고객수): {contractData} </div>
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@ const Home = () => {
                   <div>지점명: {grade2Data[0].branch_name}</div>
                   <div>상담희망고객: {grade2Data4[0].hopeCount}명</div>
                   <div>지점장: {grade2Data[0].owner_name}</div>
-                  <div>계약고객현황: {grade2Data5[0].contractCount}명</div>
+                  <div>예약고객현황: {grade2Data5[0].contractCount}명</div>
                   <div>지급완료커미션: -</div>
                 </Fragment>
               ) : (

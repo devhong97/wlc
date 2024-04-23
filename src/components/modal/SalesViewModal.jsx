@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 const SalesViewModal = (props) => {
   const [detailNum, setDetailNum] = useState("");
-  const [isChecked, setIsChecked] = useState(false); // 계약유무체크
+  const [isChecked, setIsChecked] = useState(false); // 예약유무체크
   const [memo, setMemo] = useState(""); //비고
   const [uid, setUid] = useState("");
 
@@ -28,12 +28,12 @@ const SalesViewModal = (props) => {
     const contractStatus = isChecked ? "무" : "유";
 
     const confirmation = window.confirm(
-      `계약 상태를 "${contractStatus}"(으)로 변경하시겠습니까?`
+      `예약 상태를 "${contractStatus}"(으)로 변경하시겠습니까?`
     );
     if (confirmation) {
       setIsChecked(!isChecked);
       updateContractStatus(contractStatus);
-      alert("계약상태가 변경되었습니다.");
+      alert("예약상태가 변경되었습니다.");
     } else {
       console.log("변경이 취소되었습니다.");
     }
@@ -143,7 +143,7 @@ const SalesViewModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">계약</div>
+                <div className="table_title">예약</div>
                 <div className="table_contents w100">
                   <div className="table_radio">
                     <label>

@@ -74,13 +74,16 @@ export const AuthProvider = ({ children }) => {
     setBranch(branchToken);
     setGrade(gradeToken);
     setId(idToken);
-    Cookies.set("Access", true);
-    Cookies.set("S0", branchIdxToken);
-    Cookies.set("S1", uidToken);
-    Cookies.set("S2", nameToken);
-    Cookies.set("S3", branchToken);
-    Cookies.set("S4", gradeToken);
-    Cookies.set("S5", idToken);
+
+    // 세션 쿠키 설정 (브라우저 종료 시 삭제되지 않도록 만료 기간 설정)
+    const expirationTime = new Date(Date.now() + 15 * 60 * 1000); // 현재 시간으로부터 15분 후
+    Cookies.set("Access", true, { expires: expirationTime });
+    Cookies.set("S0", branchIdxToken, { expires: expirationTime });
+    Cookies.set("S1", uidToken, { expires: expirationTime });
+    Cookies.set("S2", nameToken, { expires: expirationTime });
+    Cookies.set("S3", branchToken, { expires: expirationTime });
+    Cookies.set("S4", gradeToken, { expires: expirationTime });
+    Cookies.set("S5", idToken, { expires: expirationTime });
   };
 
   //로그아웃
@@ -210,7 +213,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         loginAccess, // 로그인여부
         login, // 로그인 시 토큰값 저장
-        logout, // 로그인 시 토큰값 삭제
+        logout, // 로그아웃 시 토큰값 삭제
         uid, // UID
         name, //매니저이름
         branch, //지점명

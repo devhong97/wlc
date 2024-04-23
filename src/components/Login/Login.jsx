@@ -19,6 +19,13 @@ const Login = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const storedAccess = localStorage.getItem("Access");
+    if (storedAccess === "true") {
+      navigate("/"); // 로그인 상태면 홈페이지로 이동
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

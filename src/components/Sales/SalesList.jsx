@@ -230,7 +230,7 @@ const SalesList = () => {
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: "contract", headerName: "계약", flex: 0.5 },
+    { field: "contract", headerName: "예약", flex: 0.5 },
     { field: "memo", headerName: "비고" },
   ];
 
@@ -325,7 +325,7 @@ const SalesList = () => {
             data: dateArray.map((date) => filteredData[date].totalDT2),
           },
           {
-            name: "계약고객현황",
+            name: "예약고객현황",
             type: "bar",
             data: dateArray.map((date) => filteredData[date].totalDT3),
           },
@@ -487,7 +487,7 @@ const SalesList = () => {
               data: dateArray.map((date) => filteredData[date].totalDT2),
             },
             {
-              name: "계약고객현황",
+              name: "예약고객현황",
               type: "bar",
               data: dateArray.map((date) => filteredData[date].totalDT3),
             },
@@ -907,7 +907,7 @@ const SalesList = () => {
                 </div>
                 <div className="sales-info-item">
                   <div className="sales-info-title">
-                    계약고객수: {contractCount}
+                    예약고객수: {contractCount}
                   </div>
                 </div>
               </div>
