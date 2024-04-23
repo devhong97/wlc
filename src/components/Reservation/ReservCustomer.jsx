@@ -126,7 +126,7 @@ const ReservCustomer = () => {
   };
 
   return (
-    <div className="reserv_wrap overflow">
+    <div className={`reserv_wrap ${step === 3 && "overflow"}`}>
       <div className="back_btn_box">
         <div className="back_btn" onClick={() => handleBack()}>
           뒤로 이동
@@ -255,7 +255,7 @@ const ReservCustomer = () => {
 
               <div className="reserv_bottom_box">
                 <div className="terms_box">
-                  <div className="terms_title">마켓팅 동의 약관</div>
+                  <div className="terms_title">마케팅 동의 약관</div>
                   <div
                     className="terms_contents_btn"
                     onClick={() => openTerms(2)}

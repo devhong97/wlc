@@ -105,7 +105,7 @@ const SignComponent = (props) => {
                 </div>
                 <div className="reserv_title sub">개인정보제공동의를 위한 서명을 해주세요. ({step}/2)</div>
             </div>
-            <div className="reserv_bottom_box">
+            <div className="reserv_bottom_box inner_sign">
                 <div className="reserv_contents_box sign">
                     <div className='sign_container'>
 
@@ -121,7 +121,8 @@ const SignComponent = (props) => {
                                             brushRadius={3}
                                             hideGrid={true}
                                             passive={false}
-                                            hideInterface={true}
+                                            // hideInterface={true}
+                                            lazyRadius={0}
                                         />
                                     </div>
                                 ) : (
@@ -134,6 +135,7 @@ const SignComponent = (props) => {
                                             hideGrid={true}
                                             passive={false}
                                             hideInterface={true}
+                                            lazyRadius={0}
                                         />
                                     </div>
                                 )}
