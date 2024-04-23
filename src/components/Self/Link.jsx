@@ -43,7 +43,7 @@ const Link = () => {
             <div className="mypage_contents_box">
               <div className="my_row">
                 <div className="my_text title">링크</div>
-                <div className="my_text" onClick={() => movePage()}>
+                <div className="my_text">
                   http://www.wlcmanager.com/self/{uid}
                 </div>
                 {/* <CopyToClipboard

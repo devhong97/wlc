@@ -60,6 +60,10 @@ const ReservCheck = () => {
               <div className="reserv_text">{customerData.cPhone}</div>
             </div>
             <div className="reserv_text_box">
+              <div className="reserv_title">검진자 주소</div>
+              <div className="reserv_text">{customerData.cAddr}</div>
+            </div>
+            <div className="reserv_text_box">
               <div className="reserv_title">선택상품</div>
               <div className="reserv_text">{productName}</div>
             </div>

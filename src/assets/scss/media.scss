@@ -438,9 +438,7 @@
             z-index: 1 !important;
             padding: 7px 10px !important;
 
-            &.self {
-                top: 5px !important;
-            }
+            &.self {}
 
             .back_btn {
                 background-color: #fff !important;
@@ -566,7 +564,7 @@
 
                             .sign_contents {
                                 border-radius: 10px !important;
-
+                                height: 250px !important;
                             }
                         }
                     }

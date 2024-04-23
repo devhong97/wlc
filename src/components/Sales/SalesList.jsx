@@ -247,6 +247,7 @@ const SalesList = () => {
     contract: data.contract,
     memo: data.memo,
     contractor_name: data.contractor_name,
+    address: data.address,
     idx: data.idx,
   }));
 
