@@ -115,7 +115,7 @@ const SelfSignComponent = (props) => {
                                             ref={canvasRef}
                                             brushColor="#000000"
                                             className='sign_canvas'
-                                            brushRadius={3}
+                                            brushRadius={6}
                                             hideGrid={true}
                                             passive={false}
                                             hideInterface={true}
@@ -128,7 +128,8 @@ const SelfSignComponent = (props) => {
                                             ref={canvasRef2}
                                             brushColor="#000000"
                                             className='sign_canvas'
-                                            brushRadius={3}
+                                            brushRadius={6}
+                                            hideGrid={true}
                                             passive={false}
                                             hideInterface={true}
                                         />

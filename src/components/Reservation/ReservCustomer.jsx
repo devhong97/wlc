@@ -126,7 +126,7 @@ const ReservCustomer = () => {
   };
 
   return (
-    <div className="reserv_wrap overflow">
+    <div className={`reserv_wrap ${step === 3 && "overflow"}`}>
       <div className="back_btn_box">
         <div className="back_btn" onClick={() => handleBack()}>
           뒤로 이동
