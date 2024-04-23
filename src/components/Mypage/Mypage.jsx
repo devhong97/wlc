@@ -7,17 +7,17 @@ const Mypage = () => {
   const { decodeS1 } = useAuth();
   const [myData, setMyData] = useState([]);
   const [passStatus, setPassStatus] = useState(false);
-  const [newPass, setNewPass] = useState("");
+  const [password, setNewPass] = useState("");
   const [depositStatus, setDepositStatus] = useState(false);
-  const [newDeposit, setNewDeposit] = useState("");
+  const [deposit_account, setNewDeposit] = useState("");
   const [bankStatus, setBankStatus] = useState(false);
-  const [newBank, setNewBank] = useState("");
+  const [bank, setNewBank] = useState("");
   const [phoneStatus, setPhoneStatus] = useState(false);
   const [tel1, setTel1] = useState(""); // 연락처1
   const [tel2, setTel2] = useState(""); // 연락처2
   const [tel3, setTel3] = useState(""); // 연락처3
   const [emailStatus, setEmailStatus] = useState(false);
-  const [newEmail, setNewEmail] = useState(""); // 이메일
+  const [email, setNewEmail] = useState(""); // 이메일;
 
 
   useEffect(() => {
@@ -58,6 +58,42 @@ const Mypage = () => {
       setTel3(value);
     }
   };
+
+  const handleSubmit = async (key, value) => {
+    console.log(key, value);
+    if (value === "") {
+      alert("입력된 값이 없습니다.")
+      return;
+    }
+    let sendParams = {};
+    if (key === "phone") {
+      if (tel1 === "" || tel2 === "" || tel3 === "") {
+        alert("입력된 값이 없습니다.")
+        return;
+      } else {
+        sendParams.phone = `${tel1}-${tel2}-${tel3}`
+      }
+    } else {
+      sendParams[key] = value;
+    }
+
+    sendParams.uid = myData.uid
+
+    console.log(sendParams);
+
+    try {
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/mypage_edit",
+        sendParams
+      );
+
+      console.log(response.data);
+      alert("수정되었습니다.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  }
 
   return (
     <div className="main_wrap">
@@ -111,7 +147,7 @@ const Mypage = () => {
                 ) : (
                   <div className="my_text">
                     <input type="password"
-                      value={newPass}
+                      value={password}
                       onChange={(e) => setNewPass(e.target.value)}
                       placeholder="비밀번호를 입력해주세요."
                       className="mypage_input"
@@ -121,7 +157,7 @@ const Mypage = () => {
                 {!passStatus ? (
                   <div className="my_btn" onClick={() => setPassStatus(true)}>수정하기</div>
                 ) : (
-                  <div className="my_btn">수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("password", password)}>수정완료</div>
                 )}
               </div>
               <div className="my_row">
@@ -131,7 +167,7 @@ const Mypage = () => {
                 ) : (
                   <div className="my_text">
                     <input
-                      value={newEmail}
+                      value={email}
                       onChange={(e) => setNewEmail(e.target.value)}
                       placeholder="이메일을 입력해주세요."
                       className="mypage_input"
@@ -141,7 +177,7 @@ const Mypage = () => {
                 {!emailStatus ? (
                   <div className="my_btn" onClick={() => setEmailStatus(true)}>수정하기</div>
                 ) : (
-                  <div className="my_btn">수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("email", email)}>수정완료</div>
                 )}
               </div>
               <div className="my_row">
@@ -181,7 +217,7 @@ const Mypage = () => {
                 {!phoneStatus ? (
                   <div className="my_btn" onClick={() => setPhoneStatus(true)}>수정하기</div>
                 ) : (
-                  <div className="my_btn">수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("phone")}>수정완료</div>
                 )}
               </div>
 
@@ -192,7 +228,7 @@ const Mypage = () => {
                 ) : (
                   <div className="my_text">
                     <select
-                      value={newBank}
+                      value={bank}
                       onChange={(e) => setNewBank(e.target.value)}
                       className="mypage_select"
                     >
@@ -207,7 +243,7 @@ const Mypage = () => {
                 {!bankStatus ? (
                   <div className="my_btn" onClick={() => setBankStatus(true)}>수정하기</div>
                 ) : (
-                  <div className="my_btn">수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("bank", bank)}>수정완료</div>
                 )}
               </div>
               <div className="my_row">
@@ -218,7 +254,7 @@ const Mypage = () => {
                   <div className="my_text">
                     <input
                       type="number"
-                      value={newDeposit}
+                      value={deposit_account}
                       onChange={(e) => setNewDeposit(e.target.value)}
                       placeholder="계좌번호를 입력해주세요."
                       className="mypage_input"
@@ -228,7 +264,7 @@ const Mypage = () => {
                 {!depositStatus ? (
                   <div className="my_btn" onClick={() => setDepositStatus(true)}>수정하기</div>
                 ) : (
-                  <div className="my_btn">수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("deposit_account", deposit_account)}>수정완료</div>
                 )}
               </div>
             </div>
