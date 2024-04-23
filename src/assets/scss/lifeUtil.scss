@@ -15,11 +15,10 @@
 body,
 html,
 #root {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   overflow: hidden;
-  height: -webkit-fill-available;
-  height: fill-available;
+  height: 100vh;
+  max-height: -webkit-fill-available !important;
 }
 
 body {

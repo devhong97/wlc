@@ -143,6 +143,53 @@
         }
     }
 
+    .reserv_wrap {
+        .back_btn_box {
+            padding: 5px 20px !important;
+
+            .back_btn {
+                font-size: 13px !important;
+                padding: 5px 20px 5px 40px !important;
+            }
+        }
+
+        .reserv_back {
+            &.sign {
+                padding: 40px 0 !important;
+            }
+
+            .reserv_top_box {
+                .reserv_title {
+                    font-size: 25px !important;
+
+                    &.sub {
+                        font-size: 15px !important;
+                        padding-top: 10px !important;
+                    }
+                }
+            }
+
+            .reserv_bottom_box {
+                &.inner_sign {
+                    padding-top: 20px !important;
+                }
+
+                .sign_container {
+                    .sign_box {
+                        .sign_title {
+                            font-size: 15px !important;
+                        }
+                    }
+
+                    .sign_btn_box {
+                        .sign_btn {
+                            height: auto !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }
 

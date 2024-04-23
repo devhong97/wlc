@@ -255,7 +255,7 @@ const ReservCustomer = () => {
 
               <div className="reserv_bottom_box">
                 <div className="terms_box">
-                  <div className="terms_title">마켓팅 동의 약관</div>
+                  <div className="terms_title">마케팅 동의 약관</div>
                   <div
                     className="terms_contents_btn"
                     onClick={() => openTerms(2)}

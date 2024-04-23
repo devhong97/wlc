@@ -235,9 +235,8 @@ const SelfReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -260,7 +259,7 @@ const SelfReservCustomer = () => {
 
               <div className="reserv_bottom_box">
                 <div className="terms_box">
-                  <div className="terms_title">마켓팅 동의 약관</div>
+                  <div className="terms_title">마케팅 동의 약관</div>
                   <div
                     className="terms_contents_btn"
                     onClick={() => openTerms(2)}
@@ -268,9 +267,8 @@ const SelfReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"
