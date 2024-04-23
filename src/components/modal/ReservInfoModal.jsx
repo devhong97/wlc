@@ -41,6 +41,7 @@ const ReservInfoModal = (props) => {
       number: customerData.customerNumber,
       phone: customerData.phone,
       c_phone: customerData.cPhone,
+      c_addr: customerData.cAddr,
       p_key: product,
       h_key: hospitalOriginKey,
       hope_date_1: hopeDate1,

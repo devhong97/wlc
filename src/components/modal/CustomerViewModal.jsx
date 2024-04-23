@@ -44,6 +44,7 @@ const CustomerViewModal = (props) => {
   const [company, setCompany] = useState(""); //회사 이름
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
   const [resultPrice, setResultPrice] = useState(""); //금액
+  const [addr, setAddr] = useState("");//주소
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
@@ -119,6 +120,7 @@ const CustomerViewModal = (props) => {
     setRefundStatus(memberData.refund_status);
     setCustomerNumber(memberData.number);
     setMTerms(memberData.marketing_terms);
+    setAddr(memberData.address);
 
     //
     setProductKey(memberData.p_key);
@@ -157,6 +159,7 @@ const CustomerViewModal = (props) => {
       refund_status: refundStatus,
       marketing_terms: m_terms,
       memo: memo,
+      address: addr,
       uid: memberData.uid,
     };
     console.log(paramsArray);
@@ -320,6 +323,23 @@ const CustomerViewModal = (props) => {
                     ></input>
                   </div>
                 </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">검진자 주소</div>
+                  <div className="table_contents w100">
+                    <input
+                      className="table_input w100"
+                      type="text"
+                      id="cAddr"
+                      placeholder="주소를 입력해주세요."
+                      value={addr}
+                      onChange={(e) => setAddr(e.target.value)}
+                      disabled={inspectionStatus === "2"}
+                    ></input>
+                  </div>
+                </div>
+
               </div>
               <div className="table_row">
                 <div className="table_section half">

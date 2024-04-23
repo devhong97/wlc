@@ -395,6 +395,21 @@
   color: #fff;
   padding: 10.5px 0;
   text-align: center;
+
+  &.self {
+    width: 100%;
+
+    .footer_back {
+      .txt {
+        padding-right: 0;
+
+        .footer_tel {
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 
 .footer_back {
@@ -486,7 +501,7 @@
               background-image: url("../img/main_icon_3.png");
             }
 
-            &.icon4 {
+            &.icon5 {
               background-image: url("../img/main_icon_4.png");
             }
           }
@@ -1164,6 +1179,33 @@
         &.title {
           font-family: "Pretendard_m";
           width: 150px;
+        }
+
+        .mypage_input {
+          display: inline-block;
+          padding: 10px 15px;
+          border: 1px solid #c9c9c9;
+          border-radius: 10px;
+          outline: 0 none;
+          color: #707070;
+          font-size: 17px;
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+
+        .mypage_select {
+          padding: 10px 15px;
+          border: 1px solid #c9c9c9;
+          border-radius: 10px;
+          margin-right: 13px;
+          outline: 0 none;
+          color: #707070;
+          font-size: 17px;
+          vertical-align: middle;
+
+          option {
+            border-radius: 5px;
+          }
         }
       }
 

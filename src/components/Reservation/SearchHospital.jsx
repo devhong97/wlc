@@ -57,10 +57,6 @@ const SearchHospital = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "No", flex: 0.5 },
-    { field: "name", headerName: "병원명" },
-    { field: "province", headerName: "지역(도)" },
-    { field: "city", headerName: "지역(시)" },
     {
       field: "check_btn",
       headerName: "선택",
@@ -74,6 +70,11 @@ const SearchHospital = () => {
         </div>
       ),
     },
+    // { field: "id", headerName: "No", flex: 0.5 },
+    { field: "name", headerName: "병원명" },
+    { field: "province", headerName: "지역(도)" },
+    { field: "city", headerName: "지역(시)" },
+
   ];
 
   const rows = hospitalList.map((data, index) => ({
@@ -86,7 +87,7 @@ const SearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => {};
+  const emptyFunc = () => { };
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);

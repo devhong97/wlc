@@ -15,9 +15,10 @@
 body,
 html,
 #root {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   overflow: hidden;
+  height: 100vh;
+  max-height: -webkit-fill-available !important;
 }
 
 body {
@@ -164,6 +165,11 @@ input {
   // -webkit-appearance: none;
   // -webkit-border-radius: 0;
   vertical-align: middle;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 select {

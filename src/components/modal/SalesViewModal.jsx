@@ -111,6 +111,13 @@ const SalesViewModal = (props) => {
                 <div className="table_contents w100">{detailNum.phone_2}</div>
               </div>
             </div>
+            <div className="table_row">
+              <div className="table_section">
+                <div className="table_title">검진자 주소</div>
+                <div className="table_contents w100">{detailNum.address}</div>
+              </div>
+
+            </div>
 
             <div className="table_row">
               <div className="table_section half">

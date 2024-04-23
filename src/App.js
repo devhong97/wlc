@@ -15,10 +15,13 @@ import SelfSearchHospital from "./components/Self/SelfSearchHospital";
 import SelfSelectDate from "./components/Self/SelfSelectDate";
 import SelfReservCustomer from "./components/Self/SelfReservCustomer";
 import SelfReservCheck from "./components/Self/SelfReservCheck";
-
+import { useLocation } from "react-router-dom";
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
-
+  const location = useLocation();
+  const path = location.pathname;
+  const parts = path.split("/");
+  const target = parts[1];
   useEffect(() => {
     const loginStatus = localStorage.getItem("Access");
     if (loginStatus === "true") {
@@ -65,6 +68,9 @@ function App() {
             />
             <Route path="/self/:uid/check" element={<SelfReservCheck />} />
           </Routes>
+          {target === "self" && (
+            <Footer />
+          )}
         </div>
       )}
     </Fragment>
