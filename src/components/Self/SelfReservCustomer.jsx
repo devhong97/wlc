@@ -23,6 +23,7 @@ const SelfReservCustomer = () => {
   // );
   const [phone, setPhone] = useState(customerData.phone || "");
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
+  const [c_addr, setCAddr] = useState(customerData.cAddr || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
@@ -41,7 +42,8 @@ const SelfReservCustomer = () => {
       name === "" ||
       inputArray[0].name === "" ||
       phone === "" ||
-      c_phone === ""
+      c_phone === "" ||
+      c_addr === ""
     ) {
       alert("정보를 모두 입력해주세요.");
       return;
@@ -70,6 +72,7 @@ const SelfReservCustomer = () => {
       customerNumber: inputArray.length,
       phone: phone,
       cPhone: c_phone,
+      cAddr: c_addr,
       m_terms: mTerms,
     };
     setCustomerData(newData);
@@ -132,10 +135,10 @@ const SelfReservCustomer = () => {
   };
 
   return (
-    <div className="reserv_wrap self">
-      {/* <div className="back_btn_box self">
+    <div className={`reserv_wrap self ${step === 3 && "overflow"}`}>
+      <div className="back_btn_box self">
         <div className="back_btn" onClick={() => handleBack()}>뒤로 이동</div>
-      </div> */}
+      </div>
       {step === 1 && (
         <div className="reserv_back">
           <div className="reserv_top_box">
@@ -207,6 +210,14 @@ const SelfReservCustomer = () => {
                   placeholder="검진자 대표 연락처"
                   value={c_phone}
                   onChange={(e) => setCPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_input_box">
+                <input
+                  className="reserv_input"
+                  placeholder="검진자 대표 주소"
+                  value={c_addr}
+                  onChange={(e) => setCAddr(e.target.value)}
                 ></input>
               </div>
               <div className="reserv_btn_box">

@@ -17,6 +17,7 @@ const ReservCustomer = () => {
   // );
   const [phone, setPhone] = useState(customerData.phone || "");
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
+  const [c_addr, setCAddr] = useState(customerData.cAddr || "");
   const [agreeTerms, setAgreeTerms] = useState(false); // 약관동의
   const [mTerms, setMTerms] = useState(false); // 마켓팅 약관
   const [termsStatus, setTermsStatus] = useState(0);
@@ -35,7 +36,8 @@ const ReservCustomer = () => {
       name === "" ||
       inputArray[0].name === "" ||
       phone === "" ||
-      c_phone === ""
+      c_phone === "" ||
+      c_addr === ""
     ) {
       alert("정보를 모두 입력해주세요.");
       return;
@@ -64,6 +66,7 @@ const ReservCustomer = () => {
       customerNumber: inputArray.length,
       phone: phone,
       cPhone: c_phone,
+      cAddr: c_addr,
       m_terms: mTerms,
     };
     setCustomerData(newData);
@@ -203,6 +206,14 @@ const ReservCustomer = () => {
                   placeholder="검진자 대표 연락처"
                   value={c_phone}
                   onChange={(e) => setCPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_input_box">
+                <input
+                  className="reserv_input"
+                  placeholder="검진자 대표 주소"
+                  value={c_addr}
+                  onChange={(e) => setCAddr(e.target.value)}
                 ></input>
               </div>
               <div className="reserv_btn_box">
