@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (loginAccess) {
-      const timeout = 100000; // 15분
+      const timeout = 900000; // 15분
       let remainingTime = timeout;
 
       const timer = setInterval(() => {
