@@ -154,7 +154,7 @@ const CommissionList = () => {
                 </div>
               </div>
             )}
-            <div className="table_box list">
+            <div className="table_box tab_list">
               <TableDefault
                 rows={commisionData}
                 columns={tab === 1 ? columns1 : columns2}

@@ -161,6 +161,12 @@ const CustomerViewModal = (props) => {
       memo: memo,
       address: addr,
       uid: memberData.uid,
+      manager_uid: memberData.manager_uid,
+      branch_idx: memberData.branch_idx,
+      cost: memberData.cost * customerNumber,
+      branch_name: memberData.branch,
+      branch_type: memberData.branchType,
+      company_name: memberData.company
     };
     console.log(paramsArray);
 
