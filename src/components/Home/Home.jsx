@@ -15,6 +15,7 @@ const Home = () => {
   const [contractData, setContractData] = useState([]); // 총예약자수
   const [hopeData, setHopeData] = useState([]); // 상담고객수
   const [customerData, setCustomerData] = useState([]); // 총고객수
+  const [totalCost, setTotalCost] = useState("");//총매출
 
   const [grade2Data, setGrade2Data] = useState([]); //지점장 페이지데이터
   const [grade2Data2, setGrade2Data2] = useState([]);
@@ -46,11 +47,13 @@ const Home = () => {
       const hopeData = response.data.hopeCount;
       const customerData = response.data.customerCount;
       const resultData = response.data.result_date;
+      const totalCost = response.data.totalCost;
       setTotalData(allData);
       setManagerData(managerData);
       setContractData(contractData);
       setHopeData(hopeData);
       setCustomerData(customerData);
+      setTotalCost(totalCost);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -139,7 +142,7 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => {};
+  const viewModalOpen = () => { };
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -154,7 +157,7 @@ const Home = () => {
         <div className="main_wrap">
           <div className="main_back">
             <div className="super_wrap">
-              <div>총매출액: </div>
+              <div>총매출액: {Number(totalCost).toLocaleString()} 원</div>
               <div>총커미션합계: </div>
               <div>지급예정커미션: </div>
               <div>고객수: {customerData}</div>
@@ -173,10 +176,10 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               {grade2Data.length > 0 &&
-              grade2Data2.length > 0 &&
-              grade2Data3.length > 0 &&
-              grade2Data4.length > 0 &&
-              grade2Data5.length > 0 ? (
+                grade2Data2.length > 0 &&
+                grade2Data3.length > 0 &&
+                grade2Data4.length > 0 &&
+                grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>
