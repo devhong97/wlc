@@ -38,7 +38,7 @@ const SelfSearchHospital = () => {
       setParams.searchData = searchData;
     }
 
-    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
+    Axios.get(`http://49.50.174.248:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {
@@ -79,7 +79,6 @@ const SelfSearchHospital = () => {
     { field: "name", headerName: "병원명" },
     { field: "province", headerName: "지역(도)" },
     { field: "city", headerName: "지역(시)" },
-
   ];
 
   const rows = hospitalList.map((data, index) => ({
@@ -92,7 +91,7 @@ const SelfSearchHospital = () => {
     h_key: data.h_key,
   }));
 
-  const emptyFunc = () => { };
+  const emptyFunc = () => {};
   const selectRowData = (data) => {
     console.log(data.name);
     setHospitalName(data.name);

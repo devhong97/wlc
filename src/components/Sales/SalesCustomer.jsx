@@ -21,7 +21,7 @@ const SalesCustomer = () => {
   const getSalesManagerData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_customer",
+        "http://49.50.174.248:3001/api/get/sales_customer",
         {
           params: {
             uid: decodeS1(),

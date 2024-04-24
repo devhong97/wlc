@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (loginAccess) {
-      const timeout = 900000; // 15분
+      const timeout = 100000; // 15분
       let remainingTime = timeout;
 
       const timer = setInterval(() => {
@@ -108,6 +108,9 @@ export const AuthProvider = ({ children }) => {
 
   //세션만료 로그아웃
   const logout2 = () => {
+    alert("세션시간이 만료되었습니다.\n다시 로그인해주세요.");
+    navigate("/", { replace: true });
+    window.location.reload();
     setLoginAccess(false);
     setBranchIdx("");
     setUid("");
@@ -122,8 +125,6 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove("S3");
     Cookies.remove("S4");
     Cookies.remove("S5");
-    alert("세션시간이 만료되었습니다.\n다시 로그인해주세요.");
-    navigate("/");
   };
 
   // Branch_idx 토큰 디코딩

@@ -19,18 +19,20 @@ const Mypage = () => {
   const [emailStatus, setEmailStatus] = useState(false);
   const [email, setNewEmail] = useState(""); // 이메일;
 
-
   useEffect(() => {
     getMyData();
   }, []); // 빈 배열 전달하여 한 번만 실행되도록 함
 
   const getMyData = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/api/get/mydata", {
-        params: {
-          uid: decodeS1(),
-        },
-      });
+      const response = await Axios.get(
+        "http://49.50.174.248:3001/api/get/mydata",
+        {
+          params: {
+            uid: decodeS1(),
+          },
+        }
+      );
       const allData = response.data.data;
       console.log(allData);
       setMyData(allData[0]);
@@ -38,7 +40,6 @@ const Mypage = () => {
       console.error("Error fetching list:", error);
     }
   };
-
 
   //연락처 체크
   const handlePhone = (e, target) => {
@@ -62,28 +63,28 @@ const Mypage = () => {
   const handleSubmit = async (key, value) => {
     console.log(key, value);
     if (value === "") {
-      alert("입력된 값이 없습니다.")
+      alert("입력된 값이 없습니다.");
       return;
     }
     let sendParams = {};
     if (key === "phone") {
       if (tel1 === "" || tel2 === "" || tel3 === "") {
-        alert("입력된 값이 없습니다.")
+        alert("입력된 값이 없습니다.");
         return;
       } else {
-        sendParams.phone = `${tel1}-${tel2}-${tel3}`
+        sendParams.phone = `${tel1}-${tel2}-${tel3}`;
       }
     } else {
       sendParams[key] = value;
     }
 
-    sendParams.uid = myData.uid
+    sendParams.uid = myData.uid;
 
     console.log(sendParams);
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/mypage_edit",
+        "http://49.50.174.248:3001/api/post/mypage_edit",
         sendParams
       );
 
@@ -93,7 +94,7 @@ const Mypage = () => {
     } catch (error) {
       console.error("Error during registration:", error);
     }
-  }
+  };
 
   return (
     <div className="main_wrap">
@@ -146,7 +147,8 @@ const Mypage = () => {
                   <div className="my_text">****</div>
                 ) : (
                   <div className="my_text">
-                    <input type="password"
+                    <input
+                      type="password"
                       value={password}
                       onChange={(e) => setNewPass(e.target.value)}
                       placeholder="비밀번호를 입력해주세요."
@@ -155,9 +157,16 @@ const Mypage = () => {
                   </div>
                 )}
                 {!passStatus ? (
-                  <div className="my_btn" onClick={() => setPassStatus(true)}>수정하기</div>
+                  <div className="my_btn" onClick={() => setPassStatus(true)}>
+                    수정하기
+                  </div>
                 ) : (
-                  <div className="my_btn" onClick={() => handleSubmit("password", password)}>수정완료</div>
+                  <div
+                    className="my_btn"
+                    onClick={() => handleSubmit("password", password)}
+                  >
+                    수정완료
+                  </div>
                 )}
               </div>
               <div className="my_row">
@@ -175,9 +184,16 @@ const Mypage = () => {
                   </div>
                 )}
                 {!emailStatus ? (
-                  <div className="my_btn" onClick={() => setEmailStatus(true)}>수정하기</div>
+                  <div className="my_btn" onClick={() => setEmailStatus(true)}>
+                    수정하기
+                  </div>
                 ) : (
-                  <div className="my_btn" onClick={() => handleSubmit("email", email)}>수정완료</div>
+                  <div
+                    className="my_btn"
+                    onClick={() => handleSubmit("email", email)}
+                  >
+                    수정완료
+                  </div>
                 )}
               </div>
               <div className="my_row">
@@ -215,9 +231,13 @@ const Mypage = () => {
                   </div>
                 )}
                 {!phoneStatus ? (
-                  <div className="my_btn" onClick={() => setPhoneStatus(true)}>수정하기</div>
+                  <div className="my_btn" onClick={() => setPhoneStatus(true)}>
+                    수정하기
+                  </div>
                 ) : (
-                  <div className="my_btn" onClick={() => handleSubmit("phone")}>수정완료</div>
+                  <div className="my_btn" onClick={() => handleSubmit("phone")}>
+                    수정완료
+                  </div>
                 )}
               </div>
 
@@ -241,9 +261,16 @@ const Mypage = () => {
                   </div>
                 )}
                 {!bankStatus ? (
-                  <div className="my_btn" onClick={() => setBankStatus(true)}>수정하기</div>
+                  <div className="my_btn" onClick={() => setBankStatus(true)}>
+                    수정하기
+                  </div>
                 ) : (
-                  <div className="my_btn" onClick={() => handleSubmit("bank", bank)}>수정완료</div>
+                  <div
+                    className="my_btn"
+                    onClick={() => handleSubmit("bank", bank)}
+                  >
+                    수정완료
+                  </div>
                 )}
               </div>
               <div className="my_row">
@@ -262,9 +289,21 @@ const Mypage = () => {
                   </div>
                 )}
                 {!depositStatus ? (
-                  <div className="my_btn" onClick={() => setDepositStatus(true)}>수정하기</div>
+                  <div
+                    className="my_btn"
+                    onClick={() => setDepositStatus(true)}
+                  >
+                    수정하기
+                  </div>
                 ) : (
-                  <div className="my_btn" onClick={() => handleSubmit("deposit_account", deposit_account)}>수정완료</div>
+                  <div
+                    className="my_btn"
+                    onClick={() =>
+                      handleSubmit("deposit_account", deposit_account)
+                    }
+                  >
+                    수정완료
+                  </div>
                 )}
               </div>
             </div>
