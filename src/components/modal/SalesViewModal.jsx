@@ -40,7 +40,7 @@ const SalesViewModal = (props) => {
   };
 
   const updateContractStatus = (status) => {
-    Axios.post("http://localhost:3001/api/post/updateContract", {
+    Axios.post("http://49.50.174.248:3001/api/post/updateContract", {
       detailIdx: detailNum.idx,
       status: status === "유" ? "Y" : "N",
       memo: memo,
@@ -55,7 +55,7 @@ const SalesViewModal = (props) => {
   };
 
   const handleMemoUpdate = () => {
-    Axios.post("http://localhost:3001/api/post/updateMemo", {
+    Axios.post("http://49.50.174.248:3001/api/post/updateMemo", {
       detailIdx: detailNum.idx,
       memo: memo,
       uid: uid,
@@ -116,7 +116,6 @@ const SalesViewModal = (props) => {
                 <div className="table_title">검진자 주소</div>
                 <div className="table_contents w100">{detailNum.address}</div>
               </div>
-
             </div>
 
             <div className="table_row">

@@ -52,14 +52,14 @@ const SignDownModal = (props) => {
               <div className="sign_img_box">
                 <img
                   className="sign_img"
-                  src={`http://localhost:3001/uploads/${img1}`}
+                  src={`http://49.50.174.248:3001/uploads/${img1}`}
                   alt={img1}
                 ></img>
               </div>
               <div className="sign_img_box">
                 <img
                   className="sign_img"
-                  src={`http://localhost:3001/uploads/${img2}`}
+                  src={`http://49.50.174.248:3001/uploads/${img2}`}
                   alt={img2}
                 ></img>
               </div>

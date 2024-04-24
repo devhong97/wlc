@@ -51,7 +51,7 @@ const ReservInfoModal = (props) => {
     };
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/customer",
+        "http://49.50.174.248:3001/api/post/customer",
         sendParams
       );
       console.log(response.data);
