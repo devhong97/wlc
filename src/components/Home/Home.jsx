@@ -38,7 +38,7 @@ const Home = () => {
   const getTotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/home_total"
+        "http://localhost:3001/api/get/home_total"
       );
       const allData = response.data.branchCount;
       const managerData = response.data.userCount;
@@ -59,7 +59,7 @@ const Home = () => {
   const getProductData = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/reserv/product_list"
+        "http://localhost:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductData(allData);
@@ -72,7 +72,7 @@ const Home = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/home_manager",
+        "http://localhost:3001/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -103,7 +103,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/home_list",
+        "http://localhost:3001/api/get/home_list",
         {
           params: {
             uid: decodeS1(),
