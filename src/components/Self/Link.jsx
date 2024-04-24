@@ -10,8 +10,9 @@ const Link = () => {
   const [modal, setModal] = useState(false);
 
   const openModal = () => {
-    setModal(!modal);
-  }
+    const link = `http://www.wlcmanager.com/self/${uid}`;
+    setModal({ isOpen: true, link });
+  };
 
   const movePage = () => {
     navigation(`/self/${uid}`);
@@ -52,14 +53,19 @@ const Link = () => {
                 >
                   <div className="my_btn">복사하기</div>
                 </CopyToClipboard> */}
-                <div className="my_btn" onClick={() => openModal()}>문자전송</div>
+                <div className="my_btn" onClick={() => openModal()}>
+                  문자전송
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       {modal && (
-        <LinkPhoneModal closeModal={openModal}></LinkPhoneModal>
+        <LinkPhoneModal
+          closeModal={openModal}
+          link={modal.link}
+        ></LinkPhoneModal>
       )}
     </div>
   );
