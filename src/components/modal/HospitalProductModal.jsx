@@ -22,7 +22,7 @@ const HospitalProductModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/hospital_product"
+        "http://localhost:3001/api/get/hospital_product"
       );
       const allData = response.data;
       setProductData(allData);

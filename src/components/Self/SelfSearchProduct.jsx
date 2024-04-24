@@ -26,7 +26,7 @@ const SelfSearchProduct = () => {
 
     try {
       const response = await Axios.get(
-        "http://49.50.174.248:3001/api/get/reserv/product_list",
+        "http://localhost:3001/api/get/reserv/product_list",
         {
           params: {
             key: resultKey,
