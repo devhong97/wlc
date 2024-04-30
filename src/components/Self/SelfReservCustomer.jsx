@@ -36,6 +36,7 @@ const SelfReservCustomer = () => {
       },
     ]
   );
+  const [equalStatus, setEqualStatus] = useState(false);//예약자 검진자 동일인물 체크값
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
@@ -134,6 +135,33 @@ const SelfReservCustomer = () => {
     }
   };
 
+  const handleEqualStatus = (e) => {
+    if (e.target.checked === true) {
+      console.log("여기는?");
+      if (name === "" || phone === "") {
+        alert("예약자의 정보를 모두 입력해주세요")
+      } else {
+        setEqualStatus(e.target.checked)
+        setCPhone(phone);
+        setInputArray((prev) => {
+          const newArray = [...prev];
+          newArray[0] = { name: name };
+          return newArray;
+        });
+      }
+    } else {
+      console.log("여기");
+      setEqualStatus(e.target.checked)
+      setCPhone("");
+      setInputArray((prev) => {
+        const newArray = [...prev];
+        newArray[0] = { name: "" };
+        return newArray;
+      });
+    }
+
+  }
+
   return (
     <div className={`reserv_wrap self ${step === 3 && "overflow"}`}>
       <div className="back_btn_box self">
@@ -158,12 +186,27 @@ const SelfReservCustomer = () => {
                 ></input>
               </div>
               <div className="reserv_input_box">
-                {/* <input
-                className="reserv_input"
-                placeholder="검진자 성명"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-              ></input> */}
+                <input
+                  className="reserv_input"
+                  placeholder="예약자 연락처"
+                  type="number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_equal_box">
+                <input
+                  type="checkbox"
+                  checked={equalStatus}
+                  onChange={handleEqualStatus}
+                  id="setEqual"
+                  className="equal_checkbox"
+                />
+                <label className="equal_label" htmlFor="setEqual">
+                  예약자와 검진자가 같으면 체크하세요.
+                </label>
+              </div>
+              <div className="reserv_input_box">
                 {inputArray.map((input, index) => {
                   return (
                     <div className="input_array_box">
@@ -189,23 +232,6 @@ const SelfReservCustomer = () => {
                 <div className="reserv_add_btn" onClick={() => addInputArray()}>
                   검진자 추가
                 </div>
-              </div>
-              {/* <div className="reserv_input_box">
-              <input
-                className="reserv_input"
-                placeholder="인원수"
-                value={customerNumber}
-                onChange={(e) => setCustomerNumber(e.target.value)}
-              ></input>
-            </div> */}
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="예약자 연락처"
-                  type="number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                ></input>
               </div>
               <div className="reserv_input_box">
                 <input
