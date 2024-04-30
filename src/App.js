@@ -68,9 +68,7 @@ function App() {
             />
             <Route path="/self/:uid/check" element={<SelfReservCheck />} />
           </Routes>
-          {target === "self" && (
-            <Footer />
-          )}
+          {target === "self" && <Footer />}
         </div>
       )}
     </Fragment>

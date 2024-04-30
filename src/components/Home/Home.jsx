@@ -15,7 +15,7 @@ const Home = () => {
   const [contractData, setContractData] = useState([]); // 총예약자수
   const [hopeData, setHopeData] = useState([]); // 상담고객수
   const [customerData, setCustomerData] = useState([]); // 총고객수
-  const [totalCost, setTotalCost] = useState("");//총매출
+  const [totalCost, setTotalCost] = useState(""); //총매출
 
   const [grade2Data, setGrade2Data] = useState([]); //지점장 페이지데이터
   const [grade2Data2, setGrade2Data2] = useState([]);
@@ -142,7 +142,7 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => { };
+  const viewModalOpen = () => {};
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -176,10 +176,10 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               {grade2Data.length > 0 &&
-                grade2Data2.length > 0 &&
-                grade2Data3.length > 0 &&
-                grade2Data4.length > 0 &&
-                grade2Data5.length > 0 ? (
+              grade2Data2.length > 0 &&
+              grade2Data3.length > 0 &&
+              grade2Data4.length > 0 &&
+              grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>
