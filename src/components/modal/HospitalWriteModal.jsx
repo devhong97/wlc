@@ -167,7 +167,7 @@ const HospitalWriteModal = (props) => {
                 </div>
                 <div className="table_contents w100">
                   <input
-                    type="phone"
+                    type="number"
                     value={tel1}
                     onChange={(e) => handlePhone(e, "tel1")}
                     id="tel"
@@ -175,7 +175,7 @@ const HospitalWriteModal = (props) => {
                   />
                   &nbsp;-&nbsp;
                   <input
-                    type="phone"
+                    type="number"
                     value={tel2}
                     onChange={(e) => handlePhone(e, "tel2")}
                     id="tel2"
@@ -183,7 +183,7 @@ const HospitalWriteModal = (props) => {
                   />
                   &nbsp;-&nbsp;
                   <input
-                    type="phone"
+                    type="number"
                     value={tel3}
                     onChange={(e) => handlePhone(e, "tel3")}
                     id="tel3"

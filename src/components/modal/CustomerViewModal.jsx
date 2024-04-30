@@ -306,7 +306,7 @@ const CustomerViewModal = (props) => {
                   <div className="table_contents w100">
                     <input
                       className="table_input w100"
-                      type="text"
+                      type="number"
                       id="cPhone"
                       placeholder="연락처를 입력해주세요."
                       value={cPhone}
@@ -320,7 +320,7 @@ const CustomerViewModal = (props) => {
                   <div className="table_contents w100">
                     <input
                       className="table_input w100"
-                      type="text"
+                      type="number"
                       id="phone"
                       placeholder="연락처를 입력해주세요."
                       value={phone}

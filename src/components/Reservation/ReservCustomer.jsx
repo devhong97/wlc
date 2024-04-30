@@ -196,6 +196,7 @@ const ReservCustomer = () => {
                 <input
                   className="reserv_input"
                   placeholder="예약자 연락처"
+                  type="number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 ></input>
@@ -205,6 +206,7 @@ const ReservCustomer = () => {
                   className="reserv_input"
                   placeholder="검진자 대표 연락처"
                   value={c_phone}
+                  type="number"
                   onChange={(e) => setCPhone(e.target.value)}
                 ></input>
               </div>
@@ -242,9 +244,8 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -275,9 +276,8 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"

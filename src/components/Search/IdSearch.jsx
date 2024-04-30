@@ -194,7 +194,7 @@ const IdSearch = () => {
       </div>
       <div className="input_row">
         <input
-          type="phone"
+          type="number"
           value={tel1}
           onChange={(e) => handlePhone(e, "tel1")}
           id="tel1"
@@ -204,7 +204,7 @@ const IdSearch = () => {
         />
         <p className="phone_icon">-</p>
         <input
-          type="phone"
+          type="number"
           value={tel2}
           onChange={(e) => handlePhone(e, "tel2")}
           id="tel2"
@@ -214,7 +214,7 @@ const IdSearch = () => {
         />
         <p className="phone_icon">-</p>
         <input
-          type="phone"
+          type="number"
           value={tel3}
           onChange={(e) => handlePhone(e, "tel3")}
           id="tel3"
