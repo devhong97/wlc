@@ -130,7 +130,7 @@ const SalesList = () => {
       const hopeData = response.data.hopeData;
       const contractData = response.data.contractData;
 
-      // 가입고객현황, 상담희망고객현황, 예약고객현황
+      // 가입고객현황, 상담희망고객현황, 계약고객현황
       setTotalData(totalData.totalCount);
       setHopeData(hopeData.hopeCount);
       setContractData(contractData.contractCount);
@@ -230,7 +230,7 @@ const SalesList = () => {
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
-    { field: "contract", headerName: "예약", flex: 0.5 },
+    { field: "contract", headerName: "계약", flex: 0.5 },
     { field: "memo", headerName: "비고" },
   ];
 
@@ -908,7 +908,7 @@ const SalesList = () => {
                 </div>
                 <div className="sales-info-item">
                   <div className="sales-info-title">
-                    예약고객수: {contractCount}
+                    계약고객수: {contractCount}
                   </div>
                 </div>
               </div>
