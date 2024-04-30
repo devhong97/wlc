@@ -464,6 +464,8 @@ const SalesList = () => {
           }
         });
 
+        console.log(filteredData);
+
         // 각 날짜별로 데이터 수집
         totalDataArrays.forEach((totalData, index) => {
           dateArray.forEach((date) => {

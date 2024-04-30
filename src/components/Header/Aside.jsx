@@ -158,7 +158,7 @@ const Aside = (props) => {
                       >
                         매출관리
                       </div>
-                      <div
+                      {/* <div
                         className={`sub_menu ${path === "/salescustomer" && "active"
                           }`}
                         onClick={() => moveMobilePage("/salescustomer")}
@@ -178,7 +178,7 @@ const Aside = (props) => {
                         onClick={() => moveMobilePage("/saleshospital")}
                       >
                         병원별 현황
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className={`menu_row`}>
@@ -316,7 +316,7 @@ const Aside = (props) => {
                       >
                         매출관리
                       </div>
-                      <div
+                      {/* <div
                         className={`sub_menu ${path === "/salescustomer" && "active"
                           }`}
                         onClick={() => movePage("/salescustomer")}
@@ -336,7 +336,7 @@ const Aside = (props) => {
                         onClick={() => movePage("/saleshospital")}
                       >
                         병원별 현황
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className={`menu_row`}>
