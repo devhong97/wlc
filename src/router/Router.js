@@ -23,6 +23,7 @@ import SalesManager from "./../components/Sales/salesManager";
 import SalesHospital from "./../components/Sales/SalesHospital";
 import Link from "../components/Self/Link";
 import AdminSalesList from "../components/Sales/AdminSalesList";
+import ManagerSalesCustomer from "../components/Sales/ManagerSalesCustomer";
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
       <Route path="/member" element={<MemberList />} />
       <Route path="/customer" element={<CustomerList />} />
       <Route path="/sales" element={<SalesList />} />
+      <Route path="/managersales" element={<ManagerSalesCustomer />} />
       <Route path="/salescost" element={<AdminSalesList />} />
       <Route path="/salescustomer" element={<SalesCustomer />} />
       <Route path="/salesmanager" element={<SalesManager />} />
