@@ -547,6 +547,20 @@
                     }
                 }
 
+                .reserv_equal_box {
+
+                    .equal_label {
+                        padding-left: 30px !important;
+                        font-size: 15px !important;
+                        line-height: 25px !important;
+
+                        &::before {
+                            width: 20px !important;
+                            height: 20px !important;
+                        }
+                    }
+                }
+
                 .reserv_contents_box {
                     padding: 20px !important;
 

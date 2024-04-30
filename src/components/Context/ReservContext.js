@@ -178,8 +178,13 @@ export const ReservProvider = ({ children }) => {
             });
         }
       });
-      alert(`등록이 완료되었습니다.`);
-      navigation("/");
+      if (selfUrl !== "") {
+        navigation("/self/success")
+      } else {
+        alert(`등록이 완료되었습니다.`);
+        navigation("/");
+      }
+
     }
   };
 
