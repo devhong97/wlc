@@ -25,11 +25,14 @@ const Mypage = () => {
 
   const getMyData = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/api/get/mydata", {
-        params: {
-          uid: decodeS1(),
-        },
-      });
+      const response = await Axios.get(
+        "http://118.67.134.86:3001/api/get/mydata",
+        {
+          params: {
+            uid: decodeS1(),
+          },
+        }
+      );
       const allData = response.data.data;
       console.log(allData);
       setMyData(allData[0]);
@@ -81,7 +84,7 @@ const Mypage = () => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/mypage_edit",
+        "http://118.67.134.86:3001/api/post/mypage_edit",
         sendParams
       );
 

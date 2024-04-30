@@ -41,7 +41,7 @@ const MemberList = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_manager",
+        "http://118.67.134.86:3001/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -97,7 +97,7 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_list",
+        "http://118.67.134.86:3001/api/get/member_list",
         {
           params: resultParams,
         }
@@ -153,7 +153,7 @@ const MemberList = () => {
     { field: "date", headerName: "등록일" },
     { field: "customer_num", headerName: "가입회원현황" },
     { field: "hope_num", headerName: "상담희망회원" },
-    { field: "contract_num", headerName: "예약고객수" },
+    { field: "contract_num", headerName: "계약고객수" },
   ];
   const subColumns2 = [
     {
@@ -229,7 +229,7 @@ const MemberList = () => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/search_mem",
+        "http://118.67.134.86:3001/api/post/search_mem",
         {
           searchType,
           searchKeyword,
@@ -376,7 +376,7 @@ const MemberList = () => {
                 )}
                 {grade2Data5 && grade2Data5.length > 0 && (
                   <div className="total_box">
-                    예약고객수: {grade2Data5[0].contractCount}
+                    계약고객수: {grade2Data5[0].contractCount}
                   </div>
                 )}
               </div>

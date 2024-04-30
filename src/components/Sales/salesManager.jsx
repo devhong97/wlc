@@ -20,7 +20,7 @@ const SalesManager = () => {
   const getSalesMangerData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_customer",
+        "http://118.67.134.86:3001/api/get/sales_customer",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달

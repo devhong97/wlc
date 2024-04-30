@@ -29,7 +29,7 @@ const ProductViewModal = (props) => {
   }, [props.detailIdx]);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/categories")
+    Axios.get("http://118.67.134.86:3001/api/get/categories")
       .then((response) => {
         setCategories(response.data);
       })
@@ -45,7 +45,9 @@ const ProductViewModal = (props) => {
 
   useEffect(() => {
     if (selectedCategory !== "") {
-      Axios.get(`http://localhost:3001/api/get/products/${selectedCategory}`)
+      Axios.get(
+        `http://118.67.134.86:3001/api/get/products/${selectedCategory}`
+      )
         .then((response) => {
           setProducts(response.data);
           // 선택한 상품명1에 해당하는 c_key 찾기
@@ -70,7 +72,7 @@ const ProductViewModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/product_modify",
+        "http://118.67.134.86:3001/api/post/product_modify",
         {
           type: selectedCategory,
           pKey: pKey,
@@ -100,7 +102,7 @@ const ProductViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/product_delete",
+        "http://118.67.134.86:3001/api/post/product_delete",
         {
           idx: props.detailData.idx,
         }

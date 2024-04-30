@@ -40,7 +40,7 @@ const AdminSalesList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/cost_list",
+        "http://118.67.134.86:3001/api/get/cost_list",
         {
           params: resultParams,
         }

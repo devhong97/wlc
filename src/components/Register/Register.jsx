@@ -39,7 +39,7 @@ const Register = () => {
   };
   // 아이디 중복체크
   const handleIdChk = (val) => {
-    Axios.post("http://localhost:3001/api/post/check_id", {
+    Axios.post("http://118.67.134.86:3001/api/post/check_id", {
       id: val,
     })
       .then((res) => {
@@ -226,7 +226,7 @@ const Register = () => {
     const totalEmail = `${email}@${domain}`;
     const totalPhone = `${tel1}-${tel2}-${tel3}`;
 
-    Axios.post("http://localhost:3001/api/post/register", {
+    Axios.post("http://118.67.134.86:3001/api/post/register", {
       id,
       password,
       name,

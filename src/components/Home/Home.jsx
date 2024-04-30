@@ -39,7 +39,7 @@ const Home = () => {
   const getTotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_total"
+        "http://118.67.134.86:3001/api/get/home_total"
       );
       const allData = response.data.branchCount;
       const managerData = response.data.userCount;
@@ -62,7 +62,7 @@ const Home = () => {
   const getProductData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/product_list"
+        "http://118.67.134.86:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductData(allData);
@@ -75,7 +75,7 @@ const Home = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_manager",
+        "http://118.67.134.86:3001/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -106,7 +106,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_list",
+        "http://118.67.134.86:3001/api/get/home_list",
         {
           params: {
             uid: decodeS1(),
@@ -164,7 +164,7 @@ const Home = () => {
               <div>상담희망고객수: {hopeData}</div>
               <div>총지점수: {totalData}</div>
               <div>총영업자수: {managerData}</div>
-              <div>예약고객수(청약고객수): {contractData} </div>
+              <div>계약고객수(청약고객수): {contractData} </div>
             </div>
           </div>
         </div>

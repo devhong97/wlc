@@ -104,7 +104,7 @@ const MyPageViewModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/mypage_modify",
+        "http://118.67.134.86:3001/api/post/mypage_modify",
         postData
       );
       alert("수정이 완료되었습니다.");

@@ -76,7 +76,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/member_detail",
+        "http://118.67.134.86:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -142,7 +142,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_edit",
+        "http://118.67.134.86:3001/api/post/member_edit",
         paramsArray
       );
 
@@ -156,7 +156,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_delete",
+        "http://118.67.134.86:3001/api/post/member_delete",
         {
           idx: props.detailIdx.idx,
         }
@@ -184,7 +184,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/member_status",
+        "http://118.67.134.86:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx.idx,
@@ -548,7 +548,7 @@ const MemberViewModal = (props) => {
                     </div>
                     <div className="table_row">
                       <div className="table_section">
-                        <div className="table_title">예약고객수</div>
+                        <div className="table_title">계약고객수</div>
                         <div className="table_contents w100">
                           <div className="table_inner_text">{contractNum}</div>
                         </div>

@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3001/api/post/login", {
+      const res = await axios.post("http://118.67.134.86:3001/api/post/login", {
         id,
         password,
       });
