@@ -762,8 +762,8 @@ const SalesList = () => {
             매출 관리
             {tab === 1 && (
               <div className="total_data_box">
-                <div className="total_box">커미션합계 : 1</div>
-                <div className="total_box">지급예정커미션 : 1</div>
+                <div className="total_box">커미션합계 : 0</div>
+                <div className="total_box">지급예정커미션 : 0</div>
               </div>
             )}
             {tab === 2 && (
