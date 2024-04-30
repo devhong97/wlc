@@ -245,6 +245,47 @@
                 }
             }
 
+            .reserv_equal_box {
+                padding-bottom: 13px;
+
+                .equal_label {
+                    font-size: 18px;
+                    position: relative;
+                    padding-left: 40px;
+
+                    &::before {
+                        position: absolute;
+                        content: "";
+                        width: 22px;
+                        height: 22px;
+                        top: 0;
+                        border-radius: 5px;
+                        background-color: #c9c9c9;
+                        left: 0;
+                    }
+
+                    &::after {
+                        position: absolute;
+                        content: "";
+                        width: 7px;
+                        height: 12px;
+                        border-right: 3px solid #fff;
+                        border-bottom: 3px solid #fff;
+                        top: 2px;
+                        left: 6px;
+                        rotate: 45deg;
+                    }
+                }
+
+                .equal_checkbox {
+                    display: none;
+                }
+
+                .equal_checkbox:checked+.equal_label::before {
+                    background-color: $main-color;
+                }
+            }
+
             .reserv_check_box {
                 box-shadow: 0px 10px 20px #00000029;
                 border-radius: 20px;
