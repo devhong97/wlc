@@ -421,7 +421,7 @@ const Register = () => {
           <div className="input_row">
             <div className="input_title">연락처</div>
             <input
-              type="phone"
+              type="number"
               value={tel1}
               onChange={(e) => handlePhone(e, "tel1")}
               id="tel1"
@@ -430,7 +430,7 @@ const Register = () => {
             />
             <p className="phone_icon">-</p>
             <input
-              type="phone"
+              type="number"
               value={tel2}
               onChange={(e) => handlePhone(e, "tel2")}
               id="tel2"
@@ -439,7 +439,7 @@ const Register = () => {
             />
             <p className="phone_icon">-</p>
             <input
-              type="phone"
+              type="number"
               value={tel3}
               onChange={(e) => handlePhone(e, "tel3")}
               id="tel3"

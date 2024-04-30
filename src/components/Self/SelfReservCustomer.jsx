@@ -202,12 +202,14 @@ const SelfReservCustomer = () => {
                 <input
                   className="reserv_input"
                   placeholder="예약자 연락처"
+                  type="number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 ></input>
               </div>
               <div className="reserv_input_box">
                 <input
+                  type="number"
                   className="reserv_input"
                   placeholder="검진자 대표 연락처"
                   value={c_phone}
@@ -248,9 +250,8 @@ const SelfReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -281,9 +282,8 @@ const SelfReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"

@@ -115,7 +115,7 @@ const PwSearch = (props) => {
 
       <div className="input_row">
         <input
-          type="tel"
+          type="number"
           value={tel1}
           onChange={(e) => setTel1(e.target.value)}
           className="register_input short_phone"
@@ -123,7 +123,7 @@ const PwSearch = (props) => {
         />
         <p className="phone_icon">-</p>
         <input
-          type="tel"
+          type="number"
           value={tel2}
           onChange={(e) => setTel2(e.target.value)}
           className="register_input short_phone"
@@ -131,7 +131,7 @@ const PwSearch = (props) => {
         />
         <p className="phone_icon">-</p>
         <input
-          type="tel"
+          type="number"
           value={tel3}
           onChange={(e) => setTel3(e.target.value)}
           className="register_input short_phone"
