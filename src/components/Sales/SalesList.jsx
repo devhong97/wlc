@@ -488,7 +488,7 @@ const SalesList = () => {
               data: dateArray.map((date) => filteredData[date].totalDT2),
             },
             {
-              name: "예약고객현황",
+              name: "계약고객현황",
               type: "bar",
               data: dateArray.map((date) => filteredData[date].totalDT3),
             },
@@ -766,7 +766,7 @@ const SalesList = () => {
               <div className="total_data_box">
                 <div className="total_box">가입고객현황 : {totalData}</div>
                 <div className="total_box">상담희망고객현황 : {hopeData}</div>
-                <div className="total_box">예약고객현황 : {contractData}</div>
+                <div className="total_box">계약고객현황 : {contractData}</div>
               </div>
             )}
           </div>
