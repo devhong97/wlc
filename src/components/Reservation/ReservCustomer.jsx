@@ -30,6 +30,7 @@ const ReservCustomer = () => {
       },
     ]
   );
+  const [equalStatus, setEqualStatus] = useState(false);//예약자 검진자 동일인물 체크값
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
@@ -128,6 +129,31 @@ const ReservCustomer = () => {
     }
   };
 
+  const handleEqualStatus = (e) => {
+    if (e.target.checked === true) {
+      if (name === "" || phone === "") {
+        alert("예약자의 정보를 모두 입력해주세요")
+      } else {
+        setEqualStatus(e.target.checked)
+        setCPhone(phone);
+        setInputArray((prev) => {
+          const newArray = [...prev];
+          newArray[0] = { name: name };
+          return newArray;
+        });
+      }
+    } else {
+      setEqualStatus(e.target.checked)
+      setCPhone("");
+      setInputArray((prev) => {
+        const newArray = [...prev];
+        newArray[0] = { name: "" };
+        return newArray;
+      });
+    }
+
+  }
+
   return (
     <div className={`reserv_wrap ${step === 3 && "overflow"}`}>
       <div className="back_btn_box">
@@ -152,12 +178,27 @@ const ReservCustomer = () => {
                 ></input>
               </div>
               <div className="reserv_input_box">
-                {/* <input
-                className="reserv_input"
-                placeholder="검진자 성명"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-              ></input> */}
+                <input
+                  className="reserv_input"
+                  placeholder="예약자 연락처"
+                  type="number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                ></input>
+              </div>
+              <div className="reserv_equal_box">
+                <input
+                  type="checkbox"
+                  checked={equalStatus}
+                  onChange={handleEqualStatus}
+                  id="setEqual"
+                  className="equal_checkbox"
+                />
+                <label className="equal_label" htmlFor="setEqual">
+                  예약자와 검진자가 같으면 체크하세요.
+                </label>
+              </div>
+              <div className="reserv_input_box">
                 {inputArray.map((input, index) => {
                   return (
                     <div className="input_array_box">
@@ -184,27 +225,12 @@ const ReservCustomer = () => {
                   검진자 추가
                 </div>
               </div>
-              {/* <div className="reserv_input_box">
-              <input
-                className="reserv_input"
-                placeholder="인원수"
-                value={customerNumber}
-                onChange={(e) => setCustomerNumber(e.target.value)}
-              ></input>
-            </div> */}
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="예약자 연락처"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                ></input>
-              </div>
               <div className="reserv_input_box">
                 <input
                   className="reserv_input"
                   placeholder="검진자 대표 연락처"
                   value={c_phone}
+                  type="number"
                   onChange={(e) => setCPhone(e.target.value)}
                 ></input>
               </div>
@@ -242,9 +268,8 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${
-                    termsStatus === 1 && "active"
-                  }`}
+                  className={`terms_contents_box ${termsStatus === 1 && "active"
+                    }`}
                 >
                   <div
                     className="terms_contents"
@@ -275,9 +300,8 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${
-                      termsStatus === 2 && "active"
-                    }`}
+                    className={`terms_contents_box ${termsStatus === 2 && "active"
+                      }`}
                   >
                     <div
                       className="terms_contents"

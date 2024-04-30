@@ -190,7 +190,7 @@ const MemberWriteModal = (props) => {
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
-                    type="text"
+                    type="number"
                     id="title"
                     placeholder="연락처를 입력해주세요."
                     value={phone}
