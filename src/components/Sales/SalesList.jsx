@@ -467,15 +467,17 @@ const SalesList = () => {
         console.log(filteredData);
 
         // 각 날짜별로 데이터 수집
-        totalDataArrays.forEach((totalData, index) => {
-          dateArray.forEach((date) => {
-            totalData.data.forEach((data) => {
-              if (moment(data.date).format("YYYY-MM-DD") === date) {
-                filteredData[date][totalData.type]++;
-              }
+        if (searchedData.length > 0) {
+          totalDataArrays.forEach((totalData, index) => {
+            dateArray.forEach((date) => {
+              totalData.data.forEach((data) => {
+                if (moment(data.date).format("YYYY-MM-DD") === date) {
+                  filteredData[date][totalData.type]++;
+                }
+              });
             });
           });
-        });
+        }
 
         options = {
           series: [
@@ -766,9 +768,21 @@ const SalesList = () => {
             )}
             {tab === 2 && (
               <div className="total_data_box">
-                <div className="total_box">가입고객현황 : {totalData}</div>
-                <div className="total_box">상담희망고객현황 : {hopeData}</div>
-                <div className="total_box">계약고객현황 : {contractData}</div>
+                <div className="total_box">
+                  {totalData
+                    ? `가입고객현황 : ${totalData}`
+                    : "가입고객현황 : 0"}
+                </div>
+                <div className="total_box">
+                  {hopeData
+                    ? `상담희망고객현황 : ${hopeData}`
+                    : "상담희망고객현황 : 0"}
+                </div>
+                <div className="total_box">
+                  {contractData
+                    ? `계약고객현황 : ${contractData}`
+                    : "계약고객현황 : 0"}
+                </div>
               </div>
             )}
           </div>
