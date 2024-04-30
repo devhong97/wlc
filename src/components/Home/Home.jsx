@@ -142,7 +142,17 @@ const Home = () => {
     result_date: data.result_date,
   }));
 
-  const viewModalOpen = () => {};
+  const returnTotalCost = (num) => {
+    const number = Number(num); // 숫자 이외의 문자 제거 후 숫자로 변환
+    console.log(number);
+    if (number > 0) {
+      return number.toLocaleString(); // 숫자를 다시 문자열로 변환하여 반환
+    } else {
+      return 0;
+    }
+  }
+
+  const viewModalOpen = () => { };
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -157,7 +167,7 @@ const Home = () => {
         <div className="main_wrap">
           <div className="main_back">
             <div className="super_wrap">
-              <div>총매출액: {Number(totalCost).toLocaleString()} 원</div>
+              <div>총매출액: {returnTotalCost(totalCost)} 원</div>
               <div>총커미션합계: </div>
               <div>지급예정커미션: </div>
               <div>고객수: {customerData}</div>
@@ -176,10 +186,10 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               {grade2Data.length > 0 &&
-              grade2Data2.length > 0 &&
-              grade2Data3.length > 0 &&
-              grade2Data4.length > 0 &&
-              grade2Data5.length > 0 ? (
+                grade2Data2.length > 0 &&
+                grade2Data3.length > 0 &&
+                grade2Data4.length > 0 &&
+                grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>

@@ -16,6 +16,7 @@ import SelfSelectDate from "./components/Self/SelfSelectDate";
 import SelfReservCustomer from "./components/Self/SelfReservCustomer";
 import SelfReservCheck from "./components/Self/SelfReservCheck";
 import { useLocation } from "react-router-dom";
+import SelfSuccess from "./components/Self/SelfSuccess";
 function App() {
   const { loginAccess, login } = useAuth(); //로그인여부 확인
   const location = useLocation();
@@ -67,6 +68,7 @@ function App() {
               element={<SelfReservCustomer />}
             />
             <Route path="/self/:uid/check" element={<SelfReservCheck />} />
+            <Route path="/self/success" element={<SelfSuccess />} />
           </Routes>
           {target === "self" && <Footer />}
         </div>
