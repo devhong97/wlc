@@ -8,10 +8,14 @@ const Link = () => {
   const uid = decodeS1();
   const navigation = useNavigate();
   const [modal, setModal] = useState(false);
+  const link = `http://www.wlcmanager.com/self/${uid}`;
 
   const openModal = () => {
-    const link = `http://www.wlcmanager.com/self/${uid}`;
-    setModal({ isOpen: true, link });
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   const movePage = () => {
@@ -62,10 +66,7 @@ const Link = () => {
         </div>
       </div>
       {modal && (
-        <LinkPhoneModal
-          closeModal={openModal}
-          link={modal.link}
-        ></LinkPhoneModal>
+        <LinkPhoneModal closeModal={closeModal} link={link}></LinkPhoneModal>
       )}
     </div>
   );
