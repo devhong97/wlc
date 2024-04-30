@@ -137,7 +137,6 @@ const SelfReservCustomer = () => {
 
   const handleEqualStatus = (e) => {
     if (e.target.checked === true) {
-      console.log("여기는?");
       if (name === "" || phone === "") {
         alert("예약자의 정보를 모두 입력해주세요")
       } else {
@@ -150,7 +149,6 @@ const SelfReservCustomer = () => {
         });
       }
     } else {
-      console.log("여기");
       setEqualStatus(e.target.checked)
       setCPhone("");
       setInputArray((prev) => {
