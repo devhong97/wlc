@@ -44,14 +44,16 @@ const HospitalSelect = (props, ref) => {
   };
 
   const handleSearch = () => {
+    const searchData = {
+      province: city,
+      city: district,
+    };
+    console.log("검색 데이터:", searchData);
+
     if (props.setSearchData) {
-      props.setSearchData({
-        province: city,
-        city: district,
-      });
+      props.setSearchData(searchData);
     }
   };
-
   const clearSearch = () => {
     if (props.setSearchData) {
       props.setSearchData([]);
@@ -67,7 +69,7 @@ const HospitalSelect = (props, ref) => {
           value={city}
           onChange={(e) => handleCityChange(e)}
         >
-          <option value="">지역(시)</option>
+          <option value="">지역(시/도)</option>
           {cityList.map((type, index) => {
             return (
               <option key={index} value={type}>
@@ -81,7 +83,7 @@ const HospitalSelect = (props, ref) => {
           value={district}
           onChange={(e) => setDistrict(e.target.value)}
         >
-          <option value="">지역(도)</option>
+          <option value="">지역(구/군)</option>
           {districtList.map((data, index) => {
             return (
               <option key={index} value={data}>

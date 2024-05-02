@@ -18,6 +18,12 @@ const NoticeWriteModal = (props) => {
   const [fileUrl, setFileUrl] = useState(""); //파일 URL
   const editorRef = useRef(null);
 
+  // 파일 첨부 삭제
+  const handleFileDelete = () => {
+    setSelectedFile(null); // 파일 선택 상태 초기화
+    setFileUrl(""); // 파일 URL 비우기
+  };
+
   //Editor 파일 업로드 관련 함수
   const onUploadImage = async (blob, callback) => {
     try {
@@ -165,19 +171,31 @@ const NoticeWriteModal = (props) => {
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  <label htmlFor="file" className="image_label">
-                    {fileUrl ? (
-                      <img className="table_img" src={fileUrl} alt="이미지1" />
-                    ) : (
-                      <div className="btn_upload"></div>
-                    )}
-                  </label>
-                  <input
-                    type="file"
-                    onChange={handleFileSelect}
-                    id="file"
-                    className="file_input"
-                  />
+                  {selectedFile ? (
+                    <div>
+                      <label htmlFor="file" className="image_label">
+                        <img
+                          style={{ width: "150px", height: "150px" }}
+                          className="table_img"
+                          src={fileUrl}
+                          alt="첨부이미지"
+                        />
+                      </label>
+                      <button onClick={handleFileDelete}>삭제</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <label htmlFor="file" className="image_label">
+                        <div className="btn_upload"></div>
+                      </label>
+                      <input
+                        type="file"
+                        onChange={handleFileSelect}
+                        id="file"
+                        className="file_input"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

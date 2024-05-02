@@ -144,6 +144,30 @@ const NoticeViewModal = (props) => {
     props.closeModal();
   };
 
+  // 이미지 삭제
+  const deleteAttachment = async () => {
+    try {
+      // 서버로 첨부 파일 삭제 요청을 보냄
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/delete_attachment",
+        {
+          idx: detailNum, // 해당글의 idx 추가
+          attachmentUrl: updateAttachment,
+        }
+      );
+
+      if (response.data.success) {
+        // 첨부 파일 삭제가 성공한 경우 상태 업데이트
+        setUpdateAttachment(null);
+        alert("첨부 파일이 삭제되었습니다.");
+      } else {
+        alert("첨부 파일 삭제에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("첨부 파일 삭제 중 오류 발생:", error);
+    }
+  };
+
   return (
     <div className="modal_wrap">
       <div className="modal_back">
@@ -220,6 +244,11 @@ const NoticeViewModal = (props) => {
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
+                  {decodeS4() === "슈퍼관리자" && updateAttachment && (
+                    <div>
+                      <button onClick={deleteAttachment}>첨부 파일 삭제</button>
+                    </div>
+                  )}
                   {decodeS4() === "슈퍼관리자" && (
                     <input type="file" onChange={handleFileChange} />
                   )}

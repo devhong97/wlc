@@ -179,12 +179,11 @@ export const ReservProvider = ({ children }) => {
         }
       });
       if (selfUrl !== "") {
-        navigation("/self/success")
+        navigation("/self/success");
       } else {
         alert(`등록이 완료되었습니다.`);
         navigation("/");
       }
-
     }
   };
 

@@ -153,7 +153,7 @@ const MemberList = () => {
     { field: "date", headerName: "등록일" },
     { field: "customer_num", headerName: "가입회원현황" },
     { field: "hope_num", headerName: "상담희망회원" },
-    { field: "contract_num", headerName: "예약고객수" },
+    { field: "contract_num", headerName: "계약고객수" },
   ];
   const subColumns2 = [
     {
@@ -376,7 +376,7 @@ const MemberList = () => {
                 )}
                 {grade2Data5 && grade2Data5.length > 0 && (
                   <div className="total_box">
-                    예약고객수: {grade2Data5[0].contractCount}
+                    계약고객수: {grade2Data5[0].contractCount}
                   </div>
                 )}
               </div>

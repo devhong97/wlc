@@ -30,7 +30,7 @@ const ReservCustomer = () => {
       },
     ]
   );
-  const [equalStatus, setEqualStatus] = useState(false);//예약자 검진자 동일인물 체크값
+  const [equalStatus, setEqualStatus] = useState(false); //예약자 검진자 동일인물 체크값
   const navigation = useNavigate();
   const moveSecondStep = () => {
     if (
@@ -132,9 +132,9 @@ const ReservCustomer = () => {
   const handleEqualStatus = (e) => {
     if (e.target.checked === true) {
       if (name === "" || phone === "") {
-        alert("예약자의 정보를 모두 입력해주세요")
+        alert("예약자의 정보를 모두 입력해주세요");
       } else {
-        setEqualStatus(e.target.checked)
+        setEqualStatus(e.target.checked);
         setCPhone(phone);
         setInputArray((prev) => {
           const newArray = [...prev];
@@ -143,7 +143,7 @@ const ReservCustomer = () => {
         });
       }
     } else {
-      setEqualStatus(e.target.checked)
+      setEqualStatus(e.target.checked);
       setCPhone("");
       setInputArray((prev) => {
         const newArray = [...prev];
@@ -151,8 +151,7 @@ const ReservCustomer = () => {
         return newArray;
       });
     }
-
-  }
+  };
 
   return (
     <div className={`reserv_wrap ${step === 3 && "overflow"}`}>
@@ -268,8 +267,9 @@ const ReservCustomer = () => {
                   [자세히 보기]
                 </div>
                 <div
-                  className={`terms_contents_box ${termsStatus === 1 && "active"
-                    }`}
+                  className={`terms_contents_box ${
+                    termsStatus === 1 && "active"
+                  }`}
                 >
                   <div
                     className="terms_contents"
@@ -300,8 +300,9 @@ const ReservCustomer = () => {
                     [자세히 보기]
                   </div>
                   <div
-                    className={`terms_contents_box ${termsStatus === 2 && "active"
-                      }`}
+                    className={`terms_contents_box ${
+                      termsStatus === 2 && "active"
+                    }`}
                   >
                     <div
                       className="terms_contents"

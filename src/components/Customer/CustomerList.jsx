@@ -6,6 +6,9 @@ import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import moment from "moment";
 import CustomerSelect from "./CustomerSelect";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+
 const CustomerList = () => {
   const selectRef = useRef(null);
   const { decodeS1, decodeS4 } = useAuth();
@@ -27,6 +30,69 @@ const CustomerList = () => {
   useEffect(() => {
     getCustomer();
   }, [tab, searchData]);
+
+  const printCustom = () => {
+    const today = moment().format("YYYYMMDD");
+
+    let sheetName;
+    switch (tab) {
+      case 1:
+        sheetName = `검진완료 현황_${today}`;
+        break;
+      case 2:
+        sheetName = `검진취소 현황_${today}`;
+        break;
+      case 3:
+        sheetName = `검진대기 현황_${today}`;
+        break;
+      default:
+        sheetName = `데이터_${today}`;
+    }
+
+    const rowsToPrint = rows.map((row) => {
+      const newRow = {};
+      newRow["No"] = row.id;
+      newRow["예약자"] = row.contractor_name;
+      newRow["검진자"] = row.name;
+      newRow["연락처"] = row.phone;
+      newRow["가입일"] = row.date;
+      newRow["상품명"] = row.product;
+      newRow["병원"] = row.hospital;
+      newRow["확정일"] = row.result_date;
+      newRow["검진시간"] = row.start_time;
+      newRow["입금여부"] = row.pay_status;
+      newRow["상담희망"] = row.hope_status;
+      newRow["지점명"] = row.branch;
+      return newRow;
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(rowsToPrint);
+    worksheet["!cols"] = [
+      { width: 4 },
+      { width: 18 },
+      { width: 25 },
+      { width: 18 },
+      { width: 18 },
+      { width: 18 },
+      { width: 18 },
+      { width: 18 },
+      { width: 14 },
+      { width: 14 },
+      { width: 20 },
+    ];
+
+    // 엑셀 배율 설정
+    worksheet["!zoom"] = 80;
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(data, `${sheetName}.xlsx`);
+  };
 
   const getCustomer = async () => {
     const resultParams = {};
@@ -97,8 +163,9 @@ const CustomerList = () => {
     { field: "date", headerName: "가입일" },
     { field: "product", headerName: "상품명" },
     { field: "hospital", headerName: "병원" },
-    { field: "hope_date_1", headerName: "희망일1" },
-    { field: "hope_date_2", headerName: "희망일2" },
+    // { field: "hope_date_1", headerName: "희망일1" },
+    // { field: "hope_date_2", headerName: "희망일2" },
+    { field: "start_time", headerName: "검진시간" },
     { field: "result_date", headerName: "확정일" },
     // { field: "status", headerName: "검진유무", flex: 0.5 },
     { field: "pay_status", headerName: "입금여부", flex: 0.5 },
@@ -179,6 +246,7 @@ const CustomerList = () => {
         hospital: data.hospital,
         hope_date_1: data.hope_date_1,
         hope_date_2: data.hope_date_2,
+        start_time: data.start_time,
         result_date: data.result_date,
         status: data.status,
         pay_status: data.pay_status,
@@ -308,6 +376,21 @@ const CustomerList = () => {
                     onClick={() => changeTab(2)}
                   >
                     검진취소
+                  </div>
+                  <div
+                    style={{
+                      padding: "10px 20px",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      textAlign: "center",
+                      float: "right",
+                    }}
+                    onClick={printCustom}
+                  >
+                    인쇄
                   </div>
                 </div>
               </div>

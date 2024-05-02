@@ -184,7 +184,7 @@ const BranchWriteModal = (props) => {
             <div className="table_box">
               <div className="table_row">
                 <div className="table_section">
-                  <div className="table_title">지역(시, 도)</div>
+                  <div className="table_title">지역</div>
                   <div className="table_contents w100">
                     <select
                       name="city"
@@ -192,7 +192,7 @@ const BranchWriteModal = (props) => {
                       onChange={handleCityChange}
                       className="table_select"
                     >
-                      <option value="">시 선택</option>
+                      <option value="">시/도 선택</option>
                       {cities.map((city) => (
                         <option key={city} value={city}>
                           {city}
@@ -207,7 +207,7 @@ const BranchWriteModal = (props) => {
                       }
                       className="table_select"
                     >
-                      <option value="">도 선택</option>
+                      <option value="">구/군 선택</option>
                       {districts.map((district) => (
                         <option key={district} value={district}>
                           {district}

@@ -150,9 +150,9 @@ const Home = () => {
     } else {
       return 0;
     }
-  }
+  };
 
-  const viewModalOpen = () => { };
+  const viewModalOpen = () => {};
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -174,7 +174,7 @@ const Home = () => {
               <div>상담희망고객수: {hopeData}</div>
               <div>총지점수: {totalData}</div>
               <div>총영업자수: {managerData}</div>
-              <div>예약고객수(청약고객수): {contractData} </div>
+              <div>계약고객수(청약고객수): {contractData} </div>
             </div>
           </div>
         </div>
@@ -186,10 +186,10 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               {grade2Data.length > 0 &&
-                grade2Data2.length > 0 &&
-                grade2Data3.length > 0 &&
-                grade2Data4.length > 0 &&
-                grade2Data5.length > 0 ? (
+              grade2Data2.length > 0 &&
+              grade2Data3.length > 0 &&
+              grade2Data4.length > 0 &&
+              grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>

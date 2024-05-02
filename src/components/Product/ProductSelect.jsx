@@ -61,12 +61,14 @@ const ProductSelect = (props, ref) => {
             })}
           </select>
           <div className="search_input">
+            {/* 
             <input
               className="list_input"
               placeholder="검색어를 입력하세요"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             ></input>
+             */}
             <div className="list_search" onClick={() => handleSearch()}>
               검색
             </div>
