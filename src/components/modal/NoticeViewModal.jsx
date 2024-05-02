@@ -50,7 +50,7 @@ const NoticeViewModal = (props) => {
       }
 
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/notice_modify",
+        "http://localhost:3001/api/post/notice_modify",
         formData
       );
 
@@ -92,7 +92,7 @@ const NoticeViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/notice_delete",
+        "http://localhost:3001/api/post/notice_delete",
         {
           idx: detailNum,
         }
@@ -110,7 +110,7 @@ const NoticeViewModal = (props) => {
       formData.append("image", blob);
 
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/upload",
+        "http://localhost:3001/api/post/upload",
         formData,
         {
           headers: {
@@ -127,7 +127,7 @@ const NoticeViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://118.67.134.86:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -142,6 +142,30 @@ const NoticeViewModal = (props) => {
   // 모달창닫기
   const clearModal = () => {
     props.closeModal();
+  };
+
+  // 이미지 삭제
+  const deleteAttachment = async () => {
+    try {
+      // 서버로 첨부 파일 삭제 요청을 보냄
+      const response = await Axios.post(
+        "http://localhost:3001/api/post/delete_attachment",
+        {
+          idx: detailNum, // 해당글의 idx 추가
+          attachmentUrl: updateAttachment,
+        }
+      );
+
+      if (response.data.success) {
+        // 첨부 파일 삭제가 성공한 경우 상태 업데이트
+        setUpdateAttachment(null);
+        alert("첨부 파일이 삭제되었습니다.");
+      } else {
+        alert("첨부 파일 삭제에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("첨부 파일 삭제 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -220,6 +244,11 @@ const NoticeViewModal = (props) => {
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
+                  {decodeS4() === "슈퍼관리자" && updateAttachment && (
+                    <div>
+                      <button onClick={deleteAttachment}>첨부 파일 삭제</button>
+                    </div>
+                  )}
                   {decodeS4() === "슈퍼관리자" && (
                     <input type="file" onChange={handleFileChange} />
                   )}
@@ -235,7 +264,7 @@ const NoticeViewModal = (props) => {
                             width: 200,
                             cursor: "pointer",
                           }}
-                          src={`http://118.67.134.86:3001/uploads/${updateAttachment}`}
+                          src={`http://localhost:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
                       </div>

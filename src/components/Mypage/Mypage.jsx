@@ -25,14 +25,11 @@ const Mypage = () => {
 
   const getMyData = async () => {
     try {
-      const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/mydata",
-        {
-          params: {
-            uid: decodeS1(),
-          },
-        }
-      );
+      const response = await Axios.get("http://localhost:3001/api/get/mydata", {
+        params: {
+          uid: decodeS1(),
+        },
+      });
       const allData = response.data.data;
       console.log(allData);
       setMyData(allData[0]);
@@ -84,7 +81,7 @@ const Mypage = () => {
 
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/mypage_edit",
+        "http://localhost:3001/api/post/mypage_edit",
         sendParams
       );
 
@@ -144,7 +141,7 @@ const Mypage = () => {
               <div className="my_row">
                 <div className="my_text title">비밀번호</div>
                 {!passStatus ? (
-                  <div className="my_text">****</div>
+                  <div className="my_text">********</div>
                 ) : (
                   <div className="my_text">
                     <input
@@ -253,10 +250,26 @@ const Mypage = () => {
                       className="mypage_select"
                     >
                       <option value="">은행 선택</option>
-                      <option value="농협">농협</option>
-                      <option value="기업">기업</option>
-                      <option value="신한">신한</option>
+                      <option value="KB국민은행">KB국민은행</option>
+                      <option value="우리은행">우리은행</option>
+                      <option value="SC제일은행">SC제일은행</option>
+                      <option value="한국씨티은행">한국씨티은행</option>
+                      <option value="하나은행">하나은행</option>
+                      <option value="신한은행">신한은행</option>
+                      <option value="케이뱅크">케이뱅크</option>
+                      <option value="카카오뱅크">카카오뱅크</option>
                       <option value="토스뱅크">토스뱅크</option>
+                      <option value="한국산업은행">한국산업은행</option>
+                      <option value="중소기업은행">중소기업은행</option>
+                      <option value="한국수출입은행">한국수출입은행</option>
+                      <option value="수협은행">수협은행</option>
+                      <option value="NH농협은행">NH농협은행</option>
+                      <option value="대구은행">대구은행</option>
+                      <option value="부산은행">부산은행</option>
+                      <option value="경남은행">경남은행</option>
+                      <option value="광주은행">광주은행</option>
+                      <option value="전북은행">전북은행</option>
+                      <option value="제주은행">제주은행</option>
                     </select>
                   </div>
                 )}

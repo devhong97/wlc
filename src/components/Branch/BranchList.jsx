@@ -26,7 +26,7 @@ const BranchList = () => {
   }, [searchData]);
 
   const brnachTotal = () => {
-    Axios.get("http://118.67.134.86:3001/api/get/branch_total")
+    Axios.get("http://localhost:3001/api/get/branch_total")
       .then((res) => {
         const { success, branchDetails, allCustomerCount } = res.data;
         if (success) {
@@ -85,7 +85,7 @@ const BranchList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://118.67.134.86:3001/api/get/branch_list", {
+    Axios.get("http://localhost:3001/api/get/branch_list", {
       params: resultParams,
     })
       .then((res) => {

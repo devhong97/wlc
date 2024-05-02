@@ -23,7 +23,7 @@ const BranchWriteModal = (props) => {
 
   useEffect(() => {
     // 지역(시) 데이터 호출
-    Axios.get("http://118.67.134.86:3001/api/get/cities")
+    Axios.get("http://localhost:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -43,7 +43,7 @@ const BranchWriteModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://118.67.134.86:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -86,7 +86,7 @@ const BranchWriteModal = (props) => {
     const location = `${selectedCity} ${selectedDistrict}`;
 
     // 지점등록
-    Axios.post("http://118.67.134.86:3001/api/post/branch_account", {
+    Axios.post("http://localhost:3001/api/post/branch_account", {
       branchType: type,
       companyName: company,
       branchName,
@@ -184,7 +184,7 @@ const BranchWriteModal = (props) => {
             <div className="table_box">
               <div className="table_row">
                 <div className="table_section">
-                  <div className="table_title">지역(시, 도)</div>
+                  <div className="table_title">지역</div>
                   <div className="table_contents w100">
                     <select
                       name="city"
@@ -192,7 +192,7 @@ const BranchWriteModal = (props) => {
                       onChange={handleCityChange}
                       className="table_select"
                     >
-                      <option value="">시 선택</option>
+                      <option value="">시/도 선택</option>
                       {cities.map((city) => (
                         <option key={city} value={city}>
                           {city}
@@ -207,7 +207,7 @@ const BranchWriteModal = (props) => {
                       }
                       className="table_select"
                     >
-                      <option value="">도 선택</option>
+                      <option value="">구/군 선택</option>
                       {districts.map((district) => (
                         <option key={district} value={district}>
                           {district}

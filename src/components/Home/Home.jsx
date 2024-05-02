@@ -39,7 +39,7 @@ const Home = () => {
   const getTotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/home_total"
+        "http://localhost:3001/api/get/home_total"
       );
       const allData = response.data.branchCount;
       const managerData = response.data.userCount;
@@ -62,7 +62,7 @@ const Home = () => {
   const getProductData = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/reserv/product_list"
+        "http://localhost:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductData(allData);
@@ -75,7 +75,7 @@ const Home = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/home_manager",
+        "http://localhost:3001/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -106,7 +106,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/home_list",
+        "http://localhost:3001/api/get/home_list",
         {
           params: {
             uid: decodeS1(),
@@ -150,9 +150,9 @@ const Home = () => {
     } else {
       return 0;
     }
-  }
+  };
 
-  const viewModalOpen = () => { };
+  const viewModalOpen = () => {};
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -186,10 +186,10 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               {grade2Data.length > 0 &&
-                grade2Data2.length > 0 &&
-                grade2Data3.length > 0 &&
-                grade2Data4.length > 0 &&
-                grade2Data5.length > 0 ? (
+              grade2Data2.length > 0 &&
+              grade2Data3.length > 0 &&
+              grade2Data4.length > 0 &&
+              grade2Data5.length > 0 ? (
                 <Fragment>
                   <div>지점종류: {grade2Data[0].branch_type}</div>
                   <div>소속영업사원: {grade2Data2[0].customerCount}명</div>

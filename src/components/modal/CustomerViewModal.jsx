@@ -44,10 +44,19 @@ const CustomerViewModal = (props) => {
   const [company, setCompany] = useState(""); //회사 이름
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
   const [resultPrice, setResultPrice] = useState(""); //금액
+  const [start_time, setStartTime] = useState(""); //검진시간
   const [addr, setAddr] = useState(""); //주소
+  const [selectedHour, setSelectedHour] = useState(""); // 시간 선택 상태 및 업데이트 함수
+  const [selectedMinute, setSelectedMinute] = useState(""); // 분 선택 상태 및 업데이트 함수
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
+
+  useEffect(() => {
+    setStartTime(`${selectedHour}:${selectedMinute}`);
+  }, [selectedHour, selectedMinute]);
+
+  console.log(start_time);
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -69,7 +78,7 @@ const CustomerViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/customer_detail",
+        "http://localhost:3001/api/get/customer_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -86,7 +95,7 @@ const CustomerViewModal = (props) => {
   const getCustomerAll = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/customer_detail_all",
+        "http://localhost:3001/api/get/customer_detail_all",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -107,6 +116,7 @@ const CustomerViewModal = (props) => {
     setCPhone(memberData.phone_2);
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
+    setStartTime(memberData.start_time);
     setProduct(memberData.p_key);
     setHospital(memberData.h_key);
     setResultDate(memberData.result_date);
@@ -122,7 +132,6 @@ const CustomerViewModal = (props) => {
     setMTerms(memberData.marketing_terms);
     setAddr(memberData.address);
 
-    //
     setProductKey(memberData.p_key);
     setHospitalUpdateKey(memberData.h_key);
     setHospitalName(memberData.hospital);
@@ -152,6 +161,7 @@ const CustomerViewModal = (props) => {
       h_key: hospital,
       hope_date_1: hope_date_1,
       hope_date_2: hope_date_2,
+      start_time: start_time,
       result_date: result_date,
       status: inspectionStatus,
       pay_status: payStatus,
@@ -172,10 +182,11 @@ const CustomerViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/customer_edit",
+        "http://localhost:3001/api/post/customer_edit",
         paramsArray
       );
 
+      alert(response.data.message);
       console.log(response.data);
       props.closeModal();
     } catch (error) {
@@ -209,7 +220,7 @@ const CustomerViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://118.67.134.86:3001/api/download/${fileName}`, "_blank");
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -465,6 +476,42 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
                 <div className="table_section half">
+                  <div className="table_title">검진시간</div>
+                  <div className="table_contents w100">
+                    <div style={{ display: "inline-flex" }}>
+                      <select
+                        className="select_box"
+                        value={selectedHour}
+                        onChange={(e) => setSelectedHour(e.target.value)}
+                      >
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, "0")}>
+                            {i.toString().padStart(2, "0")}시
+                          </option>
+                        ))}
+                      </select>
+                      :
+                      <span
+                        style={{ width: "10px", display: "inline-block" }}
+                      ></span>{" "}
+                      {/* 간격을 나타내는 구분선 */}
+                      <select
+                        className="select_box"
+                        value={selectedMinute}
+                        onChange={(e) => setSelectedMinute(e.target.value)}
+                      >
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, "0")}>
+                            {i.toString().padStart(2, "0")}분
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
                   <div className="table_title">검진유무</div>
                   <div className="table_contents w100">
                     <div className="table_radio">
@@ -505,8 +552,6 @@ const CustomerViewModal = (props) => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="table_row">
                 <div className="table_section half">
                   <div className="table_title">상담희망</div>
                   <div className="table_contents w100">
@@ -536,6 +581,8 @@ const CustomerViewModal = (props) => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="table_row">
                 <div className="table_section half">
                   <div className="table_title">마케팅동의여부</div>
                   <div className="table_contents w100">
@@ -565,8 +612,6 @@ const CustomerViewModal = (props) => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="table_row">
                 <div className="table_section half">
                   <div className="table_title">예약유무</div>
                   <div className="table_contents w100">
@@ -575,6 +620,8 @@ const CustomerViewModal = (props) => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="table_row">
                 <div className="table_section half">
                   <div className="table_title">입금유무</div>
                   <div className="table_contents w100">

@@ -18,6 +18,23 @@ const HospitalList = () => {
   const [detailData, setDetailData] = useState([]);
   const [hospitalUserCounts, setHospitalUserCounts] = useState([]);
 
+  const filteredHospitalList = hospitalList.filter((hospital) => {
+    // 검색 조건과 일치하는 병원을 필터링합니다.
+    if (
+      searchData.province &&
+      hospital.province.toLowerCase() !== searchData.province.toLowerCase()
+    ) {
+      return false; // 시/도가 일치하지 않으면 제외
+    }
+    if (
+      searchData.city &&
+      hospital.city.toLowerCase() !== searchData.city.toLowerCase()
+    ) {
+      return false; // 구/군이 일치하지 않으면 제외
+    }
+    return true;
+  });
+
   useEffect(() => {
     fetchHospitalUserCount();
     fetchHospitalList();
@@ -32,7 +49,7 @@ const HospitalList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://118.67.134.86:3001/api/get/hospital_list", {
+    Axios.get("http://localhost:3001/api/get/hospital_list", {
       params: resultParams,
     })
       .then((res) => {
@@ -58,6 +75,7 @@ const HospitalList = () => {
           console.error("지점 관리 데이터호출 실패");
           if (searchData) {
             selectRef.current.clearSearch();
+            alert("검색 결과가 없습니다.");
           }
         }
       })
@@ -82,7 +100,7 @@ const HospitalList = () => {
   };
 
   const fetchHospitalUserCount = () => {
-    Axios.get("http://118.67.134.86:3001/api/get/hospital_user_count")
+    Axios.get("http://localhost:3001/api/get/hospital_user_count")
       .then((res) => {
         if (res.data.success) {
           const updatedHospitalUserCounts = res.data.data.map(
@@ -106,8 +124,8 @@ const HospitalList = () => {
     { field: "id", headerName: "No", flex: 0.5 },
     { field: "name", headerName: "병원명" },
     { field: "number", headerName: "연락처" },
-    { field: "province", headerName: "지역(도)" },
-    { field: "city", headerName: "지역(시)" },
+    { field: "province", headerName: "지역(시/도)" },
+    { field: "city", headerName: "지역(구/군)" },
     { field: "product", headerName: "검진가능상품" },
     { field: "user_count", headerName: "검진회원수" },
     { field: "date", headerName: "병원등록일" },
@@ -152,11 +170,15 @@ const HospitalList = () => {
               </div>
             </div>
             <div className="table_box list">
-              {hospitalList.length === 0 ? (
-                <div>정보가 없습니다.</div>
+              {filteredHospitalList.length === 0 ? (
+                <TableDefault
+                  rows={filteredHospitalList}
+                  columns={columns}
+                  viewModalOpen={viewModalOpen}
+                />
               ) : (
                 <TableDefault
-                  rows={hospitalList}
+                  rows={filteredHospitalList}
                   columns={columns}
                   viewModalOpen={viewModalOpen}
                 />

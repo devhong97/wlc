@@ -33,7 +33,7 @@ const Delme = () => {
   const fetchTermsData = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/terms_data"
+        "http://localhost:3001/api/get/terms_data"
       );
       const termsData = response.data.terms_info; // 서버에서 받은 데이터
       const mTermsData = response.data.marketing;
@@ -54,7 +54,7 @@ const Delme = () => {
 
       // 서버의 엔드포인트 URL을 올바르게 수정해야 합니다.
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
+        "http://localhost:3001/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
         formData,
         {
           headers: {
@@ -90,7 +90,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("지점을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://118.67.134.86:3001/api/post/d_type_total", {
+        await Axios.post("http://localhost:3001/api/post/d_type_total", {
           branchType: branchType,
           companyName: companyName,
         });
@@ -108,17 +108,14 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("카테고리를 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post(
-          "http://118.67.134.86:3001/api/post/d_product_category",
-          {
-            p_key: pKey,
-            c_key: cKey,
-            type: type,
-            product_1: product1,
-            og_price: ogPrice,
-            priceTxt: priceTxt,
-          }
-        );
+        await Axios.post("http://localhost:3001/api/post/d_product_category", {
+          p_key: pKey,
+          c_key: cKey,
+          type: type,
+          product_1: product1,
+          og_price: ogPrice,
+          priceTxt: priceTxt,
+        });
         alert("카테고리등록 완료.");
         setPKey("");
         setCKey("");
@@ -137,7 +134,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("검진항목을 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://118.67.134.86:3001/api/post/product_detail", {
+        await Axios.post("http://localhost:3001/api/post/product_detail", {
           p_key: detailPKey,
         });
         alert("검진항목등록 완료.");
@@ -153,7 +150,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("수정완료 하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://118.67.134.86:3001/api/post/terms_text", {
+        await Axios.post("http://localhost:3001/api/post/terms_text", {
           content: content, // content 변수명 수정
         });
         alert("개인정보약관동의 내용 수정완료.");
@@ -168,7 +165,7 @@ const Delme = () => {
     try {
       const confirmResult = window.confirm("수정완료 등록하시겠습니까?");
       if (confirmResult) {
-        await Axios.post("http://118.67.134.86:3001/api/post/marketing_text", {
+        await Axios.post("http://localhost:3001/api/post/marketing_text", {
           content2: content2, // content2 변수명 수정
         });
         alert("마케팅약관동의 내용 수정완료.");

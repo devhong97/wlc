@@ -17,7 +17,7 @@ const ProductSelect = (props, ref) => {
   const getProductType = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/reserv/product_list"
+        "http://localhost:3001/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductList(allData);
@@ -61,12 +61,14 @@ const ProductSelect = (props, ref) => {
             })}
           </select>
           <div className="search_input">
+            {/* 
             <input
               className="list_input"
               placeholder="검색어를 입력하세요"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             ></input>
+             */}
             <div className="list_search" onClick={() => handleSearch()}>
               검색
             </div>

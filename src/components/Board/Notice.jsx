@@ -23,7 +23,7 @@ const Notice = () => {
   const getBoard = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/notice_list"
+        "http://localhost:3001/api/get/notice_list"
       );
       const allData = response.data;
       setBbsData(allData);
@@ -35,7 +35,7 @@ const Notice = () => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/search_notice",
+        "http://localhost:3001/api/post/search_notice",
         {
           searchType,
           searchKeyword,
@@ -89,7 +89,7 @@ const Notice = () => {
     setDetailData(data);
 
     //조회수증가
-    Axios.post("http://118.67.134.86:3001/api/post/notice_hit", {
+    Axios.post("http://localhost:3001/api/post/notice_hit", {
       idx: data.idx,
     })
       .then((response) => {

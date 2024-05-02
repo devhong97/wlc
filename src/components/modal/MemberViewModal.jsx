@@ -76,7 +76,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/member_detail",
+        "http://localhost:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -142,7 +142,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/member_edit",
+        "http://localhost:3001/api/post/member_edit",
         paramsArray
       );
 
@@ -156,7 +156,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/member_delete",
+        "http://localhost:3001/api/post/member_delete",
         {
           idx: props.detailIdx.idx,
         }
@@ -184,7 +184,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "http://118.67.134.86:3001/api/post/member_status",
+        "http://localhost:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx.idx,
@@ -330,10 +330,26 @@ const MemberViewModal = (props) => {
                         className="table_select"
                       >
                         <option value="">은행 선택</option>
-                        <option value="농협">농협</option>
-                        <option value="기업">기업</option>
-                        <option value="신한">신한</option>
+                        <option value="KB국민은행">KB국민은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="한국씨티은행">한국씨티은행</option>
+                        <option value="하나은행">하나은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
                         <option value="토스뱅크">토스뱅크</option>
+                        <option value="한국산업은행">한국산업은행</option>
+                        <option value="중소기업은행">중소기업은행</option>
+                        <option value="한국수출입은행">한국수출입은행</option>
+                        <option value="수협은행">수협은행</option>
+                        <option value="NH농협은행">NH농협은행</option>
+                        <option value="대구은행">대구은행</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="경남은행">경남은행</option>
+                        <option value="광주은행">광주은행</option>
+                        <option value="전북은행">전북은행</option>
+                        <option value="제주은행">제주은행</option>
                       </select>
                       <input
                         className="table_input modal"

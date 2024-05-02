@@ -39,7 +39,7 @@ const ManagerSalesCustomer = () => {
 
     try {
       const response = await Axios.get(
-        "http://118.67.134.86:3001/api/get/avg_data",
+        "http://localhost:3001/api/get/avg_data",
         {
           params: resultParams,
         }

@@ -38,7 +38,7 @@ const HospitalWriteModal = (props) => {
 
   useEffect(() => {
     // 지역(시) 데이터 호출
-    Axios.get("http://118.67.134.86:3001/api/get/cities")
+    Axios.get("http://localhost:3001/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -58,7 +58,7 @@ const HospitalWriteModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://118.67.134.86:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -86,6 +86,22 @@ const HospitalWriteModal = (props) => {
         nameInput.focus();
       }
       return;
+    } else if (tel1 === "" || tel2 === "" || tel3 === "") {
+      alert("연락처를 선택해주세요.");
+      const telInput1 = document.getElementById("tel1");
+      const telInput2 = document.getElementById("tel2");
+      const telInput3 = document.getElementById("tel3");
+
+      if (telInput1 && telInput2 && telInput3) {
+        if (tel1 === "") {
+          telInput1.focus();
+        } else if (tel2 === "") {
+          telInput2.focus();
+        } else if (tel3 === "") {
+          telInput3.focus();
+        }
+      }
+      return;
     } else if (selectedCity === "") {
       alert("지역(도)를 선택해주세요.");
       const provinceInput = document.getElementById("user_province");
@@ -101,18 +117,26 @@ const HospitalWriteModal = (props) => {
       }
       return;
     } else if (location === "") {
-      alert("주소를 입력해주세요.");
+      alert("오시는길을 입력해주세요.");
       const locationInput = document.getElementById("location");
       if (locationInput) {
         locationInput.focus();
       }
+      return;
+    } else if (selectedProduct.length === 0) {
+      alert("검진가능상품을 1개 이상 등록해주세요.");
+      const productInput = document.getElementById("product"); // 선택된 상품 input 요소의 ID를 사용하셨다면 해당 부분을 수정하세요.
+      if (productInput) {
+        productInput.focus();
+      }
+      return;
     }
 
     // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
     const number = `${tel1}-${tel2}-${tel3}`;
 
     // 병원등록
-    Axios.post("http://118.67.134.86:3001/api/post/hospital_write", {
+    Axios.post("http://localhost:3001/api/post/hospital_write", {
       hospitalName: name,
       number: number,
       province: selectedCity,
@@ -170,7 +194,7 @@ const HospitalWriteModal = (props) => {
                     type="number"
                     value={tel1}
                     onChange={(e) => handlePhone(e, "tel1")}
-                    id="tel"
+                    id="tel1"
                     className="table_input num"
                   />
                   &nbsp;-&nbsp;
@@ -196,7 +220,7 @@ const HospitalWriteModal = (props) => {
               <div className="table_row">
                 <div className="table_section">
                   <div className="table_title">
-                    지역(시, 도)<p className="title_point">*</p>
+                    지역<p className="title_point">*</p>
                   </div>
                   <div className="table_contents w100">
                     <select
@@ -206,7 +230,7 @@ const HospitalWriteModal = (props) => {
                       onChange={handleCityChange}
                       className="table_select"
                     >
-                      <option value="">시 선택</option>
+                      <option value="">시/도 선택</option>
                       {cities.map((city) => (
                         <option key={city} value={city}>
                           {city}
@@ -222,7 +246,7 @@ const HospitalWriteModal = (props) => {
                       }
                       className="table_select"
                     >
-                      <option value="">도 선택</option>
+                      <option value="">구/군 선택</option>
                       {districts.map((district) => (
                         <option key={district} value={district}>
                           {district}
@@ -286,7 +310,9 @@ const HospitalWriteModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">검진가능상품</div>
+                <div className="table_title">
+                  검진가능상품<p className="title_point">*</p>
+                </div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
                     [&nbsp;

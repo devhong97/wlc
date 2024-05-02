@@ -33,7 +33,7 @@ const SearchHospital = () => {
       setParams.searchData = searchData;
     }
 
-    Axios.get(`http://118.67.134.86:3001/api/get/reserv/${resultApi}`, {
+    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {
@@ -72,8 +72,8 @@ const SearchHospital = () => {
     },
     // { field: "id", headerName: "No", flex: 0.5 },
     { field: "name", headerName: "병원명" },
-    { field: "province", headerName: "지역(도)" },
-    { field: "city", headerName: "지역(시)" },
+    { field: "province", headerName: "지역(시/도)" },
+    { field: "city", headerName: "지역(구/군)" },
   ];
 
   const rows = hospitalList.map((data, index) => ({
