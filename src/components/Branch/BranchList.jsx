@@ -26,7 +26,7 @@ const BranchList = () => {
   }, [searchData]);
 
   const brnachTotal = () => {
-    Axios.get("http://localhost:3001/api/get/branch_total")
+    Axios.get("https://www.wlcmanager.com:8443/api/get/branch_total")
       .then((res) => {
         const { success, branchDetails, allCustomerCount } = res.data;
         if (success) {
@@ -85,7 +85,7 @@ const BranchList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://localhost:3001/api/get/branch_list", {
+    Axios.get("https://www.wlcmanager.com:8443/api/get/branch_list", {
       params: resultParams,
     })
       .then((res) => {
