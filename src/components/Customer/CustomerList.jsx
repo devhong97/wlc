@@ -358,7 +358,7 @@ const CustomerList = () => {
                 {/* <div className="title_btn">등록</div> */}
               </div>
               <div className="tab_area">
-                <div className="tab_back">
+                <div className="tab_back customer">
                   <div
                     className={`tab_menu ${tab === 3 && "active"}`}
                     onClick={() => changeTab(3)}
@@ -377,21 +377,12 @@ const CustomerList = () => {
                   >
                     검진취소
                   </div>
-                  <div
-                    style={{
-                      padding: "10px 20px",
-                      backgroundColor: "#4CAF50",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                      textAlign: "center",
-                      float: "right",
-                    }}
-                    onClick={printCustom}
-                  >
-                    인쇄
-                  </div>
+
+                </div>
+                <div className="print_btn"
+                  onClick={printCustom}
+                >
+                  인쇄
                 </div>
               </div>
               <div className="table_box tab_list">
