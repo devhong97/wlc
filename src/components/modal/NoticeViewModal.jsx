@@ -224,7 +224,7 @@ const NoticeViewModal = (props) => {
                         },
                       }}
                       id="content"
-                      // readOnly={decodeS4() !== "슈퍼관리자"}
+                    // readOnly={decodeS4() !== "슈퍼관리자"}
                     />
                   </div>
                 </div>
@@ -240,30 +240,29 @@ const NoticeViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">
+                <div className={`table_title ${updateAttachment && "editor"}`}>
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-                  {decodeS4() === "슈퍼관리자" && updateAttachment && (
-                    <div>
-                      <button onClick={deleteAttachment}>첨부 파일 삭제</button>
-                    </div>
-                  )}
+
                   {decodeS4() === "슈퍼관리자" && (
                     <input type="file" onChange={handleFileChange} />
                   )}
                   {updateAttachment ? (
-                    <div>
-                      <div
-                        onClick={() => handleDownload(updateAttachment)}
-                        style={{ border: "1px solid #c6c6c6", padding: "15px" }}
-                      >
+                    <div className="image_top_box">
+                      <div className="image_inner_box">
+                        {decodeS4() === "슈퍼관리자" && updateAttachment && (
+                          <div className="image_delete_box" onClick={deleteAttachment}>
+                            <div className="image_delete_btn">X</div>
+                          </div>
+                        )}
                         <img
                           style={{
                             border: "1px solid #c6c6c6",
                             width: 200,
                             cursor: "pointer",
                           }}
+                          onClick={() => handleDownload(updateAttachment)}
                           src={`http://localhost:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
@@ -272,6 +271,7 @@ const NoticeViewModal = (props) => {
                   ) : updateAttachment === null ? (
                     <div>첨부된 파일이 없습니다.</div>
                   ) : null}
+
                 </div>
               </div>
             </div>

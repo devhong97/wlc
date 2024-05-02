@@ -106,6 +106,42 @@
         cursor: pointer;
       }
 
+      .image_top_box {
+        border: 1px solid #c6c6c6;
+        padding: 15px;
+        position: relative;
+
+        .image_delete_box {
+          position: absolute;
+          z-index: 2;
+          left: 200px;
+          top: 4px;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: #ececec;
+          cursor: pointer;
+          text-align: center;
+
+          &::after {
+            position: absolute;
+            content: "";
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          .image_delete_btn {
+            font-size: 20px;
+            line-height: 30px;
+
+          }
+        }
+
+      }
+
       .delete_input {
         display: inline-block;
         vertical-align: middle;
@@ -1599,10 +1635,27 @@
 .tab_area {
   width: 100%;
 
-  padding: 20px 0 0 20px;
+  padding: 20px 20px 0 20px;
 
   .tab_back {
     height: 100%;
+
+    &.customer {
+      display: inline-block;
+      vertical-align: middle;
+      width: calc(100% - 70px);
+    }
+  }
+
+  .print_btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 7px 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #9c9ea0;
+    cursor: pointer;
+    font-size: 17px;
   }
 
   .tab_menu {
