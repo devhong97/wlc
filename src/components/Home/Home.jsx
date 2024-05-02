@@ -168,13 +168,13 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               <div>총매출액: {returnTotalCost(totalCost)} 원</div>
-              <div>총커미션합계: </div>
-              <div>지급예정커미션: </div>
-              <div>고객수: {customerData}</div>
-              <div>상담희망고객수: {hopeData}</div>
-              <div>총지점수: {totalData}</div>
-              <div>총영업자수: {managerData}</div>
-              <div>계약고객수(청약고객수): {contractData} </div>
+              <div>총커미션합계: -</div>
+              <div>지급예정커미션: -</div>
+              <div>고객수: {customerData}명</div>
+              <div>상담희망고객수: {hopeData}명</div>
+              <div>총지점수: {totalData}개</div>
+              <div>총영업자수: {managerData}명</div>
+              <div>계약고객수(청약고객수): {contractData}명</div>
             </div>
           </div>
         </div>

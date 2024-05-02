@@ -21,6 +21,7 @@ const MemberWriteModal = (props) => {
   const [company, setCompany] = useState("");
   const [branchName, setBranchName] = useState("");
   const [branchIdx, setBranchIdx] = useState("");
+  const [regexMessage, setRegexMessage] = useState(""); //비밀번호 유효성검사
 
   useEffect(() => {
     setContextType(type);
@@ -44,37 +45,43 @@ const MemberWriteModal = (props) => {
     setBranchName("");
   };
 
+  // 비밀번호 체크
+  const handlePw = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+
+    // 비밀번호 유효성검사[대문자, 소문자, 숫자, 특수문자 모두포함 8글자 이상]
+    const Regex = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    );
+    if (!Regex.test(password)) {
+      setRegexMessage(false); // 조건과 불일치 시 false
+    } else {
+      setRegexMessage(true); // 조건과 일치할 시 true
+    }
+  };
+
   const clearModal = () => {
     props.closeModal();
   };
+
   const handleSubmit = async () => {
     if (
       !id ||
       !password ||
       !name ||
-      !email ||
       !phone ||
-      !bank ||
-      !bankAccount ||
       !type ||
       !company ||
       !branchName ||
       !branchIdx
     ) {
       alert("필수 사항을 모두 입력해주세요");
-      console.log(
-        id,
-        password,
-        name,
-        email,
-        phone,
-        bank,
-        bankAccount,
-        type,
-        company,
-        branchName,
-        branchIdx
-      );
+      return;
+    }
+    // 비밀번호 유효성검사 추가
+    if (!regexMessage) {
+      alert("비밀번호를 유효한 형식으로 입력해주세요.");
       return;
     }
 
@@ -96,6 +103,7 @@ const MemberWriteModal = (props) => {
         }
       );
 
+      alert("영업사원이 등록되었습니다.");
       console.log(response.data);
       props.closeModal();
     } catch (error) {
@@ -139,12 +147,29 @@ const MemberWriteModal = (props) => {
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
-                    type="text"
+                    type="password"
                     id="title"
                     placeholder="비밀번호를 입력해주세요."
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePw}
                   ></input>
+                  {password && (
+                    <div>
+                      {regexMessage !== "" && (
+                        <div
+                          className="confirm_msg"
+                          style={{
+                            color: regexMessage ? "#007bff" : "red",
+                            fontSize: "12px",
+                          }}
+                        >
+                          {regexMessage
+                            ? "사용 가능한 비밀번호입니다."
+                            : "비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다."}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -167,9 +192,7 @@ const MemberWriteModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">
-                  이메일<p className="title_point">*</p>
-                </div>
+                <div className="table_title">이메일</div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
@@ -201,9 +224,7 @@ const MemberWriteModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">
-                  입금계좌<p className="title_point">*</p>
-                </div>
+                <div className="table_title">입금계좌</div>
                 <div className="table_contents w100">
                   <select
                     value={bank}

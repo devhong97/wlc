@@ -40,7 +40,7 @@ const MemberListModal = (props) => {
     { field: "branch_name", headerName: "지점명" },
     {
       field: "select",
-      headerName: "-",
+      headerName: "",
       type: "actions",
       renderCell: (params) => (
         <div className="list_inner_btn" onClick={() => selectRow(params.row)}>
@@ -170,11 +170,26 @@ const MemberListModal = (props) => {
                 </div>
               </div>
               <div className="table_box">
-                <TableDefault
-                  rows={rows}
-                  columns={columns}
-                  viewModalOpen={emptyFunc}
-                ></TableDefault>
+                {rows.length === 0 ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      textAlign: "center",
+                      border: "1px solid #ccc",
+                      padding: "100px",
+                      fontSize: "18px",
+                      background: "white",
+                    }}
+                  >
+                    데이터가 존재하지 않습니다.
+                  </div>
+                ) : (
+                  <TableDefault
+                    rows={rows}
+                    columns={columns}
+                    viewModalOpen={emptyFunc}
+                  ></TableDefault>
+                )}
               </div>
             </div>
           </div>
