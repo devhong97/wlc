@@ -80,6 +80,13 @@ const BranchWriteModal = (props) => {
         branchNameInput.focus();
       }
       return;
+    } else if (selectedCity === "" || selectedDistrict === "") {
+      alert("지역을 선택해주세요.");
+      const cityInput = document.getElementsByName("city")[0];
+      if (cityInput) {
+        cityInput.focus();
+      }
+      return;
     }
 
     // 선택한 지역(시)와 지역(도) 합쳐서 서버로 전송
@@ -184,7 +191,9 @@ const BranchWriteModal = (props) => {
             <div className="table_box">
               <div className="table_row">
                 <div className="table_section">
-                  <div className="table_title">지역</div>
+                  <div className="table_title">
+                    지역<p className="title_point">*</p>
+                  </div>
                   <div className="table_contents w100">
                     <select
                       name="city"

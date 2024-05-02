@@ -42,7 +42,6 @@ const BranchList = () => {
           }));
           setTotal(formattedData);
 
-          // 총 사원수
           let employeesCount = 0;
           for (const data of formattedData) {
             if (data.branch_idx === branchIdx) {
@@ -246,6 +245,7 @@ const BranchList = () => {
         <BranchViewModal
           closeModal={viewModalClose}
           detailIdx={detailIdx}
+          total={total}
           branchIdx={branchIdx}
           employeeCount={totalEmployeeCount}
           hopeCount={totalHopeCount}

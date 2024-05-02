@@ -27,6 +27,19 @@ const BranchViewModal = (props) => {
   const [detailIdx, setDetailIdx] = useState("");
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [bgrade, setBGrade] = useState(""); //지점등급
+  const [foundItem, setFoundItem] = useState(null);
+
+  console.log(foundItem);
+  //console.log("data", props.total);
+
+  const findIndexByDetailNum = (total, detailNum) => {
+    const foundItem = total.find((item) => item.id === detailNum);
+    return foundItem ? total.indexOf(foundItem) + 1 : null;
+  };
+
+  // 함수 호출 예시
+  const index = findIndexByDetailNum(props.total, detailNum);
+  console.log("index", index); // 배열 번호 출력
 
   // LIST에서 가져온 상세보기 idx 호출
   useEffect(() => {
@@ -35,6 +48,29 @@ const BranchViewModal = (props) => {
       getDetail();
     }
   }, [props.detailIdx]);
+
+  console.log("detailNum", detailNum);
+
+  useEffect(() => {
+    // index와 detailNum이 같을 때만 실행
+    if (index && index === detailNum) {
+      // index와 detailNum의 값이 유효한지 확인
+      if (index > 0 && index <= props.total.length) {
+        // index와 detailNum에 해당하는 객체 찾기
+        const itemByIndex = props.total[index - 1]; // index는 1부터 시작하므로 인덱스 조정 필요
+        const itemByDetailNum = props.total.find(
+          (item) => item.id === detailNum
+        );
+
+        // 찾은 객체 콘솔에 출력
+        console.log("Item found by index:", itemByIndex);
+        console.log("Item found by detailNum:", itemByDetailNum);
+
+        // 찾은 객체를 state에 저장
+        setFoundItem(itemByDetailNum);
+      }
+    }
+  }, [index, detailNum, props.total]);
 
   // view모달 상세데이터 호출
   useEffect(() => {
@@ -224,9 +260,7 @@ const BranchViewModal = (props) => {
           <div className="table_box">
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">
-                  지점코드<p className="title_point">*</p>
-                </div>
+                <div className="table_title">지점코드</div>
                 <div className="table_contents w100">
                   {branchDetailData.branch_idx}
                 </div>
@@ -234,9 +268,7 @@ const BranchViewModal = (props) => {
             </div>
             <div className="table_row">
               <div className="table_section">
-                <div className="table_title">
-                  지점등급<p className="title_point">*</p>
-                </div>
+                <div className="table_title">지점등급</div>
                 <div className="table_contents w100">
                   <select
                     name="affiliation"
@@ -371,7 +403,9 @@ const BranchViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">지점장</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">[ {selectName} ]</div>
+                  <div className="table_inner_text">
+                    [ {selectName ? selectName : "지점장을 선택해주세요."} ]
+                  </div>
                   <div
                     className="table_inner_btn"
                     onClick={() => listModalOpen(branchDetailData.uid)}
@@ -385,13 +419,25 @@ const BranchViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">사원수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">
+                    {foundItem && (
+                      <div className="table_inner_text">
+                        {foundItem.employeeCount}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="table_section half">
                 <div className="table_title">총 고객수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">
+                    {foundItem && (
+                      <div className="table_inner_text">
+                        {foundItem.totalCustomerCount}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -399,13 +445,26 @@ const BranchViewModal = (props) => {
               <div className="table_section half">
                 <div className="table_title">상담희망수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">
+                    {foundItem && (
+                      <div className="table_inner_text">
+                        {foundItem.hopeCount}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="table_section half">
                 <div className="table_title">예약고객수</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">-</div>
+                  <div className="table_inner_text">
+                    {" "}
+                    {foundItem && (
+                      <div className="table_inner_text">
+                        {foundItem.contractCount}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -413,7 +472,15 @@ const BranchViewModal = (props) => {
               <div className="table_section">
                 <div className="table_title">지점판매상품</div>
                 <div className="table_contents w100">
-                  <div className="table_inner_text">[ {selectedProduct} ]</div>
+                  {selectedProduct && selectedProduct.length > 0 ? (
+                    <div className="table_inner_text">
+                      [ {selectedProduct} ]
+                    </div>
+                  ) : (
+                    <div className="table_inner_text">
+                      [ 판매상품을 선택해주세요. ]
+                    </div>
+                  )}
                   <div
                     className="table_inner_btn"
                     onClick={() => productModalOpen()}
