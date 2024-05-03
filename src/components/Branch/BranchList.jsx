@@ -210,7 +210,7 @@ const BranchList = () => {
               총 고객수 : {totalCustomerDataCount}명
             </div>
             <div className="total_box">상담희망수 : {totalHopeCount}명</div>
-            <div className="total_box">예약고객수 : {totalContractCount}명</div>
+            <div className="total_box">계약고객수 : {totalContractCount}명</div>
           </div>
         </div>
         <div className="board_list_wrap">

@@ -343,7 +343,7 @@ const CustomerList = () => {
                 상담희망고객: {numberData.hopeNum}
               </div>
               <div className="total_box">
-                예약고객: {numberData.contractNum}
+                계약고객: {numberData.contractNum}
               </div>
             </div>
           </div>
