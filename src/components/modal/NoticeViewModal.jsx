@@ -224,7 +224,7 @@ const NoticeViewModal = (props) => {
                         },
                       }}
                       id="content"
-                    // readOnly={decodeS4() !== "슈퍼관리자"}
+                      // readOnly={decodeS4() !== "슈퍼관리자"}
                     />
                   </div>
                 </div>
@@ -244,7 +244,6 @@ const NoticeViewModal = (props) => {
                   첨부파일<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
-
                   {decodeS4() === "슈퍼관리자" && (
                     <input type="file" onChange={handleFileChange} />
                   )}
@@ -252,7 +251,10 @@ const NoticeViewModal = (props) => {
                     <div className="image_top_box">
                       <div className="image_inner_box">
                         {decodeS4() === "슈퍼관리자" && updateAttachment && (
-                          <div className="image_delete_box" onClick={deleteAttachment}>
+                          <div
+                            className="image_delete_box"
+                            onClick={deleteAttachment}
+                          >
                             <div className="image_delete_btn">X</div>
                           </div>
                         )}
@@ -269,9 +271,10 @@ const NoticeViewModal = (props) => {
                       </div>
                     </div>
                   ) : updateAttachment === null ? (
-                    <div>첨부된 파일이 없습니다.</div>
+                    <div style={{ paddingTop: "5px" }}>
+                      첨부된 파일이 없습니다.
+                    </div>
                   ) : null}
-
                 </div>
               </div>
             </div>

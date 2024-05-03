@@ -64,6 +64,11 @@ const ProductViewModal = (props) => {
 
   // 수정완료버튼
   const handleSubmit = async () => {
+    if (!selectedCategory || !selectedProduct || !name2) {
+      alert("필수 사항을 모두 입력해주세요");
+      return;
+    }
+
     const confirmModify = window.confirm(`수정을 완료하시겠습니까?`);
     if (!confirmModify) {
       return;

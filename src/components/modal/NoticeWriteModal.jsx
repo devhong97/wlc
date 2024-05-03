@@ -172,16 +172,42 @@ const NoticeWriteModal = (props) => {
                 </div>
                 <div className="table_contents w100">
                   {selectedFile ? (
-                    <div>
-                      <label htmlFor="file" className="image_label">
-                        <img
-                          style={{ width: "150px", height: "150px" }}
-                          className="table_img"
-                          src={fileUrl}
-                          alt="첨부이미지"
-                        />
-                      </label>
-                      <button onClick={handleFileDelete}>삭제</button>
+                    <div className="table_contents w100">
+                      {selectedFile ? (
+                        <div
+                          style={{
+                            position: "relative",
+                            display: "inline-block",
+                          }}
+                        >
+                          <img
+                            style={{ width: "150px", height: "150px" }}
+                            className="table_img"
+                            src={fileUrl}
+                            alt="첨부이미지"
+                          />
+                          <button
+                            onClick={handleFileDelete}
+                            style={{
+                              position: "relative",
+                              bottom: "16px",
+                              right: "1px",
+                              background: "none",
+                              padding: "4px 10px",
+                              cursor: "pointer",
+                              borderRadius: "10px",
+                              color: "#fff",
+                              fontSize: "16px",
+                              border: "none",
+                              boxShadow: "4px 4px 4px -4px",
+                              backgroundColor: "#669B2E",
+                              zIndex: 1, // 다른 요소 위에 표시되도록 설정
+                            }}
+                          >
+                            삭제
+                          </button>
+                        </div>
+                      ) : null}
                     </div>
                   ) : (
                     <div>
