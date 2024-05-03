@@ -57,9 +57,9 @@ const AdminSalesList = () => {
   };
 
   const handleSearch = () => {
-    if (resultStartDate === "" || resultEndDate === "") {
-      alert("올바른 기간을 선택해주세요.");
-    }
+    // if (resultStartDate === "" || resultEndDate === "") {
+    //   alert("올바른 기간을 선택해주세요.");
+    // }
     const searchValue = {
       st_date: resultStartDate,
       ed_date: resultEndDate,
