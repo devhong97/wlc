@@ -103,6 +103,16 @@
       .clock_box {
         overflow: hidden;
 
+        .css-1bn53lx {
+          height: 35px;
+          outline: none;
+          padding: 0 10px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
         .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
           height: 35px;
           outline: none;
@@ -114,18 +124,29 @@
         }
 
         .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
-          width: 85%;
+          width: 85% !important;
+        }
+
+        .css-slyssw {
+          width: 85% !important;
+        }
+
+        .css-1uvydh2 {
+          padding: 0 10px !important;
         }
 
         .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
           padding: 0 10px !important;
         }
 
+        .css-1nvf7g0 {
+          height: 100%;
+          width: 15%;
+        }
+
         .css-1laqsz7-MuiInputAdornment-root {
           height: 100%;
           width: 15%;
-
-          .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {}
         }
       }
 
