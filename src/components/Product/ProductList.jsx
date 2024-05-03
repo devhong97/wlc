@@ -27,7 +27,7 @@ const ProductList = () => {
     if (searchData) {
       resultParams.searchData = searchData;
     }
-    Axios.get("http://localhost:3001/api/get/product_list", {
+    Axios.get("https://www.wlcare.co.kr:8443/api/get/product_list", {
       params: resultParams,
     })
       .then((res) => {

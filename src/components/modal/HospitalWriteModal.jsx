@@ -38,7 +38,7 @@ const HospitalWriteModal = (props) => {
 
   useEffect(() => {
     // 지역(시) 데이터 호출
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("https://www.wlcare.co.kr:8443/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -58,7 +58,7 @@ const HospitalWriteModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`https://www.wlcare.co.kr:8443/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -136,7 +136,7 @@ const HospitalWriteModal = (props) => {
     const number = `${tel1}-${tel2}-${tel3}`;
 
     // 병원등록
-    Axios.post("http://localhost:3001/api/post/hospital_write", {
+    Axios.post("https://www.wlcare.co.kr:8443/api/post/hospital_write", {
       hospitalName: name,
       number: number,
       province: selectedCity,

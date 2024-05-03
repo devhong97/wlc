@@ -40,7 +40,7 @@ const AdminSalesList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/cost_list",
+        "https://www.wlcare.co.kr:8443/api/get/cost_list",
         {
           params: resultParams,
         }

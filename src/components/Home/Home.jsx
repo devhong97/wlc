@@ -39,7 +39,7 @@ const Home = () => {
   const getTotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_total"
+        "https://www.wlcare.co.kr:8443/api/get/home_total"
       );
       const allData = response.data.branchCount;
       const managerData = response.data.userCount;
@@ -62,7 +62,7 @@ const Home = () => {
   const getProductData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/product_list"
+        "https://www.wlcare.co.kr:8443/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductData(allData);
@@ -75,7 +75,7 @@ const Home = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_manager",
+        "https://www.wlcare.co.kr:8443/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -106,7 +106,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/home_list",
+        "https://www.wlcare.co.kr:8443/api/get/home_list",
         {
           params: {
             uid: decodeS1(),

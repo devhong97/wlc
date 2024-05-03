@@ -52,7 +52,7 @@ const CommissionList = () => {
     }
 
     const fetchCommisionList = () => {
-      Axios.get("http://localhost:3001/api/get/commision_list", {
+      Axios.get("https://www.wlcare.co.kr:8443/api/get/commision_list", {
         params: resultParams,
       })
         .then((res) => {

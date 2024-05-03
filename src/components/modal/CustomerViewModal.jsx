@@ -7,10 +7,10 @@ import "react-calendar/dist/Calendar.css";
 import AllCustomerModal from "./AllCustomerModal";
 import SignDownModal from "./SignDownModal";
 import { useAuth } from "../Context/AuthContext";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -55,12 +55,11 @@ const CustomerViewModal = (props) => {
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
-  const [startTime, setStart] = useState(null)
+  const [startTime, setStart] = useState(null);
 
   // useEffect(() => {
   //   setStartTime(`${selectedHour}:${selectedMinute}`);
   // }, [selectedHour, selectedMinute]);
-
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -82,7 +81,7 @@ const CustomerViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_detail",
+        "https://www.wlcare.co.kr:8443/api/get/customer_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -99,7 +98,7 @@ const CustomerViewModal = (props) => {
   const getCustomerAll = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_detail_all",
+        "https://www.wlcare.co.kr:8443/api/get/customer_detail_all",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -186,7 +185,7 @@ const CustomerViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/customer_edit",
+        "https://www.wlcare.co.kr:8443/api/post/customer_edit",
         paramsArray
       );
 
@@ -224,7 +223,10 @@ const CustomerViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
+    window.open(
+      `https://www.wlcare.co.kr:8443/api/download/${fileName}`,
+      "_blank"
+    );
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -256,7 +258,7 @@ const CustomerViewModal = (props) => {
   const clockHandle = (newValue) => {
     const formattedTime = dayjs(newValue).format("HH:mm");
     console.log(formattedTime);
-    setStartTime(formattedTime)
+    setStartTime(formattedTime);
     setStart(newValue);
   };
 

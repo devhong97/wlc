@@ -88,7 +88,7 @@ const BranchViewModal = (props) => {
 
   // // 지역(시) 데이터 호출
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/get/cities")
+    Axios.get("https://www.wlcare.co.kr:8443/api/get/cities")
       .then((response) => {
         setCities(response.data);
       })
@@ -108,7 +108,7 @@ const BranchViewModal = (props) => {
     }
 
     // 선택된 시에 해당하는 도 데이터 호출
-    Axios.get(`http://localhost:3001/api/get/districts/${selectedCity}`)
+    Axios.get(`https://www.wlcare.co.kr:8443/api/get/districts/${selectedCity}`)
       .then((response) => {
         setDistricts(response.data);
       })
@@ -120,7 +120,7 @@ const BranchViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/branch_detail",
+        "https://www.wlcare.co.kr:8443/api/get/branch_detail",
         {
           params: {
             idx: props.detailIdx,
@@ -182,7 +182,7 @@ const BranchViewModal = (props) => {
       console.log("location", location);
 
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_modify",
+        "https://www.wlcare.co.kr:8443/api/post/branch_modify",
         {
           branchType: type,
           bgrade: bgrade,
@@ -211,7 +211,7 @@ const BranchViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/branch_delete",
+        "https://www.wlcare.co.kr:8443/api/post/branch_delete",
         {
           idx: props.detailIdx,
         }

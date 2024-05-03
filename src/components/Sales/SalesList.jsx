@@ -59,7 +59,7 @@ const SalesList = () => {
   const getSalesData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_list",
+        "https://www.wlcare.co.kr:8443/api/get/sales_list",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
@@ -91,7 +91,7 @@ const SalesList = () => {
   const getSalesTop = async (arrayData) => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_top",
+        "https://www.wlcare.co.kr:8443/api/get/sales_top",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달
@@ -116,7 +116,7 @@ const SalesList = () => {
   const tab1Total = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/tab1Total",
+        "https://www.wlcare.co.kr:8443/api/get/tab1Total",
         {
           params: {
             choiceDate: result_date,
@@ -143,7 +143,7 @@ const SalesList = () => {
   const tab1DateTotal = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/tab1dateTotal",
+        "https://www.wlcare.co.kr:8443/api/get/tab1dateTotal",
         {
           params: {
             choiceDate: result_date,
@@ -179,7 +179,7 @@ const SalesList = () => {
 
       console.log(startDate, endDate);
       const response = await Axios.post(
-        "http://localhost:3001/api/get/avg_data",
+        "https://www.wlcare.co.kr:8443/api/get/avg_data",
         {
           startDate: startDate,
           endDate: endDate,
@@ -683,7 +683,7 @@ const SalesList = () => {
 
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/tab1Total",
+        "https://www.wlcare.co.kr:8443/api/get/tab1Total",
         {
           params: {
             choiceDate: "", // choiceDate 초기화

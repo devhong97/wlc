@@ -119,7 +119,7 @@ const CustomerList = () => {
     }
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/customer_list",
+        "https://www.wlcare.co.kr:8443/api/get/customer_list",
         {
           params: resultParams,
         }
@@ -292,7 +292,7 @@ const CustomerList = () => {
       h_location,
     } = data;
     // 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/send_message", {
+    Axios.post("https://www.wlcare.co.kr:8443/api/post/send_message", {
       uid,
       name,
       product,

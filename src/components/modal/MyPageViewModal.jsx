@@ -104,7 +104,7 @@ const MyPageViewModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/mypage_modify",
+        "https://www.wlcare.co.kr:8443/api/post/mypage_modify",
         postData
       );
       alert("수정이 완료되었습니다.");

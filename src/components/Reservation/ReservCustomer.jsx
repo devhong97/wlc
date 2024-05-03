@@ -90,7 +90,7 @@ const ReservCustomer = () => {
   const getTerms = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/terms_data"
+        "https://www.wlcare.co.kr:8443/api/get/terms_data"
       );
       const allData = response.data;
       setAgreeTermsData(allData.terms_info);

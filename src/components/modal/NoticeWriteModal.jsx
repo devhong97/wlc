@@ -32,7 +32,7 @@ const NoticeWriteModal = (props) => {
 
       // 서버의 엔드포인트 URL을 올바르게 수정해야 합니다.
       const response = await Axios.post(
-        "http://localhost:3001/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
+        "https://www.wlcare.co.kr:8443/api/post/upload", // 서버 엔드포인트 경로를 확인하세요
         formData,
         {
           headers: {
@@ -99,11 +99,15 @@ const NoticeWriteModal = (props) => {
     }
 
     // Axios를 사용하여 서버로 데이터 전송
-    Axios.post("http://localhost:3001/api/post/notice_write", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    Axios.post(
+      "https://www.wlcare.co.kr:8443/api/post/notice_write",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
       .then((res) => {
         console.log(res.data);
         alert(`글등록이 완료되었습니다.`);

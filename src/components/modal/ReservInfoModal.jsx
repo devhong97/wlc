@@ -51,7 +51,7 @@ const ReservInfoModal = (props) => {
     };
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/customer",
+        "https://www.wlcare.co.kr:8443/api/post/customer",
         sendParams
       );
       console.log(response.data);

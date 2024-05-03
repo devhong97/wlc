@@ -45,7 +45,7 @@ const CommisionSelect = (props, ref) => {
   const getProduct = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/product_list"
+        "https://www.wlcare.co.kr:8443/api/get/reserv/product_list"
       );
       const allData = response.data.data;
       setProductList(allData);
@@ -57,7 +57,7 @@ const CommisionSelect = (props, ref) => {
   const getHospital = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/reserv/hospital_list"
+        "https://www.wlcare.co.kr:8443/api/get/reserv/hospital_list"
       );
       const allData = response.data.data;
       setHospitalList(allData);

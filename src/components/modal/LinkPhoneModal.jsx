@@ -10,7 +10,7 @@ const LinkPhoneModal = (props) => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "http://localhost:3001/api/post/link_sms",
+        "https://www.wlcare.co.kr:8443/api/post/link_sms",
         {
           phone: tel1 + tel2 + tel3,
           link: link,
