@@ -21,6 +21,9 @@ const MemberViewModal = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [tel1, setTel1] = useState(""); // 연락처1
+  const [tel2, setTel2] = useState(""); // 연락처2
+  const [tel3, setTel3] = useState(""); // 연락처3
   const [bank, setBank] = useState("");
   const [bankAccount, setBankAccount] = useState("");
   const [type, setType] = useState("");
@@ -30,6 +33,7 @@ const MemberViewModal = (props) => {
   const [customerNum, setCustomerNum] = useState(0);
   const [hopeNum, setHopeNum] = useState(0);
   const [contractNum, setContractNum] = useState(0);
+  const [regexMessage, setRegexMessage] = useState(""); //비밀번호 유효성검사
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -54,6 +58,47 @@ const MemberViewModal = (props) => {
     const selectedBranch = branchGroup.find((data) => data.branch_idx === num);
     if (selectedBranch) {
       setBranchName(selectedBranch.branch_name);
+    }
+  };
+
+  useEffect(() => {
+    if (memberData.phone) {
+      const phoneNumber = memberData.phone;
+      const cleanedPhoneNumber = phoneNumber.replace(/-/g, "");
+      const tel1 = cleanedPhoneNumber.substring(0, 3);
+      const tel2 = cleanedPhoneNumber.substring(3, 7);
+      const tel3 = cleanedPhoneNumber.substring(7);
+      setTel1(tel1);
+      setTel2(tel2);
+      setTel3(tel3);
+    }
+  }, [memberData]);
+
+  //연락처 체크
+  const handlePhone = (e, target) => {
+    let value = e.target.value;
+
+    // 숫자만 남기고 다른 문자는 제거
+    value = value.replace(/\D/g, "");
+
+    // 최대 길이를 초과하지 않도록 체크
+    if (value.length > 4) {
+      value = value.slice(0, 4);
+    }
+
+    if (target === "tel1" && value.length === 3) {
+      document.getElementById("tel2").focus();
+    } else if (target === "tel2" && value.length === 4) {
+      document.getElementById("tel3").focus();
+    }
+
+    // 상태 업데이트
+    if (target === "tel1") {
+      setTel1(value);
+    } else if (target === "tel2") {
+      setTel2(value);
+    } else if (target === "tel3") {
+      setTel3(value);
     }
   };
 
@@ -109,12 +154,27 @@ const MemberViewModal = (props) => {
     );
   };
 
+  // 비밀번호 체크
+  const handlePw = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+
+    // 비밀번호 유효성검사[대문자, 소문자, 숫자, 특수문자 모두포함 8글자 이상]
+    const Regex = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    );
+    if (!Regex.test(password)) {
+      setRegexMessage(false); // 조건과 불일치 시 false
+    } else {
+      setRegexMessage(true); // 조건과 일치할 시 true
+    }
+  };
+
   const handleUpdate = async () => {
     if (
-      !email ||
-      !phone ||
-      !bank ||
-      !bankAccount ||
+      !tel1 ||
+      !tel2 ||
+      !tel3 ||
       !type ||
       !company ||
       !branchName ||
@@ -123,9 +183,15 @@ const MemberViewModal = (props) => {
       alert("필수 사항을 모두 입력해주세요");
       return;
     }
+    // 비밀번호 유효성검사 추가
+    if (!regexMessage && password !== "") {
+      alert("비밀번호를 유효한 형식으로 입력해주세요.");
+      return;
+    }
+    const phoneNumber = `${tel1}-${tel2}-${tel3}`;
     const paramsArray = {
       email: email,
-      phone: phone,
+      phone: phoneNumber,
       bank: bank,
       deposit_account: bankAccount,
       branch_type: type,
@@ -145,7 +211,7 @@ const MemberViewModal = (props) => {
         "http://localhost:3001/api/post/member_edit",
         paramsArray
       );
-
+      alert("정보수정이 완료되었습니다.");
       console.log(response.data);
       props.closeModal();
     } catch (error) {
@@ -248,9 +314,7 @@ const MemberViewModal = (props) => {
                 </div>
                 <div className="table_row">
                   <div className="table_section">
-                    <div className="table_title">
-                      아이디<p className="title_point">*</p>
-                    </div>
+                    <div className="table_title">아이디</div>
                     <div className="table_contents w100">
                       <div className="table_inner_text">{memberData.id}</div>
                     </div>
@@ -258,9 +322,7 @@ const MemberViewModal = (props) => {
                 </div>
                 <div className="table_row">
                   <div className="table_section">
-                    <div className="table_title">
-                      비밀번호<p className="title_point">*</p>
-                    </div>
+                    <div className="table_title">비밀번호</div>
                     <div className="table_contents w100">
                       <input
                         className="table_input modal"
@@ -268,16 +330,31 @@ const MemberViewModal = (props) => {
                         id="title"
                         placeholder="비밀번호를 입력해주세요."
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePw}
                       ></input>
+                      {password && (
+                        <div>
+                          {regexMessage !== "" && (
+                            <div
+                              className="confirm_msg"
+                              style={{
+                                color: regexMessage ? "#007bff" : "red",
+                                fontSize: "12px",
+                              }}
+                            >
+                              {regexMessage
+                                ? "사용 가능한 비밀번호입니다."
+                                : "비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다."}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="table_row">
                   <div className="table_section">
-                    <div className="table_title">
-                      이름<p className="title_point">*</p>
-                    </div>
+                    <div className="table_title">이름</div>
                     <div className="table_contents w100">
                       <div className="table_inner_text">{memberData.name}</div>
                     </div>
@@ -285,9 +362,7 @@ const MemberViewModal = (props) => {
                 </div>
                 <div className="table_row">
                   <div className="table_section">
-                    <div className="table_title">
-                      이메일<p className="title_point">*</p>
-                    </div>
+                    <div className="table_title">이메일</div>
                     <div className="table_contents w100">
                       <input
                         className="table_input modal"
@@ -307,21 +382,34 @@ const MemberViewModal = (props) => {
                     </div>
                     <div className="table_contents w100">
                       <input
-                        className="table_input modal"
+                        className="table_input phone"
                         type="number"
-                        id="title"
-                        placeholder="연락처를 입력해주세요."
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        id="tel1"
+                        value={tel1}
+                        onChange={(e) => handlePhone(e, "tel1")}
+                      ></input>
+                      &nbsp;-&nbsp;
+                      <input
+                        className="table_input phone"
+                        type="number"
+                        id="tel2"
+                        value={tel2}
+                        onChange={(e) => handlePhone(e, "tel2")}
+                      ></input>
+                      &nbsp;-&nbsp;
+                      <input
+                        className="table_input phone"
+                        type="number"
+                        id="tel3"
+                        value={tel3}
+                        onChange={(e) => handlePhone(e, "tel3")}
                       ></input>
                     </div>
                   </div>
                 </div>
                 <div className="table_row">
                   <div className="table_section">
-                    <div className="table_title">
-                      입금계좌<p className="title_point">*</p>
-                    </div>
+                    <div className="table_title">입금계좌</div>
                     <div className="table_contents w100">
                       <select
                         value={bank}

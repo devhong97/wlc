@@ -14,14 +14,52 @@ const MemberWriteModal = (props) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [bank, setBank] = useState("");
   const [bankAccount, setBankAccount] = useState("");
   const [type, setType] = useState("");
   const [company, setCompany] = useState("");
   const [branchName, setBranchName] = useState("");
   const [branchIdx, setBranchIdx] = useState("");
+  //등록 중복체크
+  const [tel1, setTel1] = useState(""); // 연락처1
+  const [tel2, setTel2] = useState(""); // 연락처2
+  const [tel3, setTel3] = useState(""); // 연락처3
+  const [idChk, setIdChk] = useState(""); // 아이디 중복체크
   const [regexMessage, setRegexMessage] = useState(""); //비밀번호 유효성검사
+
+  // 아이디체크
+  const handleId = (e) => {
+    setId(e.target.value);
+    handleIdChk(e.target.value);
+  };
+
+  //연락처 체크
+  const handlePhone = (e, target) => {
+    let value = e.target.value;
+
+    // 숫자만 남기고 다른 문자는 제거
+    value = value.replace(/\D/g, "");
+
+    // 최대 길이를 초과하지 않도록 체크
+    if (value.length > 4) {
+      value = value.slice(0, 4);
+    }
+
+    if (target === "tel1" && value.length === 3) {
+      document.getElementById("tel2").focus();
+    } else if (target === "tel2" && value.length === 4) {
+      document.getElementById("tel3").focus();
+    }
+
+    // 상태 업데이트
+    if (target === "tel1") {
+      setTel1(value);
+    } else if (target === "tel2") {
+      setTel2(value);
+    } else if (target === "tel3") {
+      setTel3(value);
+    }
+  };
 
   useEffect(() => {
     setContextType(type);
@@ -45,6 +83,23 @@ const MemberWriteModal = (props) => {
     setBranchName("");
   };
 
+  // 아이디 중복체크
+  const handleIdChk = (val) => {
+    Axios.post("http://localhost:3001/api/post/check_id", {
+      id: val,
+    })
+      .then((res) => {
+        const result = res.data;
+        if (result.available) {
+          setIdChk(true);
+        } else {
+          setIdChk(false);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching data: ", err);
+      });
+  };
   // 비밀번호 체크
   const handlePw = (e) => {
     const password = e.target.value;
@@ -70,7 +125,9 @@ const MemberWriteModal = (props) => {
       !id ||
       !password ||
       !name ||
-      !phone ||
+      !tel1 ||
+      !tel2 ||
+      !tel3 ||
       !type ||
       !company ||
       !branchName ||
@@ -79,11 +136,17 @@ const MemberWriteModal = (props) => {
       alert("필수 사항을 모두 입력해주세요");
       return;
     }
+    if (!idChk) {
+      alert("이미 존재하는 아이디입니다.");
+      return;
+    }
     // 비밀번호 유효성검사 추가
     if (!regexMessage) {
       alert("비밀번호를 유효한 형식으로 입력해주세요.");
       return;
     }
+
+    const phone = tel1 + "-" + tel2 + "-" + tel3;
 
     try {
       const response = await Axios.post(
@@ -134,8 +197,21 @@ const MemberWriteModal = (props) => {
                     id="title"
                     placeholder="아이디를 입력해주세요."
                     value={id}
-                    onChange={(e) => setId(e.target.value)}
+                    onChange={handleId}
                   ></input>
+                  {idChk !== "" && (
+                    <div
+                      className="confirm_msg"
+                      style={{
+                        color: idChk ? "#007bff" : "red",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {idChk
+                        ? "사용가능한 아이디입니다."
+                        : "이미 존재하는 아이디입니다."}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -212,12 +288,30 @@ const MemberWriteModal = (props) => {
                 </div>
                 <div className="table_contents w100">
                   <input
-                    className="table_input modal"
+                    className="table_input phone"
                     type="number"
-                    id="title"
-                    placeholder="연락처를 입력해주세요."
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    id="tel1"
+                    value={tel1}
+                    maxLength="3"
+                    onChange={(e) => handlePhone(e, "tel1")}
+                  ></input>
+                  &nbsp;-&nbsp;
+                  <input
+                    className="table_input phone"
+                    type="number"
+                    id="tel2"
+                    value={tel2}
+                    maxLength="4"
+                    onChange={(e) => handlePhone(e, "tel2")}
+                  ></input>
+                  &nbsp;-&nbsp;
+                  <input
+                    className="table_input phone"
+                    type="number"
+                    id="tel3"
+                    value={tel3}
+                    maxLength="4"
+                    onChange={(e) => handlePhone(e, "tel3")}
                   ></input>
                 </div>
               </div>
