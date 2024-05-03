@@ -629,7 +629,7 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
                 <div className="table_section half">
-                  <div className="table_title">예약유무</div>
+                  <div className="table_title">계약유무</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">
                       {memberData.contract === "Y" ? "유" : "무"}

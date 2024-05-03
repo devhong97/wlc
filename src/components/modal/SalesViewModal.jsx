@@ -149,7 +149,7 @@ const SalesViewModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">예약</div>
+                <div className="table_title">계약</div>
                 <div className="table_contents w100">
                   <div className="table_radio">
                     <label>
