@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [grade, setGrade] = useState(""); // 등급
   const [branchIdx, setBranchIdx] = useState(""); //지점별
   const [id, setId] = useState(""); // 로그인 시 ID
-  const [remainingSessionTime, setRemainingSessionTime] = useState(null); // 남은세션시간
+  //const [remainingSessionTime, setRemainingSessionTime] = useState(null); // 남은세션시간
   const navigate = useNavigate();
 
   //로그인(로드 시) 초기데이터
@@ -37,26 +37,26 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (loginAccess) {
-      const timeout = 900000; // 15분
-      let remainingTime = timeout;
+  // useEffect(() => {
+  //   if (loginAccess) {
+  //     const timeout = 900000; // 15분
+  //     let remainingTime = timeout;
 
-      const timer = setInterval(() => {
-        remainingTime -= 1000;
-        if (remainingTime <= 0) {
-          clearInterval(timer);
-          logout2();
-        } else {
-          const minutes = Math.floor(remainingTime / 60000);
-          const seconds = Math.floor((remainingTime % 60000) / 1000);
-          setRemainingSessionTime({ minutes, seconds });
-        }
-      }, 1000);
+  //     const timer = setInterval(() => {
+  //       remainingTime -= 1000;
+  //       if (remainingTime <= 0) {
+  //         clearInterval(timer);
+  //         logout2();
+  //       } else {
+  //         const minutes = Math.floor(remainingTime / 60000);
+  //         const seconds = Math.floor((remainingTime % 60000) / 1000);
+  //         setRemainingSessionTime({ minutes, seconds });
+  //       }
+  //     }, 1000);
 
-      return () => clearInterval(timer);
-    }
-  }, [loginAccess]);
+  //     return () => clearInterval(timer);
+  //   }
+  // }, [loginAccess]);
 
   //로그인
   const login = (
@@ -76,14 +76,13 @@ export const AuthProvider = ({ children }) => {
     setId(idToken);
 
     // 세션 쿠키 설정 (브라우저 종료 시 삭제되지 않도록 만료 기간 설정)
-    const expirationTime = new Date(Date.now() + 15 * 60 * 1000); // 현재 시간으로부터 15분 후
-    Cookies.set("Access", true, { expires: expirationTime });
-    Cookies.set("S0", branchIdxToken, { expires: expirationTime });
-    Cookies.set("S1", uidToken, { expires: expirationTime });
-    Cookies.set("S2", nameToken, { expires: expirationTime });
-    Cookies.set("S3", branchToken, { expires: expirationTime });
-    Cookies.set("S4", gradeToken, { expires: expirationTime });
-    Cookies.set("S5", idToken, { expires: expirationTime });
+    Cookies.set("Access", true);
+    Cookies.set("S0", branchIdxToken);
+    Cookies.set("S1", uidToken);
+    Cookies.set("S2", nameToken);
+    Cookies.set("S3", branchToken);
+    Cookies.set("S4", gradeToken);
+    Cookies.set("S5", idToken);
   };
 
   //로그아웃
@@ -106,26 +105,26 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  //세션만료 로그아웃
-  const logout2 = () => {
-    alert("세션시간이 만료되었습니다.\n다시 로그인해주세요.");
-    navigate("/", { replace: true });
-    window.location.reload();
-    setLoginAccess(false);
-    setBranchIdx("");
-    setUid("");
-    setName("");
-    setBranch("");
-    setGrade("");
-    setId("");
-    Cookies.remove("Access");
-    Cookies.remove("S0");
-    Cookies.remove("S1");
-    Cookies.remove("S2");
-    Cookies.remove("S3");
-    Cookies.remove("S4");
-    Cookies.remove("S5");
-  };
+  // //세션만료 로그아웃
+  // const logout2 = () => {
+  //   alert("세션시간이 만료되었습니다.\n다시 로그인해주세요.");
+  //   navigate("/", { replace: true });
+  //   window.location.reload();
+  //   setLoginAccess(false);
+  //   setBranchIdx("");
+  //   setUid("");
+  //   setName("");
+  //   setBranch("");
+  //   setGrade("");
+  //   setId("");
+  //   Cookies.remove("Access");
+  //   Cookies.remove("S0");
+  //   Cookies.remove("S1");
+  //   Cookies.remove("S2");
+  //   Cookies.remove("S3");
+  //   Cookies.remove("S4");
+  //   Cookies.remove("S5");
+  // };
 
   // Branch_idx 토큰 디코딩
   const decodeS0 = () => {
@@ -220,7 +219,7 @@ export const AuthProvider = ({ children }) => {
         branch, //지점명
         grade, //등급
         id, //로그인 시 아이디
-        remainingSessionTime, // 세션 만료까지 남은 시간
+        //remainingSessionTime, // 세션 만료까지 남은 시간
 
         decodeS0,
         decodeS1,

@@ -364,7 +364,11 @@ const BranchViewModal = (props) => {
                     onChange={handleCityChange}
                     className="table_select"
                   >
-                    <option value="">{city}</option>
+                    {city ? (
+                      <option value={city}>{city}</option>
+                    ) : (
+                      <option value="">(시/도) 선택</option>
+                    )}
                     {cities.map((city) => (
                       <option key={city} value={city}>
                         {city}
@@ -379,7 +383,11 @@ const BranchViewModal = (props) => {
                     }
                     className="table_select"
                   >
-                    <option value="">{district}</option>
+                    {district ? (
+                      <option value={district}>{district}</option>
+                    ) : (
+                      <option value="">(구/군) 선택</option>
+                    )}
                     {districts.map((district) => (
                       <option key={district} value={district}>
                         {district}

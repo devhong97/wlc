@@ -76,14 +76,23 @@ const Register = () => {
   };
   //연락처 체크
   const handlePhone = (e, target) => {
-    const value = e.target.value;
+    let value = e.target.value;
+
+    // 숫자만 남기고 다른 문자는 제거
+    value = value.replace(/\D/g, "");
+
+    // 최대 길이를 초과하지 않도록 체크
+    if (value.length > 4) {
+      value = value.slice(0, 4);
+    }
+
     if (target === "tel1" && value.length === 3) {
       document.getElementById("tel2").focus();
     } else if (target === "tel2" && value.length === 4) {
       document.getElementById("tel3").focus();
-    } else if (target === "tel3" && value.length === 4) {
     }
 
+    // 상태 업데이트
     if (target === "tel1") {
       setTel1(value);
     } else if (target === "tel2") {
