@@ -12,7 +12,7 @@ const Header = () => {
     decodeS3,
     decodeS4,
     decodeS5,
-    remainingSessionTime,
+    //remainingSessionTime,
   } = useAuth();
 
   return (
@@ -26,7 +26,7 @@ const Header = () => {
         </div>
         <div className="header_info_box right">
           <div className="info_text">
-            {remainingSessionTime && (
+            {/* {remainingSessionTime && (
               <Fragment>
                 세션 만료&nbsp;:&nbsp;
                 {remainingSessionTime.minutes < 10
@@ -38,7 +38,7 @@ const Header = () => {
                   : remainingSessionTime.seconds}
                 초
               </Fragment>
-            )}
+              )} */}
           </div>
         </div>
       </div>
@@ -55,7 +55,6 @@ const Header = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
