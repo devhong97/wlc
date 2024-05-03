@@ -182,7 +182,10 @@ const HospitalViewModal = (props) => {
         <div className="modal_box">
           <div className="modal_title_box">
             <div className="modal_title">병원 상세</div>
-            <div className="modal_close_btn" onClick={() => clearModal("reload")}>
+            <div
+              className="modal_close_btn"
+              onClick={() => clearModal("reload")}
+            >
               X
             </div>
           </div>
