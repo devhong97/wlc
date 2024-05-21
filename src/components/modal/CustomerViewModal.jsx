@@ -7,6 +7,10 @@ import "react-calendar/dist/Calendar.css";
 import AllCustomerModal from "./AllCustomerModal";
 import SignDownModal from "./SignDownModal";
 import { useAuth } from "../Context/AuthContext";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import dayjs from 'dayjs';
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -46,17 +50,17 @@ const CustomerViewModal = (props) => {
   const [resultPrice, setResultPrice] = useState(""); //금액
   const [start_time, setStartTime] = useState(""); //검진시간
   const [addr, setAddr] = useState(""); //주소
-  const [selectedHour, setSelectedHour] = useState(""); // 시간 선택 상태 및 업데이트 함수
-  const [selectedMinute, setSelectedMinute] = useState(""); // 분 선택 상태 및 업데이트 함수
+  // const [selectedHour, setSelectedHour] = useState(""); // 시간 선택 상태 및 업데이트 함수
+  // const [selectedMinute, setSelectedMinute] = useState(""); // 분 선택 상태 및 업데이트 함수
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
+  const [startTime, setStart] = useState(null)
 
-  useEffect(() => {
-    setStartTime(`${selectedHour}:${selectedMinute}`);
-  }, [selectedHour, selectedMinute]);
+  // useEffect(() => {
+  //   setStartTime(`${selectedHour}:${selectedMinute}`);
+  // }, [selectedHour, selectedMinute]);
 
-  console.log(start_time);
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -116,7 +120,7 @@ const CustomerViewModal = (props) => {
     setCPhone(memberData.phone_2);
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
-    setStartTime(memberData.start_time);
+    setStart(dayjs(memberData.start_time, "HH:mm"));
     setProduct(memberData.p_key);
     setHospital(memberData.h_key);
     setResultDate(memberData.result_date);
@@ -161,7 +165,6 @@ const CustomerViewModal = (props) => {
       h_key: hospital,
       hope_date_1: hope_date_1,
       hope_date_2: hope_date_2,
-      start_time: start_time,
       result_date: result_date,
       status: inspectionStatus,
       pay_status: payStatus,
@@ -177,6 +180,7 @@ const CustomerViewModal = (props) => {
       branch_name: memberData.branch,
       branch_type: memberData.branchType,
       company_name: memberData.company,
+      start_time: start_time,
     };
     console.log(paramsArray);
 
@@ -247,6 +251,13 @@ const CustomerViewModal = (props) => {
 
   const openSignModal = () => {
     setSignModal(!signModal);
+  };
+
+  const clockHandle = (newValue) => {
+    const formattedTime = dayjs(newValue).format("HH:mm");
+    console.log(formattedTime);
+    setStartTime(formattedTime)
+    setStart(newValue);
   };
 
   let jsxToRender;
@@ -478,7 +489,7 @@ const CustomerViewModal = (props) => {
                 <div className="table_section half">
                   <div className="table_title">검진시간</div>
                   <div className="table_contents w100">
-                    <div style={{ display: "inline-flex" }}>
+                    {/* <div style={{ display: "inline-flex" }}>
                       <select
                         className="select_box"
                         value={selectedHour}
@@ -494,7 +505,7 @@ const CustomerViewModal = (props) => {
                       <span
                         style={{ width: "10px", display: "inline-block" }}
                       ></span>{" "}
-                      {/* 간격을 나타내는 구분선 */}
+                      {/* 간격을 나타내는 구분선
                       <select
                         className="select_box"
                         value={selectedMinute}
@@ -506,6 +517,11 @@ const CustomerViewModal = (props) => {
                           </option>
                         ))}
                       </select>
+                    </div> */}
+                    <div className="clock_box">
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <TimePicker value={startTime} onChange={clockHandle} />
+                      </LocalizationProvider>
                     </div>
                   </div>
                 </div>
@@ -613,7 +629,7 @@ const CustomerViewModal = (props) => {
                   </div>
                 </div>
                 <div className="table_section half">
-                  <div className="table_title">예약유무</div>
+                  <div className="table_title">계약유무</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">
                       {memberData.contract === "Y" ? "유" : "무"}

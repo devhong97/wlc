@@ -463,7 +463,7 @@ const BranchViewModal = (props) => {
                 </div>
               </div>
               <div className="table_section half">
-                <div className="table_title">예약고객수</div>
+                <div className="table_title">계약고객수</div>
                 <div className="table_contents w100">
                   <div className="table_inner_text">
                     {" "}
