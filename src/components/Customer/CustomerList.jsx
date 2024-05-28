@@ -377,6 +377,12 @@ const CustomerList = () => {
                   >
                     검진취소
                   </div>
+                  <div
+                    className={`tab_menu ${tab === 4 && "active"}`}
+                    onClick={() => changeTab(4)}
+                  >
+                    보험점검
+                  </div>
                 </div>
                 <div className="print_btn" onClick={printCustom}>
                   인쇄
