@@ -121,7 +121,7 @@ const MemberViewModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/member_detail",
+        "http://localhost:3001/api/get/member_detail",
         {
           params: {
             idx: props.detailIdx.idx,
@@ -208,7 +208,7 @@ const MemberViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/member_edit",
+        "http://localhost:3001/api/post/member_edit",
         paramsArray
       );
       alert("정보수정이 완료되었습니다.");
@@ -222,7 +222,7 @@ const MemberViewModal = (props) => {
   const deleteMember = async () => {
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/member_delete",
+        "http://localhost:3001/api/post/member_delete",
         {
           idx: props.detailIdx.idx,
         }
@@ -250,7 +250,7 @@ const MemberViewModal = (props) => {
   const handleStatus = async (num) => {
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/member_status",
+        "http://localhost:3001/api/post/member_status",
         {
           status: num,
           idx: props.detailIdx.idx,

@@ -85,7 +85,7 @@ const MemberWriteModal = (props) => {
 
   // 아이디 중복체크
   const handleIdChk = (val) => {
-    Axios.post("https://www.wlcare.co.kr:8443/api/post/check_id", {
+    Axios.post("http://localhost:3001/api/post/check_id", {
       id: val,
     })
       .then((res) => {
@@ -150,7 +150,7 @@ const MemberWriteModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/member",
+        "http://localhost:3001/api/post/member",
         {
           id: id,
           password: password,

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import TableDefault from "../Table/TableDefault";
 import Axios from "axios";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useReservContext } from "../Context/ReservContext";
 import HospitalSelect from "../Hospital/HospitalSelect";
 
@@ -13,10 +13,13 @@ const SearchHospital = () => {
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
   const [selectHospital, setSelectHospital] = useState([]);
   const [searchData, setSearchData] = useState([]);
+  const location = useLocation();
+  const inspect = location.state && location.state.inspection;
   const navigation = useNavigate();
 
   useEffect(() => {
     fetchHospitalList();
+    console.log("inspect", inspect);
   }, [searchData]);
 
   const fetchHospitalList = () => {
@@ -33,7 +36,7 @@ const SearchHospital = () => {
       setParams.searchData = searchData;
     }
 
-    Axios.get(`https://www.wlcare.co.kr:8443/api/get/reserv/${resultApi}`, {
+    Axios.get(`http://localhost:3001/api/get/reserv/${resultApi}`, {
       params: setParams,
     })
       .then((res) => {
@@ -94,9 +97,9 @@ const SearchHospital = () => {
     console.log(data.h_key);
     setHospitalOriginKey(data.h_key);
     if (product !== "") {
-      navigation("/reserv/date");
+      navigation("/reserv/date", { state: { inspection: inspect } });
     } else {
-      navigation("/reserv/product");
+      navigation("/reserv/product", { state: { inspection: inspect } });
     }
   };
   return (

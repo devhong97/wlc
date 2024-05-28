@@ -25,14 +25,11 @@ const Mypage = () => {
 
   const getMyData = async () => {
     try {
-      const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/mydata",
-        {
-          params: {
-            uid: decodeS1(),
-          },
-        }
-      );
+      const response = await Axios.get("http://localhost:3001/api/get/mydata", {
+        params: {
+          uid: decodeS1(),
+        },
+      });
       const allData = response.data.data;
       console.log(allData);
       setMyData(allData[0]);
@@ -84,7 +81,7 @@ const Mypage = () => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/mypage_edit",
+        "http://localhost:3001/api/post/mypage_edit",
         sendParams
       );
 

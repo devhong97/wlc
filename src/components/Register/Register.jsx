@@ -39,7 +39,7 @@ const Register = () => {
   };
   // 아이디 중복체크
   const handleIdChk = (val) => {
-    Axios.post("https://www.wlcare.co.kr:8443/api/post/check_id", {
+    Axios.post("http://localhost:3001/api/post/check_id", {
       id: val,
     })
       .then((res) => {
@@ -235,7 +235,7 @@ const Register = () => {
     const totalEmail = `${email}@${domain}`;
     const totalPhone = `${tel1}-${tel2}-${tel3}`;
 
-    Axios.post("https://www.wlcare.co.kr:8443/api/post/register", {
+    Axios.post("http://localhost:3001/api/post/register", {
       id,
       password,
       name,
@@ -252,7 +252,7 @@ const Register = () => {
       .then((res) => {
         console.log(res.data);
         alert(
-          `[${name}]님 회원가입신청이 완료되었습니다.\n지점장 승인 후 로그인이 가능합니다.`
+          `[${name}]님 회원가입신청이 완료되었습니다.\n관리자 승인 후 로그인이 가능합니다.`
         );
         navigate("/");
       })

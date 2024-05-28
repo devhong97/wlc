@@ -50,7 +50,7 @@ const NoticeViewModal = (props) => {
       }
 
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/notice_modify",
+        "http://localhost:3001/api/post/notice_modify",
         formData
       );
 
@@ -92,7 +92,7 @@ const NoticeViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/notice_delete",
+        "http://localhost:3001/api/post/notice_delete",
         {
           idx: detailNum,
         }
@@ -110,7 +110,7 @@ const NoticeViewModal = (props) => {
       formData.append("image", blob);
 
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/upload",
+        "http://localhost:3001/api/post/upload",
         formData,
         {
           headers: {
@@ -127,10 +127,7 @@ const NoticeViewModal = (props) => {
 
   const handleDownload = (fileName) => {
     const link = document.createElement("a");
-    window.open(
-      `https://www.wlcare.co.kr:8443/api/download/${fileName}`,
-      "_blank"
-    );
+    window.open(`http://localhost:3001/api/download/${fileName}`, "_blank");
     link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
@@ -152,7 +149,7 @@ const NoticeViewModal = (props) => {
     try {
       // 서버로 첨부 파일 삭제 요청을 보냄
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/delete_attachment",
+        "http://localhost:3001/api/post/delete_attachment",
         {
           idx: detailNum, // 해당글의 idx 추가
           attachmentUrl: updateAttachment,
@@ -268,7 +265,7 @@ const NoticeViewModal = (props) => {
                             cursor: "pointer",
                           }}
                           onClick={() => handleDownload(updateAttachment)}
-                          src={`https://www.wlcare.co.kr:8443/uploads/${updateAttachment}`}
+                          src={`http://localhost:3001/uploads/${updateAttachment}`}
                           alt={updateAttachment}
                         />
                       </div>

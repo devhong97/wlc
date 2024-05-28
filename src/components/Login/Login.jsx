@@ -45,13 +45,10 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/login",
-        {
-          id,
-          password,
-        }
-      );
+      const res = await axios.post("http://localhost:3001/api/post/login", {
+        id,
+        password,
+      });
       if (res.data.success) {
         // S1 ~ S5 - 서버에서 생성된 토큰값
         const { S0, S1, S2, S3, S4, S5 } = res.data;

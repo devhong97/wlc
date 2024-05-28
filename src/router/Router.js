@@ -24,6 +24,7 @@ import SalesHospital from "./../components/Sales/SalesHospital";
 import Link from "../components/Self/Link";
 import AdminSalesList from "../components/Sales/AdminSalesList";
 import ManagerSalesCustomer from "../components/Sales/ManagerSalesCustomer";
+import Inspection from "../components/Inspection/Inspection";
 
 const Router = () => {
   return (
@@ -45,6 +46,7 @@ const Router = () => {
       <Route path="/commission/:idx" element={<CommissionDetail />} />
       <Route path="/notice" element={<Notice />} />
       <Route path="/mypage" element={<Mypage />} />
+      <Route path="/inspection" element={<Inspection />} />
 
       <Route path="/reserv" element={<Reservation />} />
       <Route path="/reserv/product" element={<SearchProduct />} />

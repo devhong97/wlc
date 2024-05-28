@@ -41,7 +41,7 @@ const MemberList = () => {
   const grade2TotalData = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/home_manager",
+        "http://localhost:3001/api/get/home_manager",
         {
           params: {
             branchIdx: decodeS0(),
@@ -97,7 +97,7 @@ const MemberList = () => {
     }
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/member_list",
+        "http://localhost:3001/api/get/member_list",
         {
           params: resultParams,
         }
@@ -229,7 +229,7 @@ const MemberList = () => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/search_mem",
+        "http://localhost:3001/api/post/search_mem",
         {
           searchType,
           searchKeyword,

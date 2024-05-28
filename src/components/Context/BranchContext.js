@@ -28,9 +28,7 @@ export const BranchProvider = ({ children }) => {
 
   const getType = async () => {
     try {
-      const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/type"
-      );
+      const response = await Axios.get("http://localhost:3001/api/get/type");
       setTypeGroup(response.data);
     } catch (error) {
       console.error("Error fetching type list:", error);
@@ -40,7 +38,7 @@ export const BranchProvider = ({ children }) => {
   const getCompany = async () => {
     try {
       const response = await Axios.get(
-        `https://www.wlcare.co.kr:8443/api/get/company/${type}`
+        `http://localhost:3001/api/get/company/${type}`
       );
       setCompanyGroup(response.data);
     } catch (error) {
@@ -51,7 +49,7 @@ export const BranchProvider = ({ children }) => {
   const getBranch = async () => {
     try {
       const response = await Axios.get(
-        `https://www.wlcare.co.kr:8443/api/get/branchcate/${company}`
+        `http://localhost:3001/api/get/branchcate/${company}`
       );
       setBranchGroup(response.data);
     } catch (error) {

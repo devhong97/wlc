@@ -29,7 +29,7 @@ const ProductViewModal = (props) => {
   }, [props.detailIdx]);
 
   useEffect(() => {
-    Axios.get("https://www.wlcare.co.kr:8443/api/get/categories")
+    Axios.get("http://localhost:3001/api/get/categories")
       .then((response) => {
         setCategories(response.data);
       })
@@ -45,9 +45,7 @@ const ProductViewModal = (props) => {
 
   useEffect(() => {
     if (selectedCategory !== "") {
-      Axios.get(
-        `https://www.wlcare.co.kr:8443/api/get/products/${selectedCategory}`
-      )
+      Axios.get(`http://localhost:3001/api/get/products/${selectedCategory}`)
         .then((response) => {
           setProducts(response.data);
           // 선택한 상품명1에 해당하는 c_key 찾기
@@ -77,7 +75,7 @@ const ProductViewModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/product_modify",
+        "http://localhost:3001/api/post/product_modify",
         {
           type: selectedCategory,
           pKey: pKey,
@@ -107,7 +105,7 @@ const ProductViewModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/product_delete",
+        "http://localhost:3001/api/post/product_delete",
         {
           idx: props.detailData.idx,
         }

@@ -20,7 +20,7 @@ const SalesManager = () => {
   const getSalesMangerData = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/sales_customer",
+        "http://localhost:3001/api/get/sales_customer",
         {
           params: {
             uid: decodeS1(), // uid를 params에 전달

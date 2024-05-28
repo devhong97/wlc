@@ -39,7 +39,7 @@ const ManagerSalesCustomer = () => {
 
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/avg_data",
+        "http://localhost:3001/api/get/avg_data",
         {
           params: resultParams,
         }

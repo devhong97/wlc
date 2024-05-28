@@ -26,7 +26,7 @@ const SelfSearchProduct = () => {
 
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/product_list",
+        "http://localhost:3001/api/get/reserv/product_list",
         {
           params: {
             key: resultKey,

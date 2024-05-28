@@ -16,6 +16,8 @@ export const ReservProvider = ({ children }) => {
   const [productName, setProductName] = useState("");
   const [hopeDate1, setHopeDate1] = useState("");
   const [hopeDate2, setHopeDate2] = useState("");
+  const [hopeHour, setHopeHour] = useState("");
+  const [hopeMinute, setHopeMinute] = useState("");
   const [signData1, setSignData1] = useState("");
   const [signData2, setSignData2] = useState("");
   const [customerData, setCustomerData] = useState([]);
@@ -58,7 +60,7 @@ export const ReservProvider = ({ children }) => {
     }
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/product_list",
+        "http://localhost:3001/api/get/reserv/product_list",
         {
           params: setParams,
         }
@@ -72,7 +74,7 @@ export const ReservProvider = ({ children }) => {
   const getHospitalAllList = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/hospital_list"
+        "http://localhost:3001/api/get/reserv/hospital_list"
       );
       const allData = response.data.data;
       setHospitalList(allData);
@@ -83,7 +85,7 @@ export const ReservProvider = ({ children }) => {
   const getHospitalList = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/correct_hospital",
+        "http://localhost:3001/api/get/reserv/correct_hospital",
         {
           params: {
             p_key: productKey,
@@ -99,7 +101,7 @@ export const ReservProvider = ({ children }) => {
   const callHospitalKey = async (callback) => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/select_hospital",
+        "http://localhost:3001/api/get/reserv/select_hospital",
         {
           params: {
             name: hospitalName,
@@ -162,7 +164,7 @@ export const ReservProvider = ({ children }) => {
           //console.log(formData);
 
           Axios.post(
-            "https://www.wlcare.co.kr:8443/api/post/customer_upload",
+            "http://localhost:3001/api/post/customer_upload",
             formData,
             {
               headers: {
@@ -207,6 +209,10 @@ export const ReservProvider = ({ children }) => {
         signData1,
         signData2,
         setSignData2,
+        setHopeHour,
+        hopeHour,
+        setHopeMinute,
+        hopeMinute,
         setProductKey,
         hospitalList,
         productList,

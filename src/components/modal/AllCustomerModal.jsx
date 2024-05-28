@@ -16,7 +16,7 @@ const AllCustomerModal = (props) => {
     }
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/customer_all_edit",
+        "http://localhost:3001/api/post/customer_all_edit",
         {
           updateData: subData,
           deleteData: deleteData,

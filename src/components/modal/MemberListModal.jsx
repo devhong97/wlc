@@ -16,7 +16,7 @@ const MemberListModal = (props) => {
   const searchBoard = async () => {
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/search_user_account",
+        "http://localhost:3001/api/post/search_user_account",
         {
           branch_idx: branchIdx,
           searchType,
@@ -53,7 +53,7 @@ const MemberListModal = (props) => {
   const getMember = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/branch_manager_list",
+        "http://localhost:3001/api/get/branch_manager_list",
         {
           params: {
             branch_idx: branchIdx, // branchIdx를 파라미터로 전달
@@ -89,7 +89,7 @@ const MemberListModal = (props) => {
     console.log("name", name, "branchIdx", branchIdx);
 
     try {
-      await Axios.put("https://www.wlcare.co.kr:8443/api/update/user_grade", {
+      await Axios.put("http://localhost:3001/api/update/user_grade", {
         userId: data.uid, // 선택된 사용자의 ID를 전송
         branchIdx: data.branch_idx,
       });

@@ -6,15 +6,26 @@ import ProductDetailModal from "../modal/ProductDetailModal";
 import { useAuth } from "../Context/AuthContext";
 
 const SearchProduct = () => {
-  const { hospitalKey, setProduct, setProductName } = useReservContext();
+  const {
+    hospitalKey,
+    setProduct,
+    setProductName,
+    setHopeHour,
+    setHopeMinute,
+  } = useReservContext();
   const [productList, setProductList] = useState([]);
   const navigation = useNavigate();
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState([]);
   const { decodeS0 } = useAuth();
   const containerRef = useRef(null);
+  const inspectionState = useLocation();
+  const inspect = inspectionState.state?.inspection;
 
-  console.log("branchIdx", decodeS0());
+  useEffect(() => {
+    console.log("branchIdx", decodeS0());
+    console.log("보험점검 버튼", inspectionState.state);
+  }, [inspectionState.state]);
 
   useEffect(() => {
     getProductList();
@@ -27,7 +38,7 @@ const SearchProduct = () => {
 
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/reserv/product_list",
+        "http://localhost:3001/api/get/reserv/product_list",
         {
           params: {
             key: resultKey,
@@ -47,9 +58,9 @@ const SearchProduct = () => {
     setProduct(data.p_key);
     setProductName(data.product_1);
     if (hospitalKey.length !== 0) {
-      navigation("/reserv/date");
+      navigation("/reserv/date", { state: { inspection: inspect } });
     } else {
-      navigation("/reserv/hospital");
+      navigation("/reserv/hospital", { state: { inspection: inspect } });
     }
   };
 

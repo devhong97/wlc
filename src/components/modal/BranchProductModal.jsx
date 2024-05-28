@@ -30,7 +30,7 @@ const BranchProductModal = (props) => {
   const getDetail = async () => {
     try {
       const response = await Axios.get(
-        "https://www.wlcare.co.kr:8443/api/get/branch_product"
+        "http://localhost:3001/api/get/branch_product"
       );
       const allData = response.data;
 
@@ -55,7 +55,7 @@ const BranchProductModal = (props) => {
 
     try {
       const response = await Axios.post(
-        "https://www.wlcare.co.kr:8443/api/post/branch_product_modify",
+        "http://localhost:3001/api/post/branch_product_modify",
         {
           normalData: normalData, //DB에 있던 기존 지점판매상품
           selectedProduct: selectedProduct, //새로 선택한 지점판매상품
