@@ -7,10 +7,10 @@ import "react-calendar/dist/Calendar.css";
 import AllCustomerModal from "./AllCustomerModal";
 import SignDownModal from "./SignDownModal";
 import { useAuth } from "../Context/AuthContext";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
 const CustomerViewModal = (props) => {
   const {
     setProductKey,
@@ -55,12 +55,11 @@ const CustomerViewModal = (props) => {
   const [allModal, setAllModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
-  const [startTime, setStart] = useState(null)
+  const [startTime, setStart] = useState(null);
 
   // useEffect(() => {
   //   setStartTime(`${selectedHour}:${selectedMinute}`);
   // }, [selectedHour, selectedMinute]);
-
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -256,7 +255,7 @@ const CustomerViewModal = (props) => {
   const clockHandle = (newValue) => {
     const formattedTime = dayjs(newValue).format("HH:mm");
     console.log(formattedTime);
-    setStartTime(formattedTime)
+    setStartTime(formattedTime);
     setStart(newValue);
   };
 

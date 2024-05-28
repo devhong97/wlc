@@ -252,7 +252,7 @@ const Register = () => {
       .then((res) => {
         console.log(res.data);
         alert(
-          `[${name}]님 회원가입신청이 완료되었습니다.\n지점장 승인 후 로그인이 가능합니다.`
+          `[${name}]님 회원가입신청이 완료되었습니다.\n관리자 승인 후 로그인이 가능합니다.`
         );
         navigate("/");
       })

@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Axios from "axios";
 import { useReservContext } from "../Context/ReservContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SignComponent from "./SignComponent";
 
 const ReservCustomer = () => {
-  const { signData1, signData2, setCustomerData, customerData, uploadFiles } =
-    useReservContext();
+  const {
+    signData1,
+    signData2,
+    setCustomerData,
+    customerData,
+    uploadFiles,
+    setHopeHour,
+    hopeHour,
+    setHopeMinute,
+    hopeMinute,
+  } = useReservContext();
+  const location = useLocation();
+  const inspect = location.state && location.state.inspection;
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
   // const [customerName, setCustomerName] = useState(
@@ -32,13 +43,12 @@ const ReservCustomer = () => {
   );
   const [equalStatus, setEqualStatus] = useState(false); //예약자 검진자 동일인물 체크값
   const navigation = useNavigate();
+
   const moveSecondStep = () => {
     if (
-      name === "" ||
-      inputArray[0].name === "" ||
-      phone === "" ||
-      c_phone === "" ||
-      c_addr === ""
+      (!inspect &&
+        (name === "" || phone === "" || c_phone === "" || c_addr === "")) ||
+      (inspect && (name === "" || phone === "" || c_addr === ""))
     ) {
       alert("정보를 모두 입력해주세요.");
       return;
@@ -72,7 +82,7 @@ const ReservCustomer = () => {
     };
     setCustomerData(newData);
     console.log(newData); // 새로운 데이터 확인
-    navigation("/reserv/check");
+    navigation("/reserv/check", { state: { inspection: inspect } });
   };
 
   const openTerms = (num) => {
@@ -161,94 +171,203 @@ const ReservCustomer = () => {
         </div>
       </div>
       {step === 1 && (
-        <div className="reserv_back">
-          <div className="reserv_top_box">
-            <div className="reserv_title">고객 정보</div>
-            <div className="reserv_title sub">고객님의 정보를 입력하세요.</div>
-          </div>
-          <div className="reserv_bottom_box">
-            <div className="reserv_contents_box">
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="예약자 성명"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-              </div>
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="예약자 연락처"
-                  type="number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                ></input>
-              </div>
-              <div className="reserv_equal_box">
-                <input
-                  type="checkbox"
-                  checked={equalStatus}
-                  onChange={handleEqualStatus}
-                  id="setEqual"
-                  className="equal_checkbox"
-                />
-                <label className="equal_label" htmlFor="setEqual">
-                  예약자와 검진자가 같으면 체크하세요.
-                </label>
-              </div>
-              <div className="reserv_input_box">
-                {inputArray.map((input, index) => {
-                  return (
-                    <div className="input_array_box">
-                      <input
-                        className="reserv_input"
-                        placeholder="검진자 성명"
-                        value={input.name}
-                        onChange={(e) =>
-                          handleInputArray(e.target.value, index)
-                        }
-                      ></input>
-                      {index !== 0 && (
-                        <div
-                          className="delete_input"
-                          onClick={() => deleteInputArray(index)}
-                        >
-                          X
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-                <div className="reserv_add_btn" onClick={() => addInputArray()}>
-                  검진자 추가
+        <Fragment>
+          {inspect ? (
+            <div className="reserv_back">
+              <div className="reserv_top_box">
+                <div className="reserv_title">고객 정보</div>
+                <div className="reserv_title sub">
+                  고객님의 정보를 입력하세요.
                 </div>
               </div>
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="검진자 대표 연락처"
-                  value={c_phone}
-                  type="number"
-                  onChange={(e) => setCPhone(e.target.value)}
-                ></input>
-              </div>
-              <div className="reserv_input_box">
-                <input
-                  className="reserv_input"
-                  placeholder="검진자 대표 주소"
-                  value={c_addr}
-                  onChange={(e) => setCAddr(e.target.value)}
-                ></input>
-              </div>
-              <div className="reserv_btn_box">
-                <div className="reserv_btn" onClick={() => moveSecondStep()}>
-                  다음
+              <div className="reserv_bottom_box">
+                <div className="reserv_contents_box">
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="예약자 성명"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="예약자 연락처"
+                      type="number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_equal_box">
+                    <input
+                      type="checkbox"
+                      checked={equalStatus}
+                      onChange={handleEqualStatus}
+                      id="setEqual"
+                      className="equal_checkbox"
+                    />
+                    <label className="equal_label" htmlFor="setEqual">
+                      예약자와 검진자가 같으면 체크하세요.
+                    </label>
+                  </div>
+                  <div className="reserv_input_box">
+                    {inputArray.map((input, index) => {
+                      return (
+                        <div className="input_array_box">
+                          <input
+                            className="reserv_input"
+                            placeholder="검진자 성명"
+                            value={input.name}
+                            onChange={(e) =>
+                              handleInputArray(e.target.value, index)
+                            }
+                          ></input>
+                          {index !== 0 && (
+                            <div
+                              className="delete_input"
+                              onClick={() => deleteInputArray(index)}
+                            >
+                              X
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                    <div
+                      className="reserv_add_btn"
+                      onClick={() => addInputArray()}
+                    >
+                      검진자 추가
+                    </div>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="검진자 대표 연락처"
+                      value={c_phone}
+                      type="number"
+                      onChange={(e) => setCPhone(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="검진자 대표 주소"
+                      value={c_addr}
+                      onChange={(e) => setCAddr(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_btn_box">
+                    <div
+                      className="reserv_btn"
+                      onClick={() => moveSecondStep()}
+                    >
+                      다음
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          ) : (
+            <div className="reserv_back">
+              <div className="reserv_top_box">
+                <div className="reserv_title">고객 정보</div>
+                <div className="reserv_title sub">
+                  고객님의 정보를 입력하세요.
+                </div>
+              </div>
+              <div className="reserv_bottom_box">
+                <div className="reserv_contents_box">
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="예약자 성명"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="예약자 연락처"
+                      type="number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_equal_box">
+                    <input
+                      type="checkbox"
+                      checked={equalStatus}
+                      onChange={handleEqualStatus}
+                      id="setEqual"
+                      className="equal_checkbox"
+                    />
+                    <label className="equal_label" htmlFor="setEqual">
+                      예약자와 검진자가 같으면 체크하세요.
+                    </label>
+                  </div>
+                  <div className="reserv_input_box">
+                    {inputArray.map((input, index) => {
+                      return (
+                        <div className="input_array_box">
+                          <input
+                            className="reserv_input"
+                            placeholder="검진자 성명"
+                            value={input.name}
+                            onChange={(e) =>
+                              handleInputArray(e.target.value, index)
+                            }
+                          ></input>
+                          {index !== 0 && (
+                            <div
+                              className="delete_input"
+                              onClick={() => deleteInputArray(index)}
+                            >
+                              X
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                    <div
+                      className="reserv_add_btn"
+                      onClick={() => addInputArray()}
+                    >
+                      검진자 추가
+                    </div>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="검진자 대표 연락처"
+                      value={c_phone}
+                      type="number"
+                      onChange={(e) => setCPhone(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_input_box">
+                    <input
+                      className="reserv_input"
+                      placeholder="검진자 대표 주소"
+                      value={c_addr}
+                      onChange={(e) => setCAddr(e.target.value)}
+                    ></input>
+                  </div>
+                  <div className="reserv_btn_box">
+                    <div
+                      className="reserv_btn"
+                      onClick={() => moveSecondStep()}
+                    >
+                      다음
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </Fragment>
       )}
       {step === 2 && (
         <div className="reserv_back">

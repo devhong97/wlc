@@ -170,6 +170,12 @@ const BranchViewModal = (props) => {
     if (!confirmModify) {
       return;
     }
+
+    if (!type || !company || !branchName) {
+      alert("필수 사항을 모두 입력해주세요");
+      return;
+    }
+
     try {
       // 변경사항 없으면 기존데이터 전송
       let location;

@@ -12,12 +12,15 @@ const ReservInfoModal = (props) => {
     hospitalOriginKey,
     hopeDate1,
     hopeDate2,
+    hopeHour,
+    hopeMinute,
     uploadFiles,
     selfUrl,
   } = useReservContext();
   const { decodeS3, decodeS1 } = useAuth();
   const navigation = useNavigate();
   const location = useLocation();
+  const inspect = location.state?.inspection;
   const path = location.pathname;
   const parts = path.split("/");
   const target = parts[1];
@@ -35,6 +38,8 @@ const ReservInfoModal = (props) => {
       termsStatus = "Y";
     }
 
+    const hopeTime = `${hopeHour}:${hopeMinute}`;
+
     let sendParams = {
       contractor_name: customerData.name,
       customerArray: customerData.customerArray,
@@ -46,8 +51,10 @@ const ReservInfoModal = (props) => {
       h_key: hospitalOriginKey,
       hope_date_1: hopeDate1,
       hope_date_2: hopeDate2,
+      consulting_time: hopeTime,
       marketing_terms: termsStatus,
       manager_uid: uid,
+      status: inspect === true ? "4" : "3",
     };
     try {
       const response = await Axios.post(

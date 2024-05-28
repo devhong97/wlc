@@ -377,11 +377,8 @@ const CustomerList = () => {
                   >
                     검진취소
                   </div>
-
                 </div>
-                <div className="print_btn"
-                  onClick={printCustom}
-                >
+                <div className="print_btn" onClick={printCustom}>
                   인쇄
                 </div>
               </div>

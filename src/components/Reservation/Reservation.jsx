@@ -9,8 +9,8 @@ const Reservation = () => {
   const pathname = location.pathname;
   const { status } = location.state;
 
-  const movePage = (path) => {
-    navigation(`${pathname}${path}`);
+  const movePage = (path, state = {}) => {
+    navigation(`${pathname}${path}`, { state });
   };
 
   useEffect(() => {
@@ -26,10 +26,10 @@ const Reservation = () => {
     <div className="reserv_wrap">
       <div className="reserv_back main">
         <div className="reserv_top_box">
-          <div className="reserv_title">
-            예약 시작
+          <div className="reserv_title">예약 시작</div>
+          <div className="reserv_title sub">
+            이용하기 원하시는 메뉴를 선택하세요.
           </div>
-          <div className="reserv_title sub">이용하기 원하시는 메뉴를 선택하세요.</div>
         </div>
         <div className="reserv_bottom_box">
           <div className="reserv_menu_box" onClick={() => movePage("/product")}>
@@ -45,6 +45,15 @@ const Reservation = () => {
             <div className="menu_inner_box">
               <div className="menu_icon second"></div>
               <div className="menu_text">병원보기</div>
+            </div>
+          </div>
+          <div
+            className="reserv_menu_box"
+            onClick={() => movePage("/product", { inspection: true })}
+          >
+            <div className="menu_inner_box">
+              <div className="menu_icon third"></div>
+              <div className="menu_text">보험점검 후 예약</div>
             </div>
           </div>
         </div>

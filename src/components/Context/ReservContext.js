@@ -16,6 +16,8 @@ export const ReservProvider = ({ children }) => {
   const [productName, setProductName] = useState("");
   const [hopeDate1, setHopeDate1] = useState("");
   const [hopeDate2, setHopeDate2] = useState("");
+  const [hopeHour, setHopeHour] = useState("");
+  const [hopeMinute, setHopeMinute] = useState("");
   const [signData1, setSignData1] = useState("");
   const [signData2, setSignData2] = useState("");
   const [customerData, setCustomerData] = useState([]);
@@ -207,6 +209,10 @@ export const ReservProvider = ({ children }) => {
         signData1,
         signData2,
         setSignData2,
+        setHopeHour,
+        hopeHour,
+        setHopeMinute,
+        hopeMinute,
         setProductKey,
         hospitalList,
         productList,
