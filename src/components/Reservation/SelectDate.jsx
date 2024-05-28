@@ -140,31 +140,35 @@ const SelectDate = () => {
                   )}
                 </div>
                 {/* 시, 분 선택 퍼블필요*/}
-                <div className="">
-                  <select
-                    className=""
-                    value={selectedHour}
-                    onChange={handleHourChange}
-                  >
-                    {Array.from({ length: 24 }, (_, i) => (
-                      <option key={i} value={i.toString().padStart(2, "0")}>
-                        {i.toString().padStart(2, "0")}
-                      </option>
-                    ))}
-                  </select>
-                  시
-                  <select
-                    className=""
-                    value={selectedMinute}
-                    onChange={handleMinuteChange}
-                  >
-                    {Array.from({ length: 60 }, (_, i) => (
-                      <option key={i} value={i.toString().padStart(2, "0")}>
-                        {i.toString().padStart(2, "0")}
-                      </option>
-                    ))}
-                  </select>
-                  분
+                <div className="time_box">
+                  <div className="time_row">
+                    <select
+                      className="time_select"
+                      value={selectedHour}
+                      onChange={handleHourChange}
+                    >
+                      {Array.from({ length: 24 }, (_, i) => (
+                        <option key={i} value={i.toString().padStart(2, "0")}>
+                          {i.toString().padStart(2, "0")}
+                        </option>
+                      ))}
+                    </select>
+                    시
+                  </div>
+                  <div className="time_row">
+                    <select
+                      className="time_select"
+                      value={selectedMinute}
+                      onChange={handleMinuteChange}
+                    >
+                      {Array.from({ length: 60 }, (_, i) => (
+                        <option key={i} value={i.toString().padStart(2, "0")}>
+                          {i.toString().padStart(2, "0")}
+                        </option>
+                      ))}
+                    </select>
+                    분
+                  </div>
                 </div>
               </Fragment>
             ) : (

@@ -192,6 +192,7 @@
             &.second {
               background-image: url("../img/reserv_menu_2.png");
             }
+
             &.third {
               background-image: url("../img/reserv_menu_3.png");
             }
@@ -217,6 +218,30 @@
         &.sign {
           padding: 20px;
           border-radius: 30px;
+        }
+
+        .time_box {
+          width: 100%;
+
+          .time_row {
+            display: inline-block;
+            vertical-align: top;
+            padding-right: 10px;
+            font-size: 20px;
+            color: #707070;
+          }
+
+          .time_select {
+            width: 100px;
+            padding: 25px 30px;
+            border: 1px solid #c3c3c3;
+            border-radius: 10px;
+            font-size: 20px;
+            color: #707070;
+            background-color: #fff;
+            outline: none;
+            margin-right: 10px;
+          }
         }
       }
 
@@ -245,6 +270,7 @@
           cursor: pointer;
           padding-bottom: 12px;
         }
+
 
         .reserv_calendar {
           width: 100%;
@@ -313,7 +339,7 @@
           display: none;
         }
 
-        .equal_checkbox:checked + .equal_label::before {
+        .equal_checkbox:checked+.equal_label::before {
           background-color: $main-color;
         }
       }
@@ -516,7 +542,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked + .terms_label::before {
+        .terms_checkbox:checked+.terms_label::before {
           background-color: $main-color;
         }
       }
