@@ -235,7 +235,7 @@ const SalesHospital = () => {
     jsxToRender = (
       <div className="main_wrap">
         <div className="main_back">
-          <div className="main_title_box">실적 관리</div>
+          <div className="main_title_box"></div>
           <div className="board_list_wrap">
             <div className="list_area">
               <div className="sales-info-container">
