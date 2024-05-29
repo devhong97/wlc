@@ -58,7 +58,7 @@ const SelectDate = () => {
         /* 상품, 병원 선택 시 체크*/
       }
       if (dateText1 === "" || dateText2 === "") {
-        alert("희망검진일을 입력하세요");
+        alert("희망상담일을 입력하세요");
         return;
       }
 
@@ -112,7 +112,7 @@ const SelectDate = () => {
             <div className="reserv_title">검진일 선택</div>
           )}
           <div className="reserv_title sub">
-            희망하시는 검진일을 선택하세요.
+            희망하시는 상담일을 선택하세요.
           </div>
         </div>
         <div className="reserv_bottom_box">
@@ -123,7 +123,7 @@ const SelectDate = () => {
                 <div className="reserv_input_box calendar">
                   <input
                     className="reserv_input calendar"
-                    placeholder="희망검진일"
+                    placeholder="희망상담일"
                     value={dateText1}
                     readOnly
                     onClick={() => openCalendar(1)}
