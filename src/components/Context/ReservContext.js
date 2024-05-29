@@ -23,6 +23,7 @@ export const ReservProvider = ({ children }) => {
   const [customerData, setCustomerData] = useState([]);
   const [hospitalOriginKey, setHospitalOriginKey] = useState("");
   const [selfUrl, setSelfUrl] = useState("");
+  const [cDate, setCDate] = useState("");
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -127,11 +128,14 @@ export const ReservProvider = ({ children }) => {
     setProduct("");
     setHopeDate1("");
     setHopeDate2("");
+    setCDate("");
     setCustomerData([]);
     setProductName("");
     setSignData1("");
     setSignData2("");
     setHospitalOriginKey("");
+    setHopeHour("");
+    setHopeMinute("");
   };
 
   const keepReservData = () => {
@@ -202,6 +206,8 @@ export const ReservProvider = ({ children }) => {
         product,
         setHopeDate1,
         hopeDate1,
+        setCDate,
+        cDate,
         setHopeDate2,
         hopeDate2,
         clearReservData,

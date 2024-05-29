@@ -11,33 +11,41 @@ const SelectDate = () => {
     product,
     setHopeDate1,
     setHopeDate2,
+    setCDate,
     hopeDate1,
     hopeDate2,
+    cDate,
     setHopeHour,
     setHopeMinute,
   } = useReservContext();
   const [date1, setDate1] = useState("");
   const [date2, setDate2] = useState("");
+  const [date3, setDate3] = useState("");//상담희망일
   const [dateText1, setDateText1] = useState(hopeDate1 || "");
   const [dateText2, setDateText2] = useState(hopeDate2 || "");
+  const [dateText3, setDateText3] = useState(cDate || "");
   const [openStatus, setOpenStatus] = useState(0);
   const [selectedHour, setSelectedHour] = useState("00");
   const [selectedMinute, setSelectedMinute] = useState("00");
   const [hopeDateTime, setHopeDateTime] = useState("");
   const inspectionState = useLocation();
   const inspect = inspectionState.state?.inspection;
+  const [inspectStep, setInspectStep] = useState(false);
   const navigation = useNavigate();
 
   useEffect(() => {
     console.log("보험점검 버튼", inspectionState.state);
+    if (inspect === true) {
+      setInspectStep(true)
+    }
   }, [inspectionState.state]);
 
   const moveNext = () => {
     {
       /* 보험점검시 체크 */
     }
-    if (inspect === true) {
-      if (dateText1 === "") {
+    if (inspectStep === true) {
+      if (dateText3 === "") {
         alert("희망검진일을 입력하세요");
         return;
       }
@@ -48,11 +56,13 @@ const SelectDate = () => {
 
       const selectedTime = `${selectedHour}:${selectedMinute}`;
       setHopeDateTime(selectedTime);
-      setHopeDate1(dateText1);
+      setCDate(dateText3);
       setHopeHour(selectedHour); //context
       setHopeMinute(selectedMinute); //context
 
-      navigation("/reserv/customer", { state: { inspection: inspect } });
+
+      // navigation("/reserv/customer", { state: { inspection: inspect } });
+      setInspectStep(false);
     } else {
       {
         /* 상품, 병원 선택 시 체크*/
@@ -82,9 +92,12 @@ const SelectDate = () => {
     if (num === 1) {
       setDateText1(momentDate);
       setDate1(date);
-    } else {
+    } else if (num === 2) {
       setDateText2(momentDate);
       setDate2(date);
+    } else {
+      setDateText3(momentDate);
+      setDate3(date);
     }
     setOpenStatus(0);
   };
@@ -106,7 +119,7 @@ const SelectDate = () => {
       </div>
       <div className="reserv_back">
         <div className="reserv_top_box">
-          {inspect === true ? (
+          {inspectStep === true ? (
             <div className="reserv_title">상담일 선택</div>
           ) : (
             <div className="reserv_title">검진일 선택</div>
@@ -118,21 +131,21 @@ const SelectDate = () => {
         <div className="reserv_bottom_box">
           <div className="reserv_contents_box">
             {/* 보험점검 후 예약 시 */}
-            {inspect === true ? (
+            {inspectStep === true ? (
               <Fragment>
                 <div className="reserv_input_box calendar">
                   <input
                     className="reserv_input calendar"
                     placeholder="희망상담일"
-                    value={dateText1}
+                    value={dateText3}
                     readOnly
                     onClick={() => openCalendar(1)}
                   />
                   {openStatus === 1 && (
                     <Calendar
                       className="reserv_calendar"
-                      onChange={(e) => setFormatDate(e, 1)}
-                      value={date1}
+                      onChange={(e) => setFormatDate(e, 3)}
+                      value={date3}
                       formatDay={(locale, date) => moment(date).format("DD")}
                       minDate={moment().toDate()}
                       calendarType="gregory"
