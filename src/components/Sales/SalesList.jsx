@@ -67,19 +67,23 @@ const SalesList = () => {
         }
       );
       const arrayData = response.data.data;
+      console.log("arrayData", arrayData);
+
+      // status가 "4"가 아닌 데이터만 필터링
+      const filteredData = arrayData.filter((item) => item.status !== "4");
 
       // 중복된 uid가 있는 경우 중복을 제거하고, name 필드는 모두 가져와서 합침
       const uniqueArrayData = Array.from(
-        new Set(arrayData.map((item) => item.uid))
+        new Set(filteredData.map((item) => item.uid))
       ).map((uid) => ({
-        ...arrayData.find((item) => item.uid === uid),
-        name: arrayData
+        ...filteredData.find((item) => item.uid === uid),
+        name: filteredData
           .filter((item) => item.uid === uid)
           .map((item) => item.name)
           .join(", "),
       }));
 
-      //console.log(uniqueArrayData);
+      console.log("uniqueArrayData", uniqueArrayData);
       setArrayData(uniqueArrayData);
       // 데이터를 받아온 후에 getSalesTop 호출하여 contractCount 설정
       getSalesTop(uniqueArrayData);
@@ -99,6 +103,7 @@ const SalesList = () => {
         }
       );
       const allData = response.data.data[0];
+      console.log("allData", allData);
       setSalesData(allData);
       // arrayData가 설정된 후에 contractCount를 계산합니다.
       const count = arrayData.filter((data) => data.contract === "Y").length;

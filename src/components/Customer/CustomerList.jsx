@@ -225,6 +225,7 @@ const CustomerList = () => {
     { field: "product", headerName: "상품명" },
     { field: "hospital", headerName: "검진병원" },
     { field: "result_date", headerName: "검진일" },
+    { field: "consulting_time", headerName: "상담희망시간" },
     { field: "manager", headerName: "영업사원" },
     { field: "hope_status", headerName: "상담희망" },
     { field: "contract", headerName: "계약유무" },
@@ -248,6 +249,7 @@ const CustomerList = () => {
         hope_date_2: data.hope_date_2,
         start_time: data.start_time,
         result_date: data.result_date,
+        consulting_time: data.consulting_time,
         status: data.status,
         pay_status: data.pay_status,
         hope_status: data.hope_status,
@@ -325,6 +327,7 @@ const CustomerList = () => {
 
   let jsxToRender;
 
+  console.log("numberData", numberData);
   if (decodeS4() === "슈퍼관리자") {
     jsxToRender = (
       <div className="main_wrap">
@@ -432,6 +435,9 @@ const CustomerList = () => {
               <div className="total_box">
                 계약고객수: {numberData.contractNum}
               </div>
+              <div className="total_box">
+                보험점검 상담희망수: {numberData.inspectNum}
+              </div>
             </div>
           </div>
           <div className="board_list_wrap">
@@ -464,6 +470,12 @@ const CustomerList = () => {
                     onClick={() => changeTab(2)}
                   >
                     계약고객
+                  </div>
+                  <div
+                    className={`tab_menu ${tab === 4 && "active"}`}
+                    onClick={() => changeTab(4)}
+                  >
+                    보험점검
                   </div>
                 </div>
               </div>

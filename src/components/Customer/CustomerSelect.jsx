@@ -31,6 +31,7 @@ const CustomerSelect = (props, ref) => {
       setSearchInput(props.defaultSelect.manager);
     }
   }, [props.defaultSelect]);
+
   useEffect(() => {
     setContextType(type);
   }, [type]);

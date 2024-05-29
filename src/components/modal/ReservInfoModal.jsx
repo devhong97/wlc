@@ -21,6 +21,9 @@ const ReservInfoModal = (props) => {
   const navigation = useNavigate();
   const location = useLocation();
   const inspect = location.state?.inspection;
+
+  console.log("inspect", inspect);
+
   const path = location.pathname;
   const parts = path.split("/");
   const target = parts[1];
