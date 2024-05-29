@@ -30,7 +30,7 @@ const Inspection = () => {
   const getSalesData = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/sales_list",
+        "http://localhost:3001/api/get/inspect_list",
         {
           params: {
             uid: decodeS1(),

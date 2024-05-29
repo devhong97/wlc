@@ -49,6 +49,7 @@ const CustomerViewModal = (props) => {
   const [m_terms, setMTerms] = useState("N"); //마켓팅 동의여부
   const [resultPrice, setResultPrice] = useState(""); //금액
   const [start_time, setStartTime] = useState(""); //검진시간
+  const [consulting_time, setConsultingTime] = useState(""); //상담시간
   const [addr, setAddr] = useState(""); //주소
   // const [selectedHour, setSelectedHour] = useState(""); // 시간 선택 상태 및 업데이트 함수
   // const [selectedMinute, setSelectedMinute] = useState(""); // 분 선택 상태 및 업데이트 함수
@@ -56,6 +57,7 @@ const CustomerViewModal = (props) => {
   const [signModal, setSignModal] = useState(false);
   const { decodeS4 } = useAuth();
   const [startTime, setStart] = useState(null);
+  const [startConsulting, setConsulting] = useState(null);
 
   // useEffect(() => {
   //   setStartTime(`${selectedHour}:${selectedMinute}`);
@@ -120,6 +122,7 @@ const CustomerViewModal = (props) => {
     setHopeDate1(memberData.hope_date_1);
     setHopeDate2(memberData.hope_date_2);
     setStart(dayjs(memberData.start_time, "HH:mm"));
+    setConsulting(dayjs(memberData.consulting_time, "HH:mm"));
     setProduct(memberData.p_key);
     setHospital(memberData.h_key);
     setResultDate(memberData.result_date);
@@ -180,6 +183,7 @@ const CustomerViewModal = (props) => {
       branch_type: memberData.branchType,
       company_name: memberData.company,
       start_time: start_time,
+      consulting_time: consulting_time,
     };
     console.log(paramsArray);
 
@@ -257,6 +261,12 @@ const CustomerViewModal = (props) => {
     console.log(formattedTime);
     setStartTime(formattedTime);
     setStart(newValue);
+  };
+
+  const clockHandle2 = (newValue) => {
+    const formattedTime = dayjs(newValue).format("HH:mm");
+    setConsultingTime(formattedTime);
+    setConsulting(newValue);
   };
 
   let jsxToRender;
@@ -565,6 +575,18 @@ const CustomerViewModal = (props) => {
                         검진대기
                       </label>
                     </div>
+                    <div className="table_radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="inspectionStatus"
+                          value="4"
+                          checked={inspectionStatus === "4"}
+                          onChange={(e) => setInspectionStatus(e.target.value)}
+                        />
+                        보험점검
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <div className="table_section half">
@@ -663,6 +685,48 @@ const CustomerViewModal = (props) => {
                         />
                         No
                       </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">상담시간</div>
+                  <div className="table_contents w100">
+                    {/* <div style={{ display: "inline-flex" }}>
+                      <select
+                        className="select_box"
+                        value={selectedHour}
+                        onChange={(e) => setSelectedHour(e.target.value)}
+                      >
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, "0")}>
+                            {i.toString().padStart(2, "0")}시
+                          </option>
+                        ))}
+                      </select>
+                      :
+                      <span
+                        style={{ width: "10px", display: "inline-block" }}
+                      ></span>{" "}
+                      {/* 간격을 나타내는 구분선
+                      <select
+                        className="select_box"
+                        value={selectedMinute}
+                        onChange={(e) => setSelectedMinute(e.target.value)}
+                      >
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, "0")}>
+                            {i.toString().padStart(2, "0")}분
+                          </option>
+                        ))}
+                      </select>
+                    </div> */}
+                    <div className="clock_box">
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <TimePicker
+                          value={startConsulting}
+                          onChange={clockHandle2}
+                        />
+                      </LocalizationProvider>
                     </div>
                   </div>
                 </div>

@@ -586,7 +586,7 @@ const Aside = (props) => {
                       }`}
                       onClick={() => moveMobilePage("/inspection")}
                     >
-                      <div className="menu_icon first"></div>
+                      <div className="menu_icon slas"></div>
                       <div className="menu_text">보험점검</div>
                     </div>
                   </div>
@@ -666,7 +666,7 @@ const Aside = (props) => {
                       }`}
                       onClick={() => movePage("/inspection")}
                     >
-                      <div className="menu_icon first"></div>
+                      <div className="menu_icon slas"></div>
                       <div className="menu_text">보험점검</div>
                     </div>
                   </div>
