@@ -29,8 +29,8 @@
     }
 
     .back_btn {
-      background-color: #f4f4f4;
-      color: #6c6c6c;
+      background-color: #00d07f;
+      color: #ffffff;
       font-size: 18px;
       position: relative;
       padding: 9px 25px 9px 44px;
@@ -44,7 +44,7 @@
         top: 50%;
         left: 20px;
         transform: translate(0, -50%);
-        @include background-set(7px, 7px, contain);
+        @include background-set(13px, 13px, contain);
         background-image: url("../img/back_arrow.png");
       }
     }
@@ -271,7 +271,6 @@
           padding-bottom: 12px;
         }
 
-
         .reserv_calendar {
           width: 100%;
           border-radius: 10px;
@@ -339,7 +338,7 @@
           display: none;
         }
 
-        .equal_checkbox:checked+.equal_label::before {
+        .equal_checkbox:checked + .equal_label::before {
           background-color: $main-color;
         }
       }
@@ -542,7 +541,7 @@
           display: none;
         }
 
-        .terms_checkbox:checked+.terms_label::before {
+        .terms_checkbox:checked + .terms_label::before {
           background-color: $main-color;
         }
       }

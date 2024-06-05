@@ -15,28 +15,30 @@ const SelectDate = () => {
     hopeDate1,
     hopeDate2,
     cDate,
+    hopeLocation,
     setHopeHour,
     setHopeMinute,
   } = useReservContext();
   const [date1, setDate1] = useState("");
   const [date2, setDate2] = useState("");
-  const [date3, setDate3] = useState("");//상담희망일
+  const [hopeL, setHopeL] = useState("");
+  const [date3, setDate3] = useState(""); //상담희망일
   const [dateText1, setDateText1] = useState(hopeDate1 || "");
   const [dateText2, setDateText2] = useState(hopeDate2 || "");
   const [dateText3, setDateText3] = useState(cDate || "");
+  const [hopesLocation, setHopesLocation] = useState(hopeLocation || "");
   const [openStatus, setOpenStatus] = useState(0);
   const [selectedHour, setSelectedHour] = useState("00");
   const [selectedMinute, setSelectedMinute] = useState("00");
   const [hopeDateTime, setHopeDateTime] = useState("");
   const inspectionState = useLocation();
-  const inspect = inspectionState.state?.inspection;
   const [inspectStep, setInspectStep] = useState(false);
   const navigation = useNavigate();
 
   useEffect(() => {
-    console.log("보험점검 버튼", inspectionState.state);
-    if (inspect === true) {
-      setInspectStep(true)
+    console.log("보험점검 버튼", hopeLocation);
+    if (hopeLocation === true) {
+      setInspectStep(true);
     }
   }, [inspectionState.state]);
 
@@ -57,9 +59,9 @@ const SelectDate = () => {
       const selectedTime = `${selectedHour}:${selectedMinute}`;
       setHopeDateTime(selectedTime);
       setCDate(dateText3);
+      setHopesLocation(hopeL); //context
       setHopeHour(selectedHour); //context
       setHopeMinute(selectedMinute); //context
-
 
       // navigation("/reserv/customer", { state: { inspection: inspect } });
       setInspectStep(false);
@@ -120,7 +122,7 @@ const SelectDate = () => {
       <div className="reserv_back">
         <div className="reserv_top_box">
           {inspectStep === true ? (
-            <div className="reserv_title">상담일 선택</div>
+            <div className="reserv_title">보험상담일 선택</div>
           ) : (
             <div className="reserv_title">검진일 선택</div>
           )}
@@ -133,6 +135,15 @@ const SelectDate = () => {
             {/* 보험점검 후 예약 시 */}
             {inspectStep === true ? (
               <Fragment>
+                <div className="reserv_input_box">
+                  <input
+                    type="text"
+                    className="reserv_input"
+                    placeholder="상담장소"
+                    value={hopeL}
+                    onChange={(e) => setHopeL(e.target.value)}
+                  />
+                </div>
                 <div className="reserv_input_box calendar">
                   <input
                     className="reserv_input calendar"

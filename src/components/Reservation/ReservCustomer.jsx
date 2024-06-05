@@ -11,13 +11,13 @@ const ReservCustomer = () => {
     setCustomerData,
     customerData,
     uploadFiles,
+    hopeLocation,
     setHopeHour,
     hopeHour,
     setHopeMinute,
     hopeMinute,
   } = useReservContext();
   const location = useLocation();
-  const inspect = location.state && location.state.inspection;
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
   // const [customerName, setCustomerName] = useState(
@@ -46,9 +46,9 @@ const ReservCustomer = () => {
 
   const moveSecondStep = () => {
     if (
-      (!inspect &&
+      (!hopeLocation &&
         (name === "" || phone === "" || c_phone === "" || c_addr === "")) ||
-      (inspect && (name === "" || phone === "" || c_addr === ""))
+      (hopeLocation && (name === "" || phone === "" || c_addr === ""))
     ) {
       alert("정보를 모두 입력해주세요.");
       return;
@@ -82,7 +82,7 @@ const ReservCustomer = () => {
     };
     setCustomerData(newData);
     console.log(newData); // 새로운 데이터 확인
-    navigation("/reserv/check", { state: { inspection: inspect } });
+    navigation("/reserv/check");
   };
 
   const openTerms = (num) => {
@@ -91,6 +91,11 @@ const ReservCustomer = () => {
     } else if (termsStatus === num) {
       setTermsStatus(0);
     }
+  };
+
+  const handleAllTerms = (e) => {
+    setAgreeTerms(e.target.checked);
+    setMTerms(e.target.checked);
   };
 
   useEffect(() => {
@@ -172,7 +177,7 @@ const ReservCustomer = () => {
       </div>
       {step === 1 && (
         <Fragment>
-          {inspect ? (
+          {hopeLocation ? (
             <div className="reserv_back">
               <div className="reserv_top_box">
                 <div className="reserv_title">고객 정보</div>
@@ -194,6 +199,7 @@ const ReservCustomer = () => {
                     <input
                       className="reserv_input"
                       placeholder="예약자 연락처"
+                      pattern="\d*"
                       type="number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -244,6 +250,7 @@ const ReservCustomer = () => {
                   <div className="reserv_input_box">
                     <input
                       className="reserv_input"
+                      pattern="\d*"
                       placeholder="검진자 대표 연락처"
                       value={c_phone}
                       type="number"
@@ -291,6 +298,7 @@ const ReservCustomer = () => {
                     <input
                       className="reserv_input"
                       placeholder="예약자 연락처"
+                      pattern="\d*"
                       type="number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
@@ -341,6 +349,7 @@ const ReservCustomer = () => {
                   <div className="reserv_input_box">
                     <input
                       className="reserv_input"
+                      pattern="\d*"
                       placeholder="검진자 대표 연락처"
                       value={c_phone}
                       type="number"
@@ -377,6 +386,19 @@ const ReservCustomer = () => {
           </div>
           <div className="reserv_bottom_box">
             <div className="reserv_contents_box">
+              <div className="terms_checkbox">
+                <input
+                  type="checkbox"
+                  checked={agreeTerms && mTerms}
+                  onChange={handleAllTerms}
+                  id="all_terms"
+                  className="terms_checkbox"
+                />
+                <label className="terms_label" htmlFor="all_terms">
+                  전체 약관에 동의합니다.
+                </label>
+              </div>
+              <br />
               <div className="terms_box">
                 <div className="terms_title">개인정보 동의 약관</div>
                 <div

@@ -10,6 +10,7 @@ const SearchProduct = () => {
     hospitalKey,
     setProduct,
     setProductName,
+    hopeLocation,
     setHopeHour,
     setHopeMinute,
   } = useReservContext();
@@ -20,11 +21,11 @@ const SearchProduct = () => {
   const { decodeS0 } = useAuth();
   const containerRef = useRef(null);
   const inspectionState = useLocation();
-  const inspect = inspectionState.state?.inspection;
+
+  console.log("hopeLocation", hopeLocation);
 
   useEffect(() => {
     console.log("branchIdx", decodeS0());
-    console.log("보험점검 버튼", inspectionState.state);
   }, [inspectionState.state]);
 
   useEffect(() => {
@@ -58,9 +59,9 @@ const SearchProduct = () => {
     setProduct(data.p_key);
     setProductName(data.product_1);
     if (hospitalKey.length !== 0) {
-      navigation("/reserv/date", { state: { inspection: inspect } });
+      navigation("/reserv/date");
     } else {
-      navigation("/reserv/hospital", { state: { inspection: inspect } });
+      navigation("/reserv/hospital");
     }
   };
 

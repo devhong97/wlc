@@ -8,18 +8,21 @@ import HospitalSelect from "../Hospital/HospitalSelect";
 
 const SearchHospital = () => {
   const selectRef = useRef(null);
-  const { setHospitalName, setHospitalIdx, product, setHospitalOriginKey } =
-    useReservContext();
+  const {
+    setHospitalName,
+    setHospitalIdx,
+    product,
+    hopeLocation,
+    setHospitalOriginKey,
+  } = useReservContext();
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
   const [selectHospital, setSelectHospital] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const location = useLocation();
-  const inspect = location.state && location.state.inspection;
   const navigation = useNavigate();
 
+  console.log("hopeLocation", hopeLocation);
   useEffect(() => {
     fetchHospitalList();
-    console.log("inspect", inspect);
   }, [searchData]);
 
   const fetchHospitalList = () => {
@@ -97,9 +100,9 @@ const SearchHospital = () => {
     console.log(data.h_key);
     setHospitalOriginKey(data.h_key);
     if (product !== "") {
-      navigation("/reserv/date", { state: { inspection: inspect } });
+      navigation("/reserv/date");
     } else {
-      navigation("/reserv/product", { state: { inspection: inspect } });
+      navigation("/reserv/product");
     }
   };
   return (

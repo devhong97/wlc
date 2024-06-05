@@ -19,6 +19,7 @@ const Delme = () => {
   const [product1, setProduct1] = useState("");
   const [ogPrice, setOgPrice] = useState("");
   const [priceTxt, setPriceTxt] = useState("");
+  const [cost, setCost] = useState("");
 
   const [content, setContent] = useState(""); // 게시글
   const [content2, setContent2] = useState(""); // 게시글
@@ -115,6 +116,7 @@ const Delme = () => {
           product_1: product1,
           og_price: ogPrice,
           priceTxt: priceTxt,
+          cost: cost,
         });
         alert("카테고리등록 완료.");
         setPKey("");
@@ -123,6 +125,7 @@ const Delme = () => {
         setProduct1("");
         setOgPrice("");
         setPriceTxt("");
+        setCost("");
       }
     } catch (err) {
       console.log(err);
@@ -179,26 +182,30 @@ const Delme = () => {
     <div className="main_wrap delme">
       <div className="main_back delme">
         <div className="section delme">
-          <div className="section_title delme">[ 지점등록(type_total) ]</div>
-          <div>
-            <span>지점종류: &nbsp;</span>
+          <div className="section_title delme">
+            <p className="dep1">[ 지점등록 ]</p>
+            <p className="dep2">[ type_total ]</p>
+          </div>
+          <div class="input-container">
+            <span class="label">지점종류: &nbsp;</span>
             <input
               type="text"
               value={branchType}
               onChange={(e) => setBranchType(e.target.value)}
+              class="input-field"
             />
           </div>
-          <br />
-          <div>
-            <span>회사명: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">회사명: &nbsp;</span>
             <input
               type="text"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div className="delme-btn-wrap">
-            <div className="delme_btn" onClick={typeTotalInsert}>
+          <div class="delme-btn-wrap">
+            <div class="delme_btn" onClick={typeTotalInsert}>
               등록
             </div>
           </div>
@@ -206,59 +213,74 @@ const Delme = () => {
 
         <div className="section delme">
           <div className="section_title delme">
-            [ 상품카테고리(product_category) ]
+            <p className="dep1">[ 상품카테고리 ]</p>
+            <p className="dep2">[ product_category ]</p>
           </div>
-          <div>
-            <span>p_key: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">p_key: &nbsp;</span>
             <input
               type="text"
               value={pKey}
               onChange={(e) => setPKey(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div>
-            <span>c_key: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">c_key: &nbsp;</span>
             <input
               type="text"
               value={cKey}
               onChange={(e) => setCKey(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div>
-            <span>타입: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">타입: &nbsp;</span>
             <input
               type="text"
               value={type}
               onChange={(e) => setType(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div>
-            <span>상품명1: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">상품명1: &nbsp;</span>
             <input
               type="text"
               value={product1}
               onChange={(e) => setProduct1(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div>
-            <span>의료수가: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">의료수가: &nbsp;</span>
             <input
               type="text"
               value={ogPrice}
               onChange={(e) => setOgPrice(e.target.value)}
+              class="input-field"
             />
           </div>
-          <div>
-            <span>검진비용: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">검진비용: &nbsp;</span>
             <input
               type="text"
               value={priceTxt}
               onChange={(e) => setPriceTxt(e.target.value)}
+              class="input-field"
             />
           </div>
-
+          <div class="input-container">
+            <span class="label">원가: &nbsp;</span>
+            <input
+              type="text"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              class="input-field"
+            />
+          </div>
           <div className="delme-btn-wrap">
-            <div className="delme_btn" onClick={typeTotalInsert}>
+            <div className="delme_btn" onClick={productCategoryInsert}>
               등록
             </div>
           </div>
@@ -266,14 +288,16 @@ const Delme = () => {
 
         <div className="section delme">
           <div className="section_title delme">
-            [ 검진항목(product_detail) ]
+            <p className="dep1">[ 검진항목 ]</p>
+            <p className="dep2">[ product_detail ]</p>
           </div>
-          <div>
-            <span>d_key: &nbsp;</span>
+          <div class="input-container">
+            <span class="label">d_key: &nbsp;</span>
             <input
               type="text"
               value={detailPKey}
               onChange={(e) => setDetailPKey(e.target.value)}
+              class="input-field"
             />
           </div>
           <div className="delme-btn-wrap">
@@ -284,7 +308,9 @@ const Delme = () => {
         </div>
 
         <div className="section delme">
-          <div className="section_title delme">[ 개인정보약관동의 내용 ]</div>
+          <div className="section_title delme">
+            <p>[ 개인정보약관동의 내용 ]</p>
+          </div>
           <div style={{ textAlign: "left" }}>
             <Editor
               initialValue={content} // content를 Editor의 초기값으로 사용;
@@ -307,7 +333,9 @@ const Delme = () => {
           </div>
         </div>
         <div className="section delme">
-          <div className="section_title delme">[ 마케팅약관동의 내용 ]</div>
+          <div className="section_title delme">
+            <p>[ 마케팅약관동의 내용 ]</p>
+          </div>
           <div style={{ textAlign: "left" }}>
             <Editor
               initialValue={content2} // content를 Editor의 초기값으로 사용;

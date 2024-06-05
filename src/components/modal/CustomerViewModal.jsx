@@ -732,11 +732,19 @@ const CustomerViewModal = (props) => {
                 </div>
               </div>
               <div className="table_row">
-                <div className="table_section">
+                <div className="table_section half">
                   <div className="table_title">입금금액</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">
                       {memberData.price * customerNumber} 원
+                    </div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">보험점검장소</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.consulting_location}
                     </div>
                   </div>
                 </div>
@@ -834,12 +842,206 @@ const CustomerViewModal = (props) => {
         <div className="modal_back">
           <div className="modal_box">
             <div className="modal_title_box">
-              <div className="modal_title">고객상세 비고</div>
+              <div className="modal_title">고객 상세</div>
               <div className="modal_close_btn" onClick={() => clearModal()}>
                 X
               </div>
             </div>
             <div className="table_box">
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{customerName}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">예약자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.contractor_name}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진인원</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{customerNumber}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">가입일</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {moment(memberData.date).format("YYYY-MM-DD")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진자 연락처</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{cPhone}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">예약자 연락처</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{phone}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">검진자 주소</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{addr}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">병원</div>
+                  {hospitalList && (
+                    <div className="table_contents w100">
+                      <div className="table_inner_text">
+                        {hospitalList.find((item) => item.h_key === hospital)
+                          ?.name || "선택된 병원 없음"}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">영업자</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{memberData.manager}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">상품명</div>
+                  {productList && (
+                    <div className="table_contents w100">
+                      <div className="table_inner_text">
+                        {productList.find((item) => item.p_key === product)
+                          ?.product_1 || "선택된 상품 없음"}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">희망일1</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{hope_date_1}</div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">희망일2</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">{hope_date_2}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row calendar">
+                <div className="table_section half calendar">
+                  <div className="table_title">검진확정일</div>
+                  <div className="table_contents w100 calendar">
+                    <div
+                      className="table_inner_text"
+                      onClick={() => calendarStatus()}
+                    >
+                      {result_date}
+                    </div>
+                    {openCalendar && (
+                      <Calendar
+                        className="modal_calendar"
+                        onChange={(e) => setFormatDate(e)}
+                        value={resultCalendar}
+                        formatDay={(locale, date) => moment(date).format("DD")}
+                        minDate={moment().toDate()}
+                        calendarType="gregory"
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">검진시간</div>
+                  <div className="table_contents w100">
+                    <div className="clock_box">
+                      <div className="table_inner_text">
+                        {memberData.start_time}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">상담희망</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {hopeStatus === "Y" ? "Yes" : "No"}
+                    </div>
+                  </div>
+                </div>
+                <div className="table_section half">
+                  <div className="table_title">계약유무</div>
+                  <div className="table_contents w100">
+                    <div className="table_inner_text">
+                      {memberData.contract === "Y" ? "유" : "무"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section half">
+                  <div className="table_title">상담희망시간</div>
+                  <div className="table_contents w100">
+                    <div className="clock_box">
+                      <div className="table_inner_text">
+                        {memberData.consulting_time}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {inspectionStatus === "2" && (
+                <div className="table_row">
+                  <div className="table_section half">
+                    <div className="table_title">환불여부</div>
+                    <div className="table_contents w100">
+                      <div className="table_radio">
+                        <label>
+                          <input
+                            type="radio"
+                            name="refundStatus"
+                            value="Y"
+                            checked={refundStatus === "Y"}
+                            onChange={(e) => setRefundStatus(e.target.value)}
+                          />
+                          Yes
+                        </label>
+                      </div>
+                      <div className="table_radio">
+                        <label>
+                          <input
+                            type="radio"
+                            name="refundStatus"
+                            value="N"
+                            checked={refundStatus === "N"}
+                            onChange={(e) => setRefundStatus(e.target.value)}
+                          />
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="table_row">
                 <div className="table_section">
                   <div className="table_title image">비고</div>
@@ -848,9 +1050,20 @@ const CustomerViewModal = (props) => {
                       className="table_textarea"
                       value={memo}
                       onChange={(e) => setMemo(e.target.value)}
-                      readOnly // readOnly 속성 추가
-                      style={{ backgroundColor: "#f2f2f2" }} // 연한 회색 배경색상 적용
                     ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">계약서</div>
+                  <div className="table_contents w100">
+                    <div
+                      className="table_inner_btn sign"
+                      onClick={() => openSignModal()}
+                    >
+                      확인하기
+                    </div>
                   </div>
                 </div>
               </div>

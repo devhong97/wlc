@@ -4,6 +4,7 @@ import { useAuth } from "../Context/AuthContext";
 import Axios from "axios";
 import TableDefault from "../Table/TableDefault";
 import moment from "moment";
+import InspectionViewModal from "../modal/InspectionViewModal";
 
 const Inspection = () => {
   const [viewModal, setViewModal] = useState(false);
@@ -92,6 +93,8 @@ const Inspection = () => {
     memo: data.memo,
     contractor_name: data.contractor_name,
     address: data.address,
+    consulting_location: data.consulting_location,
+    consulting_date: data.consulting_date,
     idx: data.idx,
   }));
 
@@ -134,11 +137,11 @@ const Inspection = () => {
           </div>
         </div>
         {viewModal && (
-          <SalesViewModal
+          <InspectionViewModal
             closeModal={closeModal}
             detailIdx={detailIdx}
             arrayData={arrayData}
-          ></SalesViewModal>
+          ></InspectionViewModal>
         )}
       </div>
     </div>

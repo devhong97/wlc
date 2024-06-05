@@ -13,6 +13,7 @@ const ReservInfoModal = (props) => {
     hopeDate1,
     hopeDate2,
     cDate,
+    hopeLocation,
     hopeHour,
     hopeMinute,
     uploadFiles,
@@ -55,11 +56,13 @@ const ReservInfoModal = (props) => {
       h_key: hospitalOriginKey,
       hope_date_1: hopeDate1,
       hope_date_2: hopeDate2,
+      consulting_location: hopeLocation,
       consulting_date: cDate,
       consulting_time: hopeTime,
       marketing_terms: termsStatus,
       manager_uid: uid,
       status: cDate !== "" ? "4" : "3",
+      hope_status: hopeLocation !== "" ? "Y" : "N",
     };
     try {
       const response = await Axios.post(

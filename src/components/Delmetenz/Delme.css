@@ -1,23 +1,41 @@
 .main_wrap.delme .main_back.delme {
   display: flex;
   flex-wrap: wrap;
+  padding: 25px;
 }
 
 .section_title.delme {
   padding-bottom: 30px;
   text-align: center;
 }
+.section_title.delme .dep1 {
+  font-weight: bold;
+}
+.section_title.delme .dep2 {
+  color: crimson;
+}
 .section.delme {
-  width: calc(33.33% - 20px); /* 섹션 너비 설정 */
-  margin-right: 20px; /* 오른쪽 마진 추가 */
-  margin-bottom: 20px; /* 아래쪽 마진 추가 */
+  position: relative;
+  width: calc(33.33% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   text-align: center;
 }
 
-.delme_btn {
+.delme-btn-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.delme-btn-wrap .delme_btn {
   display: inline-block;
   padding: 10px 20px;
   background-color: #007bff;
@@ -28,11 +46,24 @@
   transition: background-color 0.3s;
 }
 
-.delme-btn-wrap {
-  text-align: center;
-  padding-top: 30px;
-}
-
 .delme_btn:hover {
   background-color: #0056b3;
+}
+
+/* 지점등록 */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  width: 100px;
+}
+
+.input-field {
+  flex: 1;
+  height: 35px;
+  border-radius: 15px;
+  padding-left: 10px;
 }

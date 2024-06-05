@@ -18,6 +18,8 @@ const ReservCheck = () => {
   const inspect = inspectionState.state?.inspection;
   const navigation = useNavigate();
 
+  console.log("inspect", inspect);
+
   const openModal = () => {
     setInfoModal(true);
   };

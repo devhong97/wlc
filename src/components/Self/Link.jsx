@@ -8,7 +8,7 @@ const Link = () => {
   const uid = decodeS1();
   const navigation = useNavigate();
   const [modal, setModal] = useState(false);
-  const link = `https://www.wlcare.co.kr/self/${uid}`;
+  const link = `https://www.wlcmanager.com/self/${uid}`;
 
   const openModal = () => {
     setModal(true);
@@ -49,7 +49,7 @@ const Link = () => {
               <div className="my_row">
                 <div className="my_text title">링크</div>
                 <div className="my_text">
-                  https://www.wlcare.co.kr/self/{uid}
+                  https://www.wlcmanager.com/self/{uid}
                 </div>
                 {/* <CopyToClipboard
                   text={`http://www.wlcmanager.com/self/${uid}`}
