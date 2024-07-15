@@ -34,6 +34,7 @@ const SelfSearchProduct = () => {
         }
       );
       const allData = response.data.data;
+      console.log("Product List:", allData); // 데이터 확인
       setProductList(allData);
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -107,15 +108,15 @@ const SelfSearchProduct = () => {
                     <div className="product_text_box">
                       <div className="product_text title">{data.product_1}</div>
                       <div className="product_text og_price">
-                        {Number(data.og_price).toLocaleString()}원
+                        {/* {Number(data.og_price).toLocaleString()}원 */}
                       </div>
                       {data.p_key === "2" ? (
                         <div className="product_text">
-                          {Number(data.price_txt * 2).toLocaleString()} 원 (2인)
+                          {Number(data.cost * 2).toLocaleString()} 원 (2인)
                         </div>
                       ) : (
                         <div className="product_text">
-                          {Number(data.price_txt).toLocaleString()} 원 (1인)
+                          {Number(data.cost).toLocaleString()} 원 (1인)
                         </div>
                       )}
                       <div className="product_info_text">

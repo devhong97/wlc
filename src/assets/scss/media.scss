@@ -1,694 +1,967 @@
 @import "lifeUtil.scss";
 
 @media (max-width: 1600px) {
-    .login_wrap {
-        .login_back {
-            height: 100%;
+  .login_wrap {
+    .login_back {
+      height: 100%;
 
-            .input_wrap {
-                .input_back {
-                    .logo_title_box {
-                        padding-bottom: 30px;
+      .input_wrap {
+        .input_back {
+          .logo_title_box {
+            padding-bottom: 30px;
 
-                        .logo_img {
-                            width: 50px !important;
-                            height: 50px !important;
-                            margin-bottom: 30px !important;
-                        }
-
-                        .logo_title {
-                            font-size: 20px;
-                            line-height: 30px;
-                        }
-                    }
-
-                    .login_check_box {
-                        .login_label {}
-                    }
-
-                    .bottom_btn_box {
-                        .bottom_btn {
-                            font-size: 15px;
-                            padding: 10px 0;
-                        }
-                    }
-
-                    .input_box {
-                        .login_input {
-                            font-size: 15px;
-                        }
-                    }
-
-                    .login_btn {
-                        font-size: 18px;
-                    }
-                }
+            .logo_img {
+              width: 50px !important;
+              height: 50px !important;
+              margin-bottom: 30px !important;
             }
+
+            .logo_title {
+              font-size: 20px;
+              line-height: 30px;
+            }
+          }
+
+          .login_check_box {
+            .login_label {
+            }
+          }
+
+          .bottom_btn_box {
+            .bottom_btn {
+              font-size: 15px;
+              padding: 10px 0;
+            }
+          }
+
+          .input_box {
+            .login_input {
+              font-size: 15px;
+            }
+          }
+
+          .login_btn {
+            font-size: 18px;
+          }
         }
+      }
+    }
+  }
+
+  .register_wrap {
+    .register_back {
+      &.register {
+        width: 90%;
+      }
+
+      &.search {
+        width: 90%;
+      }
+
+      .register_container {
+        .input_row {
+          .input_title {
+            font-size: 15px;
+            width: 70px;
+          }
+
+          .confirm_msg {
+            padding-left: 70px;
+          }
+
+          .register_input {
+            width: calc(100% - 70px);
+            padding: 15px 10px;
+            font-size: 13px;
+
+            &.phone {
+              width: calc((100% - 110px) / 3);
+            }
+
+            &.email {
+              width: calc((100% - 86px) / 3);
+            }
+
+            &.code_input {
+              width: calc(100% - 180px);
+            }
+          }
+
+          .register_select {
+            width: calc(100% - 70px);
+            padding: 15px 10px;
+            font-size: 13px;
+
+            &.email {
+              width: calc((100% - 110px) / 3);
+            }
+          }
+        }
+
+        .register_btn_box {
+          .register_btn {
+            height: 50px;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .menu_area {
+    box-shadow: none;
+
+    .side_wrap {
+      .side_back {
+        display: none;
+
+        &.mobile {
+          display: block !important;
+        }
+      }
+    }
+  }
+
+  .main_area {
+    padding-left: 0 !important;
+
+    .footer_wrap {
+      width: 100% !important;
+    }
+  }
+
+  .modal_wrap {
+    .modal_back {
+      width: 90%;
+    }
+  }
+
+  .header_wrap {
+    .header_top_back {
+      padding: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .reserv_wrap {
+    .back_btn_box {
+      padding: 5px 20px !important;
+
+      .back_btn {
+        font-size: 13px !important;
+        padding: 5px 20px 5px 40px !important;
+      }
     }
 
-    .register_wrap {
-        .register_back {
-            &.register {
-                width: 90%;
-            }
+    .reserv_back {
+      &.sign {
+        padding: 40px 0 !important;
+      }
 
-            &.search {
-                width: 90%;
-            }
+      .reserv_top_box {
+        .reserv_title {
+          font-size: 25px !important;
 
-            .register_container {
-                .input_row {
-                    .input_title {
-                        font-size: 15px;
-                        width: 70px;
-                    }
-
-                    .confirm_msg {
-                        padding-left: 70px;
-                    }
-
-                    .register_input {
-                        width: calc(100% - 70px);
-                        padding: 15px 10px;
-                        font-size: 13px;
-
-                        &.phone {
-                            width: calc((100% - 110px) / 3);
-                        }
-
-                        &.email {
-                            width: calc((100% - 86px) / 3);
-                        }
-
-                        &.code_input {
-                            width: calc(100% - 180px);
-                        }
-                    }
-
-                    .register_select {
-                        width: calc(100% - 70px);
-                        padding: 15px 10px;
-                        font-size: 13px;
-
-                        &.email {
-                            width: calc((100% - 110px) / 3);
-                        }
-                    }
-                }
-
-                .register_btn_box {
-                    .register_btn {
-                        height: 50px;
-                        font-size: 20px;
-                    }
-                }
-            }
+          &.sub {
+            font-size: 15px !important;
+            padding-top: 10px !important;
+          }
         }
+      }
+
+      .reserv_bottom_box {
+        &.inner_sign {
+          padding-top: 20px !important;
+        }
+
+        .sign_container {
+          .sign_box {
+            .sign_title {
+              font-size: 15px !important;
+            }
+          }
+
+          .sign_btn_box {
+            .sign_btn {
+              height: auto !important;
+            }
+          }
+        }
+      }
     }
-
-    .menu_area {
-        box-shadow: none;
-
-        .side_wrap {
-            .side_back {
-                display: none;
-
-                &.mobile {
-                    display: block !important;
-                }
-            }
-        }
-    }
-
-
-    .main_area {
-        padding-left: 0 !important;
-
-        .footer_wrap {
-            width: 100% !important;
-        }
-    }
-
-    .modal_wrap {
-        .modal_back {
-            width: 90%;
-        }
-    }
-
-    .header_wrap {
-        .header_top_back {
-            padding: 10px;
-            font-size: 12px;
-        }
-    }
-
-    .reserv_wrap {
-        .back_btn_box {
-            padding: 5px 20px !important;
-
-            .back_btn {
-                font-size: 13px !important;
-                padding: 5px 20px 5px 40px !important;
-            }
-        }
-
-        .reserv_back {
-            &.sign {
-                padding: 40px 0 !important;
-            }
-
-            .reserv_top_box {
-                .reserv_title {
-                    font-size: 25px !important;
-
-                    &.sub {
-                        font-size: 15px !important;
-                        padding-top: 10px !important;
-                    }
-                }
-            }
-
-            .reserv_bottom_box {
-                &.inner_sign {
-                    padding-top: 20px !important;
-                }
-
-                .sign_container {
-                    .sign_box {
-                        .sign_title {
-                            font-size: 15px !important;
-                        }
-                    }
-
-                    .sign_btn_box {
-                        .sign_btn {
-                            height: auto !important;
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+  }
 }
 
-@media(max-width : 1300px) {
-    .main_wrap {
-        .main_back {
-            .main_product_area {
-                .main_product_box {
-                    .main_product_row {
-                        .product_icon_box {
-                            width: 30px;
+@media (max-width: 1300px) {
+  .main_wrap {
+    .main_back {
+      .main_product_area {
+        .main_product_box {
+          .main_product_row {
+            .product_icon_box {
+              width: 30px;
 
-                            .product_icon {
-                                width: 20px;
-                                height: 20px;
-                            }
-                        }
-
-                        .product_text {
-                            font-size: 14px !important;
-
-                            &.title {
-                                width: 140px;
-                            }
-
-                            &.og_price {
-                                width: 100px;
-                            }
-
-                            &.price {
-                                width: 120px;
-                            }
-
-                            &.info {
-                                width: calc(100% - 485px);
-                            }
-                        }
-
-                        .product_more_btn {
-                            font-size: 14px;
-                            padding: 13px 30px 13px 15px;
-
-                            &::after {
-                                right: 15px;
-                                width: 10px;
-                                height: 10px;
-                            }
-                        }
-                    }
-                }
+              .product_icon {
+                width: 20px;
+                height: 20px;
+              }
             }
+
+            .product_text {
+              font-size: 14px !important;
+
+              &.title {
+                width: 140px;
+              }
+
+              &.og_price {
+                width: 100px;
+              }
+
+              &.price {
+                width: 120px;
+              }
+
+              &.info {
+                width: calc(100% - 485px);
+              }
+            }
+
+            .product_more_btn {
+              font-size: 14px;
+              padding: 13px 30px 13px 15px;
+
+              &::after {
+                right: 15px;
+                width: 10px;
+                height: 10px;
+              }
+            }
+          }
         }
+      }
     }
+  }
 }
 
 @media (max-width: 900px) {
+  .mypage_area {
+    padding: 20px 20px 100px;
 
-    .mypage_area {
-        padding: 20px 20px 100px;
-
-        .mypage_container {
-            &.link {
-                padding: 10px !important;
-
-                .mypage_contents_box {
-                    .my_row {
-                        .my_btn {
-                            display: block !important;
-                            margin-top: 20px;
-                            text-align: center;
-                            padding: 10px 0;
-                            font-size: 15px !important;
-                        }
-
-                        .my_text {
-                            font-size: 15px !important;
-                            width: calc(100% - 50px) !important;
-
-                            &.title {
-                                width: 50px !important;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .search_box {
+    .mypage_container {
+      &.link {
         padding: 10px !important;
 
-        .list_search {
-            font-size: 13px !important;
-        }
-
-        .search_select {
-            .list_select {
-                font-size: 13px !important;
-            }
-        }
-
-        .search_input {
-
-            .list_input {
-                font-size: 13px !important;
+        .mypage_contents_box {
+          .my_row {
+            .my_btn {
+              display: block !important;
+              margin-top: 20px;
+              text-align: center;
+              padding: 10px 0;
+              font-size: 15px !important;
             }
 
+            .my_text {
+              font-size: 15px !important;
+              width: calc(100% - 50px) !important;
+
+              &.title {
+                width: 50px !important;
+              }
+            }
+          }
         }
+      }
+    }
+  }
+
+  .search_box {
+    padding: 10px !important;
+
+    .list_search {
+      font-size: 13px !important;
     }
 
-    .table_inner_btn {
-        &.reserv {
-            padding: 5px 20px !important;
-
-            &::after {
-                display: none;
-            }
-        }
+    .search_select {
+      .list_select {
+        font-size: 13px !important;
+      }
     }
 
-    .reserv_wrap {
-        .reserv_back {
-            .reserv_bottom_box {
-                .reserv_check_box {
-                    width: 90% !important;
-                }
-            }
-        }
+    .search_input {
+      .list_input {
+        font-size: 13px !important;
+      }
     }
+  }
+
+  .table_inner_btn {
+    &.reserv {
+      padding: 5px 20px !important;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .reserv_wrap {
+    .reserv_back {
+      .reserv_bottom_box {
+        .reserv_check_box {
+          width: 90% !important;
+        }
+      }
+    }
+  }
 }
 
-@media (max-width: 500px) {
-    .search_box {
-        .search_input {
-            &.hospital {
-                display: block;
-                padding-top: 10px;
-            }
+@media screen and (max-width: 610px) {
+  .table_box.home {
+    padding: 5px 50px;
+  }
+  .table_row .table_section {
+    display: block;
+  }
+  .table_row .table_section.half {
+    width: 100%;
+  }
+  .sales-info-item {
+    // width: 100%;
+    width: calc(100% / 2 - 10px);
+  }
+  .css-az8st9-MuiDataGrid-root
+    .MuiDataGrid-columnHeader
+    .MuiDataGrid-iconButtonContainer {
+    width: 0px !important;
+  }
+  .css-g1du22 .MuiDataGrid-columnHeader .MuiDataGrid-iconButtonContainer {
+    width: 0px !important;
+  }
+  .main_wrap .main_back .main_product_area .main_product_box {
+    text-align: center;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_text.title {
+    width: 100%;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_text.og_price {
+    width: 0 !important;
+  }
+  .mypage_container .mypage_contents_box .my_row .my_text {
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 13px;
+    font-size: 17px;
+  }
+  .mypage_container .mypage_contents_box .my_row .my_text .mypage_input.mypage {
+    width: calc(100% / 4);
+  }
+  .mypage_container .mypage_contents_box .my_row .my_text .mypage_input {
+    margin-right: 0px !important;
+    width: 100%;
+  }
+  .mypage_container .mypage_contents_box .my_row .my_btn {
+    font-size: 16px;
+  }
+  .mypage_container .mypage_title_box {
+    padding-bottom: 10px;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_more_btn {
+    width: 100% !important;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_icon_box
+    .product_icon {
+    width: 100% !important;
+  }
+  .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_more_btn {
+    display: flex;
+    justify-content: center;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+  .footer_back .txt {
+    padding-right: 0px !important;
+  }
+
+  .list_area.reserv .search_box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .search_box .search_select .list_select_user {
+    width: 100%;
+  }
+  .search_box .search_select .list_select {
+    width: 100% !important;
+  }
+  .search_select.xs1 {
+    width: 100% !important;
+  }
+  .list_area.reserv .search_box .search_select .list_select {
+    margin-top: 10px !important;
+  }
+
+  .search_box .search_input .list_input {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-top: 5px;
+  }
+  .search_box .search_input {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_icon_box {
+    display: block !important;
+    width: 100% !important;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_text.title {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 380px) {
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_text.price {
+    padding-bottom: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main_title_box2 {
+    font-size: 19px !important;
+  }
+  .main_title_box {
+    font-size: 19px !important;
+  }
+  .main_title_sub_box {
+    padding: 1px 16px !important;
+    font-size: 20px;
+  }
+  .reserv_top_box {
+    padding-bottom: 20px;
+  }
+  .reserv_wrap .back_btn_box .back_btn {
+    padding: 10px 20px 10px 40px !important;
+  }
+  .header_wrap .header_top_back {
+    display: none;
+  }
+  .reserv_wrap .customer_btn_box3 {
+    padding: 0 0 10px 0 !important;
+  }
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate1,
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate2,
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate3 {
+    padding: 12px !important;
+  }
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate1 .reserv_text_cate1,
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate2 .reserv_text_cate2,
+  .reserv_wrap .customer_btn_box3 .customer_btn_cate3 .reserv_text_cate3 {
+    font-size: 18px !important;
+    color: #676767;
+  }
+
+  .table_box.home {
+    padding: 10px 15px;
+  }
+  .main_sub_title.msg {
+    padding-bottom: 10px !important;
+  }
+  .main_sub_title,
+  .main_title_box2 {
+    padding: 5px 0 0 15px;
+  }
+  .main_title_box {
+    padding: 10px 0 0 15px;
+  }
+  .main_wrap .main_back .customer_btn_box .customer_btn .reserv_text {
+    // margin-top: -5px;
+    font-size: 23px !important;
+    padding-left: 10px !important;
+  }
+  .main_wrap .main_back .customer_btn_box .customer_btn .reserv_logo {
+    // margin-top: -5px;
+  }
+  .main_wrap .main_back .customer_btn_box .customer_btn {
+    padding: 17px 20px !important;
+  }
+  .main_wrap .main_back .customer_btn_box {
+    padding: 20px 10px 40px 10px !important;
+  }
+  .main_wrap .main_back .customer_btn_box2 {
+    padding: 5px 10px !important;
+  }
+  .main_wrap .main_back .customer_btn_box2 .customer_btn1 .reserv_text1,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn2 .reserv_text2,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn3 .reserv_text3 {
+    padding-left: 14px !important;
+  }
+  .main_wrap .main_back .customer_btn_box2 .customer_btn1 .reserv_text1,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn2 .reserv_text2,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn3 .reserv_text3 {
+    font-size: 17px !important;
+    margin-top: -3px;
+  }
+  .main_wrap .main_back .customer_btn_box2 .customer_btn1,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn2,
+  .main_wrap .main_back .customer_btn_box2 .customer_btn3 {
+    padding: 17px 20px 17px 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .main_wrap .main_back .customer_btn_box .customer_btn .reserv_text {
+    font-size: 17px !important;
+  }
+  .main_wrap .main_back .customer_btn_box .customer_btn .reserv_text {
+    padding-left: 12px !important;
+  }
+  .main_wrap
+    .main_back
+    .main_product_area
+    .main_product_box
+    .main_product_row
+    .product_text.price {
+    width: 100%;
+  }
+  .search_box {
+    .search_input {
+      &.hospital {
+        display: block;
+        padding-top: 10px;
+      }
+    }
+  }
+  .mypage_area .mypage_container.link .mypage_contents_box .my_row .my_text {
+    width: 100% !important;
+  }
+  .mypage_area .mypage_container.link .mypage_contents_box .my_row .my_text {
+    font-size: 13px !important;
+  }
+  .mypage_area
+    .mypage_container.link
+    .mypage_contents_box
+    .my_row
+    .my_text.title {
+    font-size: 16px !important;
+  }
+
+  .login_wrap {
+    .login_back {
+      width: 90%;
+    }
+  }
+
+  .register_wrap {
+    .register_back {
+      .register_tab_area {
+        .tab_menu {
+          font-size: 20px;
         }
+      }
+
+      .register_container {
+        .verified {
+          display: block;
+          margin-left: 0;
+          text-align: center;
+          margin-top: 20px;
+          border-radius: 5px;
+          font-size: 15px;
+        }
+
+        .input_row {
+          .input_title {
+            display: block;
+            padding-bottom: 10px;
+          }
+
+          .confirm_msg {
+            padding-left: 0;
+          }
+
+          .search_input {
+            padding: 15px 10px;
+            font-size: 13px;
+
+            &.short_phone {
+              width: calc((100% - 40px) / 3);
+            }
+          }
+
+          .search_select {
+            padding: 15px 10px;
+            font-size: 13px;
+          }
+
+          .register_input {
+            width: 100%;
+
+            &.phone {
+              width: calc((100% - 40px) / 3);
+            }
+
+            &.email {
+              width: calc((100% - 16px) / 3);
+            }
+
+            &.code_input {
+              width: 100%;
+            }
+          }
+
+          .register_select {
+            width: 100%;
+
+            &.email {
+              width: calc((100% - 40px) / 3);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal_wrap {
+    &.reserv {
+      .modal_back {
+        width: 90% !important;
+        min-width: 0 !important;
+
+        .modal_box {
+          .modal_text {
+            font-size: 18px !important;
+          }
+
+          .modal_footer_box {
+            .modal_btn {
+              padding: 10px 20px !important;
+              font-size: 13px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .reserv_wrap {
+    .back_btn_box {
+      background-color: inherit !important;
+      box-shadow: none !important;
+      z-index: 1 !important;
+      padding: 7px 10px !important;
     }
 
-    .login_wrap {
-        .login_back {
-            width: 90%;
-        }
+    &.overflow {
+      .reserv_back {
+        padding: 50px 0 0 !important;
+      }
     }
 
-    .register_wrap {
+    .reserv_back {
+      padding: 50px 0 80px !important;
 
-        .register_back {
-            .register_tab_area {
-                .tab_menu {
-                    font-size: 20px;
-                }
-            }
+      .reserv_btn_box {
+        padding-top: 20px !important;
 
-            .register_container {
-                .verified {
-                    display: block;
-                    margin-left: 0;
-                    text-align: center;
-                    margin-top: 20px;
-                    border-radius: 5px;
-                    font-size: 15px;
-                }
-
-                .input_row {
-                    .input_title {
-                        display: block;
-                        padding-bottom: 10px;
-                    }
-
-                    .confirm_msg {
-                        padding-left: 0;
-                    }
-
-                    .search_input {
-                        padding: 15px 10px;
-                        font-size: 13px;
-
-                        &.short_phone {
-                            width: calc((100% - 40px) / 3);
-                        }
-                    }
-
-                    .search_select {
-                        padding: 15px 10px;
-                        font-size: 13px;
-                    }
-
-                    .register_input {
-                        width: 100%;
-
-                        &.phone {
-                            width: calc((100% - 40px) / 3);
-                        }
-
-                        &.email {
-                            width: calc((100% - 16px) / 3);
-                        }
-
-                        &.code_input {
-                            width: 100%;
-                        }
-                    }
-
-                    .register_select {
-                        width: 100%;
-
-                        &.email {
-                            width: calc((100% - 40px) / 3);
-                        }
-                    }
-                }
-            }
+        .reserv_btn {
+          font-size: 15px !important;
         }
-    }
+      }
 
-    .modal_wrap {
-        &.reserv {
-            .modal_back {
-                width: 90% !important;
-                min-width: 0 !important;
+      .reserv_top_box {
+        .reserv_title {
+          font-size: 20px !important;
 
-                .modal_box {
-                    .modal_text {
-                        font-size: 18px !important;
-                    }
-
-                    .modal_footer_box {
-                        .modal_btn {
-                            padding: 10px 20px !important;
-                            font-size: 13px !important;
-                        }
-                    }
-                }
-            }
+          &.sub {
+            font-size: 15px !important;
+          }
         }
-    }
+      }
 
-    .reserv_wrap {
-        .back_btn_box {
-            background-color: inherit !important;
-            box-shadow: none !important;
-            z-index: 1 !important;
-            padding: 7px 10px !important;
+      .reserv_bottom_box {
+        //padding-top: 30px !important;
 
-            &.self {}
+        &.sign {
+          padding-top: 0 !important;
+        }
 
-            .back_btn {
-                background-color: #fff !important;
-                box-shadow: 0px 3px 6px #00000029;
+        .reserv_check_box {
+          padding: 20px !important;
+          min-width: 0 !important;
+
+          .check_title_box {
+            padding-bottom: 30px !important;
+
+            .check_title {
+              font-size: 20px !important;
+            }
+
+            .check_sub {
+              font-size: 15px !important;
+            }
+          }
+        }
+
+        .reserv_text_box {
+          .reserv_title {
+            font-size: 13px !important;
+            width: 81px !important;
+          }
+
+          .reserv_text {
+            font-size: 13px !important;
+          }
+        }
+
+        .terms_box {
+          padding: 20px 10px !important;
+
+          .terms_title {
+            font-size: 15px !important;
+            width: calc(100% - 69px) !important;
+          }
+
+          .terms_contents_btn {
+            font-size: 13px !important;
+            width: 69px !important;
+          }
+
+          .terms_contents_box {
+            padding: 20px 0 !important;
+          }
+        }
+
+        .terms_checkbox {
+          padding-top: 15px !important;
+
+          .terms_label {
+            padding-left: 30px !important;
+            font-size: 15px !important;
+            line-height: 25px !important;
+
+            &::before {
+              width: 20px !important;
+              height: 20px !important;
+            }
+          }
+        }
+
+        .reserv_equal_box {
+          .equal_label {
+            padding-left: 30px !important;
+            font-size: 15px !important;
+            line-height: 25px !important;
+
+            &::before {
+              width: 20px !important;
+              height: 20px !important;
+            }
+          }
+        }
+
+        .reserv_contents_box {
+          padding: 20px !important;
+
+          &.sign {
+            border-radius: 10px !important;
+            padding: 10px !important;
+          }
+
+          .sign_container {
+            .sign_box {
+              .sign_title {
                 font-size: 13px !important;
-                padding: 5px 15px 5px 25px !important;
+                padding-bottom: 5px !important;
+              }
 
-                &::after {
-                    left: 10px !important;
-                }
+              .sign_contents {
+                border-radius: 10px !important;
+                height: 250px !important;
+              }
             }
+          }
+
+          .sign_btn_box {
+            padding-top: 10px !important;
+
+            .sign_btn {
+              padding: 20px 0 !important;
+              height: auto !important;
+              width: calc((100% - 10px) / 2) !important;
+            }
+          }
+
+          .reserv_input_box {
+            &.calendar {
+              &::after {
+                width: 15px !important;
+                height: 15px !important;
+                top: 20px !important;
+              }
+            }
+            .plus-select {
+              position: relative;
+              width: 100%;
+            }
+            .reserv_input {
+              padding: 10px 20px;
+              font-size: 15px !important;
+            }
+            
+            .reserv_birthday {
+              display:inline-block;
+              padding: 10px 20px;
+              font-size: 15px !important;
+              width:80%;
+            }
+            .gender-select {
+              position: absolute;
+              top: 10%;
+              right: 0;
+              //transform: translate(-50%, -50%);
+              width: 20%;
+              button {
+                padding:10px;
+                background-color: #fff;
+                border-radius: 5px;
+                border: 1px solid #D0D0D0
+              }
+              
+            }
+            .gender-btn.active {
+              background-color: #017AFF;
+              color: #fff;
+            }
+            
+            .gender-btn.female.active {
+              background-color: #FF6EB1;
+            }
+            .reserv_add_btn {
+              font-size: 15px !important;
+            }
+          }
+
+          .time_box {
+            .time_row {
+              font-size: 15px !important;
+
+              .time_select {
+                width: 50px;
+                padding: 10px;
+                font-size: 15px !important;
+              }
+            }
+          }
         }
 
-        &.overflow {
-            .reserv_back {
-                padding: 50px 0 0 !important;
+        .reserv_menu_box {
+          display: block !important;
+          width: 100% !important;
+          padding: 12px !important;
+
+          &::after {
+            right: 20px !important;
+          }
+
+          .menu_inner_box {
+            .menu_text {
+              font-size: 18px !important;
+              padding-left: 10px !important;
             }
+          }
         }
 
-        .reserv_back {
-            padding: 50px 0 80px !important;
+        .product_box {
+          width: 100% !important;
+          // margin-right: 20px !important;
+          height: auto !important;
 
-            .reserv_btn_box {
-                padding-top: 20px !important;
+          .product_img_box {
+            height: 55px !important;
 
-                .reserv_btn {
-                    font-size: 15px !important;
+            .product_img {
+              width: 50px !important;
+              height: 50px !important;
+            }
+          }
+
+          .inner_bottom_box {
+            padding: 0 10px !important;
+
+            .product_text_box {
+              padding-bottom: 5px !important;
+
+              .product_info_text {
+                // display: none;
+                font-size: 13px !important;
+                padding-left: 8px;
+              }
+
+              .product_text {
+                font-size: 18px !important;
+
+                &.title {
+                  font-size: 12.5px !important;
                 }
+
+                &.og_price {
+                  font-size: 15px !important;
+                }
+              }
             }
 
-            .reserv_top_box {
-                .reserv_title {
-                    font-size: 20px !important;
-
-                    &.sub {
-                        font-size: 15px !important;
-                    }
-                }
+            .product_btn_box {
+              .product_btn {
+                font-size: 15px !important;
+              }
             }
-
-            .reserv_bottom_box {
-                padding-top: 30px !important;
-
-                &.sign {
-                    padding-top: 0 !important;
-                }
-
-                .reserv_check_box {
-                    padding: 20px !important;
-                    min-width: 0 !important;
-
-                    .check_title_box {
-                        padding-bottom: 30px !important;
-
-                        .check_title {
-                            font-size: 20px !important;
-                        }
-
-                        .check_sub {
-                            font-size: 15px !important;
-                        }
-                    }
-                }
-
-                .reserv_text_box {
-                    .reserv_title {
-                        font-size: 13px !important;
-                        width: 81px !important;
-                    }
-
-                    .reserv_text {
-                        font-size: 13px !important;
-                    }
-                }
-
-                .terms_box {
-                    padding: 20px 10px !important;
-
-                    .terms_title {
-                        font-size: 15px !important;
-                        width: calc(100% - 69px) !important;
-                    }
-
-                    .terms_contents_btn {
-                        font-size: 13px !important;
-                        width: 69px !important;
-                    }
-
-                    .terms_contents_box {
-                        padding: 20px 0 !important;
-                    }
-                }
-
-                .terms_checkbox {
-                    padding-top: 15px !important;
-
-                    .terms_label {
-                        padding-left: 30px !important;
-                        font-size: 15px !important;
-                        line-height: 25px !important;
-
-                        &::before {
-                            width: 20px !important;
-                            height: 20px !important;
-                        }
-                    }
-                }
-
-                .reserv_equal_box {
-
-                    .equal_label {
-                        padding-left: 30px !important;
-                        font-size: 15px !important;
-                        line-height: 25px !important;
-
-                        &::before {
-                            width: 20px !important;
-                            height: 20px !important;
-                        }
-                    }
-                }
-
-                .reserv_contents_box {
-                    padding: 20px !important;
-
-                    &.sign {
-                        border-radius: 10px !important;
-                        padding: 10px !important;
-                    }
-
-                    .sign_container {
-                        .sign_box {
-                            .sign_title {
-                                font-size: 13px !important;
-                                padding-bottom: 5px !important;
-                            }
-
-                            .sign_contents {
-                                border-radius: 10px !important;
-                                height: 250px !important;
-                            }
-                        }
-                    }
-
-                    .sign_btn_box {
-                        padding-top: 10px !important;
-
-                        .sign_btn {
-                            padding: 20px 0 !important;
-                            height: auto !important;
-                            width: calc((100% - 10px) / 2) !important;
-                        }
-                    }
-
-                    .reserv_input_box {
-                        &.calendar {
-                            &::after {
-                                width: 15px !important;
-                                height: 15px !important;
-                                top: 20px !important;
-                            }
-                        }
-
-                        .reserv_input {
-                            padding: 10px 20px;
-                            font-size: 15px !important;
-                        }
-
-
-                        .reserv_add_btn {
-                            font-size: 15px !important;
-                        }
-                    }
-
-                    .time_box {
-                        .time_row {
-                            font-size: 15px !important;
-
-                            .time_select {
-                                width: 50px;
-                                padding: 10px;
-                                font-size: 15px !important;
-                            }
-                        }
-                    }
-                }
-
-                .reserv_menu_box {
-                    display: block !important;
-                    width: 100% !important;
-                    padding: 20px !important;
-
-                    &::after {
-                        right: 20px !important;
-                    }
-
-                    .menu_inner_box {
-
-                        .menu_text {
-                            font-size: 20px !important;
-                            padding-left: 20px !important;
-                        }
-                    }
-                }
-
-                .product_box {
-                    width: 200px !important;
-                    margin-right: 20px !important;
-                    height: auto !important;
-
-                    .product_img_box {
-                        height: 150px !important;
-
-                        .product_img {
-                            width: 50px !important;
-                            height: 50px !important;
-                        }
-                    }
-
-                    .inner_bottom_box {
-                        padding: 0 10px !important;
-
-                        .product_text_box {
-                            padding-bottom: 15px !important;
-
-                            .product_info_text {
-                                display: none;
-                            }
-
-                            .product_text {
-                                font-size: 18px !important;
-
-                                &.title {
-                                    font-size: 20px !important;
-                                }
-
-                                &.og_price {
-                                    font-size: 15px !important;
-                                }
-                            }
-                        }
-
-                        .product_btn_box {
-                            .product_btn {
-                                font-size: 15px !important;
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
     }
+  }
 }

@@ -119,9 +119,9 @@ const Mypage = () => {
           <div className="mypage_container">
             <div className="mypage_title_box">
               <div className="mypage_title">내 정보</div>
-              <div className="mypage_title sub">
+              {/*<div className="mypage_title sub">
                 유저의 개인 정보를 수정할 수 있습니다.
-              </div>
+              </div> */}
             </div>
             <div className="mypage_contents_box">
               <div className="my_row">
@@ -205,7 +205,7 @@ const Mypage = () => {
                       onChange={(e) => handlePhone(e, "tel1")}
                       id="tel"
                       maxlength="3"
-                      className="mypage_input"
+                      className="mypage_input mypage"
                     />
                     &nbsp;-&nbsp;
                     <input
@@ -214,7 +214,7 @@ const Mypage = () => {
                       onChange={(e) => handlePhone(e, "tel2")}
                       id="tel2"
                       maxlength="4"
-                      className="mypage_input"
+                      className="mypage_input mypage"
                     />
                     &nbsp;-&nbsp;
                     <input
@@ -223,7 +223,7 @@ const Mypage = () => {
                       onChange={(e) => handlePhone(e, "tel3")}
                       id="tel3"
                       maxlength="4"
-                      className="mypage_input"
+                      className="mypage_input mypage"
                     />
                   </div>
                 )}

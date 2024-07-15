@@ -66,6 +66,10 @@
       background-color: #ececec;
       vertical-align: middle;
 
+      &.link {
+        width: 70px !important;
+      }
+
       &.image {
         height: 150px;
       }
@@ -93,6 +97,10 @@
 
       &.w100 {
         width: calc(100% - 160px);
+      }
+
+      &.link {
+        width: calc(100% - 70px);
       }
 
       &.editor {
@@ -604,7 +612,7 @@
   }
 
   &.reserv {
-    padding-top: 30px;
+    // padding-top: 30px;
 
     .search_box {
       padding: 10px;
@@ -720,6 +728,39 @@
   .search_input_box {
     display: inline-block;
     width: 50%;
+  }
+
+  .search_select.xs1 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    position: relative;
+  }
+
+  .list_select_user {
+    padding: 10px 15px;
+    border: 1px solid #c9c9c9;
+    border-radius: 10px;
+    margin-right: 13px;
+    outline: 0 none;
+    color: #707070;
+    font-size: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 2.5em; /* 여유 공간 만들기 */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M6 8l4 4 4-4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5em top 50%, 0 0;
+    background-size: 1.5em auto, 100%; /* 삼각형 이미지 크기 조정 */
+
+    &:last-child {
+      margin-left: 0;
+    }
+
+    option {
+      border-radius: 5px;
+    }
   }
 
   .search_select {

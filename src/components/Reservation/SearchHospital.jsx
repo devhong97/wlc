@@ -12,15 +12,25 @@ const SearchHospital = () => {
     setHospitalName,
     setHospitalIdx,
     product,
-    hopeLocation,
     setHospitalOriginKey,
+    productState,
+    productPrice,
   } = useReservContext();
   const [hospitalList, setHospitalList] = useState([]); // 병원 리스트
-  const [selectHospital, setSelectHospital] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const navigation = useNavigate();
+  const location = useLocation();
 
-  console.log("hopeLocation", hopeLocation);
+  useEffect(() => {
+    console.log("[1: 보험점검 후, 2: 일반검진] = ", productState);
+    console.log("[선택한상품 가격] = ", productPrice, "원");
+  }, []);
+
+  useEffect(() => {
+    // location.state에서 inspection 값 가져오기
+    const inspection = location.state?.inspection;
+  }, [location]);
+
   useEffect(() => {
     fetchHospitalList();
   }, [searchData]);
@@ -46,6 +56,7 @@ const SearchHospital = () => {
         if (res.data.success) {
           // 서버로부터 받아온 데이터를 rows로 설정합니다.
           setHospitalList(res.data.data);
+          console.log("hospital", res.data.data);
         } else {
           console.error("지점 관리 데이터호출 실패");
           if (
@@ -76,13 +87,12 @@ const SearchHospital = () => {
         </div>
       ),
     },
-    // { field: "id", headerName: "No", flex: 0.5 },
     { field: "name", headerName: "병원명" },
     { field: "province", headerName: "지역(시/도)" },
-    { field: "city", headerName: "지역(구/군)" },
+    // { field: "city", headerName: "지역(구/군)" },
   ];
 
-  const rows = hospitalList.map((data, index) => ({
+  const differentRows = hospitalList.map((data, index) => ({
     id: index + 1,
     idx: data.idx,
     p_key: data.p_key,
@@ -105,6 +115,7 @@ const SearchHospital = () => {
       navigation("/reserv/product");
     }
   };
+
   return (
     <div className="reserv_wrap">
       <div className="back_btn_box">
@@ -130,15 +141,11 @@ const SearchHospital = () => {
                   ></HospitalSelect>
                 </div>
                 <div className="table_box">
-                  {hospitalList.length === 0 ? (
-                    <div>정보가 없습니다.</div>
-                  ) : (
-                    <TableDefault
-                      rows={rows}
-                      columns={columns}
-                      viewModalOpen={emptyFunc}
-                    />
-                  )}
+                  <TableDefault
+                    rows={differentRows}
+                    columns={columns}
+                    viewModalOpen={emptyFunc}
+                  />
                 </div>
               </div>
             </div>

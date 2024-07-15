@@ -4,6 +4,124 @@
   background-color: $back-color;
   width: 100%;
   height: calc(100% - 40px);
+  position: relative;
+
+  .customer_btn_box3 {
+    padding: 5px 55px 15px 55px;
+
+    .customer_btn_cate1 {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      border-radius: 10px;
+      padding: 40px 50px;
+      cursor: pointer;
+      color: #676767;
+      font-size: 40px;
+      font-family: "Pretendard_b";
+      border: 2px solid #c993ff;
+      background: #fff;
+
+      .reserv_logo_cate1 {
+        @include background-set(25px, 25px, contain);
+        background-image: url("../img/cate_sub_al1.png");
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .arrow_logo_cate1 {
+        @include background-set(20px, 20px, contain);
+        background-image: url("../img/cate_sub_logo1.png");
+        display: inline-block;
+        vertical-align: middle;
+        text-align: right;
+        background-position: right center;
+        margin-right:8px;
+      }
+
+      .reserv_text_cate1 {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 10px;
+      }
+    }
+    .customer_btn_cate2 {
+      display: grid;
+      grid-template-columns: auto 1fr auto; /* 첫 번째 요소는 자동 크기, 두 번째 요소는 남은 공간을 차지, 세 번째 요소는 자동 크기 */
+      align-items: center;
+      //box-shadow: 0px 10px 20px #00000029;
+      border-radius: 10px;
+      padding: 40px 50px;
+      cursor: pointer;
+      color: #676767;
+      font-size: 40px;
+      font-family: "Pretendard_b";
+      border: 2px solid #7f9dff;
+      background: #fff;
+
+      .reserv_logo_cate2 {
+        @include background-set(25px, 25px, contain);
+        background-image: url("../img/cate_sub_al2.png");
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .arrow_logo_cate2 {
+        @include background-set(20px, 20px, contain);
+        background-image: url("../img/cate_sub_logo2.png");
+        display: inline-block;
+        vertical-align: middle;
+        text-align: right;
+        background-position: right center;
+        margin-right:8px;
+      }
+
+      .reserv_text_cate2 {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 10px;
+      }
+    }
+    .customer_btn_cate3 {
+      display: grid;
+      grid-template-columns: auto 1fr auto; /* 첫 번째 요소는 자동 크기, 두 번째 요소는 남은 공간을 차지, 세 번째 요소는 자동 크기 */
+      align-items: center;
+      //box-shadow: 0px 10px 20px #00000029;
+      border-radius: 10px;
+      padding: 40px 50px;
+      cursor: pointer;
+      font-size: 40px;
+      font-family: "Pretendard_b";
+      background: #fff;
+      color: #676767;
+      border: 2px solid #ffc461;
+
+      .reserv_logo_cate3 {
+        @include background-set(25px, 25px, contain);
+        background-image: url("../img/cate_sub_al3.png");
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0; // 크기 줄지 않도록 설정
+      }
+
+      .arrow_logo_cate3 {
+        @include background-set(20px, 20px, contain);
+        background-image: url("../img/cate_sub_logo3.png");
+        display: inline-block;
+        vertical-align: middle;
+        text-align: right;
+        background-position: right center;
+        margin-right:8px;
+      }
+
+      .reserv_text_cate3 {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 10px;
+        flex-shrink: 0; // 크기 줄지 않도록 설정
+      }
+    }
+  }
 
   &.overflow {
     overflow: hidden !important;
@@ -15,14 +133,14 @@
 
   .back_btn_box {
     position: absolute;
-    top: 35px;
+    top: 0;
     left: 0;
     width: 100%;
-    padding: 7px 20px;
-    background-color: #fff;
+    padding: 10px 0 5px 10px !important;
+    background-color: #fff !important;
     box-shadow: 0px 3px 6px #00000029;
     z-index: 2;
-    text-align: right;
+    text-align: left;
 
     &.self {
       top: 0;
@@ -51,9 +169,10 @@
   }
 
   .reserv_back {
-    width: 90%;
+    width: 93%;
     margin: 0 auto;
-    padding: 80px 0;
+    padding: 80px 0 !important;
+
     position: relative;
 
     &.success {
@@ -128,14 +247,16 @@
       }
 
       .reserv_btn {
-        background-color: #f4f4f4;
-        color: #5f5f5f;
+        //background-color: #f4f4f4;
+        background-color: #017AFF;
+        color: #FFFFFF;
         font-size: 20px;
         padding: 15px 60px 15px 35px;
         border-radius: 10px;
         cursor: pointer;
         font-family: "Pretendard_b";
-        display: inline-block;
+        text-align:center;
+        //display: inline-block;
         position: relative;
 
         &::after {
@@ -151,8 +272,8 @@
     }
 
     .reserv_bottom_box {
-      padding-top: 48px;
-      overflow: visible;
+      // padding-top: 20px;
+      // overflow: visible;
 
       &.product {
         // text-align: center;
@@ -162,29 +283,37 @@
       &.sign {
         padding-top: 35px;
       }
+      .reserv_menu_box:first-child {
+        border: 2px solid #3ac3ff;
+        background-color: #f7fcff;
+      }
+      .reserv_menu_box:last-child {
+        border: 2px solid #25e270;
+        background-color: #25E270;
+      }
 
       .reserv_menu_box {
-        box-shadow: 0px 10px 20px #00000029;
         border-radius: 10px;
         background-color: #fff;
         cursor: pointer;
         padding: 38px 40px;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
         position: relative;
 
         &::after {
           position: absolute;
           content: "";
-          @include background-set(40px, 30px, contain);
-          background-image: url("../img/arrow_icon.png");
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/start_arrow1.png");
           top: 50%;
           right: 50px;
           transform: translate(0, -50%);
+          margin-top:2px;
         }
 
         .menu_inner_box {
           .menu_icon {
-            @include background_set(50px, 50px, contain);
+            @include background_set(25px, 25px, contain);
             background-image: url("../img/reserv_menu_1.png");
             display: inline-block;
             vertical-align: middle;
@@ -208,6 +337,52 @@
           }
         }
       }
+
+      .reserv_menu_box.hospital {
+        border-radius: 10px;
+        background-color: #FBFFFD;
+        cursor: pointer;
+        padding: 38px 40px;
+        margin-bottom: 25px;
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/start_arrow2.png");
+          top: 50%;
+          right: 50px;
+          transform: translate(0, -50%);
+        }
+
+        .menu_inner_box {
+          .menu_icon {
+            @include background_set(25px, 25px, contain);
+            background-image: url("../img/reserv_menu_1.png");
+            display: inline-block;
+            vertical-align: middle;
+
+            &.second {
+              background-image: url("../img/reserv_menu_2.png");
+            }
+
+            &.third {
+              background-image: url("../img/reserv_menu_3.png");
+            }
+          }
+
+          .menu_text {
+            display: inline-block;
+            vertical-align: middle;
+            color: #676767;
+            font-size: 35px;
+            padding-left: 35px;
+            font-family: "Pretendard_b";
+          }
+        }
+      }
+
 
       .reserv_contents_box {
         box-shadow: 0px 10px 20px #0000001d;
@@ -245,6 +420,56 @@
         }
       }
 
+      .reserv_input_box.plus {
+        .input_array_box {
+          display: flex;
+          width: 100%;
+          align-items: center;
+
+          .reserv_input {
+            width: 50%;
+            margin-right: 10px;
+          }
+
+          .gender-select {
+            width: 10%;
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+          }
+
+          .gender-select input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #555;
+            margin-right: 5px;
+          }
+
+          .gender-select label {
+            font-size: 16px;
+            cursor: pointer;
+          }
+
+          .birthday-select {
+            width: 35%;
+            display: flex;
+          }
+
+          .birthday-select select {
+            width: 100%;
+            margin-right: 5px;
+          }
+
+          .delete_input {
+            width: 5%;
+            display: flex;
+            margin-left: auto;
+            cursor: pointer;
+          }
+        }
+      }
       .reserv_input_box {
         width: 100%;
         padding-bottom: 13px;
@@ -299,6 +524,20 @@
           padding: 25px 30px;
           border: 1px solid #c3c3c3;
           border-radius: 10px;
+        }
+        .reserv_birthday {
+          width: 100%;
+          background-color: #fff;
+          outline: none;
+          color: #707070;
+          font-size: 20px;
+          padding: 25px 30px;
+          border: 1px solid #c3c3c3;
+          border-radius: 10px;
+          margin-top:5px;
+          button {
+            background-color: #fff;
+          }
         }
       }
 
@@ -547,10 +786,14 @@
       }
 
       .slide_wrap {
-        overflow: auto;
-        white-space: nowrap;
-        height: 550px;
-        padding-top: 5px;
+        // overflow: auto;
+        // white-space: nowrap;
+        // height: 550px;
+        // padding-top: 5px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
 
         &::-webkit-scrollbar {
           display: none;
@@ -558,19 +801,19 @@
       }
 
       .product_box {
-        display: inline-block;
-        width: 350px;
-        border-radius: 30px;
-        background-color: #fff;
-        position: relative;
-        height: 520px;
-        cursor: pointer;
-        margin-right: 40px;
-        box-shadow: 0px 10px 20px #00000026;
+        // display: inline-block;
+        // width: 350px;
+        // border-radius: 30px;
+        // background-color: #fff;
+        // position: relative;
+        // height: 520px;
+        // cursor: pointer;
+        // margin-right: 40px;
+        // box-shadow: 0px 10px 20px #00000026;
 
-        &.color2 {
-          background-color: #fffbf4;
-          border: 4px solid #ffc560;
+        &.color {
+          background-color: #fff;
+          border-radius: 15px;
 
           .inner_bottom_box {
             .product_btn_box {
@@ -584,54 +827,50 @@
           }
         }
 
-        &.color5 {
-          border: 4px solid #13f2c6;
-
-          .inner_bottom_box {
-            .product_btn_box {
-              .product_btn {
-                &:first-child {
-                  background-color: #e9f4ee;
-                }
-              }
-            }
-          }
-        }
-
         .product_img_box {
           width: 100%;
-          height: 210px;
           position: relative;
         }
 
         .product_img {
           position: absolute;
-          top: 50%;
-          left: 50%;
+          top: 40px;
+          left: 20px;
           transform: translate(-50%, -50%);
-          @include background_set(82px, 82px, contain);
+          @include background_set(32px, 32px, contain);
           background-image: url("../img/p_icon_3.png");
-
+          //국가, 일반 검진
           &.img_0 {
-            background-image: url("../img/p_icon_1.png");
+            background-image: url("../img/product_card1.png");
           }
-
           &.img_1 {
-            background-image: url("../img/p_icon_2.png");
+            background-image: url("../img/product_card2.png");
           }
-
           &.img_2 {
-            background-image: url("../img/p_icon_3.png");
+            background-image: url("../img/product_card3.png");
           }
-
           &.img_3 {
-            background-image: url("../img/p_icon_4.png");
+            background-image: url("../img/product_card4.png");
           }
-
           &.img_4 {
-            background-image: url("../img/p_icon_2.png");
+            background-image: url("../img/product_card10.png");
           }
-
+          //차병원 검진
+          &.top_img_0 {
+            background-image: url("../img/product_card5.png");
+          }
+          &.top_img_1 {
+            background-image: url("../img/product_card6.png");
+          }
+          &.top_img_2 {
+            background-image: url("../img/product_card7.png");
+          }
+          &.top_img_3 {
+            background-image: url("../img/product_card8.png");
+          }
+          &.top_img_4 {
+            background-image: url("../img/product_card9.png");
+          }
           .img_title {
             color: #fff;
             position: absolute;
@@ -650,8 +889,18 @@
           white-space: break-spaces;
 
           .product_text_box {
-            text-align: center;
-            padding-bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+
+            .product_tab1 {
+              width: 43%;
+            }
+            .product_tab2 {
+              width: 55%;
+              padding-top: 10px;
+            }
 
             .product_info_text {
               color: #959595;
@@ -662,21 +911,57 @@
               font-size: 23px;
               font-family: "Pretendard_b";
               color: #4d4d4d;
-              padding-bottom: 24px;
+              padding-bottom: 7px;
 
               &.title {
                 font-size: 25px;
                 color: #000000;
-                padding-bottom: 10px;
+                padding-top: 65px;
+                padding-left: 7px;
               }
 
               &.og_price {
-                color: #9b9b9b;
-                text-decoration: line-through;
+                color: #626262;
+                // text-decoration: line-through;
                 text-decoration-color: #9b9b9b;
                 font-size: 20px;
                 font-family: "Pretendard_l";
                 padding-bottom: 5px;
+                display: flex;
+                flex-direction: column;
+
+                .product_txt1,
+                .product_txt2 {
+                  display: flex;
+                  justify-content: space-between;
+                }
+
+                .product_txt1 {
+                  border: 1px solid #57a7ff;
+                  background-color: #f4f9ff;
+                  border-radius: 5px;
+                  padding: 8px;
+                  font-size: 12px;
+                  cursor: pointer;
+                }
+                .product_txt2 {
+                  border: 1px solid #d3d3d3;
+                  background-color: #fff;
+                  border-radius: 5px;
+                  padding: 8px;
+                  font-size: 12px;
+                  margin-top: 8px;
+                  cursor: pointer;
+                }
+                .product_txt3 {
+                  background-color: #f7f7f7;
+                  border-radius: 5px;
+                  padding: 13px 8px 13px 8px;
+                  font-size: 12px;
+                  margin-top: 8px;
+                  text-align: center;
+                  cursor: pointer;
+                }
               }
             }
           }
@@ -705,4 +990,12 @@
 
 .sign_canvas:hover {
   // cursor: crosshair;
+}
+
+.main_back.home.cate {
+  padding-top: 80px;
+
+  .main_sub_title {
+    padding-bottom: 20px;
+  }
 }

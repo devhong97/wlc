@@ -71,7 +71,6 @@ const SalesList = () => {
 
       // status가 "4"가 아닌 데이터만 필터링
       const filteredData = arrayData.filter((item) => item.status !== "4");
-
       // 중복된 uid가 있는 경우 중복을 제거하고, name 필드는 모두 가져와서 합침
       const uniqueArrayData = Array.from(
         new Set(filteredData.map((item) => item.uid))
@@ -82,8 +81,6 @@ const SalesList = () => {
           .map((item) => item.name)
           .join(", "),
       }));
-
-      console.log("uniqueArrayData", uniqueArrayData);
       setArrayData(uniqueArrayData);
       // 데이터를 받아온 후에 getSalesTop 호출하여 contractCount 설정
       getSalesTop(uniqueArrayData);
@@ -237,6 +234,11 @@ const SalesList = () => {
     { field: "hope_status", headerName: "상담희망", flex: 0.5 },
     { field: "contract", headerName: "계약", flex: 0.5 },
     { field: "memo", headerName: "비고" },
+  ];
+
+  const columnsForMobile = [
+    { field: "name", headerName: "검진자성명" },
+    { field: "phone", headerName: "연락처" },
   ];
 
   const rows = arrayData.map((data, index) => ({
@@ -949,11 +951,21 @@ const SalesList = () => {
                   데이터가 존재하지 않습니다.
                 </div>
               ) : (
-                <TableDefault
-                  rows={rows}
-                  columns={columns}
-                  viewModalOpen={viewModalOpen}
-                ></TableDefault>
+                <Fragment>
+                  {window.innerWidth < 600 ? (
+                    <TableDefault
+                      rows={rows}
+                      columns={columnsForMobile}
+                      viewModalOpen={viewModalOpen}
+                    />
+                  ) : (
+                    <TableDefault
+                      rows={rows}
+                      columns={columns}
+                      viewModalOpen={viewModalOpen}
+                    />
+                  )}
+                </Fragment>
               )}
             </div>
           </div>

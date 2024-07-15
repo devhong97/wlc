@@ -8,7 +8,7 @@ const Link = () => {
   const uid = decodeS1();
   const navigation = useNavigate();
   const [modal, setModal] = useState(false);
-  const link = `https://www.wlcmanager.com/self/${uid}`;
+  const link = `https://www.wlcare.co.kr/self/${uid}`;
 
   const openModal = () => {
     setModal(true);
@@ -22,20 +22,20 @@ const Link = () => {
     navigation(`/self/${uid}`);
   };
 
-  // const copyText = () => {
-  //   const textToCopy = `http://www.wlcmanager.com/self/${uid}`;
-  //   navigator.clipboard
-  //     .writeText(textToCopy)
-  //     .then(() => {
-  //       alert("링크가 복사되었습니다.");
-  //     })
-  //     .catch((err) => {
-  //       console.error("텍스트 복사 실패:", err);
-  //     });
-  // };
-  // const handleCopy = () => {
-  //   alert("링크가 복사되었습니다.");
-  // };
+  const copyText = () => {
+    const textToCopy = `http://www.wlcare.co.kr/self/${uid}`;
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("링크가 복사되었습니다.");
+      })
+      .catch((err) => {
+        console.error("텍스트 복사 실패:", err);
+      });
+  };
+  const handleCopy = () => {
+    alert("링크가 복사되었습니다.");
+  };
   return (
     <div className="main_wrap">
       <div className="main_back home">
@@ -49,10 +49,10 @@ const Link = () => {
               <div className="my_row">
                 <div className="my_text title">링크</div>
                 <div className="my_text">
-                  https://www.wlcmanager.com/self/{uid}
+                  https://www.wlcare.co.kr/self/{uid}
                 </div>
                 {/* <CopyToClipboard
-                  text={`http://www.wlcmanager.com/self/${uid}`}
+                  text={`http://www.wlcare.co.kr/self/${uid}`}
                   onCopy={handleCopy}
                 >
                   <div className="my_btn">복사하기</div>

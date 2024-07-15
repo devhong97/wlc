@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import SalesViewModal from "../modal/SalesViewModal";
 import { useAuth } from "../Context/AuthContext";
 import Axios from "axios";
@@ -78,6 +78,11 @@ const Inspection = () => {
     { field: "memo", headerName: "비고" },
   ];
 
+  const columnsForMobile = [
+    { field: "name", headerName: "검진자성명" },
+    { field: "phone", headerName: "연락처" },
+  ];
+
   const rows = arrayData.map((data, index) => ({
     id: index + 1,
     name: data.name,
@@ -105,7 +110,7 @@ const Inspection = () => {
         <div className="main_title_box">보험점검 예약 관리</div>
         <div className="board_list_wrap chart">
           <div className="list_area">
-            <div className="sales-info-container">
+            <div className="sales-info-container2 inspection">
               <div className="sales-info-item">
                 <div className="sales-info-title">
                   보험점검 희망고객수: {rows.length}
@@ -128,11 +133,21 @@ const Inspection = () => {
                 데이터가 존재하지 않습니다.
               </div>
             ) : (
-              <TableDefault
-                rows={rows}
-                columns={columns}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+              <Fragment>
+                {window.innerWidth < 600 ? (
+                  <TableDefault
+                    rows={rows}
+                    columns={columnsForMobile}
+                    viewModalOpen={viewModalOpen}
+                  />
+                ) : (
+                  <TableDefault
+                    rows={rows}
+                    columns={columns}
+                    viewModalOpen={viewModalOpen}
+                  />
+                )}
+              </Fragment>
             )}
           </div>
         </div>

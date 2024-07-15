@@ -18,7 +18,7 @@ const ReservCheck = () => {
   const inspect = inspectionState.state?.inspection;
   const navigation = useNavigate();
 
-  console.log("inspect", inspect);
+  console.log("customerData", customerData);
 
   const openModal = () => {
     setInfoModal(true);
@@ -161,9 +161,23 @@ const ReservCheck = () => {
                   <div className="reserv_title">희망검진일1</div>
                   <div className="reserv_text">{hopeDate1}</div>
                 </div>
-                <div className="reserv_text_box non_border">
+                <div className="reserv_text_box">
                   <div className="reserv_title">희망검진일2</div>
                   <div className="reserv_text">{hopeDate2}</div>
+                </div>
+                <div className="reserv_text_box">
+                  <div className="reserv_title">검진카테고리</div>
+                  <div className="reserv_text">
+                    {customerData.productState === "1"
+                      ? "보험점검 후 검진"
+                      : customerData.productState === "2"
+                      ? "일반 종합검진"
+                      : ""}
+                  </div>
+                </div>
+                <div className="reserv_text_box non_border">
+                  <div className="reserv_title">선택한 상품가격</div>
+                  <div className="reserv_text">{customerData.productPrice}</div>
                 </div>
                 <div className="reserv_btn_box last_btn">
                   <div className="reserv_btn" onClick={() => openModal()}>

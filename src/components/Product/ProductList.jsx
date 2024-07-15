@@ -18,6 +18,8 @@ const ProductList = () => {
   const [detailData, setDetailData] = useState([]);
   const [searchData, setSearchData] = useState([]);
 
+  console.log("productList", productList);
+
   useEffect(() => {
     fetchProductList();
   }, [searchData]);
@@ -40,8 +42,10 @@ const ProductList = () => {
               realType: data.type,
               name1: data.name_1,
               name2: data.name_2,
-              ogPriceTxt: data.og_price_txt,
-              priceTxt: data.price_txt,
+              normalCost: data.normal_cost,
+              normalRevenue: data.normal_revenue,
+              cost: data.cost,
+              revenue: data.revenue,
               date: moment(data.date).format("YYYY.MM.DD"),
 
               //커미션
@@ -69,8 +73,10 @@ const ProductList = () => {
     { field: "type", headerName: "상품카테고리" },
     { field: "name1", headerName: "상품명1" },
     { field: "name2", headerName: "상품명2" },
-    { field: "ogPriceTxt", headerName: "의료수가" },
-    { field: "priceTxt", headerName: "검진비용" },
+    { field: "normalCost", headerName: "일반점검 검진비용(원가)" },
+    { field: "normalRevenue", headerName: "일반점검 순이익(20%)" },
+    { field: "cost", headerName: "보험점검 후 검진비용(원가)" },
+    { field: "revenue", headerName: "보험점검 후 순이익(20%)" },
     { field: "date", headerName: "상품등록일" },
   ];
 

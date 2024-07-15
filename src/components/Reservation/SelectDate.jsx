@@ -112,10 +112,19 @@ const SelectDate = () => {
     setSelectedMinute(e.target.value);
   };
 
+  const handleBack = () => {
+    if (inspectStep === true) {
+      navigation(-1);
+    } else {
+      // 상태 변경 로직 추가
+      setInspectStep(true);
+    }
+  };
+
   return (
     <div className="reserv_wrap">
       <div className="back_btn_box">
-        <div className="back_btn" onClick={() => navigation(-1)}>
+        <div className="back_btn" onClick={() => handleBack()}>
           뒤로 이동
         </div>
       </div>
@@ -239,7 +248,7 @@ const SelectDate = () => {
             )}
             <div className="reserv_btn_box">
               <div className="reserv_btn" onClick={() => moveNext()}>
-                다음
+                다음 페이지로
               </div>
             </div>
           </div>

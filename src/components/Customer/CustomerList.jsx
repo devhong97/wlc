@@ -259,6 +259,7 @@ const CustomerList = () => {
         uid: data.uid,
         h_location: data.location,
         phone_2: data.phone_2,
+        revenue: data.revenue,
         memo: data.memo,
         contract: data.contract,
         manager: data.manager,

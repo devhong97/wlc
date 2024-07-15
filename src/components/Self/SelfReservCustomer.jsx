@@ -249,7 +249,7 @@ const SelfReservCustomer = () => {
               </div>
               <div className="reserv_btn_box">
                 <div className="reserv_btn" onClick={() => moveSecondStep()}>
-                  다음
+                  다음 페이지로
                 </div>
               </div>
             </div>
@@ -330,7 +330,7 @@ const SelfReservCustomer = () => {
                 </div>
                 <div className="reserv_btn_box">
                   <div className="reserv_btn" onClick={() => moveThirdStep()}>
-                    다음
+                    다음 페이지로
                   </div>
                 </div>
               </div>

@@ -63,9 +63,9 @@ const HospitalSelect = (props, ref) => {
   };
   return (
     <div className="list_select_area">
-      <div className="search_select">
+      <div className="search_select xs1">
         <select
-          className="list_select"
+          className="list_select xs1"
           value={city}
           onChange={(e) => handleCityChange(e)}
         >
@@ -79,7 +79,7 @@ const HospitalSelect = (props, ref) => {
           })}
         </select>
         <select
-          className="list_select"
+          className="list_select xs1"
           value={district}
           onChange={(e) => setDistrict(e.target.value)}
         >

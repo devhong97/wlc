@@ -75,7 +75,7 @@ const HospitalList = () => {
           console.error("지점 관리 데이터호출 실패");
           if (searchData) {
             selectRef.current.clearSearch();
-            alert("검색 결과가 없습니다.");
+            //alert("검색 결과가 없습니다.");
           }
         }
       })

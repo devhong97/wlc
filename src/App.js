@@ -23,6 +23,20 @@ function App() {
   const path = location.pathname;
   const parts = path.split("/");
   const target = parts[1];
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     const loginStatus = localStorage.getItem("Access");
     if (loginStatus === "true") {
@@ -41,7 +55,7 @@ function App() {
     <Fragment>
       {loginAccess ? (
         <div className="screen">
-          <Aside />
+          {windowWidth >= 1000 && <Aside />}
           <div className={`main_area`}>
             <Header />
             <Router />

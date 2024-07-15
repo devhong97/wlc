@@ -17,6 +17,7 @@ const ReservInfoModal = (props) => {
     hopeHour,
     hopeMinute,
     uploadFiles,
+    productPrice,
     selfUrl,
   } = useReservContext();
   const { decodeS3, decodeS1 } = useAuth();
@@ -24,7 +25,7 @@ const ReservInfoModal = (props) => {
   const location = useLocation();
   const inspect = location.state?.inspection;
 
-  console.log("inspect", inspect);
+  console.log("productPrice", productPrice);
 
   const path = location.pathname;
   const parts = path.split("/");
@@ -63,6 +64,7 @@ const ReservInfoModal = (props) => {
       manager_uid: uid,
       status: cDate !== "" ? "4" : "3",
       hope_status: hopeLocation !== "" ? "Y" : "N",
+      cost: productPrice,
     };
     try {
       const response = await Axios.post(

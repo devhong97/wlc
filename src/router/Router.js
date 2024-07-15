@@ -25,6 +25,7 @@ import Link from "../components/Self/Link";
 import AdminSalesList from "../components/Sales/AdminSalesList";
 import ManagerSalesCustomer from "../components/Sales/ManagerSalesCustomer";
 import Inspection from "../components/Inspection/Inspection";
+import SearchCategory from "../components/Reservation/SearchCategory";
 
 const Router = () => {
   return (
@@ -49,6 +50,7 @@ const Router = () => {
       <Route path="/inspection" element={<Inspection />} />
 
       <Route path="/reserv" element={<Reservation />} />
+      <Route path="/reserv/category" element={<SearchCategory />} />
       <Route path="/reserv/product" element={<SearchProduct />} />
       <Route path="/reserv/hospital" element={<SearchHospital />} />
       <Route path="/reserv/date" element={<SelectDate />} />

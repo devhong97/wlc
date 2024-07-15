@@ -51,6 +51,22 @@ const InspectionViewModal = (props) => {
     }
   };
 
+  const handleSubmit = () => {
+    Axios.post("http://localhost:3001/api/post/updateMemo", {
+      detailIdx: detailNum.idx,
+      memo: memo,
+      uid: uid,
+    })
+      .then((res) => {
+        console.log(res);
+        alert("메모가 업데이트되었습니다.");
+        props.closeModal();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const clearModal = () => {
     props.closeModal();
   };
@@ -186,13 +202,15 @@ const InspectionViewModal = (props) => {
                     style={{ backgroundColor: "#f2f2f2" }}
                     value={memo}
                     onChange={(e) => setMemo(e.target.value)}
-                    readOnly
                   ></textarea>
                 </div>
               </div>
             </div>
           </div>
           <div className="modal_footer_box">
+            <div className="modal_btn" onClick={handleSubmit}>
+              수정
+            </div>
             <div className="modal_btn close" onClick={clearModal}>
               닫기
             </div>

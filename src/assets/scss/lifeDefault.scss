@@ -299,18 +299,20 @@
   z-index: 2;
 
   .header_bottom_back {
-    padding: 25px 50px;
+    padding: 10px 15px 10px 8px;
 
     .header_info_box {
+      position: relative;
+
       .info_icon {
-        @include background_set(60px, 60px, contain);
+        @include background_set(45px, 45px, contain);
         background-image: url("../img/header_user_icon_2.png");
         display: inline-block;
         vertical-align: middle;
       }
 
       .info_text_box {
-        padding-left: 20px;
+        padding-left: 10px;
         display: inline-block;
         vertical-align: middle;
         color: #414141;
@@ -318,7 +320,27 @@
 
         .info_name {
           font-family: "Pretendard_b";
-          font-size: 24px;
+          font-size: 15px;
+        }
+      }
+      .side_menu_open {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+        cursor: pointer;
+        transition: all 500ms cubic-bezier(0.9, 0, 0.33, 1);
+
+        &::before {
+          position: absolute;
+          content: "";
+          @include background_set(20px, 20px, contain);
+          background-image: url("../img/mobile_menu_icon.png");
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
       }
     }
@@ -389,6 +411,7 @@
   padding-top: 3px;
   font-size: 15px;
   color: #868686;
+  font-family: 'Pretendard_s';
 }
 
 .footer_wrap {
@@ -438,16 +461,20 @@
     position: relative;
 
     &.home {
-      padding-top: 70px;
+      padding-top: 15px;
+      padding-bottom: 70px;
     }
 
     .customer_btn_box {
-      padding: 30px 50px 55px;
+      padding: 30px 50px 0 55px;
 
       .customer_btn {
-        box-shadow: 0px 10px 20px #00000029;
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* 첫 번째 요소는 자동 크기, 두 번째 요소는 남은 공간을 차지, 세 번째 요소는 자동 크기 */
+        align-items: center;
+        //box-shadow: 0px 10px 20px #00000029;
         border-radius: 10px;
-        padding: 40px 50px;
+        padding: 50px 50px;
         cursor: pointer;
         color: #fff;
         font-size: 40px;
@@ -455,10 +482,19 @@
         background: linear-gradient(293deg, #26f7d7, #39ea7d);
 
         .reserv_logo {
-          @include background-set(38px, 38px, contain);
+          @include background-set(20px, 20px, contain);
           background-image: url("../img/reserv_logo.png");
           display: inline-block;
           vertical-align: middle;
+        }
+
+        .arrow_logo {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/link_btn.png");
+          display: inline-block;
+          vertical-align: middle;
+          text-align: right;
+          background-position: right center;
         }
 
         .reserv_text {
@@ -469,8 +505,149 @@
       }
     }
 
+    .customer_btn_box2 {
+      padding: 5px 55px 15px 55px;
+
+      .customer_btn1 {
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* 첫 번째 요소는 자동 크기, 두 번째 요소는 남은 공간을 차지, 세 번째 요소는 자동 크기 */
+        align-items: center;
+        //box-shadow: 0px 10px 20px #00000029;
+        border-radius: 10px;
+        padding: 40px 50px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 40px;
+        font-family: "Pretendard_b";
+        background: linear-gradient(
+          321deg,
+          rgba(239, 247, 38, 1) 0%,
+          rgba(255, 206, 0, 1) 100%
+        );
+
+        .reserv_logo1 {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/kakao_link_btn.png");
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .arrow_logo {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/link_btn.png");
+          display: inline-block;
+          vertical-align: middle;
+          text-align: right;
+          background-position: right center;
+        }
+
+        .reserv_text1 {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 25px;
+        }
+      }
+      .customer_btn2 {
+        display: grid;
+        grid-template-columns: auto 1fr auto; /* 첫 번째 요소는 자동 크기, 두 번째 요소는 남은 공간을 차지, 세 번째 요소는 자동 크기 */
+        align-items: center;
+        //box-shadow: 0px 10px 20px #00000029;
+        border-radius: 10px;
+        padding: 40px 50px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 40px;
+        font-family: "Pretendard_b";
+        background: linear-gradient(
+          321deg,
+          rgba(112, 175, 245, 1) 0%,
+          rgba(1, 122, 255, 1) 100%
+        );
+        color: #fff;
+
+        .reserv_logo2 {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/sms_link_btn.png");
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .arrow_logo {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/link_btn.png");
+          display: inline-block;
+          vertical-align: middle;
+          text-align: right;
+          background-position: right center;
+        }
+
+        .reserv_text2 {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 25px;
+        }
+      }
+      .customer_btn3 {
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        padding: 40px 50px;
+        //cursor: pointer;
+        font-size: 40px;
+        font-family: "Pretendard_b";
+        background: linear-gradient(
+          321deg,
+          rgba(203, 203, 203, 1) 0%,
+          rgba(150, 150, 150, 1) 100%
+        );
+        color: #fff;
+        position:relative;
+
+        .reserv_logo3 {
+          @include background-set(20px, 20px, contain);
+          background-image: url("../img/aside_link_white.png");
+          display: inline-block;
+          vertical-align: middle;
+          flex-shrink: 0; // 크기 줄지 않도록 설정
+        }
+
+        .link_text {
+          font-size: 13px;
+          padding-left: 7px;
+          padding-right: 7px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          flex: 1 1 auto; // 남은 공간을 차지하고 필요시 크기 줄이기
+        }
+
+        .reserv_text3 {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 25px;
+          flex-shrink: 0; // 크기 줄지 않도록 설정
+        }
+        .send-btn-wrap {
+          position: absolute;
+          top: 50%;
+          right: -20px;
+          transform: translate(-50%, -50%);
+          background-color: #919191;
+          border-radius: 5px;
+          padding: 5px 10px;
+        }
+        
+        .send-btn-wrap .send-btn {
+          font-size: 15px;
+          color: white; /* 기본 글자색 설정 */
+        }
+        
+        
+      }
+    }
+    
     .main_product_area {
-      padding: 20px 50px 70px;
+      padding: 15px 50px 70px;
 
       .main_product_box {
         box-shadow: 0px 10px 20px #0000001a;
@@ -569,11 +746,34 @@
   }
 }
 
+.third-wraps {
+  padding-top: 40px;
+}
+
+.main_title_box2 {
+  font-size: 25px;
+  font-family: "Pretendard_bb";
+  border-bottom: 1px solid #c9c9c9;
+  padding: 10px 56px;
+  background-color: #fff;
+  padding-top: 50px;
+
+  &.blank {
+    background-color: inherit;
+    border: none;
+  }
+}
+
+.main_title_sub_box {
+  padding: 1px 56px;
+  font-size: 20px;
+}
+
 .main_title_box {
   font-size: 25px;
   font-family: "Pretendard_bb";
   border-bottom: 1px solid #c9c9c9;
-  padding: 10px 50px;
+  padding: 10px 56px;
   background-color: #fff;
 
   &.blank {
@@ -597,7 +797,8 @@
 .main_sub_title {
   color: #414141;
   font-size: 18px;
-  padding: 10px 50px;
+  padding: 5px 56px;
+  font-family: 'Pretendard_s';
 }
 
 //로그인
@@ -1021,12 +1222,21 @@
   padding: 20px;
 }
 
+.sales-info-container2.inspection {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+
+.sales-info-container2 .sales-info-item {
+  width: 100%;
+}
+
 .sales-info-item {
   width: calc(20% - 10px);
   margin: 5px;
   padding: 10px;
   border: 1px solid #999999;
-  border-radius: 7px;
   min-width: 140px;
   background-color: #fff;
   font-size: 14px;
@@ -1225,5 +1435,183 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.side_menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%; /* 화면을 가득 채우도록 너비 설정 */
+  height: 100%;
+  background-color: #fff;
+  transition: transform 0.3s ease-out; /* 슬라이딩 효과를 위한 transition 설정 */
+  z-index: 1000;
+  overflow-y: auto;
+  transform: translateY(-100%); /* 초기에는 화면 위로 숨김 */
+}
+
+.side_menu.open {
+  transform: translateY(0); /* 화면에 보이도록 슬라이드 */
+}
+
+.side_menu_top {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* 좌측 아이템, 중앙 아이템, 우측 아이템 */
+  width: 100%;
+  height: 75px;
+  background-color: #fff;
+  position: relative;
+  align-items: center; /* 세로 중앙 정렬 */
+  padding: 0 0 0 25px;
+}
+
+.side_menu_top .mobile-header-logo {
+  grid-column: 1; /* 좌측에 배치 */
+}
+
+.side_menu_top div:nth-child(2) {
+  grid-column: 2; /* 중앙에 배치 */
+}
+
+.side_menu_top .close_button {
+  grid-column: 3; /* 우측에 배치 */
+}
+
+.close_button {
+  @include background_set(20px, 20px, contain);
+  background-image: url("../img/mobile_header_arrow.png");
+  position: absolute;
+  top: 57%;
+  right: 30px;
+  transform: translateY(-50%);
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #000;
+  z-index: 1000; /* 닫기 버튼이 화면 위로 올라오도록 z-index 설정 */
+}
+.close_button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.menu_section {
+  color: #707070;
+  span {
+    padding-left: 35px;
+  }
+  .section1-s {
+    width: 100%;
+    display: block;
+    padding-left: 16.3px;
+  }
+  .section2-s {
+    width: 100%;
+    display: block;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-left: 16.3px;
+  }
+  .home_icon {
+    @include background_set(22px, 22px, contain);
+    background-image: url("../img/aside_home_gray.png");
+    // display: inline-block;
+    vertical-align: middle;
+  }
+
+  .logout_icon {
+    @include background_set(22px, 22px, contain);
+    background-image: url("../img/aside_logout_gray.png");
+    // display: inline-block;
+    vertical-align: middle;
+  }
+}
+.menu_section ul {
+  padding: 10px;
+}
+
+.menu_section ul li {
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  margin-bottom: 10px; /* 각 항목 아래 여백 추가 */
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 12px;
+  background-color: #F8F8F8; /* 회색 배경색 */
+  position: relative; /* 아이콘 위치를 조정하기 위해 */
+}
+
+.menu_section ul li:before {
+  content: ""; /* 가상 요소를 이용한 아이콘 표시 */
+  display: inline-block;
+  width: 20px; /* 아이콘 크기에 맞춰 조정 */
+  height: 20px; /* 아이콘 크기에 맞춰 조정 */
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  left: 10px; /* 좌측 여백 */
+  top: 50%; /* 세로 중앙 정렬을 위한 위치 조정 */
+  transform: translateY(-50%); /* 세로 중앙 정렬을 위한 위치 조정 */
+}
+
+.menu_section ul li.icon-1:before {
+  @include background_set(17px, 18px, contain);
+  background-image: url("../img/sub_header_1.png"); /* 첫 번째 아이콘 이미지 경로 */
+  padding-left:10px;
+}
+
+.menu_section ul li.icon-2:before {
+  @include background_set(17px, 18px, contain);
+  background-image: url("../img/sub_header_2.png"); /* 두 번째 아이콘 이미지 경로 */
+  padding-left:10px;
+}
+
+.menu_section ul li.icon-3:before {
+  @include background_set(17px, 18px, contain);
+  background-image: url("../img/sub_header_3.png"); /* 세 번째 아이콘 이미지 경로 */
+  padding-left:10px;
+}
+.menu_section ul li.icon-4:before {
+  @include background_set(15px, 16px, contain);
+  background-image: url("../img/sub_header_4.png"); /* 세 번째 아이콘 이미지 경로 */
+  padding-left:12px;
+}
+
+.menu_section ul li:last-child {
+  margin-bottom: 0; /* 마지막 항목의 아래 여백 제거 */
+}
+
+.logo_image {
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.menu_section:last-child {
+  position: absolute;
+  bottom: 20px;
+  left: 5px;
+}
+
+.mobile-header-logo {
+  @include background_set(20px, 20px, contain);
+  background-image: url("../img/mobile_header_logo.png");
+}
+.mobile-txt {
+  font-size: 16px;
+  padding-left: 7px;
+  color: #707070;
+}
+/* 모바일 화면에서는 사이드 메뉴 토글 버튼 숨김 */
+@media (min-width: 1000px) {
+  .side_menu_open {
+    display: none;
+  }
+
+  /* PC 화면에서는 초기에 사이드 메뉴 숨김 */
+  .side_menu {
+    display: none;
   }
 }

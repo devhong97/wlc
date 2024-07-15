@@ -16,16 +16,12 @@ const ReservCustomer = () => {
     hopeHour,
     setHopeMinute,
     hopeMinute,
+    productState,
+    productPrice,
   } = useReservContext();
   const location = useLocation();
   const [step, setStep] = useState(1);
   const [name, setName] = useState(customerData.name || "");
-  // const [customerName, setCustomerName] = useState(
-  //   customerData.customerName || ""
-  // );
-  // const [customerNumber, setCustomerNumber] = useState(
-  //   customerData.customerNumber || ""
-  // );
   const [phone, setPhone] = useState(customerData.phone || "");
   const [c_phone, setCPhone] = useState(customerData.cPhone || "");
   const [c_addr, setCAddr] = useState(customerData.cAddr || "");
@@ -35,15 +31,55 @@ const ReservCustomer = () => {
   const [agreeTermsData, setAgreeTermsData] = useState("");
   const [mTermsData, setMTermsData] = useState("");
   const [inputArray, setInputArray] = useState(
-    customerData.customerArray || [
-      {
-        name: "",
-      },
-    ]
+    customerData.customerArray || [{ name: "", birth: "", gender: "" }]
   );
   const [equalStatus, setEqualStatus] = useState(false); //예약자 검진자 동일인물 체크값
   const navigation = useNavigate();
 
+  console.log("step", step);
+
+  // 생년월일 입력 처리
+  const handleBirthChange = (value, index) => {
+    setInputArray((prev) => {
+      const newArray = [...prev];
+      newArray[index].birth = value;
+      return newArray;
+    });
+  };
+
+  // 성별 선택 처리
+  const handleGenderChange = (value, index) => {
+    setInputArray((prev) => {
+      const newArray = [...prev];
+      newArray[index].gender = value;
+      return newArray;
+    });
+  };
+
+  // 검진자 추가
+  const addInputArray = () => {
+    setInputArray((prev) => [...prev, { name: "", birth: "", gender: "" }]);
+  };
+
+  // 검진자 삭제
+  const deleteInputArray = (index) => {
+    setInputArray((prev) => {
+      const newArray = [...prev];
+      newArray.splice(index, 1);
+      return newArray;
+    });
+  };
+
+  // 검진자 성명 변경 처리
+  const handleInputArray = (value, index) => {
+    setInputArray((prev) => {
+      const newArray = [...prev];
+      newArray[index].name = value;
+      return newArray;
+    });
+  };
+
+  // 다음 단계로 이동
   const moveSecondStep = () => {
     if (
       (!hopeLocation &&
@@ -54,14 +90,17 @@ const ReservCustomer = () => {
       return;
     }
     setStep(2);
-    console.log("여기", inputArray.length);
   };
-  const handleAgreeTerms = (e) => {
-    setAgreeTerms(e.target.checked);
-  };
+
   const handleMterms = (e) => {
     setMTerms(e.target.checked);
   };
+
+  const handleAgreeTerms = (e) => {
+    setAgreeTerms(e.target.checked);
+  };
+
+  // 약관 동의 체크 후 다음 단계로 이동
   const moveThirdStep = () => {
     if (!agreeTerms) {
       alert("필수 약관에 동의해주세요.");
@@ -70,6 +109,7 @@ const ReservCustomer = () => {
     setStep(3);
   };
 
+  // 서명 확인 처리
   const checkSign = () => {
     const newData = {
       name: name,
@@ -79,12 +119,15 @@ const ReservCustomer = () => {
       cPhone: c_phone,
       cAddr: c_addr,
       m_terms: mTerms,
+      productState: productState,
+      productPrice: productPrice,
     };
     setCustomerData(newData);
-    console.log(newData); // 새로운 데이터 확인
+    console.log("newData", newData);
     navigation("/reserv/check");
   };
 
+  // 약관 상세 보기 열기/닫기
   const openTerms = (num) => {
     if (termsStatus === 0 || termsStatus !== num) {
       setTermsStatus(num);
@@ -93,19 +136,22 @@ const ReservCustomer = () => {
     }
   };
 
+  // 전체 약관 동의 처리
   const handleAllTerms = (e) => {
     setAgreeTerms(e.target.checked);
     setMTerms(e.target.checked);
   };
 
+  // useEffect를 통해 페이지 로드 시 약관 데이터 가져오기
   useEffect(() => {
     getTerms();
   }, []);
 
+  // 약관 데이터 가져오기
   const getTerms = async () => {
     try {
       const response = await Axios.get(
-        "http://localhost:3001/api/get/terms_data"
+        "https://www.wlcare.co.kr:8443/api/get/terms_data"
       );
       const allData = response.data;
       setAgreeTermsData(allData.terms_info);
@@ -115,25 +161,7 @@ const ReservCustomer = () => {
     }
   };
 
-  const addInputArray = () => {
-    setInputArray((prev) => [...prev, { name: "" }]);
-  };
-  const deleteInputArray = (index) => {
-    setInputArray((prev) => {
-      const newArray = [...prev];
-      newArray.splice(index, 1);
-      return newArray;
-    });
-  };
-
-  const handleInputArray = (value, index) => {
-    setInputArray((prev) => {
-      const newArray = [...prev];
-      newArray[index] = { name: value };
-      return newArray;
-    });
-  };
-
+  // 뒤로 가기 처리
   const handleBack = () => {
     if (step === 1) {
       navigation(-1);
@@ -144,6 +172,7 @@ const ReservCustomer = () => {
     }
   };
 
+  // 예약자와 검진자 동일 체크 박스 처리
   const handleEqualStatus = (e) => {
     if (e.target.checked === true) {
       if (name === "" || phone === "") {
@@ -153,7 +182,7 @@ const ReservCustomer = () => {
         setCPhone(phone);
         setInputArray((prev) => {
           const newArray = [...prev];
-          newArray[0] = { name: name };
+          newArray[0] = { name: name, birth: "", gender: "" };
           return newArray;
         });
       }
@@ -162,7 +191,7 @@ const ReservCustomer = () => {
       setCPhone("");
       setInputArray((prev) => {
         const newArray = [...prev];
-        newArray[0] = { name: "" };
+        newArray[0] = { name: "", birth: "", gender: "" };
         return newArray;
       });
     }
@@ -203,6 +232,11 @@ const ReservCustomer = () => {
                       type="number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     ></input>
                   </div>
                   <div className="reserv_equal_box">
@@ -229,6 +263,34 @@ const ReservCustomer = () => {
                               handleInputArray(e.target.value, index)
                             }
                           ></input>
+                          <div className="plus-select">
+                            <input
+                              className="reserv_birthday"
+                              placeholder="생년월일"
+                              value={input.birth}
+                              onChange={(e) =>
+                                handleBirthChange(e.target.value, index)
+                              }
+                            ></input>
+                            <button
+                              className={`gender-btn ${
+                                input.gender === "male" ? "active" : ""
+                              }`}
+                              onClick={() => handleGenderChange("male", index)}
+                            >
+                              남
+                            </button>
+                            <button
+                              className={`gender-btn ${
+                                input.gender === "female" ? "active" : ""
+                              }`}
+                              onClick={() =>
+                                handleGenderChange("female", index)
+                              }
+                            >
+                              여
+                            </button>
+                          </div>
                           {index !== 0 && (
                             <div
                               className="delete_input"
@@ -255,6 +317,11 @@ const ReservCustomer = () => {
                       value={c_phone}
                       type="number"
                       onChange={(e) => setCPhone(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     ></input>
                   </div>
                   <div className="reserv_input_box">
@@ -270,7 +337,7 @@ const ReservCustomer = () => {
                       className="reserv_btn"
                       onClick={() => moveSecondStep()}
                     >
-                      다음
+                      다음 페이지로
                     </div>
                   </div>
                 </div>
@@ -302,6 +369,11 @@ const ReservCustomer = () => {
                       type="number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     ></input>
                   </div>
                   <div className="reserv_equal_box">
@@ -328,6 +400,38 @@ const ReservCustomer = () => {
                               handleInputArray(e.target.value, index)
                             }
                           ></input>
+                          <div className="plus-select">
+                            <input
+                              className="reserv_birthday"
+                              placeholder="생년월일"
+                              value={input.birth}
+                              onChange={(e) =>
+                                handleBirthChange(e.target.value, index)
+                              }
+                            ></input>
+                            <div className="gender-select">
+                              <button
+                                className={`gender-btn ${
+                                  input.gender === "male" ? "active" : ""
+                                }`}
+                                onClick={() =>
+                                  handleGenderChange("male", index)
+                                }
+                              >
+                                남
+                              </button>
+                              <button
+                                className={`gender-btn ${
+                                  input.gender === "female" ? "active" : ""
+                                }`}
+                                onClick={() =>
+                                  handleGenderChange("female", index)
+                                }
+                              >
+                                여
+                              </button>
+                            </div>
+                          </div>
                           {index !== 0 && (
                             <div
                               className="delete_input"
@@ -354,6 +458,11 @@ const ReservCustomer = () => {
                       value={c_phone}
                       type="number"
                       onChange={(e) => setCPhone(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     ></input>
                   </div>
                   <div className="reserv_input_box">
@@ -369,7 +478,7 @@ const ReservCustomer = () => {
                       className="reserv_btn"
                       onClick={() => moveSecondStep()}
                     >
-                      다음
+                      다음 페이지로
                     </div>
                   </div>
                 </div>
@@ -465,7 +574,7 @@ const ReservCustomer = () => {
                 </div>
                 <div className="reserv_btn_box">
                   <div className="reserv_btn" onClick={() => moveThirdStep()}>
-                    다음
+                    다음 페이지로
                   </div>
                 </div>
               </div>

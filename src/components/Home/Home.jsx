@@ -5,6 +5,8 @@ import TableDefault from "../Table/TableDefault";
 import Axios, { all } from "axios";
 import moment from "moment";
 import ProductDetailModal from "../modal/ProductDetailModal";
+import HomeViewModal from "../modal/HomeViewModal";
+import LinkPhoneModal from "../modal/LinkPhoneModal";
 
 const Home = () => {
   const { decodeS0, decodeS1, decodeS2, decodeS3, decodeS4, decodeS5 } =
@@ -16,6 +18,9 @@ const Home = () => {
   const [hopeData, setHopeData] = useState([]); // 상담고객수
   const [customerData, setCustomerData] = useState([]); // 총고객수
   const [totalCost, setTotalCost] = useState(""); //총매출
+  const [totalPrice, setTotalPrice] = useState(""); //순이익
+  const [viewModal, setViewModal] = useState(false);
+  const [detailData, setDetailData] = useState([]);
 
   const [grade2Data, setGrade2Data] = useState([]); //지점장 페이지데이터
   const [grade2Data2, setGrade2Data2] = useState([]);
@@ -25,8 +30,17 @@ const Home = () => {
   const [productData, setProductData] = useState([]);
   const [productModal, setProductModal] = useState(false);
   const [selectProduct, setSelectProduct] = useState([]);
+  const link = `https://www.wlcmanager.com/self/${decodeS1()}`;
+  const [modal, setModal] = useState(false);
 
   const navigation = useNavigate();
+
+  useEffect(() => {
+    // Kakao SDK 초기화
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init("fe9383073f8c19983e8f9ab187b0ba07");
+    }
+  }, []);
 
   useEffect(() => {
     getTotalData();
@@ -34,6 +48,56 @@ const Home = () => {
     fetchData();
     getProductData();
   }, [decodeS1()]);
+
+  //카카오톡 메세지 전송 API (링크전송목적)
+  const sendKakaoMessage = () => {
+    window.Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: `웰라이프케어 ${decodeS1()}님의 링크공유입니다.`,
+        description: `웰라이프케어에서 건강검진 예약을 신청해보세요!`,
+        imageUrl: "", // 이미지 URL 설정 가능
+        link: {
+          webUrl: link, // 웹에서의 링크 URL 설정
+          mobileWebUrl: link, // 모바일에서의 링크 URL 설정
+        },
+      },
+      buttons: [
+        {
+          title: "함께 해보기",
+          link: {
+            webUrl: link, // 웹에서의 버튼 클릭 시 이동할 URL 설정
+            mobileWebUrl: link, // 모바일에서의 버튼 클릭 시 이동할 URL 설정
+          },
+        },
+      ],
+    });
+  };
+
+  const handleCopyLink = () => {
+    const textToCopy = `http://localhost:3001/self/${decodeS1()}`;
+    if (!navigator.clipboard) {
+      // 클립보드 API가 지원되지 않는 경우
+      alert("현재 브라우저에서는 이 기능을 지원하지 않습니다.");
+      return;
+    }
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("링크가 복사되었습니다.");
+      })
+      .catch((err) => {
+        console.error("텍스트 복사 실패:", err);
+      });
+  };
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
 
   // 슈퍼관리자 페이지
   const getTotalData = async () => {
@@ -48,12 +112,14 @@ const Home = () => {
       const customerData = response.data.customerCount;
       const resultData = response.data.result_date;
       const totalCost = response.data.totalCost;
+      const totalPrice = response.data.totalPrice;
       setTotalData(allData);
       setManagerData(managerData);
       setContractData(contractData);
       setHopeData(hopeData);
       setCustomerData(customerData);
       setTotalCost(totalCost);
+      setTotalPrice(totalPrice);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -115,7 +181,6 @@ const Home = () => {
       );
       const allData = response.data;
       setHomeData(allData.data);
-      console.log(allData);
     } catch (error) {
       console.error("Error fetching list:", error);
     }
@@ -131,6 +196,11 @@ const Home = () => {
     { field: "result_date", headerName: "검진일" },
   ];
 
+  const columnsForMobile = [
+    { field: "customerName", headerName: "검진자" },
+    { field: "phone", headerName: "연락처" },
+  ];
+
   const rows = homeData.map((data, index) => ({
     id: index + 1,
     idx: data.idx,
@@ -144,7 +214,6 @@ const Home = () => {
 
   const returnTotalCost = (num) => {
     const number = Number(num); // 숫자 이외의 문자 제거 후 숫자로 변환
-    console.log(number);
     if (number > 0) {
       return number.toLocaleString(); // 숫자를 다시 문자열로 변환하여 반환
     } else {
@@ -152,7 +221,22 @@ const Home = () => {
     }
   };
 
-  const viewModalOpen = () => {};
+  const viewModalOpen = (data) => {
+    setViewModal(!viewModal);
+    setDetailData(data);
+  };
+
+  const viewModalClose = (status) => {
+    setViewModal(false);
+    if (status === "reload") {
+      window.location.reload();
+    } else {
+      getTotalData();
+      grade2TotalData();
+      fetchData();
+      getProductData();
+    }
+  };
 
   const productDetailOpen = (data) => {
     setProductModal(!productModal);
@@ -168,6 +252,7 @@ const Home = () => {
           <div className="main_back">
             <div className="super_wrap">
               <div>총매출액: {returnTotalCost(totalCost)} 원</div>
+              <div>순이익: {returnTotalCost(totalPrice)}원</div>
               <div>총커미션합계: -</div>
               <div>지급예정커미션: -</div>
               <div>고객수: {customerData}명</div>
@@ -222,60 +307,97 @@ const Home = () => {
               >
                 <div className="reserv_logo"></div>
                 <div className="reserv_text">예약 시작하기</div>
+                <div className="arrow_logo"></div>
               </div>
             </div>
-            <div className="main_title_box blank">상품 알아보기</div>
-            <div className="main_product_area">
-              <div className="main_product_box">
-                {productData.map((data, index) => {
-                  return (
-                    <div className="main_product_row">
-                      <div className="product_icon_box">
-                        <div className={`product_icon icon${data.p_key}`}></div>
-                      </div>
-                      <div className="product_text title">{data.product_1}</div>
-                      <div className="product_text info">
-                        {data.product_1} 등급의 검진 패키지 상품입니다.
-                      </div>
-                      <div className="product_text og_price">
-                        {Number(data.og_price).toLocaleString()}원
-                      </div>
-                      {data.p_key === "2" ? (
-                        <div className="product_text price">
-                          {Number(data.price_txt * 2).toLocaleString()}원 (2인)
-                        </div>
-                      ) : (
-                        <div className="product_text price">
-                          {Number(data.price_txt).toLocaleString()}원 (1인)
-                        </div>
-                      )}
-                      <div
-                        className="product_more_btn"
-                        onClick={() => productDetailOpen(data)}
-                      >
-                        상세보기
-                      </div>
-                    </div>
-                  );
-                })}
+
+            <div className="main_title_box2 blank">링크 전송하기</div>
+            <div className="main_sub_title msg">
+              메신저로 링크를 전달합니다.
+            </div>
+            <div className="customer_btn_box2">
+              <div className="customer_btn1" onClick={() => sendKakaoMessage()}>
+                <div className="reserv_logo1"></div>
+                <div className="reserv_text1">카카오톡으로 보내기</div>
+                <div className="arrow_logo"></div>
               </div>
             </div>
-            <div className="main_title_box blank">
-              7일이내 검진예약 고객명단
+            <div className="customer_btn_box2">
+              <div className="customer_btn2" onClick={() => openModal()}>
+                <div className="reserv_logo2"></div>
+                <div className="reserv_text2">문자로 보내기</div>
+                <div className="arrow_logo"></div>
+              </div>
             </div>
-            <div className="table_box home">
-              <TableDefault
-                rows={rows}
-                columns={columns}
-                viewModalOpen={viewModalOpen}
-              />
+            <div className="customer_btn_box2">
+              <div className="customer_btn3">
+                <div className="reserv_logo3"></div>
+                <div className="reserv_text3">링크복사</div>
+                {/* <div className="link_text">
+                  https://www.wlcmanager.com/self/{decodeS1()}
+                </div> */}
+                <div className="send-btn-wrap" onClick={handleCopyLink}>
+                  <div className="send-btn">복사하기</div>
+                </div>
+              </div>
             </div>
+            <Fragment>
+              <div className="third-wraps">
+                <div className="main_title_box blank">
+                  7일 이내 검진예약 고객명단
+                </div>
+                <div className="main_sub_title">총 {rows.length}건의 예약</div>
+              </div>
+              <div className="table_box home">
+                {rows.length > 0 ? ( // rows 배열에 데이터가 있을 때
+                  window.innerWidth < 600 ? (
+                    <TableDefault
+                      rows={rows}
+                      columns={columnsForMobile}
+                      viewModalOpen={viewModalOpen}
+                    />
+                  ) : (
+                    <TableDefault
+                      rows={rows}
+                      columns={columns}
+                      viewModalOpen={viewModalOpen}
+                    />
+                  )
+                ) : (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      textAlign: "center",
+                      border: "1px solid #ccc",
+                      padding: "100px",
+                      fontSize: "18px",
+                      background: "white",
+                    }}
+                  >
+                    데이터가 존재하지 않습니다.
+                  </div>
+                )}
+              </div>
+            </Fragment>
           </div>
           {productModal && (
             <ProductDetailModal
               closeModal={productDetailOpen}
               modalData={selectProduct}
             ></ProductDetailModal>
+          )}
+          {viewModal && (
+            <HomeViewModal
+              closeModal={viewModalClose}
+              detailData={detailData}
+            ></HomeViewModal>
+          )}
+          {modal && (
+            <LinkPhoneModal
+              closeModal={closeModal}
+              link={link}
+            ></LinkPhoneModal>
           )}
         </div>
       );

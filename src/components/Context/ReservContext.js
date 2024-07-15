@@ -14,6 +14,8 @@ export const ReservProvider = ({ children }) => {
   const [hospitalKey, setHospitalKey] = useState([]);
   const [product, setProduct] = useState("");
   const [productName, setProductName] = useState("");
+  const [productState, setProductState] = useState("");
+  const [productPrice, setProductPrice] = useState("");
   const [hopeDate1, setHopeDate1] = useState("");
   const [hopeDate2, setHopeDate2] = useState("");
   const [hopeLocation, setHopeLocation] = useState("");
@@ -132,6 +134,8 @@ export const ReservProvider = ({ children }) => {
     setCDate("");
     setCustomerData([]);
     setProductName("");
+    setProductState("");
+    setProductPrice("");
     setSignData1("");
     setSignData2("");
     setHospitalOriginKey("");
@@ -146,6 +150,8 @@ export const ReservProvider = ({ children }) => {
     setHospitalKey([]);
     setProduct("");
     setProductName("");
+    setProductState("");
+    setProductPrice("");
     setSignData1("");
     setSignData2("");
     setHospitalOriginKey("");
@@ -230,6 +236,10 @@ export const ReservProvider = ({ children }) => {
         setCustomerData,
         customerData,
         setProductName,
+        productState,
+        setProductState,
+        productPrice,
+        setProductPrice,
         productName,
         keepReservData,
         uploadFiles,

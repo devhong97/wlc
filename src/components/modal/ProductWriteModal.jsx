@@ -7,14 +7,49 @@ const ProductWriteModal = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 상품 카테고리
   const [selectedProduct, setSelectedProduct] = useState(""); // 선택된 상품명1
   const [name2, setName2] = useState(""); // 상품명2(직접입력)
-  const [ogPriceTxt, setOgPriceTxt] = useState(""); // 의료수가
-  const [priceTxt, setPriceTxt] = useState(""); // 검진비용
+  const [normalCost, setNormalCost] = useState(""); // 일반점검 검진비용(원가)
+  const [normalRevenue, setNormalRevenue] = useState(""); // 일반점검 순수익(원가)
+  const [cost, setCost] = useState(""); // 보험점검 후 검진비용(원가)
+  const [revenue, setRevenue] = useState(""); // 보험점검 후 검진비용(원가)
   const [commision1, setCommision1] = useState(""); // 지점장커미션
   const [commision2, setCommision2] = useState(""); // 영업자커미션
   const [commision3, setCommision3] = useState(""); // 브로커커미션
   const [pKey, setPKey] = useState(""); // p_key 값
 
   console.log(selectedCategory);
+
+  const formatNumberWithCommas = (number) => {
+    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // 일반점검 원가 입력 변경 핸들러
+  const normalCostChange = (e) => {
+    const rawValue = e.target.value.replace(/,/g, "");
+    if (!isNaN(rawValue)) {
+      setNormalCost(formatNumberWithCommas(rawValue));
+    }
+  };
+  // 일반점검 순이익 입력 변경 핸들러
+  const normalRevenueChange = (e) => {
+    const rawValue = e.target.value.replace(/,/g, "");
+    if (!isNaN(rawValue)) {
+      setNormalRevenue(formatNumberWithCommas(rawValue));
+    }
+  };
+  // 보험점검 후 원가 입력 변경 핸들러
+  const costChange = (e) => {
+    const rawValue = e.target.value.replace(/,/g, "");
+    if (!isNaN(rawValue)) {
+      setCost(formatNumberWithCommas(rawValue));
+    }
+  };
+  // 보험점검 후 순이익 입력 변경 핸들러
+  const revenueChange = (e) => {
+    const rawValue = e.target.value.replace(/,/g, "");
+    if (!isNaN(rawValue)) {
+      setRevenue(formatNumberWithCommas(rawValue));
+    }
+  };
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/get/categories")
@@ -79,18 +114,32 @@ const ProductWriteModal = (props) => {
         name2Input.focus();
       }
       return;
-    } else if (ogPriceTxt === "") {
-      alert("의료수가를 입력해주세요.");
-      const ogPriceTxtInput = document.getElementById("user_price1");
-      if (ogPriceTxtInput) {
-        ogPriceTxtInput.focus();
+    } else if (normalCost === "") {
+      alert("일반점검 검진비용을 입력해주세요.");
+      const normalCostInput = document.getElementById("cos1");
+      if (normalCostInput) {
+        normalCostInput.focus();
       }
       return;
-    } else if (priceTxt === "") {
-      alert("검진비용을 입력해주세요.");
-      const priceTxtInput = document.getElementById("user_price2");
-      if (priceTxtInput) {
-        priceTxtInput.focus();
+    } else if (normalRevenue === "") {
+      alert("일반점검 순이익(20%)를 입력해주세요.");
+      const normalRevenueInput = document.getElementById("cos2");
+      if (normalRevenueInput) {
+        normalRevenueInput.focus();
+      }
+      return;
+    } else if (cost === "") {
+      alert("보험점검 후 검진비용을 입력해주세요.");
+      const costInput = document.getElementById("cos3");
+      if (costInput) {
+        costInput.focus();
+      }
+      return;
+    } else if (revenue === "") {
+      alert("보험점검 후 순이익(20%)를 입력해주세요.");
+      const revenueInput = document.getElementById("cos4");
+      if (revenueInput) {
+        revenueInput.focus();
       }
       return;
     }
@@ -100,8 +149,10 @@ const ProductWriteModal = (props) => {
       type: selectedCategory,
       name1: selectedProduct,
       name2: name2,
-      ogPriceTxt: ogPriceTxt,
-      priceTxt: priceTxt,
+      normalCost: normalCost,
+      normalRevenue: normalRevenue,
+      cost: cost,
+      revenue: revenue,
       commision1: commision1,
       commision2: commision2,
       commision3: commision3,
@@ -147,10 +198,20 @@ const ProductWriteModal = (props) => {
                   >
                     <option value="">카테고리 선택</option>
                     {[
-                      ...new Set(categories.map((category) => category.type)),
+                      ...new Set(
+                        categories
+                          .map((category) => category.type)
+                          .sort((a, b) => a - b)
+                      ),
                     ].map((type) => (
                       <option key={type} value={type}>
-                        {type === "2" ? "패키지" : "단일"}
+                        {type === "1"
+                          ? "국가검진"
+                          : type === "2"
+                          ? "일반종합검진"
+                          : type === "3"
+                          ? "보험점검후검진"
+                          : type}
                       </option>
                     ))}
                   </select>
@@ -181,7 +242,7 @@ const ProductWriteModal = (props) => {
               </div>
             </div>
             <div className="table_row">
-              <div className="table_section half">
+              <div className="table_section">
                 <div className="table_title">
                   상품명2<p className="title_point">*</p>
                 </div>
@@ -196,42 +257,79 @@ const ProductWriteModal = (props) => {
                   ></input>
                 </div>
               </div>
+            </div>
+            <div className="table_row">
               <div className="table_section half">
                 <div className="table_title">
-                  의료수가<p className="title_point">*</p>
+                  일반점검(원가)<p className="title_point">*</p>
                 </div>
                 <div className="table_contents w100">
                   <input
                     className="table_input modal"
                     type="text"
-                    id="user_price1"
-                    placeholder="의료수가를 입력해주세요"
+                    id="cos1"
+                    placeholder="검진비용을 입력해주세요"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={normalCost}
+                    onChange={normalCostChange}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">
+                  일반점검 순이익<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="cos2"
+                    placeholder="순이익을 입력해주세요(판매가의 20%)"
                     // readOnly
                     // style={{ backgroundColor: "#f2f2f2" }}
-                    value={ogPriceTxt}
-                    onChange={(e) => setOgPriceTxt(e.target.value)}
+                    value={normalRevenue}
+                    onChange={normalRevenueChange}
+                  ></input>
+                </div>
+              </div>
+            </div>
+            <div className="table_row">
+              <div className="table_section half">
+                <div className="table_title">
+                  보험점검 후(원가)<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="cos3"
+                    placeholder="검진비용을 입력해주세요"
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={cost}
+                    onChange={costChange}
+                  ></input>
+                </div>
+              </div>
+              <div className="table_section half">
+                <div className="table_title">
+                  보험점검 후 순이익<p className="title_point">*</p>
+                </div>
+                <div className="table_contents w100">
+                  <input
+                    className="table_input modal"
+                    type="text"
+                    id="cos4"
+                    placeholder="순이익을 입력해주세요(판매가의 20%)"
+                    // readOnly
+                    // style={{ backgroundColor: "#f2f2f2" }}
+                    value={revenue}
+                    onChange={revenueChange}
                   ></input>
                 </div>
               </div>
             </div>
 
             <div className="table_row">
-              <div className="table_section half">
-                <div className="table_title">
-                  검진비용<p className="title_point">*</p>
-                </div>
-                <div className="table_contents w100">
-                  <input
-                    className="table_input modal"
-                    type="text"
-                    id="user_price2"
-                    placeholder="검진비용을 입력해주세요"
-                    // style={{ backgroundColor: "#f2f2f2" }}
-                    value={priceTxt}
-                    onChange={(e) => setPriceTxt(e.target.value)}
-                  ></input>
-                </div>
-              </div>
               <div className="table_section half">
                 <div className="table_title">지점장커미션</div>
                 <div className="table_contents w100">

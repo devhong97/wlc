@@ -16,6 +16,7 @@ const CustomerViewModal = (props) => {
     setProductKey,
     setHospitalUpdateKey,
     hospitalList,
+    productPrice,
     productList,
     setHospitalName,
     productKey,
@@ -62,6 +63,24 @@ const CustomerViewModal = (props) => {
   // useEffect(() => {
   //   setStartTime(`${selectedHour}:${selectedMinute}`);
   // }, [selectedHour, selectedMinute]);
+
+  console.log("memberData", memberData);
+
+  const formatNumberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // 콤마를 제거하는 함수
+  const removeCommas = (number) => {
+    return number.replace(/,/g, "");
+  };
+
+  // 결과 가격 입력 필드에서 콤마를 포함하도록 포맷팅
+  useEffect(() => {
+    if (resultPrice !== "") {
+      setResultPrice(formatNumberWithCommas(resultPrice));
+    }
+  }, [resultPrice]);
 
   useEffect(() => {
     if (props.detailIdx) {
@@ -179,6 +198,8 @@ const CustomerViewModal = (props) => {
       manager_uid: memberData.manager_uid,
       branch_idx: memberData.branch_idx,
       cost: memberData.cost * customerNumber,
+      normal_cost: memberData.normal_cost * customerNumber,
+      price: removeCommas(memberData.price),
       branch_name: memberData.branch,
       branch_type: memberData.branchType,
       company_name: memberData.company,
@@ -736,7 +757,7 @@ const CustomerViewModal = (props) => {
                   <div className="table_title">입금금액</div>
                   <div className="table_contents w100">
                     <div className="table_inner_text">
-                      {memberData.price * customerNumber} 원
+                      {`${(productPrice * customerNumber).toLocaleString()} 원`}
                     </div>
                   </div>
                 </div>
@@ -746,6 +767,14 @@ const CustomerViewModal = (props) => {
                     <div className="table_inner_text">
                       {memberData.consulting_location}
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table_row">
+                <div className="table_section">
+                  <div className="table_title">순이익</div>
+                  <div className="table_contents w100">
+                    {memberData.revenue * customerNumber} 원
                   </div>
                 </div>
               </div>

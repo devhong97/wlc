@@ -66,6 +66,11 @@ const Notice = () => {
     { field: "date", headerName: "등록일" },
   ];
 
+  const columnsForMobile = [
+    { field: "title", headerName: "제목" },
+    { field: "writer", headerName: "작성자" },
+  ];
+
   const rows = bbsData.map((data, index) => ({
     id: index + 1,
     category: data.category,
@@ -142,17 +147,32 @@ const Notice = () => {
         <div className="board_list_wrap notice">
           <div className="list_area reserv">
             <div className="search_box">
-              <div className="search_select">
-                <select
-                  className="list_select"
-                  value={searchType}
-                  onChange={(e) => setSearchType(e.target.value)}
-                >
-                  <option value="title">제목</option>
-                  <option value="content">내용</option>
-                  <option value="writer">작성자</option>
-                </select>
-              </div>
+              {decodeS4() === "영업사원" ? (
+                <div className="search_select xs1">
+                  <select
+                    className="list_select_user"
+                    value={searchType}
+                    onChange={(e) => setSearchType(e.target.value)}
+                  >
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                  </select>
+                </div>
+              ) : (
+                <div className="search_select xs1">
+                  <select
+                    className="list_select"
+                    value={searchType}
+                    onChange={(e) => setSearchType(e.target.value)}
+                  >
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                  </select>
+                </div>
+              )}
+
               <div className="search_input">
                 <input
                   className="list_input"
@@ -161,12 +181,8 @@ const Notice = () => {
                   onChange={handleSearchKeywordChange}
                 ></input>
               </div>
-              <div className="search_input">
-                <div
-                  className="list_search"
-                  style={{ marginRight: "90px" }}
-                  onClick={handleSearch}
-                >
+              <div className="search_input ">
+                <div className="list_search " onClick={handleSearch}>
                   검색
                 </div>
                 <div
@@ -176,6 +192,7 @@ const Notice = () => {
                   초기화
                 </div>
               </div>
+
               {decodeS4() === "슈퍼관리자" ? (
                 <div className="title_btn" onClick={() => writeModalOpen()}>
                   등록
@@ -193,11 +210,19 @@ const Notice = () => {
               </div>
             </div>
             <div className="table_box">
-              <TableDefault
-                rows={rows}
-                columns={columns}
-                viewModalOpen={viewModalOpen}
-              ></TableDefault>
+              {window.innerWidth < 600 ? (
+                <TableDefault
+                  rows={rows}
+                  columns={columnsForMobile}
+                  viewModalOpen={viewModalOpen}
+                />
+              ) : (
+                <TableDefault
+                  rows={rows}
+                  columns={columns}
+                  viewModalOpen={viewModalOpen}
+                />
+              )}
             </div>
           </div>
         </div>
